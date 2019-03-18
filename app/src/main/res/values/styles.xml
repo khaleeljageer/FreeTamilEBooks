@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="FTEBaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+
+    <style name="Splash_Theme" parent="FTEBaseTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_window_bg</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+           parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="colorControlHighlight">@color/colorAccent_alpha_40</item>
+    </style>
+
+    <style name="AppModalStyle"
+           parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_corner_bottom_sheet</item>
+    </style>
+</resources>

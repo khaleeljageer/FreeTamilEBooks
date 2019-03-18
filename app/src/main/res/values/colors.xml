@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#000000</color>
+    <color name="grey">#686767</color>
+
+    <color name="colorAccent1">#FFD600</color>
+    <color name="colorAccent_alpha_40">#66FFD600</color>
+    <color name="colorAccent_alpha_80">#DFD1B003</color>
+    <color name="orangeDark">#FFC400</color>
+    <color name="white_8_alpha">#14ffffff</color>
+
+    <color name="menuTintColor">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

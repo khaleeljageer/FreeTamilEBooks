@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jskaleel.fte.utils.AspectRatioImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@color/white_8_alpha"
+        android:scaleType="centerCrop"
+        app:aspectRatio="@dimen/sixtyeen_by_nine"
+        app:aspectRatioEnabled="true"
+        app:dominantMeasurement="width">
+
+</com.jskaleel.fte.utils.AspectRatioImageView>
