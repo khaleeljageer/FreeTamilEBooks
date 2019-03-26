@@ -68,7 +68,7 @@
                 android:id="@+id/txtListTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/push_notification"
+                android:text="@string/order_type"
                 android:textColor="@color/colorAccent"
                 android:textSize="14sp"/>
 
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:text="@string/on"/>
+                android:text="@string/random"/>
     </LinearLayout>
 
 

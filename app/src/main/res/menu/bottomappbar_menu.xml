@@ -6,6 +6,6 @@
     <item
             android:id="@+id/abSearchMenu"
             android:icon="@drawable/ic_search_white_24dp"
-            android:title="Search"
-            app:showAsAction="ifRoom"/>
+            android:title="@string/search"
+            app:showAsAction="always"/>
 </menu>

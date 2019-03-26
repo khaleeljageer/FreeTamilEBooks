@@ -7,6 +7,7 @@
 
     <color name="colorAccent1">#FFD600</color>
     <color name="colorAccent_alpha_40">#66FFD600</color>
+    <color name="colorAccent_alpha_10">#1AFFD600</color>
     <color name="colorAccent_alpha_80">#DFD1B003</color>
     <color name="orangeDark">#FFC400</color>
     <color name="white_8_alpha">#14ffffff</color>

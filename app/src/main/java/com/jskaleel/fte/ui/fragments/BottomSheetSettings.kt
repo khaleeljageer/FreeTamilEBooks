@@ -11,10 +11,10 @@ import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.bottomsheet_main.*
 
-class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
+class BottomSheetSettings : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.bottomsheet_main, container, false)
+        return inflater.inflate(R.layout.bottomsheet_settings, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -23,11 +23,5 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
             RxBus.publish(SelectedMenu(menuItem.itemId))
             true
         }
-    }
-
-    private fun dismissWithDelay() {
-        Handler().postDelayed({
-            dismiss()
-        }, 100)
     }
 }

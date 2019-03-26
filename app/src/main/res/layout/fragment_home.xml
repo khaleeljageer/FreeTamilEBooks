@@ -14,9 +14,4 @@
             android:paddingTop="10dp"
             android:clipToPadding="false"/>
 
-    <TextView android:layout_width="match_parent"
-              android:text="Home Fragment"
-              android:gravity="center"
-              android:layout_centerInParent="true" android:layout_height="wrap_content"/>
-
 </RelativeLayout>

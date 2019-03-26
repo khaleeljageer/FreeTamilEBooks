@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jskaleel.fte.utils.AspectRatioImageView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:background="@color/white_8_alpha"
-        android:scaleType="centerCrop"
-        app:aspectRatio="@dimen/sixtyeen_by_nine"
-        app:aspectRatioEnabled="true"
-        app:dominantMeasurement="width">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-</com.jskaleel.fte.utils.AspectRatioImageView>
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="2dp">
+
+            <ImageView
+                    android:id="@+id/arBookImage"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:background="@color/colorAccent_alpha_10"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

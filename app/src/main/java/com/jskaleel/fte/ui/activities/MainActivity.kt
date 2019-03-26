@@ -10,10 +10,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
+import com.jskaleel.fte.ui.fragments.HomeFragment
+import com.jskaleel.fte.ui.fragments.WebViewFragmentArgs
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,10 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 * */
 
 class MainActivity : BaseActivity() {
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var bottomNavDrawerFragment: BottomNavigationDrawerFragment
-
-    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +35,6 @@ class MainActivity : BaseActivity() {
         subscribeBus()
 
         bottomNavDrawerFragment = BottomNavigationDrawerFragment()
-
-        /*val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.navHostFragment) as NavHostFragment? ?: return
-
-        navController = host.navController
-        appBarConfiguration = AppBarConfiguration(navController.graph)*/
-
     }
 
     private fun subscribeBus() {
@@ -55,13 +48,19 @@ class MainActivity : BaseActivity() {
     private fun switchFragment(it: SelectedMenu) {
         when (it.menuItem) {
             R.id.menuAbout -> {
-                findNavController(R.id.navHostFragment).navigate(R.id.settingsFragment)
+                val args = Bundle()
+                args.putInt("TYPE", 1)
+                findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args)
             }
             R.id.menuContribute -> {
-                findNavController(R.id.navHostFragment).navigate(R.id.settingsFragment)
+                val args = Bundle()
+                args.putInt("TYPE", 2)
+                findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args)
             }
             R.id.menuPublish -> {
-                findNavController(R.id.navHostFragment).navigate(R.id.settingsFragment)
+                val args = Bundle()
+                args.putInt("TYPE", 3)
+                findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args)
             }
             R.id.menuFeedBack -> {
                 Toast.makeText(applicationContext, "Nav4", Toast.LENGTH_SHORT).show()
@@ -92,6 +91,7 @@ class MainActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        (bottomAppBar.behavior as HideBottomViewOnScrollBehavior).slideUp(bottomAppBar)
         appDatabase.localBooksDao().deleteAll()
     }
 }

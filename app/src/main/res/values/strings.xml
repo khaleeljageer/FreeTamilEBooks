@@ -14,4 +14,9 @@
     <string name="push_notification">புது மின்னூல் அறிவிப்புகள்</string>
     <string name="on">வேண்டும்</string>
     <string name="off">வேண்டாம்</string>
+
+    <string name="order_type">புத்தக பட்டியல்</string>
+    <string name="random">சீரற்ற முறையில்</string>
+    <string name="new_first">புதியவை முதலில்</string>
+    <string name="by_category">பிரிவுகளாக</string>
 </resources>

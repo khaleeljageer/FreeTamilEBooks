@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/menuRandom"
+                android:title="@string/random"/>
+        <item
+                android:id="@+id/menuNewFirst"
+                android:title="@string/new_first"/>
+        <item
+                android:id="@+id/menuByCategory"
+                android:title="@string/by_category"/>
+    </group>
+</menu>
