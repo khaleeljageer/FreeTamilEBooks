@@ -10,6 +10,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.jskaleel.fte.R
 import kotlinx.android.synthetic.main.fragment_webview.*
 
@@ -50,5 +51,10 @@ class WebViewFragment : Fragment() {
         webSettings.defaultTextEncodingName = "utf-8"
         webSettings.domStorageEnabled = true
         webView!!.loadUrl(assesUri)
+
+
+        toolBar.setNavigationOnClickListener{
+            activity!!.findNavController(R.id.navHostFragment).navigateUp()
+        }
     }
 }

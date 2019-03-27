@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.utils.PrintLog
@@ -31,6 +32,10 @@ class SettingsFragment : Fragment() {
 
         rlListTypeLayout.setOnClickListener {
             bottomSheet.show(childFragmentManager, bottomSheet.tag)
+        }
+
+        toolBar.setNavigationOnClickListener{
+            activity!!.findNavController(R.id.navHostFragment).navigateUp()
         }
     }
 
