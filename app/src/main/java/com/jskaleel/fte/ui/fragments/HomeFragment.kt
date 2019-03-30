@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.ui.base.HomeListAdapter
+import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -21,6 +23,15 @@ class HomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         this.mContext = context;
+    }
+
+    override fun onResume() {
+        super.onResume()
+        RxBus.subscribe {
+            if (it is ScrollList) {
+                rvBookList.smoothScrollToPosition(0)
+            }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

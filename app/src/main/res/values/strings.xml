@@ -19,4 +19,5 @@
     <string name="random">சீரற்ற முறையில்</string>
     <string name="new_first">புதியவை முதலில்</string>
     <string name="by_category">பிரிவுகளாக</string>
+    <string name="home_fragment">HomeFragment</string>
 </resources>

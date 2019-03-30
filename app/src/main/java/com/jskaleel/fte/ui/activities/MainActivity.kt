@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
+import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
@@ -33,10 +34,20 @@ class MainActivity : BaseActivity() {
         bottomNavDrawerFragment = BottomNavigationDrawerFragment()
 
         fabHome.setOnClickListener {
-            val navOptions = NavOptions.Builder()
-            navOptions.setLaunchSingleTop(true)
-            findNavController(R.id.navHostFragment).navigate(R.id.homeFragment, null, navOptions.build())
+            val currentDestination = findNavController(R.id.navHostFragment).currentDestination
+            if (currentDestination != null) {
+                if (currentDestination.label == getString(R.string.home_fragment)) {
+                    RxBus.publish(ScrollList(true))
+                    slideUp()
+                } else {
+                    findNavController(R.id.navHostFragment).popBackStack(R.id.homeFragment, false)
+                }
+            }
         }
+    }
+
+    private fun slideUp() {
+        (bottomAppBar.behavior as HideBottomViewOnScrollBehavior).slideUp(bottomAppBar)
     }
 
     private fun subscribeBus() {
@@ -96,7 +107,7 @@ class MainActivity : BaseActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        (bottomAppBar.behavior as HideBottomViewOnScrollBehavior).slideUp(bottomAppBar)
+        slideUp()
         displayMaterialSnackBar("Back Pressed")
     }
 

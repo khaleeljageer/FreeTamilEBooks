@@ -8,7 +8,7 @@
     <fragment android:id="@+id/homeFragment"
               android:name="com.jskaleel.fte.ui.fragments.HomeFragment"
               tools:layout="@layout/fragment_home"
-              android:label="HomeFragment"/>
+              android:label="@string/home_fragment"/>
 
     <fragment android:id="@+id/webViewFragment"
               android:name="com.jskaleel.fte.ui.fragments.WebViewFragment"
