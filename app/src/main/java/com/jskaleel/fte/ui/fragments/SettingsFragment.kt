@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.SelectedMenu
+import com.jskaleel.fte.model.SelectedMenuItem
 import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -42,8 +43,8 @@ class SettingsFragment : Fragment() {
 
     private fun subscribeBus() {
         RxBus.subscribe {
-            if (it is SelectedMenu) {
-                PrintLog.info("Selected Menu : ${it.menuItem}")
+            if (it is SelectedMenuItem) {
+                PrintLog.info("SelectedMenuItem ${it.menuItem.title}")
                 if (bottomSheet.isVisible) {
                     bottomSheet.dismiss()
                 }

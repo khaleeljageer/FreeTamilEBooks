@@ -20,4 +20,7 @@
     <string name="new_first">புதியவை முதலில்</string>
     <string name="by_category">பிரிவுகளாக</string>
     <string name="home_fragment">HomeFragment</string>
+    <string name="press_back_again">வெளியேற மீண்டும் அழுத்தவும்</string>
+    <string name="connected_to_internet">இணையத்துடன் இணைக்கப்பட்டுள்ளது</string>
+    <string name="no_internet">மன்னிக்கவும்! இணையத்துடன் இணைக்கப்படவில்லை</string>
 </resources>

@@ -5,9 +5,6 @@
                 android:id="@+id/menuRandom"
                 android:title="@string/random"/>
         <item
-                android:id="@+id/menuNewFirst"
-                android:title="@string/new_first"/>
-        <item
                 android:id="@+id/menuByCategory"
                 android:title="@string/by_category"/>
     </group>

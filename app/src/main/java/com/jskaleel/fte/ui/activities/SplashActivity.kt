@@ -14,7 +14,7 @@ import com.jskaleel.fte.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.io.InputStream
 import java.lang.ref.WeakReference
-
+import com.jskaleel.fte.utils.NetworkSchedulerService
 
 class SplashActivity : BaseActivity() {
     private val sleepDuration: Long = 2000
@@ -116,7 +116,6 @@ class SplashActivity : BaseActivity() {
         fun taskProgressUpdate(percent: Int)
         fun taskFinished()
     }
-
 
     override fun onDestroy() {
         activityDestroyed = true

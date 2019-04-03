@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.SelectedMenu
+import com.jskaleel.fte.model.SelectedMenuItem
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.bottomsheet_main.*
 
@@ -20,7 +21,7 @@ class BottomSheetSettings : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         navigationView.setNavigationItemSelectedListener { menuItem ->
-            RxBus.publish(SelectedMenu(menuItem.itemId))
+            RxBus.publish(SelectedMenuItem(menuItem))
             true
         }
     }

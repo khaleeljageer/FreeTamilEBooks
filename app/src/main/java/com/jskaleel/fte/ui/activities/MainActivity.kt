@@ -1,6 +1,8 @@
 package com.jskaleel.fte.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,10 +12,12 @@ import androidx.navigation.findNavController
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
+import com.jskaleel.fte.model.NetWorkMessage
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
+import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -52,8 +56,10 @@ class MainActivity : BaseActivity() {
 
     private fun subscribeBus() {
         RxBus.subscribe {
-            if (it is SelectedMenu) {
-                switchFragment(it)
+            when (it) {
+                is SelectedMenu ->
+                    switchFragment(it)
+                is NetWorkMessage -> displayMaterialSnackBar(it.message)
             }
         }
     }
@@ -105,10 +111,26 @@ class MainActivity : BaseActivity() {
         return true
     }
 
+    private var backToExitPressedOnce: Boolean = false
+
     override fun onBackPressed() {
-        super.onBackPressed()
+        val currentDestination = findNavController(R.id.navHostFragment).currentDestination
+        if (currentDestination != null) {
+            if (currentDestination.label == getString(R.string.home_fragment)) {
+                if (backToExitPressedOnce) {
+                    super.onBackPressed()
+                    return
+                }
+
+                displayMaterialSnackBar(getString(R.string.press_back_again))
+                backToExitPressedOnce = true
+
+                Handler().postDelayed({ backToExitPressedOnce = false }, 2000)
+            } else {
+                super.onBackPressed()
+            }
+        }
         slideUp()
-        displayMaterialSnackBar("Back Pressed")
     }
 
     private fun displayMaterialSnackBar(message: String) {
@@ -134,4 +156,15 @@ class MainActivity : BaseActivity() {
         snackBar.show()
     }
 
+    override fun onStart() {
+        super.onStart()
+        // Start service and provide it a way to communicate with this class.
+        val startServiceIntent = Intent(this, NetworkSchedulerService::class.java)
+        startService(startServiceIntent)
+    }
+
+    override fun onStop() {
+        stopService(Intent(this, NetworkSchedulerService::class.java))
+        super.onStop()
+    }
 }

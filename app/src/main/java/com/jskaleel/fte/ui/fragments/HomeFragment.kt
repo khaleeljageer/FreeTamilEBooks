@@ -27,11 +27,6 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        RxBus.subscribe {
-            if (it is ScrollList) {
-                rvBookList.smoothScrollToPosition(0)
-            }
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,5 +44,11 @@ class HomeFragment : Fragment() {
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvBookList.layoutManager = layoutManger
         rvBookList.adapter = adapter
+
+        RxBus.subscribe {
+            if (it is ScrollList) {
+                rvBookList.smoothScrollToPosition(0)
+            }
+        }
     }
 }
