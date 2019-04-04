@@ -10,6 +10,7 @@
         <item name="android:textColorSecondary">@color/colorAccent</item>
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
     </style>
 
 
@@ -27,5 +28,10 @@
     <style name="AppModalStyle"
            parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_corner_bottom_sheet</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
     </style>
 </resources>

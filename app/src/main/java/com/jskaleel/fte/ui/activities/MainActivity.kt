@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -17,6 +16,7 @@ import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
+import com.jskaleel.fte.ui.fragments.FeedbackFragment
 import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,10 +42,10 @@ class MainActivity : BaseActivity() {
             if (currentDestination != null) {
                 if (currentDestination.label == getString(R.string.home_fragment)) {
                     RxBus.publish(ScrollList(true))
-                    slideUp()
                 } else {
                     findNavController(R.id.navHostFragment).popBackStack(R.id.homeFragment, false)
                 }
+                slideUp()
             }
         }
     }
@@ -70,7 +70,6 @@ class MainActivity : BaseActivity() {
 
         when (it.menuItem) {
             R.id.menuAbout -> {
-
                 val args = Bundle()
                 args.putInt("TYPE", 1)
                 findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args, navOptions.build())
@@ -86,7 +85,7 @@ class MainActivity : BaseActivity() {
                 findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args, navOptions.build())
             }
             R.id.menuFeedBack -> {
-                Toast.makeText(applicationContext, "Nav4", Toast.LENGTH_SHORT).show()
+                findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
             }
             R.id.menuSettings -> {
                 findNavController(R.id.navHostFragment).navigate(R.id.settingsFragment, null, navOptions.build())
