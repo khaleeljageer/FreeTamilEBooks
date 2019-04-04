@@ -7,7 +7,7 @@ buildscript {
         retrofit_version = '2.4.0'
         room_version = '2.1.0-alpha06'
         room_comp_version = '2.1.0-alpha04'
-        navigationVersion = '2.1.0-alpha01'
+        navigationVersion = '2.1.0-alpha02'
 
         glide_version = '4.9.0'
     }

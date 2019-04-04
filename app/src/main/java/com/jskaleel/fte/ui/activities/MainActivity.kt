@@ -132,7 +132,7 @@ class MainActivity : BaseActivity() {
         slideUp()
     }
 
-    private fun displayMaterialSnackBar(message: String) {
+    fun displayMaterialSnackBar(message: String) {
         val marginSide = 0
         val marginBottom = 550
         val snackBar = Snackbar.make(

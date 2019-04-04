@@ -4,11 +4,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
@@ -18,7 +18,9 @@
                 app:titleTextColor="@color/colorAccent1"
                 android:layout_height="?attr/actionBarSize">
 
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                 <ImageView android:layout_width="45dp"
                            android:id="@+id/ivSend"
@@ -31,10 +33,11 @@
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
 
-
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:hint="@string/name"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:hintTextColor="@color/colorAccent1"
                 app:boxBackgroundColor="@color/colorPrimary"
                 android:layout_height="wrap_content">
@@ -53,6 +56,8 @@
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:hint="@string/email"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:hintTextColor="@color/colorAccent1"
                 app:boxBackgroundColor="@color/colorPrimary"
                 android:layout_height="wrap_content">
@@ -71,8 +76,11 @@
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:hint="@string/comments"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="1000"
+                app:counterTextColor="@color/colorAccent"
                 app:counterOverflowTextColor="@color/colorAccent1"
                 app:hintTextColor="@color/colorAccent1"
                 app:boxBackgroundColor="@color/colorPrimary"

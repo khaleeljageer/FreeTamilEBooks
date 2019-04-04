@@ -28,4 +28,6 @@
     <string name="comments">கருத்து</string>
     <string name="submit">சமர்ப்பி</string>
     <string name="cancel">ரத்துசெய்</string>
+    <string name="thanks_comments">கருத்துக்களுக்கு நன்றி!!!</string>
+    <string name="pls_wait">காத்திருக்கவும்…</string>
 </resources>
