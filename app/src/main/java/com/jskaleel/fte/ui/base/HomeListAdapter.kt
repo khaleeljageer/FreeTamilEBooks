@@ -10,6 +10,7 @@ import com.jskaleel.fte.database.entities.LocalBooks
 
 class HomeListAdapter(
     private val mContext: Context,
+    private val listener: BookClickListener,
     private val booksList: MutableList<LocalBooks>
 ) : RecyclerView.Adapter<BookViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -26,5 +27,8 @@ class HomeListAdapter(
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         holder.bindData(booksList[position])
+        holder.itemView.setOnClickListener{
+            listener.bookItemClickListener(holder.adapterPosition)
+        }
     }
 }

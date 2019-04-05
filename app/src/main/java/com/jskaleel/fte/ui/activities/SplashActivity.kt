@@ -71,7 +71,6 @@ class SplashActivity : BaseActivity() {
         this@SplashActivity.finish()
     }
 
-
     class ConvertAssetsToDB(
         private val booksString: String,
         private val appDatabase: AppDatabase,

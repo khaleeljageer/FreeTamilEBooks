@@ -1,9 +1,9 @@
 package com.jskaleel.fte.database.entities
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "localBooks")
 data class LocalBooks(
@@ -20,4 +20,4 @@ data class LocalBooks(
     val epub: String,
     @ColumnInfo(name = "category")
     val category: String
-)
+) : Serializable

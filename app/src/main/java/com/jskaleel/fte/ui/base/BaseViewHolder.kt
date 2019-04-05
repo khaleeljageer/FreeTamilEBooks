@@ -4,5 +4,5 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
-    abstract fun bindData(article: T)
+    abstract fun bindData(book: T)
 }

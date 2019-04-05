@@ -39,4 +39,12 @@
         <item name="windowFixedWidthMajor">50%</item>
         <item name="windowFixedWidthMinor">50%</item>
     </style>
+
+    <style name="Theme.Transparent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/black_alpha_80</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 </resources>
