@@ -19,5 +19,7 @@ data class LocalBooks(
     @ColumnInfo(name = "epub")
     val epub: String,
     @ColumnInfo(name = "category")
-    val category: String
+    val category: String,
+
+    var isExpanded: Boolean = false
 ) : Serializable

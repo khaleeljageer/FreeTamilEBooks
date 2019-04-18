@@ -16,7 +16,6 @@ import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
-import com.jskaleel.fte.ui.fragments.FeedbackFragment
 import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
@@ -105,6 +104,13 @@ class MainActivity : BaseActivity() {
         when (item!!.itemId) {
             android.R.id.home -> {
                 bottomNavDrawerFragment.show(supportFragmentManager, bottomNavDrawerFragment.tag)
+            }
+            R.id.abSearchMenu -> {
+                val navOptions = NavOptions.Builder()
+                navOptions.setEnterAnim(android.R.anim.slide_in_left)
+                navOptions.setExitAnim(android.R.anim.slide_in_left)
+                navOptions.setLaunchSingleTop(true)
+                findNavController(R.id.navHostFragment).navigate(R.id.searchFragment, null, navOptions.build())
             }
         }
         return true

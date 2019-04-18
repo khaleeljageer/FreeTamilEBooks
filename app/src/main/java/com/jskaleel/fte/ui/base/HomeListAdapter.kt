@@ -13,6 +13,8 @@ class HomeListAdapter(
     private val listener: BookClickListener,
     private val booksList: MutableList<LocalBooks>
 ) : RecyclerView.Adapter<BookViewHolder>() {
+    private var previousClickedPosition: Int = -1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.book_list_item, parent, false)
         val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
@@ -26,9 +28,20 @@ class HomeListAdapter(
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bindData(booksList[position])
-        holder.itemView.setOnClickListener{
-            listener.bookItemClickListener(holder.adapterPosition)
+        val bookItem = booksList[position]
+        holder.bindData(bookItem)
+        holder.itemView.setOnClickListener {
+            if (previousClickedPosition == position) {
+                return@setOnClickListener
+            }
+            if (previousClickedPosition != -1) {
+                booksList[previousClickedPosition].isExpanded = false
+                notifyItemChanged(previousClickedPosition)
+            }
+            previousClickedPosition = position
+            val expanded = bookItem.isExpanded
+            bookItem.isExpanded = !expanded
+            notifyItemChanged(position)
         }
     }
 }

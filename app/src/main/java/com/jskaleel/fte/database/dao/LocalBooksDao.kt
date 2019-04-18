@@ -19,4 +19,10 @@ interface LocalBooksDao {
 
     @Query("SELECT * from localBooks WHERE bookid = :bookId")
     fun isIdAvailable(bookId: String): Boolean
+
+    @Query("SELECT * from localBooks WHERE title LIKE :title")
+    fun getBooksByTitle(title: String): List<LocalBooks>
+
+    @Query("SELECT * from localBooks WHERE author LIKE :author")
+    fun getBooksByAuthor(author: String): List<LocalBooks>
 }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -23,6 +22,22 @@
                     android:background="@color/colorAccent_alpha_10"
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription"/>
+            <RelativeLayout
+                    android:id="@+id/rlDownloadView"
+                    android:visibility="gone"
+                    android:background="@drawable/gradient_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabDownload"
+                        android:layout_width="wrap_content"
+                        app:fabSize="normal"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        app:backgroundTint="@color/colorAccent1"
+                        android:src="@drawable/ic_file_download_black_24dp"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
