@@ -44,7 +44,7 @@ class HomeFragment : Fragment(), BookClickListener {
         val booksList = appDataBase.localBooksDao().getAllLocalBooks()
         rvBookList.setHasFixedSize(true)
 
-        val adapter = HomeListAdapter(mContext, this@HomeFragment, booksList as MutableList<LocalBooks>)
+        val adapter = HomeListAdapter(mContext, this@HomeFragment, booksList as MutableList<LocalBooks>, 1)
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvBookList.layoutManager = layoutManger
         rvBookList.adapter = adapter

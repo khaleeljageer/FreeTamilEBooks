@@ -11,14 +11,15 @@ import com.jskaleel.fte.database.entities.LocalBooks
 class HomeListAdapter(
     private val mContext: Context,
     private val listener: BookClickListener,
-    private val booksList: MutableList<LocalBooks>
+    private val booksList: MutableList<LocalBooks>,
+    private val type: Int
 ) : RecyclerView.Adapter<BookViewHolder>() {
     private var previousClickedPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.book_list_item, parent, false)
         val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
-        lp.height = parent.measuredHeight / 3
+        lp.height = if (type == 1) parent.measuredHeight / 3 else (parent.measuredHeight / 2.5).toInt()
         view.layoutParams = lp
         return BookViewHolder(mContext, view)
     }
@@ -43,5 +44,16 @@ class HomeListAdapter(
             bookItem.isExpanded = !expanded
             notifyItemChanged(position)
         }
+    }
+
+    fun loadBooks(books: List<LocalBooks>) {
+        booksList.clear()
+        booksList.addAll(books)
+        notifyDataSetChanged()
+    }
+
+    fun clearBooks() {
+        booksList.clear()
+        notifyDataSetChanged()
     }
 }

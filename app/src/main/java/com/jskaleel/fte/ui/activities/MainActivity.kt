@@ -65,6 +65,10 @@ class MainActivity : BaseActivity() {
 
     private fun switchFragment(it: SelectedMenu) {
         val navOptions = NavOptions.Builder()
+        navOptions.setEnterAnim(android.R.anim.slide_in_left)
+        navOptions.setExitAnim(android.R.anim.slide_out_right)
+        navOptions.setPopEnterAnim(android.R.anim.slide_in_left)
+        navOptions.setPopExitAnim(android.R.anim.slide_out_right)
         navOptions.setLaunchSingleTop(true)
 
         when (it.menuItem) {
@@ -108,7 +112,9 @@ class MainActivity : BaseActivity() {
             R.id.abSearchMenu -> {
                 val navOptions = NavOptions.Builder()
                 navOptions.setEnterAnim(android.R.anim.slide_in_left)
-                navOptions.setExitAnim(android.R.anim.slide_in_left)
+                navOptions.setExitAnim(android.R.anim.slide_out_right)
+                navOptions.setPopEnterAnim(android.R.anim.slide_in_left)
+                navOptions.setPopExitAnim(android.R.anim.slide_out_right)
                 navOptions.setLaunchSingleTop(true)
                 findNavController(R.id.navHostFragment).navigate(R.id.searchFragment, null, navOptions.build())
             }
