@@ -48,32 +48,7 @@ class MainActivity : BaseActivity() {
                 slideUp()
             }
         }
-
-
-//        checkPermissionAndDownload()
     }
-
-    /*@AfterPermissionGranted(1111)
-    private fun checkPermissionAndDownload() {
-        val perms = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (!EasyPermissions.hasPermissions(this@MainActivity, *perms)) {
-            EasyPermissions.requestPermissions(
-                this@MainActivity,
-                getString(R.string.download_msg_rationale),
-                1111,
-                *perms
-            )
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }*/
 
     private fun slideUp() {
         (bottomAppBar.behavior as HideBottomViewOnScrollBehavior).slideUp(bottomAppBar)

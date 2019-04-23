@@ -14,15 +14,16 @@ import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
-import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
+import com.jskaleel.fte.utils.downloader.DownloadManagerHelper
+import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), BookClickListener {
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
-        DeviceUtils.queueForDownload(mContext, book)
+        DownloadUtil.queueForDownload(mContext, book)
     }
 
     private lateinit var mContext: Context
@@ -34,6 +35,9 @@ class HomeFragment : Fragment(), BookClickListener {
 
     override fun onResume() {
         super.onResume()
+
+        val downloads = DownloadManagerHelper.getDownloads(mContext)
+        PrintLog.info("Downloads $downloads")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

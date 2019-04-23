@@ -33,4 +33,7 @@
     <string name="download_msg_rationale">கோப்பை சேமித்து பயன்படுத்த, சாதனத்தின் நினைவகத்தை உபயோகிக்க உங்கள் அனுமதி
         வேண்டும்.
     </string>
+
+    <string name="downloading">பதிவிறக்குகிறது…</string>
+    <string name="download_finished">பதிவிறக்கம் முடிந்தது</string>
 </resources>

@@ -23,13 +23,14 @@ import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
+import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class SearchFragment : Fragment(), BookClickListener {
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
-        DeviceUtils.queueForDownload(mContext, book)
+        DownloadUtil.queueForDownload(mContext, book)
     }
 
     private lateinit var adapter: BookListAdapter

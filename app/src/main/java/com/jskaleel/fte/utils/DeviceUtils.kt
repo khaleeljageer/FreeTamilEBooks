@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.os.Environment
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
-import com.jskaleel.fte.database.entities.LocalBooks
 import java.io.File
 import java.util.regex.Pattern
 
@@ -52,17 +51,5 @@ object DeviceUtils {
                     + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
                     + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
         ).matcher(email).matches()
-    }
-
-    fun queueForDownload(context: Context, book: LocalBooks) {
-
-        val url = book.epub
-        PrintLog.info("Download : url $url ${getRootDirPath(context)}")
-        val file = getAppDirectory(context)
-        if (!file.exists()) {
-            file.mkdirs()
-        }
-
-        val filePath = file.toString() + "/${book.bookid}.epub"
     }
 }
