@@ -22,13 +22,13 @@
               tools:layout="@layout/fragment_settings"
               android:label="SettingsFragment"/>
 
-    <fragment android:id="@+id/searchFragment"
-              android:name="com.jskaleel.fte.ui.fragments.SearchFragment"
-              tools:layout="@layout/fragment_search"
-              android:label="SearchFragment"/>
-
     <fragment android:id="@+id/feedBackFragment"
               android:name="com.jskaleel.fte.ui.fragments.FeedbackFragment"
               tools:layout="@layout/fragment_feedback"
               android:label="FeedBackFragment"/>
+
+    <fragment android:id="@+id/searchFragment"
+              android:name="com.jskaleel.fte.ui.fragments.SearchFragment"
+              tools:layout="@layout/fragment_search"
+              android:label="SearchFragment"/>
 </navigation>

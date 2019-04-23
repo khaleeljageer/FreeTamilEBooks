@@ -17,9 +17,9 @@
                 android:id="@+id/menuSettings"
                 android:icon="@drawable/ic_outline_settings_24px"
                 android:title="@string/settings"/>
+        <item
+                android:id="@+id/menuFeedBack"
+                android:icon="@drawable/ic_feedback_white_24dp"
+                android:title="@string/feedback"/>
     </group>
-    <item
-            android:id="@+id/menuFeedBack"
-            android:icon="@drawable/ic_feedback_white_24dp"
-            android:title="@string/feedback"/>
 </menu>

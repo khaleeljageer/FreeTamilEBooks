@@ -113,11 +113,11 @@ class MainActivity : BaseActivity() {
                 args.putInt("TYPE", 3)
                 findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args, navOptions.build())
             }
-            R.id.menuFeedBack -> {
-                findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
-            }
             R.id.menuSettings -> {
                 findNavController(R.id.navHostFragment).navigate(R.id.settingsFragment, null, navOptions.build())
+            }
+            R.id.menuFeedBack -> {
+                findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
             }
         }
         if (bottomNavDrawerFragment.isVisible) {
