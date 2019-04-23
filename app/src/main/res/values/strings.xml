@@ -30,4 +30,7 @@
     <string name="cancel">ரத்துசெய்</string>
     <string name="thanks_comments">கருத்துக்களுக்கு நன்றி!!!</string>
     <string name="pls_wait">காத்திருக்கவும்…</string>
+    <string name="download_msg_rationale">கோப்பை சேமித்து பயன்படுத்த, சாதனத்தின் நினைவகத்தை உபயோகிக்க உங்கள் அனுமதி
+        வேண்டும்.
+    </string>
 </resources>

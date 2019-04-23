@@ -69,6 +69,11 @@ class FeedbackFragment : Fragment() {
             return
         }
 
+        if(!DeviceUtils.isEmailValid(email)) {
+            edtEmail.error = "Invalid e-mail"
+            return
+        }
+
         if (comments.isBlank() || comments.isEmpty()) {
             edtComments.error = "Mandatory"
             return

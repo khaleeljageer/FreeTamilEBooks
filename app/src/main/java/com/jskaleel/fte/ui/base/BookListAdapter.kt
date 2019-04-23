@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.entities.LocalBooks
 
-class HomeListAdapter(
+class BookListAdapter(
     private val mContext: Context,
     private val listener: BookClickListener,
     private val booksList: MutableList<LocalBooks>,
@@ -21,7 +21,7 @@ class HomeListAdapter(
         val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
         lp.height = if (type == 1) parent.measuredHeight / 3 else (parent.measuredHeight / 2.5).toInt()
         view.layoutParams = lp
-        return BookViewHolder(mContext, view)
+        return BookViewHolder(mContext, view, listener)
     }
 
     override fun getItemCount(): Int {
@@ -30,7 +30,7 @@ class HomeListAdapter(
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val bookItem = booksList[position]
-        holder.bindData(bookItem)
+        holder.bindData(bookItem, holder.adapterPosition)
         holder.itemView.setOnClickListener {
             if (previousClickedPosition == position) {
                 return@setOnClickListener

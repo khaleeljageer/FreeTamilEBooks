@@ -1,5 +1,6 @@
 package com.jskaleel.fte.ui.activities
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
+import com.jskaleel.fte.FTEApp
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.NetWorkMessage
 import com.jskaleel.fte.model.ScrollList
@@ -17,8 +19,11 @@ import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
 import com.jskaleel.fte.utils.NetworkSchedulerService
+import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.EasyPermissions
 
 /* https://medium.com/material-design-in-action/implementing-bottomappbar-behavior-fbfbc3a30568
 * https://github.com/firatkarababa/BottomAppBar
@@ -47,6 +52,31 @@ class MainActivity : BaseActivity() {
                 slideUp()
             }
         }
+
+
+        checkPermissionAndDownload()
+    }
+
+    @AfterPermissionGranted(1111)
+    private fun checkPermissionAndDownload() {
+        val perms = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (!EasyPermissions.hasPermissions(this@MainActivity, *perms)) {
+            EasyPermissions.requestPermissions(
+                this@MainActivity,
+                getString(R.string.download_msg_rationale),
+                1111,
+                *perms
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 
     private fun slideUp() {
@@ -170,12 +200,49 @@ class MainActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
         // Start service and provide it a way to communicate with this class.
-        val startServiceIntent = Intent(this, NetworkSchedulerService::class.java)
-        startService(startServiceIntent)
+        try {
+            val startServiceIntent = Intent(this, NetworkSchedulerService::class.java)
+            startService(startServiceIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onStop() {
         stopService(Intent(this, NetworkSchedulerService::class.java))
         super.onStop()
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    /*override fun onDestroy() {
+        super.onDestroy()
+        fetch.removeListener(fetchListener)
+        fetch.close()
+    }
+
+    private val fetchListener = object : AbstractFetchListener() {
+        override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
+            super.onQueued(download, waitingOnNetwork)
+
+            PrintLog.info("Download : onQueued : ${download.file}")
+        }
+
+        override fun onError(download: Download, error: Error, throwable: Throwable?) {
+            super.onError(download, error, throwable)
+            PrintLog.info("Download : onError : $error : ${error.throwable}")
+        }
+
+        override fun onCompleted(download: Download) {
+            super.onCompleted(download)
+            PrintLog.info("Download : onCompleted : ${download.file}")
+        }
+
+        override fun onProgress(download: Download, etaInMilliSeconds: Long, downloadedBytesPerSecond: Long) {
+            super.onProgress(download, etaInMilliSeconds, downloadedBytesPerSecond)
+            PrintLog.info("Download : onProgress : ${download.file}")
+        }
+    }*/
 }

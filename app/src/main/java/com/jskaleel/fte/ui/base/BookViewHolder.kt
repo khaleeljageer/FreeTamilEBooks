@@ -3,7 +3,6 @@ package com.jskaleel.fte.ui.base
 import android.content.Context
 import android.view.View
 import android.view.animation.*
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
@@ -11,10 +10,14 @@ import com.jskaleel.fte.database.entities.LocalBooks
 import kotlinx.android.synthetic.main.book_list_item.view.*
 
 
-class BookViewHolder(private val mContext: Context, view: View) :
+class BookViewHolder(
+    private val mContext: Context,
+    view: View,
+    val listener: BookClickListener
+) :
     BaseViewHolder<LocalBooks>(view) {
 
-    override fun bindData(book: LocalBooks) {
+    override fun bindData(book: LocalBooks, adapterPosition: Int) {
         Glide.with(mContext)
             .load(book.image)
             .centerCrop()
@@ -45,7 +48,7 @@ class BookViewHolder(private val mContext: Context, view: View) :
         }
 
         itemView.fabDownload.setOnClickListener {
-            Toast.makeText(mContext, "Download Clicked", Toast.LENGTH_SHORT).show()
+            listener.bookItemClickListener(adapterPosition, book)
         }
     }
 }

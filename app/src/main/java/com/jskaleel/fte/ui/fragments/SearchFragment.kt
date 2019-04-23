@@ -20,18 +20,19 @@ import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.ui.base.BookClickListener
-import com.jskaleel.fte.ui.base.HomeListAdapter
+import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
 import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class SearchFragment : Fragment(), BookClickListener {
-    override fun bookItemClickListener(adapterPosition: Int) {
-
+    override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
+        PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
+        DeviceUtils.queueForDownload(mContext, book)
     }
 
-    private lateinit var adapter: HomeListAdapter
+    private lateinit var adapter: BookListAdapter
     private lateinit var searchHandler: Handler
     private lateinit var mContext: Context
     private var filterType = 1
@@ -53,7 +54,7 @@ class SearchFragment : Fragment(), BookClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvSearchList.setHasFixedSize(true)
-        adapter = HomeListAdapter(mContext, this@SearchFragment, mutableListOf(), 2)
+        adapter = BookListAdapter(mContext, this@SearchFragment, mutableListOf(), 2)
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvSearchList.layoutManager = layoutManger
         rvSearchList.adapter = adapter

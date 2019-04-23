@@ -1,16 +1,15 @@
 package com.jskaleel.fte
 
-import android.app.Application
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
+import androidx.multidex.MultiDexApplication
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.utils.NetworkSchedulerService
 
 
-class FTEApp : Application() {
-
+class FTEApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         scheduleJob()

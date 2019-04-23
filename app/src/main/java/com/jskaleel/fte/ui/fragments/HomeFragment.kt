@@ -13,13 +13,16 @@ import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.ui.base.BookClickListener
-import com.jskaleel.fte.ui.base.HomeListAdapter
+import com.jskaleel.fte.ui.base.BookListAdapter
+import com.jskaleel.fte.utils.DeviceUtils
+import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), BookClickListener {
-    override fun bookItemClickListener(adapterPosition: Int) {
-
+    override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
+        PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
+        DeviceUtils.queueForDownload(mContext, book)
     }
 
     private lateinit var mContext: Context
@@ -44,7 +47,7 @@ class HomeFragment : Fragment(), BookClickListener {
         val booksList = appDataBase.localBooksDao().getAllLocalBooks()
         rvBookList.setHasFixedSize(true)
 
-        val adapter = HomeListAdapter(mContext, this@HomeFragment, booksList as MutableList<LocalBooks>, 1)
+        val adapter = BookListAdapter(mContext, this@HomeFragment, booksList as MutableList<LocalBooks>, 1)
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvBookList.layoutManager = layoutManger
         rvBookList.adapter = adapter
