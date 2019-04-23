@@ -11,7 +11,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
-import com.jskaleel.fte.FTEApp
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.NetWorkMessage
 import com.jskaleel.fte.model.ScrollList
@@ -19,11 +18,8 @@ import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
 import com.jskaleel.fte.utils.NetworkSchedulerService
-import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
-import pub.devrel.easypermissions.AfterPermissionGranted
-import pub.devrel.easypermissions.EasyPermissions
 
 /* https://medium.com/material-design-in-action/implementing-bottomappbar-behavior-fbfbc3a30568
 * https://github.com/firatkarababa/BottomAppBar
@@ -54,10 +50,10 @@ class MainActivity : BaseActivity() {
         }
 
 
-        checkPermissionAndDownload()
+//        checkPermissionAndDownload()
     }
 
-    @AfterPermissionGranted(1111)
+    /*@AfterPermissionGranted(1111)
     private fun checkPermissionAndDownload() {
         val perms = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (!EasyPermissions.hasPermissions(this@MainActivity, *perms)) {
@@ -77,7 +73,7 @@ class MainActivity : BaseActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
+    }*/
 
     private fun slideUp() {
         (bottomAppBar.behavior as HideBottomViewOnScrollBehavior).slideUp(bottomAppBar)
@@ -216,33 +212,4 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
     }
-
-    /*override fun onDestroy() {
-        super.onDestroy()
-        fetch.removeListener(fetchListener)
-        fetch.close()
-    }
-
-    private val fetchListener = object : AbstractFetchListener() {
-        override fun onQueued(download: Download, waitingOnNetwork: Boolean) {
-            super.onQueued(download, waitingOnNetwork)
-
-            PrintLog.info("Download : onQueued : ${download.file}")
-        }
-
-        override fun onError(download: Download, error: Error, throwable: Throwable?) {
-            super.onError(download, error, throwable)
-            PrintLog.info("Download : onError : $error : ${error.throwable}")
-        }
-
-        override fun onCompleted(download: Download) {
-            super.onCompleted(download)
-            PrintLog.info("Download : onCompleted : ${download.file}")
-        }
-
-        override fun onProgress(download: Download, etaInMilliSeconds: Long, downloadedBytesPerSecond: Long) {
-            super.onProgress(download, etaInMilliSeconds, downloadedBytesPerSecond)
-            PrintLog.info("Download : onProgress : ${download.file}")
-        }
-    }*/
 }
