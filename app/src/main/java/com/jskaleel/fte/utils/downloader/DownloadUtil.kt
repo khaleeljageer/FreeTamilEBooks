@@ -4,6 +4,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
 import com.jskaleel.fte.R
+import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.utils.PrintLog
 
@@ -26,5 +27,6 @@ object DownloadUtil {
         val id = downloadManager.enqueue(request)
 
         DownloadManagerHelper.saveDownload(context, id)
+        AppDatabase.getAppDatabase(context).localBooksDao().updateDownloadId(id, book.bookid)
     }
 }

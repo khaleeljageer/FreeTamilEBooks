@@ -21,5 +21,10 @@ data class LocalBooks(
     @ColumnInfo(name = "category")
     val category: String,
 
-    var isExpanded: Boolean = false
+    var isExpanded: Boolean = false,
+
+    @ColumnInfo(name = "is_downloaded")
+    var isDownloaded: Boolean = false,
+    @ColumnInfo(name = "download_id")
+    var downloadId: Long = -1
 ) : Serializable

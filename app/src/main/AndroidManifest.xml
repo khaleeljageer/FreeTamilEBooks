@@ -46,6 +46,14 @@
                 android:name=".utils.NetworkSchedulerService"
                 android:exported="true"
                 android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <receiver
+                android:name=".utils.downloader.DownloadReceiver"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
 
         <!--<receiver
                 android:name=".utils.downloader.DownloadReceiver"

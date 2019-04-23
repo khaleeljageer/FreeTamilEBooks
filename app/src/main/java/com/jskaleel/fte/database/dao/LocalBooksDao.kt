@@ -25,4 +25,13 @@ interface LocalBooksDao {
 
     @Query("SELECT * from localBooks WHERE author LIKE :author")
     fun getBooksByAuthor(author: String): List<LocalBooks>
+
+    @Query("SELECT * from localBooks WHERE download_id = :downloadId")
+    fun getDownloadedBook(downloadId: Long): LocalBooks
+
+    @Query("UPDATE localBooks SET download_id = :downloadId WHERE bookid = :bookId")
+    fun updateDownloadId(downloadId: Long, bookId: String)
+
+    @Query("UPDATE localBooks SET is_downloaded = :isDownloaded WHERE download_id = :downloadId")
+    fun updateStatus(isDownloaded: Boolean, downloadId: Long)
 }
