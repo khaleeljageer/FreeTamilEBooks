@@ -3,6 +3,8 @@ package com.jskaleel.fte.utils.downloader
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
+import com.folioreader.Config
+import com.folioreader.FolioReader
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
@@ -23,10 +25,24 @@ object DownloadUtil {
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
         request.setVisibleInDownloadsUi(false)
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE or DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        request.setDestinationUri(Uri.parse("file://$extStorageDirectory/${book.bookid}.epub"))
+        val filePath = "file://$extStorageDirectory/${book.bookid}.epub"
+        request.setDestinationUri(Uri.parse(filePath))
         val id = downloadManager.enqueue(request)
 
         DownloadManagerHelper.saveDownload(context, id)
-        AppDatabase.getAppDatabase(context).localBooksDao().updateDownloadId(id, book.bookid)
+        AppDatabase.getAppDatabase(context).localBooksDao().updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
+    }
+
+    fun openSavedBook(book: LocalBooks) {
+        PrintLog.info("savedPath ${book.savedPath}")
+        val config = Config()
+            .setAllowedDirection(Config.AllowedDirection.ONLY_VERTICAL)
+            .setNightMode(false)
+            .setShowTts(false)
+            .setThemeColorRes(R.color.colorAccent)
+            .setDirection(Config.Direction.VERTICAL)
+
+        FolioReader.get()
+            .setConfig(config, true).openBook(book.savedPath)
     }
 }

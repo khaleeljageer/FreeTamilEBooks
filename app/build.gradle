@@ -62,7 +62,7 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-    implementation "com.folioreader:folioreader:0.5.4"
+    implementation 'com.folioreader:folioreader:0.5.4'
     implementation 'androidx.multidex:multidex:2.0.1'
 
     testImplementation 'junit:junit:4.12'

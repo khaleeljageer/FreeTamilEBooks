@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-sdk tools:overrideLibrary="com.folioreader"/>
     <application
             android:allowBackup="true"
             android:name=".FTEApp"
@@ -55,19 +57,14 @@
             </intent-filter>
         </receiver>
 
-        <!--<receiver
-                android:name=".utils.downloader.DownloadReceiver"
-                android:enabled="true"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-            </intent-filter>
-        </receiver>
-
-        <service
-                android:name=".utils.downloader.DownloadIntentService"
-                android:exported="false">
-        </service>-->
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
-
 </manifest>

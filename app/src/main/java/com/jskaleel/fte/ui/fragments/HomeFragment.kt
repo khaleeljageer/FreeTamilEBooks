@@ -23,7 +23,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment(), BookClickListener {
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
-        DownloadUtil.queueForDownload(mContext, book)
+        if (book.isDownloaded) {
+            DownloadUtil.openSavedBook(book)
+        } else {
+            DownloadUtil.queueForDownload(mContext, book)
+        }
     }
 
     private lateinit var adapter: BookListAdapter

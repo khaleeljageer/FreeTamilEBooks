@@ -6,6 +6,7 @@ import android.view.animation.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.jskaleel.fte.R
 import com.jskaleel.fte.database.entities.LocalBooks
 import kotlinx.android.synthetic.main.book_list_item.view.*
 
@@ -26,6 +27,15 @@ class BookViewHolder(
             .into(itemView.arBookImage)
 
         val expanded = book.isExpanded
+
+        itemView.fabDownload.run {
+            if (book.isDownloaded) {
+                setImageResource(R.drawable.ic_read_book_black_24dp)
+            } else {
+                setImageResource(R.drawable.ic_file_download_black_24dp)
+            }
+        }
+
         // Set the visibility based on state
         itemView.rlDownloadView.visibility = if (expanded) View.VISIBLE else View.GONE
         if (expanded) {
