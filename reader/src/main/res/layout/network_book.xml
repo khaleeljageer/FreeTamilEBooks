@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/network_book_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:id="@+id/network_book_button_panel1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingLeft="2dip"
+        android:paddingRight="2dip">
+
+        <Button
+            android:id="@+id/network_book_button2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/network_book_button3"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/network_book_button_panel0"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/network_book_button_panel1"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingLeft="2dip"
+        android:paddingRight="2dip">
+
+        <LinearLayout
+            android:id="@+id/network_book_left_spacer"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.31"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/network_book_button0"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/network_book_button1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/network_book_right_spacer"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.31"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/network_book_button_panel0"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="4dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/network_book_cover"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:id="@+id/network_book_info_title"
+                style="?android:attr/listSeparatorTextViewStyle" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp">
+
+                <include
+                    android:id="@+id/network_book_title"
+                    layout="@layout/book_info_pair" />
+
+                <include
+                    android:id="@+id/network_book_authors"
+                    layout="@layout/book_info_pair" />
+
+                <include
+                    android:id="@+id/network_book_series_title"
+                    layout="@layout/book_info_pair" />
+
+                <include
+                    android:id="@+id/network_book_series_index"
+                    layout="@layout/book_info_pair" />
+
+                <include
+                    android:id="@+id/network_book_tags"
+                    layout="@layout/book_info_pair" />
+
+                <include
+                    android:id="@+id/network_book_catalog"
+                    layout="@layout/book_info_pair" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/network_book_description_title"
+                style="?android:attr/listSeparatorTextViewStyle" />
+
+            <TextView
+                android:id="@+id/network_book_description"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/network_book_extra_links_title"
+                style="?android:attr/listSeparatorTextViewStyle" />
+
+            <LinearLayout
+                android:id="@+id/network_book_extra_links"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

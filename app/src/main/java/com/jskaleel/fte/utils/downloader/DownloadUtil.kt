@@ -3,12 +3,11 @@ package com.jskaleel.fte.utils.downloader
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
-import com.folioreader.Config
-import com.folioreader.FolioReader
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.utils.PrintLog
+import org.geometerplus.android.fbreader.FBReader
 
 object DownloadUtil {
 
@@ -30,12 +29,13 @@ object DownloadUtil {
         val id = downloadManager.enqueue(request)
 
         DownloadManagerHelper.saveDownload(context, id)
-        AppDatabase.getAppDatabase(context).localBooksDao().updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
+        AppDatabase.getAppDatabase(context).localBooksDao()
+            .updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
     }
 
-    fun openSavedBook(book: LocalBooks) {
+    fun openSavedBook(context: Context, book: LocalBooks) {
         PrintLog.info("savedPath ${book.savedPath}")
-        val config = Config()
+        /*val config = Config()
             .setAllowedDirection(Config.AllowedDirection.ONLY_VERTICAL)
             .setNightMode(false)
             .setShowTts(false)
@@ -43,6 +43,8 @@ object DownloadUtil {
             .setDirection(Config.Direction.VERTICAL)
 
         FolioReader.get()
-            .setConfig(config, true).openBook(book.savedPath)
+            .setConfig(config, true).openBook(book.savedPath)*/
+
+        FBReader.openBookActivity(context, book.savedPath)
     }
 }

@@ -1,0 +1,12 @@
+<tapZones h="3" v="3">
+    <!--从右向左翻页-->
+    <zone action="previousPage" action2="navigate" x="0" y="0" />
+    <zone action="previousPage" x="0" y="1" />
+    <zone action="previousPage" action2="menu" x="0" y="2" />
+    <zone action2="menu" x="1" y="0" />
+    <zone action2="menu" x="1" y="1" />
+    <zone action2="menu" x="1" y="2" />
+    <zone action="nextPage" action2="navigate" x="2" y="0" />
+    <zone action="nextPage" x="2" y="1" />
+    <zone action="nextPage" action2="menu" x="2" y="2" />
+</tapZones>

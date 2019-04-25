@@ -31,7 +31,7 @@ class SearchFragment : Fragment(), BookClickListener {
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
         if (book.isDownloaded) {
-
+            DownloadUtil.openSavedBook(mContext, book)
         } else {
             DownloadUtil.queueForDownload(mContext, book)
         }

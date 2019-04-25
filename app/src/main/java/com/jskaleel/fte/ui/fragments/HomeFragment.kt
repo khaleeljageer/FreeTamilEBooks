@@ -24,7 +24,7 @@ class HomeFragment : Fragment(), BookClickListener {
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
         if (book.isDownloaded) {
-            DownloadUtil.openSavedBook(book)
+            DownloadUtil.openSavedBook(mContext, book)
         } else {
             DownloadUtil.queueForDownload(mContext, book)
         }

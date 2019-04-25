@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="58dp"
+    android:paddingRight="17dp">
+
+    <TextView
+        android:id="@+id/id_item_fbreader_catalog_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:text="14"
+        android:textColor="#cccccc"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/id_item_fbreader_catalog_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@id/id_item_fbreader_catalog_page"
+        android:singleLine="true"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        tools:text="Chapter 1 Journey to the West" />
+
+    <View
+        android:id="@+id/id_item_fbreader_catalog_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="17dp"
+        android:background="#eeeeee" />
+</RelativeLayout>

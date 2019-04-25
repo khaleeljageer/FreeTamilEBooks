@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="style_fbreader_menu_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent
+        </item><!-- 设置dialog背景为透明背景 -->
+        <item name="android:backgroundDimEnabled">false</item><!-- 设置dialog背景不变暗 -->
+        <item name="android:windowAnimationStyle">@style/anim_fbreader_menu_dialog</item>
+    </style>
+
+    <style name="anim_fbreader_menu_dialog" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_menu_in</item>
+        <item name="android:windowExitAnimation">@null</item>
+    </style>
+
+    <style name="anim_fbreader_catalog_dialog" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/anim_fbreader_slide_in_left</item>
+        <item name="android:windowExitAnimation">@anim/anim_fbreader_slide_out_left</item>
+    </style>
+
+    <color name="color_fbreader_bg_day">#ffffff</color>
+    <color name="color_fbreader_bg_night">#131718</color>
+    <color name="color_fbreader_menu_unselected_day">#999999</color>
+    <color name="color_fbreader_menu_unselected_night">#999999</color>
+    <color name="color_fbreader_menu_selected_day">#20a3ff</color>
+    <color name="color_fbreader_menu_selected_night">#20a3ff</color>
+    <color name="color_fbreader_menu_select">#ff5500</color>
+    <color name="color_fbreader_menu_line">#f5f5f5</color>
+
+    <style name="style_fbreader_navigation_seekbar_day">
+        <item name="android:progressDrawable">@drawable/drawable_navigation_seekbar_day</item>
+        <item name="android:thumb">@drawable/bg_navigation_seekbar_thumb_day</item>
+        <item name="android:maxHeight">2dp</item>
+        <item name="android:minHeight">2dp</item>
+        <item name="android:progress">0</item>
+        <item name="android:secondaryProgress">0</item>
+    </style>
+
+    <style name="style_fbreader_navigation_seekbar_night">
+        <item name="android:progressDrawable">@drawable/drawable_navigation_seekbar_night</item>
+        <item name="android:thumb">@drawable/bg_navigation_seekbar_thumb_night</item>
+    </style>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="riv_left_top_corner_radius" format="dimension" />
+        <attr name="riv_right_top_corner_radius" format="dimension" />
+        <attr name="riv_left_bottom_corner_radius" format="dimension" />
+        <attr name="riv_right_bottom_corner_radius" format="dimension" />
+        <attr name="riv_border_width" format="dimension" />
+        <attr name="riv_border_color" format="color" />
+        <attr name="riv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+    </declare-styleable>
+
+    <style name="FBReaderProgressSeekBarStyle">
+        <item name="android:progressDrawable">@drawable/drawable_fbreader_progress_seekbar_style</item>
+        <item name="android:thumb">@drawable/bg_fbreader_progress_seekbar_thumb</item>
+        <item name="android:maxHeight">2dp</item>
+        <item name="android:minHeight">2dp</item>
+        <item name="android:progress">0</item>
+        <item name="android:secondaryProgress">0</item>
+        <item name="android:background">@null</item>
+    </style>
+
+</resources>

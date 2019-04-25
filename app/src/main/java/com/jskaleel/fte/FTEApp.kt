@@ -4,16 +4,21 @@ import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
-import androidx.multidex.MultiDexApplication
+import androidx.multidex.MultiDex
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.utils.NetworkSchedulerService
+import org.geometerplus.android.fbreader.FBReaderApplication
+import org.geometerplus.android.fbreader.util.FBReaderConfig
 
 
-class FTEApp : MultiDexApplication() {
+class FTEApp : FBReaderApplication() {
     override fun onCreate() {
         super.onCreate()
+        MultiDex.install(this@FTEApp)
         scheduleJob()
         AppDatabase.getAppDatabase(this@FTEApp)
+
+        FBReaderConfig.init(this)
     }
 
     private fun scheduleJob() {

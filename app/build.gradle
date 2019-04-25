@@ -9,11 +9,11 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.jskaleel.fte"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 24
         versionName "6.0-beta"
         multiDexEnabled true
@@ -62,8 +62,10 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-    implementation 'com.folioreader:folioreader:0.5.4'
+    /*implementation 'com.folioreader:folioreader:0.5.4'*/
     implementation 'androidx.multidex:multidex:2.0.1'
+    /*implementation 'com.github.binbinrd:fbreaderimpl_s:1.0.0'*/
+    implementation project(':reader')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha04'
