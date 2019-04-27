@@ -49,6 +49,6 @@ public class SelectionCopyAction extends FBAndroidAction {
 		final ClipboardManager clipboard =
 			(ClipboardManager)BaseActivity.getApplication().getSystemService(Application.CLIPBOARD_SERVICE);
 		clipboard.setText(text);
-		FBReader.toast("Copied");
+		FBReader.toast("复制成功");
 	}
 }

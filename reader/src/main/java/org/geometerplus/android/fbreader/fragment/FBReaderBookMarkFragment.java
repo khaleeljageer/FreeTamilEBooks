@@ -8,17 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
-import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.book.Bookmark;
-import org.geometerplus.fbreader.book.BookmarkQuery;
-import org.geometerplus.fbreader.bookmodel.TOCTree;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.fbreader.fbreader.options.ColorProfile;
 import org.geometerplus.zlibrary.core.application.ZLApplication;
@@ -114,7 +109,7 @@ public class FBReaderBookMarkFragment extends Fragment {
     //region 书签相关
     private void showEmptyBookMarkView() {
         mTvCatalogEmptyDesc.setTextColor(grayColor);
-        mTvCatalogEmptyDesc.setText("暂时还没有书签");
+        mTvCatalogEmptyDesc.setText(R.string.fbreader_bookmark_empty);
         boolean isDay = ColorProfile.DAY.equals(myFBReaderApp.ViewOptions.ColorProfileName.getValue());
         if (isDay) {
             //日间模式

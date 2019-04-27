@@ -55,6 +55,6 @@ public abstract class ColorPreference extends Preference {
 	@Override
 	protected void onClick() {
 		final ZLResource buttonResource = ZLResource.resource("dialog").getResource("button");
-		FBReader.toast("Select a color");
+		FBReader.toast("选择颜色");
 	}
 }

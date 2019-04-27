@@ -105,7 +105,7 @@ public class FBReaderCatalogFragment extends Fragment {
     //region 目录相关
     private void showEmptyTocView() {
         mTvCatalogEmptyDesc.setTextColor(grayColor);
-        mTvCatalogEmptyDesc.setText("Directory is empty");
+        mTvCatalogEmptyDesc.setText(R.string.fbreader_catalogue_empty);
         boolean isDay = ColorProfile.DAY.equals(myFBReaderApp.ViewOptions.ColorProfileName.getValue());
         if (isDay) {
             //日间模式

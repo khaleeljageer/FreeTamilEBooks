@@ -68,7 +68,7 @@ public class HighlightPopup extends PopupPanel implements View.OnClickListener {
 
         mTvLight = (TextView) myWindow.findViewById(R.id.highlight_selection_panel_bookmark);
         mTvLight.setOnClickListener(this);
-        mTvLight.setText("Delete");
+        mTvLight.setText("删除");
         mTvCopy = (TextView) myWindow.findViewById(R.id.highlight_selection_panel_copy);
         mTvCopy.setOnClickListener(this);
         mTvDictionary = (TextView) myWindow.findViewById(R.id.highlight_selection_panel_dictionary);
@@ -143,7 +143,7 @@ public class HighlightPopup extends PopupPanel implements View.OnClickListener {
                 final ClipboardManager clipboard =
                         (ClipboardManager) Application.getReader().getSystemService(android.app.Application.CLIPBOARD_SERVICE);
                 clipboard.setText(traverser.getText());
-                FBReader.toast("Copied");
+                FBReader.toast("复制成功");
             }
         } else if (i == R.id.highlight_selection_panel_share) {
             if(start!=null&&end!=null){

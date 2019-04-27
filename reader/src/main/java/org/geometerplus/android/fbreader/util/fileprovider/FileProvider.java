@@ -1,5 +1,7 @@
 package org.geometerplus.android.fbreader.util.fileprovider;
 
+;
+
 /**
  * desc:<br>
  * author : yuanbin<br>

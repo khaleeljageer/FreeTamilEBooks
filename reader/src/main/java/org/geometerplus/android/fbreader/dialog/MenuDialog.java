@@ -23,7 +23,6 @@ import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.fbreader.fbreader.options.ColorProfile;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.view.ZLView;
-import org.geometerplus.zlibrary.core.view.ZLViewEnums;
 import org.geometerplus.zlibrary.text.view.ZLTextView;
 import org.geometerplus.zlibrary.text.view.ZLTextWordCursor;
 import org.geometerplus.zlibrary.ui.android.R;
@@ -116,11 +115,11 @@ public class MenuDialog extends Dialog {
                 if (!hasBookMark) {
                     dismiss();
                     myFBReaderApp.addBookmark();
-                    FBReader.toast("Bookmark added successfully");
+                    FBReader.toast(mContext.getString(R.string.fbreader_bookmark_add_success));
                 } else {
                     dismiss();
                     myFBReaderApp.deleteBookmark();
-                    FBReader.toast("Bookmark deleted successfully");
+                    FBReader.toast(mContext.getString(R.string.fbreader_bookmark_delete_success));
                 }
             }
         });
@@ -486,7 +485,7 @@ public class MenuDialog extends Dialog {
             public void onClick(View v) {
                 TOCTree tocElement = myFBReaderApp.getNextTOCElement();
                 if (tocElement == null) {
-                    FBReader.toast("Go to the last chapter");
+                    FBReader.toast(mContext.getString(R.string.fbreader_turn_chapter_tips_cant_next));
                 } else {
                     startPosition.setCursor(myFBReaderApp.BookTextView.getStartCursor());
                     myFBReaderApp.addInvisibleBookmark();
@@ -503,7 +502,7 @@ public class MenuDialog extends Dialog {
             public void onClick(View v) {
                 TOCTree tocElement = myFBReaderApp.getPreTOCElement();
                 if (tocElement == null) {
-                    FBReader.toast("Go to the first chapter");
+                    FBReader.toast(mContext.getString(R.string.fbreader_turn_chapter_tips_cant_previous));
                 } else {
                     startPosition.setCursor(myFBReaderApp.BookTextView.getStartCursor());
                     myFBReaderApp.addInvisibleBookmark();
@@ -525,7 +524,7 @@ public class MenuDialog extends Dialog {
         if (tocElement != null) {
             mTvProgressTitle.setText(tocElement.getText());
         } else {
-            mTvProgressTitle.setText("Unknown");
+            mTvProgressTitle.setText(R.string.fbreader_unknown);
         }
 
         ZLTextView textView = myFBReaderApp.getTextView();
@@ -533,8 +532,7 @@ public class MenuDialog extends Dialog {
         int currentPosition = pagePosition.Current;
         int totalPage = pagePosition.Total;
         float percent = 100f * currentPosition / totalPage;
-        String progress = "The book %1$d / %2$d page Current position %3$.2f";
-        mTvProgressProgress.setText(String.format(progress, currentPosition, totalPage, percent) + "%");
+        mTvProgressProgress.setText(mContext.getString(R.string.fbreader_progress_tips, currentPosition, totalPage, percent) + "%");
         mProgressSeekBar.setMax(pagePosition.Total - 1);
         mProgressSeekBar.setProgress(currentPosition - 1);
 
@@ -573,12 +571,9 @@ public class MenuDialog extends Dialog {
     };
 
     private String createTime(int s) {
-        StringBuilder readerTime = new StringBuilder("Read");
-        readerTime.append(s / 60 / 60);
-        readerTime.append("hour");
-        readerTime.append(s / 60);
-        readerTime.append("minute");
-        return readerTime.toString();
+        int hour = s/60/60;
+        int minute = s/60;
+        return mContext.getString(R.string.fbreader_progress_read_time, hour, minute);
     }
     //endregion
 
@@ -903,7 +898,7 @@ public class MenuDialog extends Dialog {
         int progress = myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().FontSizeOption.getValue();
         mSettingSeekBar.setProgress(progress - 24);
         //mTvSettingFontSelected.setText(myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().FontFamilyOption.getValue());
-        mTvSettingFontSelected.setText("Default");
+        mTvSettingFontSelected.setText(R.string.fbreader_system);
         updatePageTurningMode();
     }
 

@@ -22,7 +22,7 @@
             android:id="@+id/id_menu_head_book_mark"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:padding="12dp"
             android:src="@drawable/ic_fbreader_menu_head_book_mark_unselected_day" />
 
@@ -30,10 +30,9 @@
             android:id="@+id/id_menu_head_book_share"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_toLeftOf="@id/id_menu_head_book_mark"
+            android:layout_toStartOf="@id/id_menu_head_book_mark"
             android:padding="12dp"
-            android:src="@drawable/ic_fbreader_menu_head_share_day"
-            android:visibility="invisible" />
+            android:src="@drawable/ic_fbreader_menu_head_share_day" />
     </RelativeLayout>
 
     <ImageView
@@ -58,8 +57,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <ImageView
                 android:id="@+id/id_menu_bottom_catalog_iv"
@@ -71,9 +70,8 @@
                 android:id="@+id/id_menu_bottom_catalog_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
-                android:text="Table of Content"
+                android:text="@string/fbreader_menu_catalogue"
                 android:textColor="@color/color_fbreader_menu_selected_day"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -85,8 +83,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <ImageView
                 android:id="@+id/id_menu_bottom_progress_iv"
@@ -98,9 +96,8 @@
                 android:id="@+id/id_menu_bottom_progress_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
-                android:text="Progress"
+                android:text="@string/fbreader_menu_progress"
                 android:textColor="@color/color_fbreader_menu_unselected_day"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -112,8 +109,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <ImageView
                 android:id="@+id/id_menu_bottom_light_iv"
@@ -125,9 +122,8 @@
                 android:id="@+id/id_menu_bottom_light_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
-                android:text="Brightness"
+                android:text="@string/fbreader_menu_brightness"
                 android:textColor="@color/color_fbreader_menu_unselected_day"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -139,8 +135,8 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <ImageView
                 android:id="@+id/id_menu_bottom_setting_iv"
@@ -152,9 +148,8 @@
                 android:id="@+id/id_menu_bottom_setting_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
-                android:text="Setting"
+                android:text="@string/fbreader_menu_setting"
                 android:textColor="@color/color_fbreader_menu_unselected_day"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -179,18 +174,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
             android:layout_marginLeft="17dp"
             android:layout_marginRight="17dp"
-            android:layout_marginBottom="17dp"
             android:background="@drawable/bg_fbreader_menu_progress">
 
             <ImageView
                 android:id="@+id/id_menu_bottom_progress_back"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="25dp"
+                android:layout_marginEnd="25dp"
                 android:src="@drawable/ic_fbreader_menu_progress_back" />
 
             <View
@@ -198,36 +193,36 @@
                 android:layout_width="0.5dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="25dp"
-                android:layout_toLeftOf="@id/id_menu_bottom_progress_back"
+                android:layout_marginEnd="25dp"
+                android:layout_toStartOf="@id/id_menu_bottom_progress_back"
                 android:background="#33ffffff" />
 
             <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
                 android:id="@+id/id_menu_bottom_progress_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="17dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/id_menu_bottom_progress_line"
+                android:layout_toStartOf="@id/id_menu_bottom_progress_line"
                 android:singleLine="true"
                 android:textColor="#f6f6f6"
                 android:textSize="13sp"
-                tools:text="Chapter IV Alibaba and Forty Thieves" />
+                tools:text="第四章 阿里巴巴与四十大盗" />
 
             <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
                 android:id="@+id/id_menu_bottom_progress_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignStart="@id/id_menu_bottom_progress_title"
+                android:layout_alignEnd="@id/id_menu_bottom_progress_title"
                 android:layout_below="@id/id_menu_bottom_progress_title"
-                android:layout_alignLeft="@id/id_menu_bottom_progress_title"
-                android:layout_alignRight="@id/id_menu_bottom_progress_title"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
                 android:singleLine="true"
                 android:textColor="#f6f6f6"
                 android:textSize="11sp"
-                tools:text="Full book 76 / 322 pages Current position 99.99%" />
+                tools:text="全书76 / 322页     当前位置99.99%" />
 
         </RelativeLayout>
 
@@ -253,7 +248,7 @@
                 android:singleLine="true"
                 android:textColor="#333333"
                 android:textSize="13sp"
-                tools:text="Have read 0 hours and 19 minutes" />
+                tools:text="已阅读0小时19分钟" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -264,10 +259,10 @@
                     android:id="@+id/id_menu_bottom_progress_last_chapter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="17dp"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Previous chapter"
+                    android:text="@string/fbreader_progress_previous_chapter"
                     android:textColor="#333333"
                     android:textSize="13sp" />
 
@@ -285,10 +280,10 @@
                     android:id="@+id/id_menu_bottom_progress_next_chapter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingRight="17dp"
                     android:paddingBottom="10dp"
-                    android:text="Next chapter"
+                    android:paddingRight="17dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/fbreader_progress_next_chapter"
                     android:textColor="#333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -360,7 +355,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="White"
+                    android:text="@string/fbreader_brightness_background_type_daily"
                     android:textColor="#333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -385,7 +380,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Green"
+                    android:text="@string/fbreader_brightness_background_type_fresh"
                     android:textColor="#333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -410,7 +405,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Yellow"
+                    android:text="@string/fbreader_brightness_background_type_light_yellow"
                     android:textColor="#333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -434,7 +429,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Blue"
+                    android:text="@string/fbreader_brightness_background_type_light_blue"
                     android:textColor="#333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -458,7 +453,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Dark"
+                    android:text="@string/fbreader_brightness_background_type_night"
                     android:textColor="#333333"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -466,14 +461,13 @@
 
         </LinearLayout>
     </LinearLayout>
-
     <ImageView
         android:id="@+id/id_menu_bottom_light_shadow"
         android:layout_width="match_parent"
         android:layout_height="5dp"
+        android:visibility="gone"
         android:layout_above="@id/id_menu_bottom_light_container"
-        android:background="@drawable/ic_fbreader_shadow"
-        android:visibility="gone" />
+        android:background="@drawable/ic_fbreader_shadow" />
     <!--endregion-->
 
     <!--region setting-->
@@ -528,7 +522,7 @@
                 android:id="@+id/id_menu_bottom_setting_turning_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Page turning"
+                android:text="@string/fbreader_setting_turn_page"
                 android:textColor="#333333"
                 android:textSize="13sp" />
 
@@ -542,7 +536,7 @@
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:gravity="center"
-                android:text="Curl"
+                android:text="@string/fbreader_setting_turn_page_type_simulation"
                 android:textColor="#333333"
                 android:textSize="13sp" />
 
@@ -556,7 +550,7 @@
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:gravity="center"
-                android:text="Move"
+                android:text="@string/fbreader_setting_turn_page_type_shift"
                 android:textColor="#333333"
                 android:textSize="13sp" />
 
@@ -570,7 +564,7 @@
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:gravity="center"
-                android:text="Slide"
+                android:text="@string/fbreader_setting_turn_page_type_slide"
                 android:textColor="#333333"
                 android:textSize="13sp" />
 
@@ -584,7 +578,7 @@
                 android:layout_width="50dp"
                 android:layout_height="28dp"
                 android:gravity="center"
-                android:text="NA"
+                android:text="@string/fbreader_setting_turn_page_type_none"
                 android:textColor="#333333"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -604,7 +598,7 @@
                     android:id="@+id/id_menu_bottom_setting_font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Font"
+                    android:text="@string/fbreader_setting_font"
                     android:textColor="#333333"
                     android:textSize="13sp" />
 
@@ -612,8 +606,8 @@
                     android:id="@+id/id_menu_bottom_setting_font_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:text="Chinese Song"
+                    android:layout_marginStart="24dp"
+                    tools:text=""
                     android:textColor="#333333"
                     android:textSize="13sp" />
 
@@ -621,7 +615,7 @@
                     android:id="@+id/id_menu_bottom_setting_font_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
                     android:src="@drawable/ic_fbreader_menu_bottom_seeting_more_arrow"
                     android:visibility="invisible" />
             </LinearLayout>
@@ -630,7 +624,7 @@
                 android:id="@+id/id_menu_bottom_setting_more_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:gravity="center_vertical"
                 android:padding="17dp">
 
@@ -638,7 +632,7 @@
                     android:id="@+id/id_menu_bottom_setting_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="More settings"
+                    android:text="@string/fbreader_menu_more_setting"
                     android:textColor="#333333"
                     android:textSize="13sp" />
 
@@ -646,19 +640,16 @@
                     android:id="@+id/id_menu_bottom_setting_more_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
                     android:src="@drawable/ic_fbreader_menu_bottom_seeting_more_arrow" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-
     <ImageView
         android:id="@+id/id_menu_bottom_setting_shadow"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_above="@id/id_menu_bottom_setting_container"
         android:background="@drawable/ic_fbreader_shadow"
-        android:visibility="gone" />
-    <!--endregion-->
-
+        android:visibility="gone"/>
 </RelativeLayout>

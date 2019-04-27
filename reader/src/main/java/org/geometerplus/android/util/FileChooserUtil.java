@@ -56,7 +56,7 @@ public abstract class FileChooserUtil {
 		String initialDir,
 		String regexp
 	) {
-		FBReader.toast("File selection："+title);
+		FBReader.toast("文件选择："+title);
 	}
 
 	public static void runDirectoryChooser(
@@ -66,7 +66,7 @@ public abstract class FileChooserUtil {
 		String initialValue,
 		boolean chooseWritableDirsOnly
 	) {
-		FBReader.toast("File selection："+title);
+		FBReader.toast("文件选择："+title);
 	}
 
 	public static String folderPathFromData(Intent data) {

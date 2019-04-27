@@ -44,6 +44,6 @@ public class ManageCatalogsAction extends RootAction {
 		final ArrayList<String> ids = new ArrayList<String>(myLibrary.activeIds());
 		final ArrayList<String> inactiveIds = new ArrayList<String>(myLibrary.allIds());
 		inactiveIds.removeAll(ids);
-		FBReader.toast("Library management");
+		FBReader.toast("管理书库");
 	}
 }
