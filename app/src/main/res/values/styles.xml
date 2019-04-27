@@ -40,6 +40,8 @@
         <item name="android:textColorSecondary">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorAccent1</item>
         <item name="colorAccent">@color/colorAccent1</item>
+        <item name="windowFixedWidthMajor">50%</item>
+        <item name="windowFixedWidthMinor">50%</item>
     </style>
 
     <style name="Theme.Transparent" parent="AppTheme">
