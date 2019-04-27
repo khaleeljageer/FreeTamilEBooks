@@ -20,7 +20,7 @@
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:background="@color/colorAccent_alpha_10"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     tools:ignore="ContentDescription"/>
             <RelativeLayout
                     android:id="@+id/rlDownloadView"

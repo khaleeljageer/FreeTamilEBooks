@@ -11,7 +11,7 @@ import org.geometerplus.android.fbreader.FBReader
 
 object DownloadUtil {
 
-    fun queueForDownload(context: Context, book: LocalBooks) {
+    fun queueForDownload(context: Context, book: LocalBooks) : Long {
 
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val url = book.epub
@@ -31,19 +31,11 @@ object DownloadUtil {
         DownloadManagerHelper.saveDownload(context, id)
         AppDatabase.getAppDatabase(context).localBooksDao()
             .updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
+        return id
     }
 
     fun openSavedBook(context: Context, book: LocalBooks) {
         PrintLog.info("savedPath ${book.savedPath}")
-        /*val config = Config()
-            .setAllowedDirection(Config.AllowedDirection.ONLY_VERTICAL)
-            .setNightMode(false)
-            .setShowTts(false)
-            .setThemeColorRes(R.color.colorAccent)
-            .setDirection(Config.Direction.VERTICAL)
-
-        FolioReader.get()
-            .setConfig(config, true).openBook(book.savedPath)*/
 
         FBReader.openBookActivity(context, book.savedPath)
     }

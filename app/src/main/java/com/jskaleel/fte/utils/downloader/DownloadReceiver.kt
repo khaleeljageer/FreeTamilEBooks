@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.jskaleel.fte.database.AppDatabase
+import com.jskaleel.fte.model.DownloadCompleted
 import com.jskaleel.fte.utils.PrintLog
+import com.jskaleel.fte.utils.RxBus
 
 class DownloadReceiver : BroadcastReceiver() {
 
@@ -19,9 +21,8 @@ class DownloadReceiver : BroadcastReceiver() {
         val file = DownloadManagerHelper.getDownloadedFile(context, id)
         if (file.isSuccessful()) {
             PrintLog.info("Download Completed $id")
-            PrintLog.info("${localBooksDao.getDownloadedBook(id)}")
             localBooksDao.updateStatus(true, id)
-            PrintLog.info("${localBooksDao.getDownloadedBook(id)}")
+            RxBus.publish(DownloadCompleted(id))
         }
     }
 }

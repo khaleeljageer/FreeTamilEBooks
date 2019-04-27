@@ -2,6 +2,7 @@ package com.jskaleel.fte.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.LongSparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.model.DownloadCompleted
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
@@ -21,12 +23,16 @@ import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), BookClickListener {
+
+    var downloadsPositions = LongSparseArray<Long>()
+
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
         if (book.isDownloaded) {
             DownloadUtil.openSavedBook(mContext, book)
         } else {
-            DownloadUtil.queueForDownload(mContext, book)
+            val downloadID = DownloadUtil.queueForDownload(mContext, book)
+            downloadsPositions.put(downloadID, adapterPosition.toLong())
         }
     }
 
@@ -64,6 +70,11 @@ class HomeFragment : Fragment(), BookClickListener {
         RxBus.subscribe {
             if (it is ScrollList) {
                 rvBookList.smoothScrollToPosition(0)
+            } else if (it is DownloadCompleted) {
+                if (isAdded) {
+                    val downloadedBook = appDataBase.localBooksDao().getDownloadedBook(it.downloadId)
+                    adapter.updateItemStatus(downloadsPositions.get(it.downloadId).toInt(), downloadedBook)
+                }
             }
         }
     }

@@ -21,7 +21,6 @@ class BookViewHolder(
     override fun bindData(book: LocalBooks, adapterPosition: Int) {
         Glide.with(mContext)
             .load(book.image)
-            .centerCrop()
             .transition(withCrossFade())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(itemView.arBookImage)

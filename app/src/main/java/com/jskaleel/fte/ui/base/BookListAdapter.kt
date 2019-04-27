@@ -56,4 +56,11 @@ class BookListAdapter(
         booksList.clear()
         notifyDataSetChanged()
     }
+
+    fun updateItemStatus(itemPosition: Int, downloadedBook: LocalBooks) {
+        booksList[itemPosition].savedPath = downloadedBook.savedPath
+        booksList[itemPosition].isDownloaded = downloadedBook.isDownloaded
+        booksList[itemPosition].downloadId = downloadedBook.downloadId
+        notifyItemChanged(itemPosition)
+    }
 }
