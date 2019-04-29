@@ -30,21 +30,23 @@ android {
     }
 }
 
-//tasks.withType(JavaCompile) {
-//    compileTask -> compileTask.dependsOn CopyToJniLibs
-//}
-//
+tasks.withType(JavaCompile) {
+    compileTask -> compileTask.dependsOn CopyToJniLibs
+}
+
 //task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
 //    Properties properties = new Properties()
 //    properties.load(project.rootProject.file('local.properties').newDataInputStream())
 //    def ndkDir = properties.getProperty('ndk.dir')
-//    commandLine "$ndkDir/ndk-build.cmd", "NDK_PROJECT_PATH=$projectDir.absolutePath\\build", "APP_BUILD_SCRIPT=$projectDir.absolutePath\\src\\main\\jni\\Android.mk", "NDK_APPLICATION_MK=$projectDir.absolutePath\\src\\main\\jni\\Application.mk"
+//    commandLine "$ndkDir", '-C', "NDK_PROJECT_PATH=$projectDir.absolutePath\\build",
+//            "APP_BUILD_SCRIPT=$projectDir.absolutePath\\src\\main\\jni\\Android.mk",
+//            "NDK_APPLICATION_MK=$projectDir.absolutePath\\src\\main\\jni\\Application.mk"
 //}
-//
-//task CopyToJniLibs(type: Copy, dependsOn: 'ndkBuild', description: 'copy the native libs to jniLibs') {
-//    from fileTree(dir: file(buildDir.absolutePath + '/libs'), include: '**/*.so')
-//    into file('src/main/jniLibs')
-//}
+
+task CopyToJniLibs(type: Copy, description: 'copy the native libs to jniLibs') {
+    from fileTree(dir: file(buildDir.absolutePath + '/libs'), include: '**/*.so')
+    into file('src/main/jniLibs')
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
