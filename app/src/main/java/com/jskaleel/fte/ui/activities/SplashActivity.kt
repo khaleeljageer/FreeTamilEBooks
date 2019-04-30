@@ -14,7 +14,6 @@ import com.jskaleel.fte.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.io.InputStream
 import java.lang.ref.WeakReference
-import com.jskaleel.fte.utils.NetworkSchedulerService
 
 class SplashActivity : BaseActivity() {
     private val sleepDuration: Long = 2000
@@ -24,7 +23,6 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
 
         val mHandler = FTEHandler(this@SplashActivity)
         mHandler.sendEmptyMessageDelayed(1, sleepDuration)

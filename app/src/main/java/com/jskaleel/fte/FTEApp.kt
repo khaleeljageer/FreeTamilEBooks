@@ -5,8 +5,10 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.crashlytics.android.Crashlytics
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.utils.NetworkSchedulerService
+import io.fabric.sdk.android.Fabric
 import org.geometerplus.android.fbreader.FBReaderApplication
 import org.geometerplus.android.fbreader.util.FBReaderConfig
 
@@ -14,6 +16,8 @@ import org.geometerplus.android.fbreader.util.FBReaderConfig
 class FTEApp : FBReaderApplication() {
     override fun onCreate() {
         super.onCreate()
+        Fabric.with(this, Crashlytics())
+
         MultiDex.install(this@FTEApp)
         scheduleJob()
         AppDatabase.getAppDatabase(this@FTEApp)

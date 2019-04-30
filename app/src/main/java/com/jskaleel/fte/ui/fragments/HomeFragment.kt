@@ -69,7 +69,11 @@ class HomeFragment : Fragment(), BookClickListener {
 
         RxBus.subscribe {
             if (it is ScrollList) {
-                rvBookList.smoothScrollToPosition(0)
+                try {
+                    rvBookList.smoothScrollToPosition(0)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             } else if (it is DownloadCompleted) {
                 if (isAdded) {
                     val downloadedBook = appDataBase.localBooksDao().getDownloadedBook(it.downloadId)

@@ -1,6 +1,5 @@
 package com.jskaleel.fte.ui.activities
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -20,10 +19,6 @@ import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
 import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.activity_main.*
-
-/* https://medium.com/material-design-in-action/implementing-bottomappbar-behavior-fbfbc3a30568
-* https://github.com/firatkarababa/BottomAppBar
-* */
 
 class MainActivity : BaseActivity() {
     private lateinit var bottomNavDrawerFragment: BottomNavigationDrawerFragment
