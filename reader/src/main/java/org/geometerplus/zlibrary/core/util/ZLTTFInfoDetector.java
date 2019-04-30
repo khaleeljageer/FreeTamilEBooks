@@ -19,8 +19,14 @@
 
 package org.geometerplus.zlibrary.core.util;
 
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ZLTTFInfoDetector {
 	private static final List<String> STYLES = Arrays.asList(

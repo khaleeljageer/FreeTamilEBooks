@@ -19,22 +19,21 @@
 
 package org.geometerplus.android.fbreader.tree;
 
-import java.util.*;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
-
+import android.view.KeyEvent;
+import android.view.Window;
 import org.fbreader.util.Pair;
-
-import org.geometerplus.android.util.UIMessageUtil;
-import org.geometerplus.android.util.UIUtil;
-
-import org.geometerplus.fbreader.tree.FBTree;
-
 import org.geometerplus.android.fbreader.util.AndroidImageSynchronizer;
 import org.geometerplus.android.util.OrientationUtil;
+import org.geometerplus.android.util.UIMessageUtil;
+import org.geometerplus.android.util.UIUtil;
+import org.geometerplus.fbreader.tree.FBTree;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class TreeActivity<T extends FBTree> extends ListActivity {
 	private static final String OPEN_TREE_ACTION = "android.fbreader.action.OPEN_TREE";

@@ -19,15 +19,17 @@
 
 package org.geometerplus.zlibrary.core.filetypes;
 
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MimeType;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.TreeMap;
 
 public class FileTypeCollection {
 	public static final FileTypeCollection Instance = new FileTypeCollection();
 
-	private final TreeMap<String,FileType> myTypes = new TreeMap<String,FileType>();
+	private final TreeMap<String, FileType> myTypes = new TreeMap<String, FileType>();
 
 	private FileTypeCollection() {
 		addType(new FileTypeFB2());

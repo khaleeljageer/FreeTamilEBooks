@@ -19,25 +19,24 @@
 
 package org.geometerplus.android.fbreader.libraryService;
 
-import java.util.*;
-import java.math.BigDecimal;
-
 import android.content.Context;
-import android.database.sqlite.*;
-import android.database.SQLException;
 import android.database.Cursor;
-
-import org.geometerplus.zlibrary.core.options.Config;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDoneException;
+import android.database.sqlite.SQLiteStatement;
+import org.geometerplus.android.util.SQLiteUtil;
+import org.geometerplus.fbreader.book.*;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.options.Config;
 import org.geometerplus.zlibrary.core.options.ZLIntegerOption;
 import org.geometerplus.zlibrary.core.util.RationalNumber;
 import org.geometerplus.zlibrary.core.util.ZLColor;
-import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
+import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 
-import org.geometerplus.fbreader.book.*;
-
-import org.geometerplus.android.util.SQLiteUtil;
+import java.math.BigDecimal;
+import java.util.*;
 
 final class SQLiteBooksDatabase extends BooksDatabase {
 	private final SQLiteDatabase myDatabase;

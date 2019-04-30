@@ -19,16 +19,16 @@
 
 package org.geometerplus.zlibrary.text.hyphenation;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.language.Language;
-import org.geometerplus.zlibrary.core.language.ZLLanguageUtil;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
+import org.geometerplus.zlibrary.core.language.Language;
+import org.geometerplus.zlibrary.core.language.ZLLanguageUtil;
+
+import java.util.*;
 
 final class ZLTextTeXHyphenator extends ZLTextHyphenator {
-	private final HashMap<ZLTextTeXHyphenationPattern,ZLTextTeXHyphenationPattern> myPatternTable =
-		new HashMap<ZLTextTeXHyphenationPattern,ZLTextTeXHyphenationPattern>();
+	private final HashMap<ZLTextTeXHyphenationPattern, ZLTextTeXHyphenationPattern> myPatternTable =
+		new HashMap<ZLTextTeXHyphenationPattern, ZLTextTeXHyphenationPattern>();
 	private int myMaxPatternLength;
 	private String myLanguage;
 
@@ -90,7 +90,7 @@ final class ZLTextTeXHyphenator extends ZLTextHyphenator {
 
 		byte[] values = new byte[length + 1];
 
-		final HashMap<ZLTextTeXHyphenationPattern,ZLTextTeXHyphenationPattern> table = myPatternTable;
+		final HashMap<ZLTextTeXHyphenationPattern, ZLTextTeXHyphenationPattern> table = myPatternTable;
 		ZLTextTeXHyphenationPattern pattern =
 			new ZLTextTeXHyphenationPattern(stringToHyphenate, 0, length, false);
 		for (int offset = 0; offset < length - 1; offset++) {

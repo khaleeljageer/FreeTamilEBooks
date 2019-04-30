@@ -19,23 +19,18 @@
 
 package org.geometerplus.android.fbreader.preferences.background;
 
-import java.util.List;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
-
 import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.util.FileChooserUtil;
+import org.geometerplus.fbreader.Paths;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.ui.android.R;
-import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
 
-import org.geometerplus.fbreader.Paths;
-
-import org.geometerplus.android.util.FileChooserUtil;
+import java.util.List;
 
 public class Chooser extends ListActivity implements AdapterView.OnItemClickListener {
 	private final ZLResource myResource = ZLResource.resource("Preferences").getResource("colors").getResource("background");
@@ -66,7 +61,7 @@ public class Chooser extends ListActivity implements AdapterView.OnItemClickList
 				//纯色
 				final ZLResource buttonResource =
 					ZLResource.resource("dialog").getResource("button");
-				FBReader.toast("纯色");
+				FBReader.toast("Solid Color");
 				break;
 			}
 			case 1:

@@ -19,12 +19,11 @@
 
 package org.geometerplus.fbreader.formats;
 
-import java.io.IOException;
-
 import org.amse.ys.zip.ZipException;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
+
+import java.io.IOException;
 
 public final class BookReadingException extends Exception {
 	private static String getResourceText(String resourceId, String ... params) {

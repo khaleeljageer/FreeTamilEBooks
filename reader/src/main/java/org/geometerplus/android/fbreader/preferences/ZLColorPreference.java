@@ -20,13 +20,10 @@
 package org.geometerplus.android.fbreader.preferences;
 
 import android.content.Context;
-
-import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.options.ZLColorOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
+import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.ui.android.R;
-import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
 
 class ZLColorPreference extends ColorPreference {
 	private final ZLColorOption myOption;

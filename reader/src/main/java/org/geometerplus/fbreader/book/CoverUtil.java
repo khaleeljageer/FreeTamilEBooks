@@ -19,13 +19,12 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.lang.ref.WeakReference;
-import java.util.WeakHashMap;
-
+import org.geometerplus.fbreader.formats.IFormatPluginCollection;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 
-import org.geometerplus.fbreader.formats.IFormatPluginCollection;
+import java.lang.ref.WeakReference;
+import java.util.WeakHashMap;
 
 public abstract class CoverUtil {
 	private static final WeakReference<ZLImage> NULL_IMAGE = new WeakReference<ZLImage>(null);

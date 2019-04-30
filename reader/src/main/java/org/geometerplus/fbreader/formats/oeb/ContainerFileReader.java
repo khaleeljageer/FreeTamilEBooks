@@ -19,7 +19,8 @@
 
 package org.geometerplus.fbreader.formats.oeb;
 
-import org.geometerplus.zlibrary.core.xml.*;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
+import org.geometerplus.zlibrary.core.xml.ZLXMLReaderAdapter;
 
 class ContainerFileReader extends ZLXMLReaderAdapter {
 	private String myRootPath;

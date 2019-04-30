@@ -19,18 +19,16 @@
 
 package org.geometerplus.fbreader.network.tree;
 
-import java.util.*;
-
 import org.fbreader.util.Boolean3;
 import org.fbreader.util.Pair;
-
+import org.geometerplus.fbreader.network.*;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.network.QuietNetworkContext;
 import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
 
-import org.geometerplus.fbreader.tree.FBTree;
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import java.util.*;
 
 public class NetworkCatalogTree extends NetworkTree {
 	private final INetworkLink myLink;

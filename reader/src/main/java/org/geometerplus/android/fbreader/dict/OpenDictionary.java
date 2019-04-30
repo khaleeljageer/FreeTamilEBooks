@@ -19,15 +19,16 @@
 
 package org.geometerplus.android.fbreader.dict;
 
-import java.util.*;
-
 import android.content.Context;
-
-import com.paragon.dictionary.fbreader.OpenDictionaryFlyout;
 import com.paragon.open.dictionary.api.Dictionary;
 import com.paragon.open.dictionary.api.OpenDictionaryAPI;
-
+import fbreader.OpenDictionaryFlyout;
 import org.geometerplus.android.fbreader.FBReaderMainActivity;
+
+import java.util.Comparator;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 final class OpenDictionary extends DictionaryUtil.PackageInfo {
 	static void collect(Context context, Map<DictionaryUtil.PackageInfo,Integer> dictMap) {

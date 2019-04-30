@@ -19,20 +19,20 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.Collections;
-
 import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.formats.PluginCollection;
 
-public class AuthorTree extends FilteredTree {
-	public final Author Author;
+import java.util.Collections;
 
-	AuthorTree(IBookCollection collection, PluginCollection pluginCollection, Author author) {
+public class AuthorTree extends FilteredTree {
+	public final org.geometerplus.fbreader.book.Author Author;
+
+	AuthorTree(IBookCollection collection, PluginCollection pluginCollection, org.geometerplus.fbreader.book.Author author) {
 		super(collection, pluginCollection, new Filter.ByAuthor(author));
 		Author = author;
 	}
 
-	AuthorTree(AuthorListTree parent, Author author, int position) {
+	AuthorTree(AuthorListTree parent, org.geometerplus.fbreader.book.Author author, int position) {
 		super(parent, new Filter.ByAuthor(author), position);
 		Author = author;
 	}

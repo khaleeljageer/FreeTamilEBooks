@@ -19,11 +19,11 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-
 import androidx.collection.LruCache;
 import org.geometerplus.zlibrary.text.model.ZLTextModel;
+import org.jetbrains.annotations.NotNull;
 
-final class CursorManager extends LruCache<Integer,ZLTextParagraphCursor> {
+final class CursorManager extends LruCache<Integer, ZLTextParagraphCursor> {
 	private final ZLTextModel myModel;
 	final ExtensionElementManager ExtensionManager;
 
@@ -34,7 +34,7 @@ final class CursorManager extends LruCache<Integer,ZLTextParagraphCursor> {
 	}
 
 	@Override
-	protected ZLTextParagraphCursor create(Integer index) {
+	protected ZLTextParagraphCursor create(@NotNull Integer index) {
 		return new ZLTextParagraphCursor(this, myModel, index);
 	}
 }

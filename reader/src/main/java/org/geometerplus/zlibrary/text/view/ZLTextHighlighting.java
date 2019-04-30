@@ -19,10 +19,10 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-import java.util.List;
-
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.view.Hull;
+
+import java.util.List;
 
 public abstract class ZLTextHighlighting implements Comparable<ZLTextHighlighting> {
 	public abstract boolean isEmpty();

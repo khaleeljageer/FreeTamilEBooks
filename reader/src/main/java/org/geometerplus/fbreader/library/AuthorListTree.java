@@ -19,10 +19,12 @@
 
 package org.geometerplus.fbreader.library;
 
+import org.geometerplus.fbreader.book.Author;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookEvent;
+
 import java.util.Collections;
 import java.util.List;
-
-import org.geometerplus.fbreader.book.*;
 
 public class AuthorListTree extends FirstLevelTree {
 	AuthorListTree(RootTree root) {

@@ -19,10 +19,10 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.view.Hull;
-import org.geometerplus.zlibrary.core.view.ZLPaintContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ZLTextRegion {
 	public static abstract class Soul implements Comparable<Soul> {

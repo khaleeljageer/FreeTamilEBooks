@@ -19,17 +19,15 @@
 
 package org.geometerplus.fbreader.network.urlInfo;
 
-import java.io.File;
-import java.util.Arrays;
-
 import android.net.Uri;
-
-import org.geometerplus.zlibrary.core.filetypes.FileType;
-import org.geometerplus.zlibrary.core.filetypes.FileTypeCollection;
-import org.geometerplus.zlibrary.core.util.*;
-
 import org.geometerplus.fbreader.Paths;
 import org.geometerplus.fbreader.formats.PluginCollection;
+import org.geometerplus.zlibrary.core.filetypes.FileType;
+import org.geometerplus.zlibrary.core.filetypes.FileTypeCollection;
+import org.geometerplus.zlibrary.core.util.MimeType;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
+
+import java.io.File;
 
 // resolvedReferenceType -- reference type without any ambiguity (for example, DOWNLOAD_FULL_OR_DEMO is ambiguous)
 

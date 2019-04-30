@@ -19,21 +19,20 @@
 
 package org.geometerplus.android.fbreader.libraryService;
 
-import java.util.*;
-
 import android.app.Service;
 import android.content.*;
 import android.os.IBinder;
 import android.os.RemoteException;
-
+import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import org.geometerplus.fbreader.book.*;
 import org.geometerplus.zlibrary.core.options.Config;
-
 import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 
-import org.geometerplus.fbreader.book.*;
-
-import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BookCollectionShadow extends AbstractBookCollection<Book> implements ServiceConnection {
 	private volatile Context myContext;

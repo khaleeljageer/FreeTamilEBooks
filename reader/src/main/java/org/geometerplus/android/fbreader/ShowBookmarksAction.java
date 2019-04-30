@@ -21,13 +21,11 @@ package org.geometerplus.android.fbreader;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
-
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
 import org.geometerplus.android.fbreader.bookmark.BookmarksActivity;
 import org.geometerplus.android.util.OrientationUtil;
 import org.geometerplus.android.util.PackageUtil;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 class ShowBookmarksAction extends FBAndroidAction {
 	ShowBookmarksAction(FBReader baseActivity, FBReaderApp fbreader) {

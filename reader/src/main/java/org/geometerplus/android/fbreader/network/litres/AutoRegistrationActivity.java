@@ -19,19 +19,18 @@
 
 package org.geometerplus.android.fbreader.network.litres;
 
-import java.util.ArrayList;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.*;
-import android.widget.*;
-
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.TextView;
+import org.geometerplus.fbreader.network.authentication.litres.LitResNetworkRequest;
+import org.geometerplus.fbreader.network.authentication.litres.LitResPasswordRecoveryXMLReader;
+import org.geometerplus.fbreader.network.authentication.litres.LitResRegisterUserXMLReader;
 import org.geometerplus.zlibrary.core.network.ZLNetworkAuthenticationException;
 import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.ui.android.R;
-
-import org.geometerplus.fbreader.network.authentication.litres.*;
 
 /*
  * Algorithm:

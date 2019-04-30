@@ -19,19 +19,16 @@
 
 package org.geometerplus.android.fbreader.network.auth;
 
-import java.net.URI;
-import java.util.*;
-
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
-
-import org.geometerplus.zlibrary.core.network.*;
 import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
 import org.geometerplus.android.util.OrientationUtil;
+
+import java.net.URI;
+import java.util.Map;
 
 public final class ActivityNetworkContext extends AndroidNetworkContext {
 	private final Activity myActivity;

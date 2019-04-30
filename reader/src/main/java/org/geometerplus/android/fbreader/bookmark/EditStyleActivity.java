@@ -19,20 +19,18 @@
 
 package org.geometerplus.android.fbreader.bookmark;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.view.Window;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.core.util.ZLColor;
-
+import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
+import org.geometerplus.android.fbreader.preferences.ColorPreference;
+import org.geometerplus.android.fbreader.preferences.ZLCheckBoxPreference;
+import org.geometerplus.android.fbreader.preferences.ZLStringPreference;
 import org.geometerplus.fbreader.book.BookmarkUtil;
 import org.geometerplus.fbreader.book.HighlightingStyle;
-
-import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
-import org.geometerplus.android.fbreader.preferences.*;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.core.util.ZLColor;
 
 public class EditStyleActivity extends PreferenceActivity {
 	static final String STYLE_ID_KEY = "style.id";

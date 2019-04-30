@@ -20,9 +20,8 @@
 package org.geometerplus.android.fbreader.network.action;
 
 import android.app.Activity;
-
-import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.fbreader.network.BasketItem;
+import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.fbreader.network.tree.BasketCatalogTree;
 
 public class ClearBasketAction extends CatalogAction {

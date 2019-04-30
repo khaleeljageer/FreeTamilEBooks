@@ -19,11 +19,11 @@
 
 package org.geometerplus.zlibrary.core.library;
 
-import java.util.List;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
 import org.geometerplus.zlibrary.core.options.ZLIntegerOption;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
+
+import java.util.List;
 
 public abstract class ZLibrary {
 	public static ZLibrary Instance() {

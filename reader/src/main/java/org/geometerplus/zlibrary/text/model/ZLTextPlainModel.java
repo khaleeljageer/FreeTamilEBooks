@@ -19,11 +19,12 @@
 
 package org.geometerplus.zlibrary.text.model;
 
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.fonts.FontManager;
 import org.geometerplus.zlibrary.core.image.ZLImage;
-import org.geometerplus.zlibrary.core.util.*;
+import org.geometerplus.zlibrary.core.util.ZLSearchPattern;
+import org.geometerplus.zlibrary.core.util.ZLSearchUtil;
+
+import java.util.*;
 
 public final class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 	private final String myId;
@@ -42,7 +43,7 @@ public final class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Fea
 
 	//CachedCharStorage类内部的char数组是实际存储文本信息与标签信息的地方
 	private final CachedCharStorage myStorage;
-	private final Map<String,ZLImage> myImageMap;
+	private final Map<String, ZLImage> myImageMap;
 
 	private ArrayList<ZLTextMark> myMarks;
 
@@ -314,7 +315,7 @@ public final class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Fea
 		String directoryName,
 		String fileExtension,
 		int blocksNumber,
-		Map<String,ZLImage> imageMap,
+		Map<String, ZLImage> imageMap,
 		FontManager fontManager
 	) {
 		myId = id;

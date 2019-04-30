@@ -19,15 +19,13 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.fbreader.util.Pair;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.book.Filter;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class SyncTree extends FirstLevelTree {
 	private final List<String> myLabels = Arrays.asList(

@@ -19,9 +19,9 @@
 
 package org.geometerplus.android.fbreader.preferences;
 
-import java.util.LinkedList;
-
 import android.preference.Preference;
+
+import java.util.LinkedList;
 
 abstract class PreferenceSet<T> implements Runnable {
 	private final LinkedList<Preference> myPreferences = new LinkedList<Preference>();

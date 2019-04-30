@@ -19,13 +19,15 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookEvent;
+import org.geometerplus.fbreader.book.IBookCollection;
+import org.geometerplus.fbreader.book.Tag;
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.formats.PluginCollection;
-import org.geometerplus.fbreader.tree.FBTree;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public abstract class LibraryTree extends FBTree {
 	public static ZLResource resource() {
@@ -33,7 +35,7 @@ public abstract class LibraryTree extends FBTree {
 	}
 
 	public final IBookCollection<Book> Collection;
-	public final PluginCollection PluginCollection;
+	public final org.geometerplus.fbreader.formats.PluginCollection PluginCollection;
 
 	static final String ROOT_EXTERNAL_VIEW = "bookshelfView";
 	static final String ROOT_FOUND = "found";
@@ -46,7 +48,7 @@ public abstract class LibraryTree extends FBTree {
 	static final String ROOT_SYNC = "sync";
 	static final String ROOT_FILE = "fileTree";
 
-	protected LibraryTree(IBookCollection collection, PluginCollection pluginCollection) {
+	protected LibraryTree(IBookCollection collection, org.geometerplus.fbreader.formats.PluginCollection pluginCollection) {
 		super();
 		Collection = collection;
 		PluginCollection = pluginCollection;

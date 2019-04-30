@@ -19,14 +19,12 @@
 
 package org.geometerplus.android.fbreader.preferences;
 
-import java.util.ArrayList;
-
 import android.content.Context;
-
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.zlibrary.ui.android.view.AndroidFontUtil;
+
+import java.util.ArrayList;
 
 class FontPreference extends ZLStringListPreference implements ReloadablePreference {
 	private final ZLStringOption myOption;

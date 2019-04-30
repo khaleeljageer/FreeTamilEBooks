@@ -19,14 +19,12 @@
 
 package org.geometerplus.android.fbreader.covers;
 
-import java.util.concurrent.Future;
-
-import android.widget.ImageView;
 import android.graphics.Bitmap;
-
+import android.widget.ImageView;
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.image.ZLImageProxy;
 
-import org.geometerplus.fbreader.tree.FBTree;
+import java.util.concurrent.Future;
 
 class CoverHolder {
 	private final CoverManager myManager;

@@ -19,14 +19,12 @@
 
 package org.geometerplus.android.fbreader;
 
-import android.content.Intent;
 import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.net.Uri;
-
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
-
 import org.geometerplus.android.fbreader.api.PluginApi;
 import org.geometerplus.android.util.OrientationUtil;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 class RunPluginAction extends FBAndroidAction {
 	private final Uri myUri;

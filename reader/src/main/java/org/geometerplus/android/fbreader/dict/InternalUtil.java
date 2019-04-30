@@ -22,7 +22,6 @@ package org.geometerplus.android.fbreader.dict;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-
 import org.geometerplus.android.fbreader.FBReaderMainActivity;
 import org.geometerplus.android.util.PackageUtil;
 

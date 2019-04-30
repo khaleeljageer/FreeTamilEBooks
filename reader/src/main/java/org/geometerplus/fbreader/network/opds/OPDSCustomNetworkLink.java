@@ -19,17 +19,24 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-
 import org.fbreader.util.ComparisonUtil;
-
-import org.geometerplus.zlibrary.core.network.*;
+import org.geometerplus.fbreader.network.ICustomNetworkLink;
+import org.geometerplus.fbreader.network.NetworkException;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoWithDate;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.urlInfo.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class OPDSCustomNetworkLink extends OPDSNetworkLink implements ICustomNetworkLink {
 	private final Type myType;

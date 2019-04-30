@@ -23,14 +23,15 @@ import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.util.ZLColor;
-import org.geometerplus.zlibrary.core.view.ZLView;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
-
+import org.geometerplus.zlibrary.core.view.ZLView;
 import org.geometerplus.zlibrary.text.model.ZLTextMetrics;
+import org.geometerplus.zlibrary.text.view.style.ZLTextExplicitlyDecoratedStyle;
+import org.geometerplus.zlibrary.text.view.style.ZLTextNGStyle;
+import org.geometerplus.zlibrary.text.view.style.ZLTextNGStyleDescription;
+import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
 
-import org.geometerplus.zlibrary.text.view.style.*;
-
-abstract class ZLTextViewBase extends ZLView {
+public abstract class ZLTextViewBase extends ZLView {
 	public static enum ImageFitting {
 		none, covers, all
 	}

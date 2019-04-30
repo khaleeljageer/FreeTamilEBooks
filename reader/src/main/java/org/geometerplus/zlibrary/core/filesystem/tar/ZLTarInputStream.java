@@ -19,8 +19,8 @@
 
 package org.geometerplus.zlibrary.core.filesystem.tar;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 class ZLTarInputStream extends InputStream {
 	private final InputStream myBase;

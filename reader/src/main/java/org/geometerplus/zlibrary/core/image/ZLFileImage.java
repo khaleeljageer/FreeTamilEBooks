@@ -19,11 +19,15 @@
 
 package org.geometerplus.zlibrary.core.image;
 
-import java.io.*;
-
 import org.geometerplus.zlibrary.core.drm.FileEncryptionInfo;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.util.*;
+import org.geometerplus.zlibrary.core.util.Base64InputStream;
+import org.geometerplus.zlibrary.core.util.HexInputStream;
+import org.geometerplus.zlibrary.core.util.MergedInputStream;
+import org.geometerplus.zlibrary.core.util.SliceInputStream;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ZLFileImage implements ZLStreamImage {
 	public static final String SCHEME = "imagefile";

@@ -20,7 +20,6 @@
 package org.geometerplus.fbreader.library;
 
 import org.fbreader.util.Pair;
-
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 abstract class FirstLevelTree extends LibraryTree {

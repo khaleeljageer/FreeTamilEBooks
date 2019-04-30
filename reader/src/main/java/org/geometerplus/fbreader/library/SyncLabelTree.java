@@ -20,11 +20,10 @@
 package org.geometerplus.fbreader.library;
 
 import org.fbreader.util.Pair;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.book.Filter;
+import org.geometerplus.fbreader.tree.FBTree;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 public class SyncLabelTree extends FilteredTree {
 	public final String Label;
@@ -62,8 +61,8 @@ public class SyncLabelTree extends FilteredTree {
 	}
 
 	@Override
-	public Status getOpeningStatus() {
-		return Status.ALWAYS_RELOAD_BEFORE_OPENING;
+	public FBTree.Status getOpeningStatus() {
+		return FBTree.Status.ALWAYS_RELOAD_BEFORE_OPENING;
 	}
 
 	@Override

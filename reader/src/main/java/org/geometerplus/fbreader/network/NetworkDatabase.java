@@ -19,12 +19,14 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.util.Map;
-import java.util.List;
-
-import org.geometerplus.fbreader.network.urlInfo.*;
 import org.geometerplus.fbreader.network.opds.OPDSCustomNetworkLink;
 import org.geometerplus.fbreader.network.opds.OPDSPredefinedNetworkLink;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoWithDate;
+
+import java.util.List;
+import java.util.Map;
 
 public abstract class NetworkDatabase {
 	private static NetworkDatabase ourInstance;

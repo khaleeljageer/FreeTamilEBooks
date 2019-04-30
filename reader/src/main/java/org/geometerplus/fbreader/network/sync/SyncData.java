@@ -19,17 +19,17 @@
 
 package org.geometerplus.fbreader.network.sync;
 
-import java.util.*;
-
-import org.json.simple.JSONValue;
-
-import org.geometerplus.zlibrary.core.options.*;
-
-import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
-
 import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.book.IBookCollection;
 import org.geometerplus.fbreader.fbreader.options.SyncOptions;
+import org.geometerplus.zlibrary.core.options.Config;
+import org.geometerplus.zlibrary.core.options.ZLIntegerOption;
+import org.geometerplus.zlibrary.core.options.ZLStringListOption;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
+import org.json.simple.JSONValue;
+
+import java.util.*;
 
 public class SyncData {
 	public final static class ServerBookInfo {
@@ -237,7 +237,7 @@ public class SyncData {
 	public ZLTextFixedPosition.WithTimestamp getAndCleanPosition(String hash) {
 		final ZLStringOption option = positionOption(hash);
 		try {
-			return map2Position((Map)JSONValue.parse(option.getValue()));
+			return map2Position((Map) JSONValue.parse(option.getValue()));
 		} catch (Throwable t) {
 			return null;
 		} finally {

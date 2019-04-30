@@ -19,10 +19,10 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.util.List;
-
 import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
+
+import java.util.List;
 
 public interface IBookCollection<B extends AbstractBook> extends AbstractSerializer.BookCreator<B> {
 	public enum Status {

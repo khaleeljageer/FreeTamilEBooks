@@ -19,10 +19,10 @@
 
 package org.geometerplus.zlibrary.core.filetypes;
 
-import java.util.List;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MimeType;
+
+import java.util.List;
 
 public abstract class FileType {
 	public final String Id;

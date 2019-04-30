@@ -5,26 +5,15 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
+import android.graphics.*;
 import android.graphics.Bitmap.Config;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PixelFormat;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
-
+import android.widget.ImageView;
 import androidx.appcompat.widget.AppCompatImageView;
 import org.geometerplus.zlibrary.ui.android.R;
 
@@ -35,20 +24,20 @@ public class RoundImageView extends AppCompatImageView {
 
     private int mResource = 0;
 
-    private static final ScaleType[] sScaleTypeArray = {
-            ScaleType.MATRIX,
-            ScaleType.FIT_XY,
-            ScaleType.FIT_START,
-            ScaleType.FIT_CENTER,
-            ScaleType.FIT_END,
-            ScaleType.CENTER,
-            ScaleType.CENTER_CROP,
-            ScaleType.CENTER_INSIDE
+    private static final ImageView.ScaleType[] sScaleTypeArray = {
+            ImageView.ScaleType.MATRIX,
+            ImageView.ScaleType.FIT_XY,
+            ImageView.ScaleType.FIT_START,
+            ImageView.ScaleType.FIT_CENTER,
+            ImageView.ScaleType.FIT_END,
+            ImageView.ScaleType.CENTER,
+            ImageView.ScaleType.CENTER_CROP,
+            ImageView.ScaleType.CENTER_INSIDE
     };
 
     // Set default scale type to FIT_CENTER, which is default scale type of
     // original ImageView.
-    private ScaleType mScaleType = ScaleType.FIT_CENTER;
+    private ImageView.ScaleType mScaleType = ImageView.ScaleType.FIT_CENTER;
 
     private float mLeftTopCornerRadius = 0.0f;
     private float mRightTopCornerRadius = 0.0f;
@@ -129,12 +118,12 @@ public class RoundImageView extends AppCompatImageView {
     }
 
     @Override
-    public ScaleType getScaleType() {
+    public ImageView.ScaleType getScaleType() {
         return mScaleType;
     }
 
     @Override
-    public void setScaleType(ScaleType scaleType) {
+    public void setScaleType(ImageView.ScaleType scaleType) {
         super.setScaleType(scaleType);
         mScaleType = scaleType;
         updateDrawable();
@@ -309,7 +298,7 @@ public class RoundImageView extends AppCompatImageView {
         private ColorStateList mBorderColor = ColorStateList.valueOf(DEFAULT_BORDER_COLOR);
         // Set default scale type to FIT_CENTER, which is default scale type of
         // original ImageView.
-        private ScaleType mScaleType = ScaleType.FIT_CENTER;
+        private ImageView.ScaleType mScaleType = ImageView.ScaleType.FIT_CENTER;
 
         private Path mPath = new Path();
         private Bitmap mBitmap;
@@ -418,21 +407,21 @@ public class RoundImageView extends AppCompatImageView {
             Rect clipBounds = canvas.getClipBounds();
             Matrix canvasMatrix = canvas.getMatrix();
 
-            if (ScaleType.CENTER == mScaleType) {
+            if (ImageView.ScaleType.CENTER == mScaleType) {
                 mBounds.set(clipBounds);
-            } else if (ScaleType.CENTER_CROP == mScaleType) {
+            } else if (ImageView.ScaleType.CENTER_CROP == mScaleType) {
                 applyScaleToRadii(canvasMatrix);
                 mBounds.set(clipBounds);
-            } else if (ScaleType.FIT_XY == mScaleType) {
+            } else if (ImageView.ScaleType.FIT_XY == mScaleType) {
                 Matrix m = new Matrix();
                 m.setRectToRect(mBitmapRect, new RectF(clipBounds), Matrix.ScaleToFit.FILL);
                 mBitmapShader.setLocalMatrix(m);
                 mBounds.set(clipBounds);
-            } else if (ScaleType.FIT_START == mScaleType || ScaleType.FIT_END == mScaleType
-                    || ScaleType.FIT_CENTER == mScaleType || ScaleType.CENTER_INSIDE == mScaleType) {
+            } else if (ImageView.ScaleType.FIT_START == mScaleType || ImageView.ScaleType.FIT_END == mScaleType
+                    || ImageView.ScaleType.FIT_CENTER == mScaleType || ImageView.ScaleType.CENTER_INSIDE == mScaleType) {
                 applyScaleToRadii(canvasMatrix);
                 mBounds.set(mBitmapRect);
-            } else if (ScaleType.MATRIX == mScaleType) {
+            } else if (ImageView.ScaleType.MATRIX == mScaleType) {
                 applyScaleToRadii(canvasMatrix);
                 mBounds.set(mBitmapRect);
             }
@@ -462,11 +451,11 @@ public class RoundImageView extends AppCompatImageView {
                     / (mBounds.height() + mBorderWidth + mBorderWidth);
 
             canvas.scale(newScaleX, newScaleY);
-            if (ScaleType.FIT_START == mScaleType || ScaleType.FIT_END == mScaleType
-                    || ScaleType.FIT_XY == mScaleType || ScaleType.FIT_CENTER == mScaleType
-                    || ScaleType.CENTER_INSIDE == mScaleType || ScaleType.MATRIX == mScaleType) {
+            if (ImageView.ScaleType.FIT_START == mScaleType || ImageView.ScaleType.FIT_END == mScaleType
+                    || ImageView.ScaleType.FIT_XY == mScaleType || ImageView.ScaleType.FIT_CENTER == mScaleType
+                    || ImageView.ScaleType.CENTER_INSIDE == mScaleType || ImageView.ScaleType.MATRIX == mScaleType) {
                 canvas.translate(mBorderWidth, mBorderWidth);
-            } else if (ScaleType.CENTER == mScaleType || ScaleType.CENTER_CROP == mScaleType) {
+            } else if (ImageView.ScaleType.CENTER == mScaleType || ImageView.ScaleType.CENTER_CROP == mScaleType) {
                 // First, make translate values to 0
                 canvas.translate(
                         -translateX / (newScaleX * scaleFactorX),
@@ -640,11 +629,11 @@ public class RoundImageView extends AppCompatImageView {
             mOval = oval;
         }
 
-        public ScaleType getScaleType() {
+        public ImageView.ScaleType getScaleType() {
             return mScaleType;
         }
 
-        public void setScaleType(ScaleType scaleType) {
+        public void setScaleType(ImageView.ScaleType scaleType) {
             if (scaleType == null) {
                 return;
 

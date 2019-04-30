@@ -19,11 +19,16 @@
 
 package org.geometerplus.zlibrary.text.view.style;
 
-import java.io.*;
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 class SimpleCSSReader {
 	private enum State {
@@ -36,13 +41,13 @@ class SimpleCSSReader {
 
 	private State myState;
 	private State mySavedState;
-	private Map<Integer,ZLTextNGStyleDescription> myDescriptionMap;
+	private Map<Integer, ZLTextNGStyleDescription> myDescriptionMap;
 	private Map<String,String> myCurrentMap;
 	private String mySelector;
 	private String myName;
 
-	Map<Integer,ZLTextNGStyleDescription> read(ZLFile file) {
-		myDescriptionMap = new LinkedHashMap<Integer,ZLTextNGStyleDescription>();
+	Map<Integer, ZLTextNGStyleDescription> read(ZLFile file) {
+		myDescriptionMap = new LinkedHashMap<Integer, ZLTextNGStyleDescription>();
 		myState = State.EXPECT_SELECTOR;
 
 		InputStream stream = null;

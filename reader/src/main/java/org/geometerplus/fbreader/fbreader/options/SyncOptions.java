@@ -19,7 +19,8 @@
 
 package org.geometerplus.fbreader.fbreader.options;
 
-import org.geometerplus.zlibrary.core.options.*;
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
+import org.geometerplus.zlibrary.core.options.ZLEnumOption;
 
 public class SyncOptions {
 	public static final String DOMAIN = "books.fbreader.org";

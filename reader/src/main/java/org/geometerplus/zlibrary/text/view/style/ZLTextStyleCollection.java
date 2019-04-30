@@ -19,14 +19,15 @@
 
 package org.geometerplus.zlibrary.text.view.style;
 
-import java.util.*;
-
+import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
+import org.geometerplus.zlibrary.core.util.XmlUtil;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
-import org.geometerplus.zlibrary.core.util.XmlUtil;
-import org.geometerplus.zlibrary.text.model.ZLTextAlignmentType;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class ZLTextStyleCollection {
 	public final String Screen;

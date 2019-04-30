@@ -20,7 +20,6 @@
 package org.geometerplus.android.util;
 
 import android.app.Activity;
-
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 

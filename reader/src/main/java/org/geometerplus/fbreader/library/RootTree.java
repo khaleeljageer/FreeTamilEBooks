@@ -19,12 +19,12 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.List;
-
 import org.geometerplus.fbreader.book.IBookCollection;
 import org.geometerplus.fbreader.fbreader.options.SyncOptions;
 import org.geometerplus.fbreader.formats.PluginCollection;
 import org.geometerplus.fbreader.tree.FBTree;
+
+import java.util.List;
 
 public class RootTree extends LibraryTree {
 	public RootTree(IBookCollection collection, PluginCollection pluginCollection) {

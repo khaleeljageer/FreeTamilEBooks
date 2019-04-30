@@ -19,17 +19,19 @@
 
 package org.geometerplus.fbreader.tips;
 
-import java.util.*;
-import java.io.File;
-
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.options.*;
-import org.geometerplus.zlibrary.core.network.QuietNetworkContext;
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-import org.geometerplus.zlibrary.core.util.SystemInfo;
-
 import org.geometerplus.fbreader.network.NetworkLibrary;
 import org.geometerplus.fbreader.network.atom.ATOMXMLReader;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.network.QuietNetworkContext;
+import org.geometerplus.zlibrary.core.options.Config;
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
+import org.geometerplus.zlibrary.core.options.ZLIntegerOption;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
+
+import java.io.File;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class TipsManager {
 	private final SystemInfo mySystemInfo;

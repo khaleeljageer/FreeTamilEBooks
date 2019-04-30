@@ -19,15 +19,17 @@
 
 package org.geometerplus.zlibrary.ui.android.library;
 
-import java.io.*;
-
 import android.app.Activity;
-import android.content.*;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Process;
-
-import org.geometerplus.zlibrary.ui.android.error.BugReportActivity;
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import org.geometerplus.zlibrary.ui.android.error.BugReportActivity;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class UncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
 	private final Context myContext;

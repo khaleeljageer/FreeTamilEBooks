@@ -1,7 +1,6 @@
 package org.geometerplus.android.fbreader;
 
 import android.util.Log;
-
 import org.geometerplus.android.util.TTSReadUtil;
 import org.geometerplus.fbreader.fbreader.ActionCode;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;

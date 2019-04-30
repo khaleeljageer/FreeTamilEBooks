@@ -19,12 +19,12 @@
 
 package org.geometerplus.fbreader.network.opds;
 
+import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
+
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
-import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 
 class URLRewritingRule {
 	// rule types:

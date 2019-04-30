@@ -19,19 +19,23 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.constants.XMLNamespaces;
-import org.geometerplus.zlibrary.core.util.MimeType;
-import org.geometerplus.zlibrary.core.xml.ZLStringMap;
-
 import org.geometerplus.fbreader.network.INetworkLink;
 import org.geometerplus.fbreader.network.NetworkLibrary;
 import org.geometerplus.fbreader.network.atom.ATOMLink;
 import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
 import org.geometerplus.fbreader.network.authentication.litres.LitResAuthenticationManager;
 import org.geometerplus.fbreader.network.rss.RSSNetworkLink;
-import org.geometerplus.fbreader.network.urlInfo.*;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoWithDate;
+import org.geometerplus.zlibrary.core.constants.XMLNamespaces;
+import org.geometerplus.zlibrary.core.util.MimeType;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 class OPDSLinkXMLReader extends OPDSXMLReader implements OPDSConstants {
 	private static class FeedHandler extends AbstractOPDSFeedHandler {
@@ -216,7 +220,7 @@ class OPDSLinkXMLReader extends OPDSXMLReader implements OPDSConstants {
 
 	@Override
 	public boolean startElementHandler(final String ns, final String tag,
-			final ZLStringMap attributes, final String bufferContent) {
+                                       final ZLStringMap attributes, final String bufferContent) {
 		switch (myState) {
 			case FEED:
 				if (ns == XMLNamespaces.Atom && tag == TAG_ENTRY) {

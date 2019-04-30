@@ -1,9 +1,12 @@
 package org.amse.ys.zip;
 
-import java.io.*;
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.util.InputStreamHolder;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 public final class ZipFile {
 	private final static Comparator<String> ourIgnoreCaseComparator = new Comparator<String>() {
@@ -14,8 +17,8 @@ public final class ZipFile {
 	};
 
 	private final InputStreamHolder myStreamHolder;
-	private final Map<String,LocalFileHeader> myFileHeaders =
-		new TreeMap<String,LocalFileHeader>(ourIgnoreCaseComparator);
+	private final Map<String, LocalFileHeader> myFileHeaders =
+		new TreeMap<String, LocalFileHeader>(ourIgnoreCaseComparator);
 
 	private boolean myAllFilesAreRead;
 

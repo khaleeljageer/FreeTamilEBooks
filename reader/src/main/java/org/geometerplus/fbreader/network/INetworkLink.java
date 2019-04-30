@@ -19,14 +19,13 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
-
 import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
+import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
 import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 import org.geometerplus.fbreader.network.urlInfo.UrlInfoWithDate;
-import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
+
+import java.util.Set;
 
 public interface INetworkLink extends Comparable<INetworkLink> {
 	public enum Type {

@@ -19,20 +19,21 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.*;
-import java.net.URLEncoder;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
+import org.geometerplus.fbreader.network.*;
+import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
+import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoWithDate;
 import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
-import org.geometerplus.fbreader.network.urlInfo.*;
-import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.*;
 
 public abstract class OPDSNetworkLink extends AbstractNetworkLink {
 	protected final NetworkLibrary myLibrary;
@@ -44,7 +45,7 @@ public abstract class OPDSNetworkLink extends AbstractNetworkLink {
 	private NetworkAuthenticationManager myAuthenticationManager;
 
 	OPDSNetworkLink(NetworkLibrary library, int id, String title, String summary, String language,
-			UrlInfoCollection<UrlInfoWithDate> infos) {
+                    UrlInfoCollection<UrlInfoWithDate> infos) {
 		super(id, title, summary, language, infos);
 		myLibrary = library;
 	}

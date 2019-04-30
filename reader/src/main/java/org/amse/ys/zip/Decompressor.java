@@ -1,7 +1,8 @@
 package org.amse.ys.zip;
 
-import java.util.*;
-import java.io.*;
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public abstract class Decompressor {
 	public Decompressor(MyBufferedInputStream is, LocalFileHeader header) {

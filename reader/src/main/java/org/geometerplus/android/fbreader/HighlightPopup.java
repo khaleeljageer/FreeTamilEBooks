@@ -19,13 +19,11 @@
 
 package org.geometerplus.android.fbreader;
 
-import android.app.Application;
 import android.content.Intent;
 import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.geometerplus.android.fbreader.util.FBReaderPercentUtils;
 import org.geometerplus.fbreader.book.Bookmark;
 import org.geometerplus.fbreader.fbreader.ActionCode;
@@ -35,8 +33,6 @@ import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.view.SelectionCursor;
 import org.geometerplus.zlibrary.text.view.ZLTextElementArea;
 import org.geometerplus.zlibrary.ui.android.R;
-
-import java.io.Reader;
 
 public class HighlightPopup extends PopupPanel implements View.OnClickListener {
     public final static String ID = "HighlightPopup";
@@ -48,6 +44,7 @@ public class HighlightPopup extends PopupPanel implements View.OnClickListener {
     private Bookmark bookmark;
     ZLTextElementArea start;
     ZLTextElementArea end;
+
     HighlightPopup(FBReaderApp fbReader) {
         super(fbReader);
     }
@@ -68,7 +65,7 @@ public class HighlightPopup extends PopupPanel implements View.OnClickListener {
 
         mTvLight = (TextView) myWindow.findViewById(R.id.highlight_selection_panel_bookmark);
         mTvLight.setOnClickListener(this);
-        mTvLight.setText("删除");
+        mTvLight.setText(R.string.fbreader_selection_remove_highlight);
         mTvCopy = (TextView) myWindow.findViewById(R.id.highlight_selection_panel_copy);
         mTvCopy.setOnClickListener(this);
         mTvDictionary = (TextView) myWindow.findViewById(R.id.highlight_selection_panel_dictionary);
@@ -143,10 +140,10 @@ public class HighlightPopup extends PopupPanel implements View.OnClickListener {
                 final ClipboardManager clipboard =
                         (ClipboardManager) Application.getReader().getSystemService(android.app.Application.CLIPBOARD_SERVICE);
                 clipboard.setText(traverser.getText());
-                FBReader.toast("复制成功");
+                FBReader.toast("Copied");
             }
         } else if (i == R.id.highlight_selection_panel_share) {
-            if(start!=null&&end!=null){
+            if (start != null && end != null) {
                 final TextBuildTraverser traverser = new TextBuildTraverser(((FBReaderApp) Application).BookTextView);
                 traverser.traverse(start, end);
                 final String text = traverser.getText();

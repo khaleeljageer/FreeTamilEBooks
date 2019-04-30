@@ -19,9 +19,13 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.*;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookEvent;
+import org.geometerplus.fbreader.book.BookQuery;
+import org.geometerplus.fbreader.book.Filter;
 
-import org.geometerplus.fbreader.book.*;
+import java.util.Collections;
+import java.util.List;
 
 public class TitleListTree extends FirstLevelTree {
 	private boolean myGroupByFirstLetter;

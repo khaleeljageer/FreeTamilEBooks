@@ -19,8 +19,8 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-import org.geometerplus.zlibrary.text.model.ZLTextModel;
 import org.geometerplus.zlibrary.text.model.ZLTextMark;
+import org.geometerplus.zlibrary.text.model.ZLTextModel;
 
 public final class ZLTextWordCursor extends ZLTextPosition {
 	private ZLTextParagraphCursor myParagraphCursor;

@@ -19,10 +19,10 @@
 
 package org.geometerplus.fbreader.network.opds;
 
+import org.geometerplus.zlibrary.core.util.MimeType;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.geometerplus.zlibrary.core.util.MimeType;
 
 class OpenSearchDescription {
 	public static OpenSearchDescription createDefault(String tmpl, MimeType mime) {

@@ -19,10 +19,14 @@
 
 package org.geometerplus.zlibrary.core.filesystem.tar;
 
-import java.util.*;
-import java.io.*;
+import org.geometerplus.zlibrary.core.filesystem.ZLArchiveEntryFile;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 
-import org.geometerplus.zlibrary.core.filesystem.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class ZLTarEntryFile extends ZLArchiveEntryFile {
 	public static List<ZLFile> archiveEntries(ZLFile archive) {

@@ -1,8 +1,9 @@
 package org.amse.ys.zip;
 
-import java.io.*;
-
 import org.geometerplus.zlibrary.core.util.InputStreamHolder;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 final class MyBufferedInputStream extends InputStream {
 	private final InputStreamHolder myStreamHolder;

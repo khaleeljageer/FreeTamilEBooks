@@ -21,16 +21,13 @@ package org.geometerplus.android.fbreader.network;
 
 import android.app.Activity;
 import android.app.SearchManager;
-import android.os.Bundle;
 import android.content.Intent;
-
-import org.geometerplus.zlibrary.core.util.MimeType;
-
+import android.os.Bundle;
+import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
 import org.geometerplus.fbreader.network.NetworkLibrary;
 import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.fbreader.network.tree.SearchCatalogTree;
-
-import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
+import org.geometerplus.zlibrary.core.util.MimeType;
 
 public class NetworkSearchActivity extends Activity {
 	private final ActivityNetworkContext myNetworkContext = new ActivityNetworkContext(this);

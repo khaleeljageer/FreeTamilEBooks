@@ -19,29 +19,33 @@
 
 package org.geometerplus.android.fbreader.network.action;
 
-import java.util.*;
-import java.io.File;
-
-import android.app.AlertDialog;
 import android.app.Activity;
-import android.net.Uri;
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
-
+import android.content.Intent;
+import android.net.Uri;
+import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.fbreader.network.BookDownloaderServiceConnection;
+import org.geometerplus.android.fbreader.network.BuyBooksActivity;
+import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
+import org.geometerplus.android.fbreader.network.Util;
+import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
+import org.geometerplus.fbreader.book.IBookCollection;
+import org.geometerplus.fbreader.network.BasketItem;
+import org.geometerplus.fbreader.network.NetworkBookItem;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.NetworkTree;
+import org.geometerplus.fbreader.network.tree.BasketCatalogTree;
+import org.geometerplus.fbreader.network.tree.NetworkBookTree;
+import org.geometerplus.fbreader.network.urlInfo.BookBuyUrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.BookUrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.zlibrary.ui.android.R;
 
-import org.geometerplus.android.fbreader.FBReader;
-
-import org.geometerplus.fbreader.book.IBookCollection;
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.tree.NetworkBookTree;
-import org.geometerplus.fbreader.network.tree.BasketCatalogTree;
-import org.geometerplus.fbreader.network.urlInfo.*;
-
-import org.geometerplus.android.fbreader.network.*;
-import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class NetworkBookActions {
 	private static boolean useFullReferences(NetworkBookItem book) {

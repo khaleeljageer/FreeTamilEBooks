@@ -19,33 +19,29 @@
 
 package org.geometerplus.android.fbreader.bookmark;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.*;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.*;
-
-
-import org.geometerplus.zlibrary.core.options.ZLStringOption;
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.core.util.ZLColor;
-import org.geometerplus.zlibrary.ui.android.R;
-import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
-
-import org.geometerplus.fbreader.book.*;
-
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
 import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
-import org.geometerplus.android.util.OrientationUtil;
 import org.geometerplus.android.util.ViewUtil;
+import org.geometerplus.fbreader.book.*;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.ui.android.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //编辑书签
 public class EditBookmarkActivity extends Activity implements IBookCollection.Listener<Book> {
 	private final ZLResource myResource = ZLResource.resource("editBookmark");
@@ -223,9 +219,9 @@ public class EditBookmarkActivity extends Activity implements IBookCollection.Li
 				: LayoutInflater.from(parent.getContext()).inflate(R.layout.style_item, parent, false);
 			final HighlightingStyle style = getItem(position);
 
-			final CheckBox checkBox = (CheckBox)ViewUtil.findView(view, R.id.style_item_checkbox);
+			final CheckBox checkBox = (CheckBox) ViewUtil.findView(view, R.id.style_item_checkbox);
 			final TextView titleView = ViewUtil.findTextView(view, R.id.style_item_title);
-			final Button button = (Button)ViewUtil.findView(view, R.id.style_item_edit_button);
+			final Button button = (Button) ViewUtil.findView(view, R.id.style_item_edit_button);
 
 			checkBox.setChecked(style.Id == myBookmark.getStyleId());
 

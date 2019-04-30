@@ -19,26 +19,25 @@
 
 package org.geometerplus.android.fbreader.dict;
 
-import java.util.*;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
 import android.app.Activity;
-import android.content.*;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.DisplayMetrics;
-
+import org.geometerplus.android.fbreader.FBReaderMainActivity;
+import org.geometerplus.android.util.PackageUtil;
+import org.geometerplus.fbreader.fbreader.DurationEnum;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.language.Language;
 import org.geometerplus.zlibrary.core.options.ZLEnumOption;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.util.XmlUtil;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
-import org.geometerplus.fbreader.fbreader.DurationEnum;
-import org.geometerplus.android.fbreader.FBReaderMainActivity;
-import org.geometerplus.android.util.PackageUtil;
+import java.util.*;
 
 public abstract class DictionaryUtil {
 	public static final ZLEnumOption<DurationEnum> TranslationToastDurationOption =

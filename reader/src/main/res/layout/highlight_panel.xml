@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <org.geometerplus.android.fbreader.SimplePopupWindow xmlns:android="http://schemas.android.com/apk/res/android"
+                                                     xmlns:tools="http://schemas.android.com/tools"
                                                      android:id="@+id/highlight_selection_panel"
                                                      android:layout_width="wrap_content"
                                                      android:layout_height="wrap_content"
@@ -17,7 +18,7 @@
                 android:layout_width="280dp"
                 android:layout_height="45dp"
                 android:background="@drawable/panel"
-                android:orientation="horizontal">
+                android:orientation="horizontal" tools:ignore="UselessParent">
 
             <TextView
                     android:id="@+id/highlight_selection_panel_bookmark"
@@ -25,7 +26,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Hightlight"
+                    android:text="@string/fbreader_selection_highlight"
                     android:textColor="#ffffff"/>
 
             <TextView
@@ -34,7 +35,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Copy"
+                    android:text="@string/fbreader_selection_copy"
                     android:textColor="#ffffff"/>
 
             <TextView
@@ -43,7 +44,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Dictionary"
+                    android:text="@string/fbreader_selection_dictionary"
                     android:visibility="gone"
                     android:textColor="#ffffff"/>
 
@@ -53,7 +54,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Share"
+                    android:text="@string/fbreader_selection_share"
                     android:textColor="#ffffff"/>
         </LinearLayout>
 

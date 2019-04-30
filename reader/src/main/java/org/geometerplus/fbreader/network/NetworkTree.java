@@ -19,13 +19,13 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
-import org.geometerplus.fbreader.tree.FBTree;
+import java.util.LinkedList;
+import java.util.Set;
 
 public abstract class NetworkTree extends FBTree {
 	public final NetworkLibrary Library;

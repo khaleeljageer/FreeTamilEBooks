@@ -19,9 +19,9 @@
 
 package org.geometerplus.fbreader.network.tree;
 
+import org.geometerplus.fbreader.network.NetworkBookItem;
+import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.zlibrary.core.image.ZLImage;
-
-import org.geometerplus.fbreader.network.*;
 
 public class NetworkBookTree extends NetworkTree {
 	public final NetworkBookItem Book;

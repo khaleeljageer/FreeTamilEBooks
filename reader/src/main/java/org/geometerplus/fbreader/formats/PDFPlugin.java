@@ -19,14 +19,12 @@
 
 package org.geometerplus.fbreader.formats;
 
-import org.pdfparse.model.PDFDocInfo;
-import org.pdfparse.model.PDFDocument;
-
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.util.SystemInfo;
-
 import org.geometerplus.fbreader.book.AbstractBook;
 import org.geometerplus.fbreader.book.BookUtil;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
+import org.pdfparse.model.PDFDocInfo;
+import org.pdfparse.model.PDFDocument;
 
 public class PDFPlugin extends ExternalFormatPlugin {
 	public PDFPlugin(SystemInfo systemInfo) {

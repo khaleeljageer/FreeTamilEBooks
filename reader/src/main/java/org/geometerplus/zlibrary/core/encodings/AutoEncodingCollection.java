@@ -19,8 +19,8 @@
 
 package org.geometerplus.zlibrary.core.encodings;
 
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 public final class AutoEncodingCollection extends EncodingCollection {
 	private final Encoding myEncoding = new Encoding(null, "auto", "auto");

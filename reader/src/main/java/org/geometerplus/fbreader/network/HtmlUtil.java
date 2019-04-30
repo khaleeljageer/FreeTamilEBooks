@@ -19,7 +19,9 @@
 
 package org.geometerplus.fbreader.network;
 
-import android.text.*;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.text.style.URLSpan;
 
 public abstract class HtmlUtil {

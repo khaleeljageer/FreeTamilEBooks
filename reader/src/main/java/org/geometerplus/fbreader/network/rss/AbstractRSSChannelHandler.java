@@ -19,9 +19,8 @@
 
 package org.geometerplus.fbreader.network.rss;
 
-import org.geometerplus.zlibrary.core.xml.ZLStringMap;
-
 import org.geometerplus.fbreader.network.atom.ATOMFeedHandler;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 
 public abstract class AbstractRSSChannelHandler implements ATOMFeedHandler<RSSChannelMetadata,RSSItem> {
 	public RSSChannelMetadata createFeed(ZLStringMap attributes) {

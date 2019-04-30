@@ -19,27 +19,28 @@
 
 package org.geometerplus.zlibrary.ui.android.view;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
-
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.*;
-
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.fbreader.Paths;
 import org.geometerplus.fbreader.util.TurnPageJudgeUtil;
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
 import org.geometerplus.zlibrary.core.util.SystemInfo;
 import org.geometerplus.zlibrary.core.view.ZLView;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
-
 import org.geometerplus.zlibrary.text.view.ZLTextView;
 import org.geometerplus.zlibrary.ui.android.view.animation.*;
 
-import org.geometerplus.fbreader.Paths;
-import org.geometerplus.android.fbreader.FBReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ZLAndroidWidget extends MainView implements ZLViewWidget, View.OnLongClickListener {
 	public final ExecutorService PrepareService = Executors.newSingleThreadExecutor();

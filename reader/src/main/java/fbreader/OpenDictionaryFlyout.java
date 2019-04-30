@@ -18,18 +18,18 @@
  * 02110-1301, USA.
  */
 
-package com.paragon.dictionary.fbreader;
-
-import java.util.HashSet;
+package fbreader;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
-import com.paragon.open.dictionary.api.*;
-
+import com.paragon.open.dictionary.api.Dictionary;
+import com.paragon.open.dictionary.api.Direction;
+import com.paragon.open.dictionary.api.OpenDictionaryAPI;
 import org.geometerplus.android.fbreader.dict.DictionaryUtil;
+
+import java.util.HashSet;
 
 public class OpenDictionaryFlyout {
 	private final Direction myDirection;

@@ -19,17 +19,14 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.List;
-
-import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-import org.geometerplus.zlibrary.core.util.MimeType;
-import org.geometerplus.zlibrary.core.util.MiscUtil;
-
 import org.geometerplus.fbreader.network.BasketItem;
 import org.geometerplus.fbreader.network.NetworkLibrary;
-import org.geometerplus.fbreader.network.urlInfo.*;
 import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.util.MiscUtil;
+
+import java.util.List;
 
 class OPDSBasketItem extends BasketItem {
 	OPDSBasketItem(NetworkLibrary library, OPDSNetworkLink link) {

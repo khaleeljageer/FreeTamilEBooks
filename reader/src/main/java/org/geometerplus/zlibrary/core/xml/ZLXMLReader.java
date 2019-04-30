@@ -19,7 +19,9 @@
 
 package org.geometerplus.zlibrary.core.xml;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface ZLXMLReader {
 	public boolean dontCacheAttributeValues();

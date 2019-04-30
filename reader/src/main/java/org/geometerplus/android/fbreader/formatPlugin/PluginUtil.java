@@ -20,7 +20,6 @@
 package org.geometerplus.android.fbreader.formatPlugin;
 
 import android.content.Intent;
-
 import org.geometerplus.fbreader.formats.ExternalFormatPlugin;
 
 public abstract class PluginUtil {

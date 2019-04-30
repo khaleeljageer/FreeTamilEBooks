@@ -19,12 +19,15 @@
 
 package org.geometerplus.zlibrary.core.resources;
 
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
 import org.geometerplus.zlibrary.core.language.Language;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
 abstract public class ZLResource {
 	public final String Name;

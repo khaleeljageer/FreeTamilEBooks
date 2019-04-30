@@ -19,17 +19,19 @@
 
 package org.geometerplus.fbreader.network.authentication.litres;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.util.MimeType;
-import org.geometerplus.zlibrary.core.xml.*;
-
 import org.geometerplus.fbreader.network.NetworkBookItem;
 import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.atom.FormattedBuffer;
 import org.geometerplus.fbreader.network.opds.OPDSBookItem;
 import org.geometerplus.fbreader.network.opds.OPDSNetworkLink;
-import org.geometerplus.fbreader.network.atom.FormattedBuffer;
-import org.geometerplus.fbreader.network.urlInfo.*;
+import org.geometerplus.fbreader.network.urlInfo.BookUrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.zlibrary.core.util.MimeType;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
+
+import java.util.LinkedList;
+import java.util.List;
 
 class LitResXMLReader extends LitResAuthenticationXMLReader {
 	public final OPDSNetworkLink Link;

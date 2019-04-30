@@ -19,10 +19,10 @@
 
 package org.geometerplus.android.util;
 
-import java.util.Date;
-
-import android.database.sqlite.SQLiteStatement;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteStatement;
+
+import java.util.Date;
 
 public abstract class SQLiteUtil {
 	public static void bindString(SQLiteStatement statement, int index, String value) {

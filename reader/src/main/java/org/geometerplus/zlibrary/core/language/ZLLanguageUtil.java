@@ -19,9 +19,10 @@
 
 package org.geometerplus.zlibrary.core.language;
 
-import java.util.*;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
 
-import org.geometerplus.zlibrary.core.filesystem.*;
+import java.util.*;
 
 public abstract class ZLLanguageUtil {
 	private static ArrayList<String> ourLanguageCodes = new ArrayList<String>();

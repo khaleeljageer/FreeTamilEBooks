@@ -19,9 +19,9 @@
 
 package org.geometerplus.zlibrary.text.hyphenation;
 
-import java.util.List;
-
 import org.geometerplus.zlibrary.text.view.ZLTextWord;
+
+import java.util.List;
 
 public abstract class ZLTextHyphenator {
 	private static ZLTextHyphenator ourInstance;

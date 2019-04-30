@@ -19,11 +19,11 @@
 
 package org.geometerplus.fbreader.network.authentication.litres;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class LitResNetworkRequest extends ZLNetworkRequest.PostWithMap {
 	public final LitResAuthenticationXMLReader Reader;

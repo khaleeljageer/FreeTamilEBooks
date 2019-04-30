@@ -19,10 +19,14 @@
 
 package org.geometerplus.zlibrary.core.xml;
 
-import java.util.*;
-import java.io.*;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public abstract class ZLXMLProcessor {
 	public static Map<String,char[]> getEntityMap(List<String> dtdList) {

@@ -57,7 +57,7 @@ public class RSSChannelHandler extends AbstractRSSChannelHandler {
 
 	@Override
 	public boolean processFeedMetadata(RSSChannelMetadata feed,
-			boolean beforeEntries) {
+                                       boolean beforeEntries) {
 		return false;
 	}
 

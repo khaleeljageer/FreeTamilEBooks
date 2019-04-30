@@ -19,25 +19,28 @@
 
 package org.geometerplus.android.fbreader.preferences;
 
-import java.util.*;
-
 import android.content.Context;
 import android.content.Intent;
 import android.preference.Preference;
-
+import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
+import org.geometerplus.android.util.EditAuthorsDialogActivity;
+import org.geometerplus.android.util.EditListDialogActivity;
+import org.geometerplus.android.util.EditTagsDialogActivity;
+import org.geometerplus.fbreader.Paths;
+import org.geometerplus.fbreader.book.Author;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookUtil;
+import org.geometerplus.fbreader.book.Tag;
+import org.geometerplus.fbreader.formats.BookReadingException;
+import org.geometerplus.fbreader.formats.FormatPlugin;
+import org.geometerplus.fbreader.formats.PluginCollection;
 import org.geometerplus.zlibrary.core.encodings.Encoding;
 import org.geometerplus.zlibrary.core.language.Language;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.zlibrary.text.hyphenation.ZLTextHyphenator;
 
-import org.geometerplus.fbreader.Paths;
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.formats.*;
-
-import org.geometerplus.android.fbreader.api.FBReaderIntents;
-import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
-import org.geometerplus.android.util.*;
+import java.util.*;
 
 class BookTitlePreference extends ZLStringPreference {
 	private final Book myBook;

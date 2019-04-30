@@ -19,14 +19,15 @@
 
 package org.geometerplus.android.util;
 
-import android.app.*;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.WindowManager;
 import android.widget.EditText;
-
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 public abstract class SearchDialogUtil {

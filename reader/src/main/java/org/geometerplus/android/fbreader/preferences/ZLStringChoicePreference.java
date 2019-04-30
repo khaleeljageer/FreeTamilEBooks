@@ -20,7 +20,6 @@
 package org.geometerplus.android.fbreader.preferences;
 
 import android.content.Context;
-
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 

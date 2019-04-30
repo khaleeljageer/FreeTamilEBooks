@@ -24,7 +24,7 @@ import org.fbreader.util.ComparisonUtil;
 import java.util.*;
 
 public final class MimeType {
-	private static Map<String,MimeType> ourSimpleTypesMap = new HashMap<String,MimeType>();
+	private static Map<String, MimeType> ourSimpleTypesMap = new HashMap<String, MimeType>();
 
 	public static MimeType get(String text) {
 		if (text == null) {

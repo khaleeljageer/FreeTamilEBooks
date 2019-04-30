@@ -19,10 +19,9 @@
 
 package org.geometerplus.fbreader.network.atom;
 
-import org.geometerplus.zlibrary.core.xml.ZLStringMap;
-
-import org.geometerplus.fbreader.network.NetworkLibrary;
 import org.geometerplus.fbreader.network.HtmlUtil;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 
 public class FormattedBuffer {
 	public static enum Type {

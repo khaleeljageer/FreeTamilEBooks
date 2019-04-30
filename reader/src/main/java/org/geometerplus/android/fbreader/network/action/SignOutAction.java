@@ -20,15 +20,14 @@
 package org.geometerplus.android.fbreader.network.action;
 
 import android.app.Activity;
-
-import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
-
-import org.geometerplus.fbreader.network.*;
+import org.geometerplus.android.util.UIUtil;
+import org.geometerplus.fbreader.network.INetworkLink;
+import org.geometerplus.fbreader.network.ISyncNetworkLink;
+import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
 import org.geometerplus.fbreader.network.sync.SyncUtil;
 import org.geometerplus.fbreader.network.tree.NetworkCatalogRootTree;
-
-import org.geometerplus.android.util.UIUtil;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
 
 public class SignOutAction extends Action {
 	private final ZLNetworkContext myNetworkContext;

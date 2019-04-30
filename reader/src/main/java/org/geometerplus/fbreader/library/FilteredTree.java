@@ -19,12 +19,12 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.List;
-
-import org.geometerplus.zlibrary.core.util.MiscUtil;
-
 import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.formats.PluginCollection;
+import org.geometerplus.fbreader.tree.FBTree;
+import org.geometerplus.zlibrary.core.util.MiscUtil;
+
+import java.util.List;
 
 abstract class FilteredTree extends LibraryTree {
 	private final Filter myFilter;
@@ -50,8 +50,8 @@ abstract class FilteredTree extends LibraryTree {
 	}
 
 	@Override
-	public Status getOpeningStatus() {
-		return Status.ALWAYS_RELOAD_BEFORE_OPENING;
+	public FBTree.Status getOpeningStatus() {
+		return FBTree.Status.ALWAYS_RELOAD_BEFORE_OPENING;
 	}
 
 	protected final void createBookSubtrees() {

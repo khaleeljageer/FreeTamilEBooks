@@ -20,14 +20,13 @@
 package org.geometerplus.zlibrary.core.view;
 
 import android.graphics.RectF;
-
-import java.util.List;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.fonts.FontEntry;
 import org.geometerplus.zlibrary.core.image.ZLImageData;
 import org.geometerplus.zlibrary.core.util.SystemInfo;
 import org.geometerplus.zlibrary.core.util.ZLColor;
+
+import java.util.List;
 
 final class DummyPaintContext extends ZLPaintContext {
 	DummyPaintContext() {

@@ -19,14 +19,19 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import org.geometerplus.zlibrary.core.util.MimeType;
-import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
-
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.atom.*;
+import org.geometerplus.fbreader.network.NetworkCatalogItem;
+import org.geometerplus.fbreader.network.NetworkItem;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.TopUpItem;
+import org.geometerplus.fbreader.network.atom.ATOMId;
+import org.geometerplus.fbreader.network.atom.ATOMLink;
 import org.geometerplus.fbreader.network.authentication.litres.LitResBookshelfItem;
 import org.geometerplus.fbreader.network.authentication.litres.LitResRecommendationsItem;
-import org.geometerplus.fbreader.network.urlInfo.*;
+import org.geometerplus.fbreader.network.urlInfo.BookUrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.zlibrary.core.util.MimeType;
+import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
 
 class OPDSFeedHandler extends AbstractOPDSFeedHandler implements OPDSConstants {
 	private final NetworkLibrary myLibrary;

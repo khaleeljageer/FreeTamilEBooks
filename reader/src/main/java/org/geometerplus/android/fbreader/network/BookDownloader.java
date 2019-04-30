@@ -19,16 +19,14 @@
 
 package org.geometerplus.android.fbreader.network;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import org.geometerplus.zlibrary.core.util.MimeType;
+
 import java.util.Arrays;
 import java.util.List;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.net.Uri;
-import android.content.Intent;
-
-import org.geometerplus.zlibrary.core.util.MimeType;
-import org.geometerplus.fbreader.network.urlInfo.BookUrlInfo;
 
 public class BookDownloader extends Activity {
 	public static boolean acceptsUri(Uri uri, String mime) {

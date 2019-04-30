@@ -19,9 +19,11 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.List;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookEvent;
+import org.geometerplus.fbreader.book.Tag;
 
-import org.geometerplus.fbreader.book.*;
+import java.util.List;
 
 public class TagListTree extends FirstLevelTree {
 	TagListTree(RootTree root) {

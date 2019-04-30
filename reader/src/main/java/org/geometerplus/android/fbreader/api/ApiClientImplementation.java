@@ -4,13 +4,13 @@
 
 package org.geometerplus.android.fbreader.api;
 
-import java.io.Serializable;
-import java.util.*;
-
 import android.content.*;
 import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.*;
 
 public class ApiClientImplementation implements ServiceConnection, Api, ApiMethods {
 	public static interface ConnectionListener {

@@ -19,10 +19,10 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-import java.util.List;
-
 import org.geometerplus.zlibrary.core.fonts.FontEntry;
 import org.geometerplus.zlibrary.text.model.ZLTextMetrics;
+
+import java.util.List;
 
 public abstract class ZLTextStyle {
 	public final ZLTextStyle Parent;

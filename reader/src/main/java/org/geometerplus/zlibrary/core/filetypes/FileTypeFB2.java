@@ -19,11 +19,11 @@
 
 package org.geometerplus.zlibrary.core.filetypes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MimeType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class FileTypeFB2 extends FileType {
 	FileTypeFB2() {

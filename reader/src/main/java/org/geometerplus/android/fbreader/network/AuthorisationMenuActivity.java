@@ -20,19 +20,17 @@
 package org.geometerplus.android.fbreader.network;
 
 import android.app.Activity;
-import android.content.*;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
-import org.geometerplus.fbreader.network.INetworkLink;
-import org.geometerplus.fbreader.network.NetworkLibrary;
-import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
-import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
-
 import org.geometerplus.android.fbreader.api.PluginApi;
 import org.geometerplus.android.fbreader.network.litres.AutoRegistrationActivity;
 import org.geometerplus.android.fbreader.network.litres.UserRegistrationActivity;
+import org.geometerplus.fbreader.network.INetworkLink;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 public class AuthorisationMenuActivity extends MenuActivity {
 	public static void runMenu(Context context, INetworkLink link) {

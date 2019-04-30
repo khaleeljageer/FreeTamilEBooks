@@ -19,17 +19,18 @@
 
 package org.geometerplus.android.fbreader.preferences;
 
-import java.io.*;
-
 import android.content.Context;
 import android.preference.DialogPreference;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 class ThirdPartyLibrariesPreference extends DialogPreference {
 	ThirdPartyLibrariesPreference(Context context, ZLResource resource, String key) {

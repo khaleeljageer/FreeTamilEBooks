@@ -164,20 +164,16 @@ order to do 90% of what you'll want to do with it:</p>
 
 <dl>
 
-<dt><code><a href= "#XML_ParserCreate"
-             >XML_ParserCreate</a></code></dt>
+<dt><code><a href= "#XML_ParserCreate">XML_ParserCreate</a></code></dt>
   <dd>Create a new parser object.</dd>
 
-<dt><code><a href= "#XML_SetElementHandler"
-             >XML_SetElementHandler</a></code></dt>
+<dt><code><a href= "#XML_SetElementHandler">XML_SetElementHandler</a></code></dt>
   <dd>Set handlers for start and end tags.</dd>
 
-<dt><code><a href= "#XML_SetCharacterDataHandler"
-             >XML_SetCharacterDataHandler</a></code></dt>
+<dt><code><a href= "#XML_SetCharacterDataHandler">XML_SetCharacterDataHandler</a></code></dt>
   <dd>Set handler for text.</dd>
 
-<dt><code><a href= "#XML_Parse"
-             >XML_Parse</a></code></dt>
+<dt><code><a href= "#XML_Parse">XML_Parse</a></code></dt>
   <dd>Pass a buffer full of document to the parser</dd>
 </dl>
 
@@ -517,19 +513,16 @@ without using globals, you'll need to define a data structure to hold
 the shared variables. You can then tell Expat (with the <code><a href=
 "#XML_SetUserData" >XML_SetUserData</a></code> function) to pass a
 pointer to this structure to the handlers.  This is the first
-argument received by most handlers.  In the <a href="#reference"
->reference section</a>, an argument to a callback function is named
+argument received by most handlers.  In the <a href="#reference">reference section</a>, an argument to a callback function is named
 <code>userData</code> and have type <code>void *</code> if the user
 data is passed; it will have the type <code>XML_Parser</code> if the
 parser itself is passed.  When the parser is passed, the user data may
-be retrieved using <code><a href="#XML_GetUserData"
->XML_GetUserData</a></code>.</p>
+be retrieved using <code><a href="#XML_GetUserData">XML_GetUserData</a></code>.</p>
 
 <p>One common case where multiple calls to a single handler may need
 to communicate using an application data structure is the case when
 content passed to the character data handler (set by <code><a href=
-"#XML_SetCharacterDataHandler"
->XML_SetCharacterDataHandler</a></code>) needs to be accumulated.  A
+"#XML_SetCharacterDataHandler">XML_SetCharacterDataHandler</a></code>) needs to be accumulated.  A
 common first-time mistake with any of the event-oriented interfaces to
 an XML parser is to expect all the text contained in an element to be
 reported by a single call to the character data handler.  Expat, like
@@ -592,8 +585,7 @@ which declare namespaces for the scope of the element in which they
 occur. This means that your start handler will not see these
 attributes.  Your application can still be informed of these
 declarations by setting namespace declaration handlers with <a href=
-"#XML_SetNamespaceDeclHandler"
-><code>XML_SetNamespaceDeclHandler</code></a>.</p>
+"#XML_SetNamespaceDeclHandler"><code>XML_SetNamespaceDeclHandler</code></a>.</p>
 
 <p>Element type and attribute names that belong to a given namespace
 are passed to the appropriate handler in expanded form. By default
@@ -606,8 +598,7 @@ trigger an error. Unprefixed attribute names are never expanded,
 and unprefixed element names are only expanded when they are in the
 scope of a default namespace.</p>
 
-<p>However if <code><a href= "#XML_SetReturnNSTriplet"
->XML_SetReturnNSTriplet</a></code> has been called with a non-zero
+<p>However if <code><a href= "#XML_SetReturnNSTriplet">XML_SetReturnNSTriplet</a></code> has been called with a non-zero
 <code>do_nst</code> parameter, then the expanded form for names with
 an explicit prefix is a concatenation of: URI, separator, local name,
 separator, prefix.</p>
@@ -713,8 +704,7 @@ the information needed to read and parse the external entity.</p>
 
 <p>Your handler isn't actually responsible for parsing the entity, but
 it is responsible for creating a subsidiary parser with <code><a href=
-"#XML_ExternalEntityParserCreate"
->XML_ExternalEntityParserCreate</a></code> that will do the job. This
+"#XML_ExternalEntityParserCreate">XML_ExternalEntityParserCreate</a></code> that will do the job. This
 returns an instance of <code>XML_Parser</code> that has handlers and
 other data structures initialized from the parent parser. You may then
 use <code><a href= "#XML_Parse" >XML_Parse</a></code> or <code><a
@@ -725,8 +715,7 @@ your handler should be prepared to be called recursively.</p>
 <h3>Parsing DTDs</h3>
 
 <p>In order to parse parameter entities, before starting the parse,
-you must call <code><a href= "#XML_SetParamEntityParsing"
->XML_SetParamEntityParsing</a></code> with one of the following
+you must call <code><a href= "#XML_SetParamEntityParsing">XML_SetParamEntityParsing</a></code> with one of the following
 arguments:</p>
 <dl>
 <dt><code>XML_PARAM_ENTITY_PARSING_NEVER</code></dt>
@@ -749,8 +738,7 @@ has already been passed into the parser.  Applications for this
 include</p>
 
 <ul>
-  <li>Supporting the <a href= "http://www.w3.org/TR/xinclude/"
-  >XInclude</a> specification.</li>
+  <li>Supporting the <a href= "http://www.w3.org/TR/xinclude/">XInclude</a> specification.</li>
 
   <li>Delaying further processing until additional information is
   available from some other source.</li>
@@ -983,8 +971,7 @@ ready to start parsing a new document.  All handlers are cleared from
 the parser, except for the unknownEncodingHandler.  The parser's external
 state is re-initialized except for the values of ns and ns_triplets.
 This function may not be used on a parser created using <code><a href=
-"#XML_ExternalEntityParserCreate" >XML_ExternalEntityParserCreate</a
-></code>; it will return <code>XML_FALSE</code> in that case.  Returns
+"#XML_ExternalEntityParserCreate" >XML_ExternalEntityParserCreate</a></code>; it will return <code>XML_FALSE</code> in that case.  Returns
 <code>XML_TRUE</code> on success.  Your application is responsible for
 dealing with any memory associated with <a href="#userdata">user data</a>.
 </div>
@@ -999,8 +986,7 @@ unless they operate on a separate parser instance, that is, one that
 did not call the handler. For example, it is OK to call the parsing
 functions from within an <code>XML_ExternalEntityRefHandler</code>,
 if they apply to the parser created by
-<code><a href= "#XML_ExternalEntityParserCreate"
->XML_ExternalEntityParserCreate</a></code>.</p>
+<code><a href= "#XML_ExternalEntityParserCreate">XML_ExternalEntityParserCreate</a></code>.</p>
 
 <p>Note: the <code>len</code> argument passed to these functions
 should be considerably less than the maximum value for an integer,
@@ -1046,8 +1032,7 @@ XML_ParseBuffer(XML_Parser p,
 <div class="fcndef">
 This is just like <code><a href= "#XML_Parse" >XML_Parse</a></code>,
 except in this case Expat provides the buffer.  By obtaining the
-buffer from Expat with the <code><a href= "#XML_GetBuffer"
->XML_GetBuffer</a></code> function, the application can avoid double
+buffer from Expat with the <code><a href= "#XML_GetBuffer">XML_GetBuffer</a></code> function, the application can avoid double
 copying of the input.
 </div>
 
@@ -1093,9 +1078,7 @@ XML_StopParser(XML_Parser p,
 </pre>
 <div class="fcndef">
 
-<p>Stops parsing, causing <code><a href= "#XML_Parse"
->XML_Parse</a></code> or <code><a href= "#XML_ParseBuffer"
->XML_ParseBuffer</a></code> to return.  Must be called from within a
+<p>Stops parsing, causing <code><a href= "#XML_Parse">XML_Parse</a></code> or <code><a href= "#XML_ParseBuffer">XML_ParseBuffer</a></code> to return.  Must be called from within a
 call-back handler, except when aborting (when <code>resumable</code>
 is <code>XML_FALSE</code>) an already suspended parser.  Some
 call-backs may still follow because they would otherwise get
@@ -1127,13 +1110,10 @@ are:</p>
 
 <p>Since the stop/resume feature requires application support in the
 outer parsing loop, it is an error to call this function for a parser
-not being handled appropriately; see <a href= "#stop-resume"
->Temporarily Stopping Parsing</a> for more information.</p>
+not being handled appropriately; see <a href= "#stop-resume">Temporarily Stopping Parsing</a> for more information.</p>
 
 <p>When <code>resumable</code> is <code>XML_TRUE</code> then parsing
-is <em>suspended</em>, that is, <code><a href= "#XML_Parse"
->XML_Parse</a></code> and <code><a href= "#XML_ParseBuffer"
->XML_ParseBuffer</a></code> return <code>XML_STATUS_SUSPENDED</code>.
+is <em>suspended</em>, that is, <code><a href= "#XML_Parse">XML_Parse</a></code> and <code><a href= "#XML_ParseBuffer">XML_ParseBuffer</a></code> return <code>XML_STATUS_SUSPENDED</code>.
 Otherwise, parsing is <em>aborted</em>, that is, <code><a href=
 "#XML_Parse" >XML_Parse</a></code> and <code><a href=
 "#XML_ParseBuffer" >XML_ParseBuffer</a></code> return
@@ -1437,8 +1417,7 @@ is in effect. (See <a href="#XML_SetParamEntityParsing">
 
 <p>The <code>context</code> parameter specifies the parsing context in
 the format expected by the <code>context</code> argument to <code><a
-href="#XML_ExternalEntityParserCreate"
->XML_ExternalEntityParserCreate</a></code>.  <code>code</code> is
+href="#XML_ExternalEntityParserCreate">XML_ExternalEntityParserCreate</a></code>.  <code>code</code> is
 valid only until the handler returns, so if the referenced entity is
 to be parsed later, it must be copied.  <code>context</code> is NULL
 only when the entity is a parameter entity, which is how one can
@@ -1462,8 +1441,7 @@ calling parser to return an
 <p>Second, instead of having the user data as its first argument, it
 receives the parser that encountered the entity reference. This, along
 with the context parameter, may be used as arguments to a call to
-<code><a href= "#XML_ExternalEntityParserCreate"
->XML_ExternalEntityParserCreate</a></code>.  Using the returned
+<code><a href= "#XML_ExternalEntityParserCreate">XML_ExternalEntityParserCreate</a></code>.  Using the returned
 parser, the body of the external entity can be recursively parsed.</p>
 
 <p>Since this handler may be called recursively, it should not be saving
@@ -1478,8 +1456,7 @@ XML_SetExternalEntityRefHandlerArg(XML_Parser p,
 <div class="fcndef">
 <p>Set the argument passed to the ExternalEntityRefHandler.  If
 <code>arg</code> is not NULL, it is the new value passed to the
-handler set using <code><a href="#XML_SetExternalEntityRefHandler"
->XML_SetExternalEntityRefHandler</a></code>; if <code>arg</code> is
+handler set using <code><a href="#XML_SetExternalEntityRefHandler">XML_SetExternalEntityRefHandler</a></code>; if <code>arg</code> is
 NULL, the argument passed to the handler function will be the parser
 object itself.</p>
 
@@ -1726,8 +1703,7 @@ struct XML_cp {
 called with the name of the element in the declaration and a pointer
 to a structure that contains the element model. It is the
 application's responsibility to free this data structure using
-<code><a href="#XML_FreeContentModel"
->XML_FreeContentModel</a></code>.</p>
+<code><a href="#XML_FreeContentModel">XML_FreeContentModel</a></code>.</p>
 
 <p>The <code>model</code> argument is the root of a tree of
 <code>XML_Content</code> nodes. If <code>type</code> equals
@@ -1844,8 +1820,7 @@ are entity declarations that have a notation (NDATA) field:</p>
 &lt;!ENTITY logo SYSTEM "images/logo.gif" NDATA gif&gt;
 </pre></div>
 <p>This handler is obsolete and is provided for backwards
-compatibility.  Use instead <a href= "#XML_SetEntityDeclHandler"
->XML_SetEntityDeclHandler</a>.</p>
+compatibility.  Use instead <a href= "#XML_SetEntityDeclHandler">XML_SetEntityDeclHandler</a>.</p>
 </div>
 
 <div class="handler">
@@ -1925,8 +1900,7 @@ XML_GetCurrentByteIndex(XML_Parser p);
 </pre>
 <div class="fcndef">
 Return the byte offset of the position.  This always corresponds to
-the values returned by <code><a href= "#XML_GetCurrentLineNumber"
->XML_GetCurrentLineNumber</a></code> and <code><a href=
+the values returned by <code><a href= "#XML_GetCurrentLineNumber">XML_GetCurrentLineNumber</a></code> and <code><a href=
 "#XML_GetCurrentColumnNumber" >XML_GetCurrentColumnNumber</a></code>.
 </div>
 
@@ -2022,8 +1996,7 @@ XML_UseParserAsHandlerArg(XML_Parser p);
 <div class="fcndef">
 After this is called, handlers receive the parser in their
 <code>userData</code> arguments.  The user data can still be obtained
-using the <code><a href= "#XML_GetUserData"
->XML_GetUserData</a></code> function.
+using the <code><a href= "#XML_GetUserData">XML_GetUserData</a></code> function.
 </div>
 
 <pre class="fcndec" id="XML_SetBase">
@@ -2068,8 +2041,7 @@ XML_GetIdAttributeIndex(XML_Parser p);
 </pre>
 <div class="fcndef">
 Returns the index of the ID attribute passed in the atts array in the
-last call to <code><a href= "#XML_StartElementHandler"
->XML_StartElementHandler</a></code>, or -1 if there is no ID
+last call to <code><a href= "#XML_StartElementHandler">XML_StartElementHandler</a></code>, or -1 if there is no ID
 attribute. If called inside a start handler, then that means the
 current call.
 </div>
@@ -2082,9 +2054,7 @@ XML_SetEncoding(XML_Parser p,
 <div class="fcndef">
 Set the encoding to be used by the parser. It is equivalent to
 passing a non-null encoding argument to the parser creation functions.
-It must not be called after <code><a href= "#XML_Parse"
->XML_Parse</a></code> or <code><a href= "#XML_ParseBuffer"
->XML_ParseBuffer</a></code> have been called on the given parser.
+It must not be called after <code><a href= "#XML_Parse">XML_Parse</a></code> or <code><a href= "#XML_ParseBuffer">XML_ParseBuffer</a></code> have been called on the given parser.
 Returns <code>XML_STATUS_OK</code> on success or
 <code>XML_STATUS_ERROR</code> on error.
 </div>
@@ -2121,13 +2091,11 @@ application-provided subset will be parsed, but the
 <code>startDoctypeDeclHandler</code> and
 <code>endDoctypeDeclHandler</code> functions, if set, will not be
 called.  The setting of parameter entity parsing, controlled using
-<code><a href= "#XML_SetParamEntityParsing"
->XML_SetParamEntityParsing</a></code>, will be honored.</p>
+<code><a href= "#XML_SetParamEntityParsing">XML_SetParamEntityParsing</a></code>, will be honored.</p>
 
 <p>The application-provided external subset is read by calling the
 external entity reference handler set via <code><a href=
-"#XML_SetExternalEntityRefHandler"
->XML_SetExternalEntityRefHandler</a></code> with both
+"#XML_SetExternalEntityRefHandler">XML_SetExternalEntityRefHandler</a></code> with both
 <code>publicId</code> and <code>systemId</code> set to NULL.</p>
 
 <p>If this function is called after parsing has begun, it returns
@@ -2174,8 +2142,7 @@ This can be called within a handler for a start element, end element,
 processing instruction or character data.  It causes the corresponding
 markup to be passed to the default handler set by <code><a
 href="#XML_SetDefaultHandler" >XML_SetDefaultHandler</a></code> or
-<code><a href="#XML_SetDefaultHandlerExpand"
->XML_SetDefaultHandlerExpand</a></code>.  It does nothing if there is
+<code><a href="#XML_SetDefaultHandlerExpand">XML_SetDefaultHandlerExpand</a></code>.  It does nothing if there is
 not a default handler.
 </div>
 
@@ -2267,8 +2234,7 @@ time, the following features have been defined to have values:</p>
   character.</dd>
   <dt><code>XML_FEATURE_CONTEXT_BYTES</code></dt>
   <dd>The maximum number of characters of context which can be
-  reported by <code><a href= "#XML_GetInputContext"
-  >XML_GetInputContext</a></code>.</dd>
+  reported by <code><a href= "#XML_GetInputContext">XML_GetInputContext</a></code>.</dd>
 </dl>
 </div>
 
@@ -2299,8 +2265,7 @@ XML_MemMalloc(XML_Parser parser, size_t size);
 Allocate <code>size</code> bytes of memory using the allocator the
 <code>parser</code> object has been configured to use.  Returns a
 pointer to the memory or NULL on failure.  Memory allocated in this
-way must be freed using <code><a href="#XML_MemFree"
->XML_MemFree</a></code>.
+way must be freed using <code><a href="#XML_MemFree">XML_MemFree</a></code>.
 </div>
 
 <pre class="fcndec" id="XML_MemRealloc">
@@ -2318,8 +2283,7 @@ a pointer to the memory or NULL on failure.  On success, the original
 block has either been expanded or freed.  On failure, the original
 block has not been freed; the caller is responsible for freeing the
 original block.  Memory allocated in this way must be freed using
-<code><a href="#XML_MemFree"
->XML_MemFree</a></code>.
+<code><a href="#XML_MemFree">XML_MemFree</a></code>.
 </div>
 
 <pre class="fcndec" id="XML_MemFree">
@@ -2328,8 +2292,7 @@ XML_MemFree(XML_Parser parser, void *ptr);
 </pre>
 <div class="fcndef">
 Free a block of memory pointed to by <code>ptr</code>.  The block must
-have been allocated by <code><a href="#XML_MemMalloc"
->XML_MemMalloc</a></code> or <code>XML_MemRealloc</code>, or be NULL.
+have been allocated by <code><a href="#XML_MemMalloc">XML_MemMalloc</a></code> or <code>XML_MemRealloc</code>, or be NULL.
 </div>
 
 <hr />

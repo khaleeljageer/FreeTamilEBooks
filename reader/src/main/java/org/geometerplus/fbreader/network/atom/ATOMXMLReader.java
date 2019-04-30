@@ -19,14 +19,13 @@
 
 package org.geometerplus.fbreader.network.atom;
 
-import java.util.Map;
-
+import org.geometerplus.fbreader.network.NetworkLibrary;
 import org.geometerplus.zlibrary.core.constants.XMLNamespaces;
 import org.geometerplus.zlibrary.core.util.MimeType;
 import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 import org.geometerplus.zlibrary.core.xml.ZLXMLReaderAdapter;
 
-import org.geometerplus.fbreader.network.NetworkLibrary;
+import java.util.Map;
 
 public class ATOMXMLReader<MetadataType extends ATOMFeedMetadata,EntryType extends ATOMEntry> extends ZLXMLReaderAdapter {
 	public static String intern(String str) {

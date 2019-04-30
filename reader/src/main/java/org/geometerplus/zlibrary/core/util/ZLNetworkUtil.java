@@ -19,10 +19,12 @@
 
 package org.geometerplus.zlibrary.core.util;
 
-import java.net.*;
-import java.io.UnsupportedEncodingException;
-
 import org.geometerplus.zlibrary.core.library.ZLibrary;
+
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class ZLNetworkUtil {
 	public static String url(String baseUrl, String relativePath) {

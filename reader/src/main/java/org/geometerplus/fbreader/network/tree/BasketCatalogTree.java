@@ -19,12 +19,16 @@
 
 package org.geometerplus.fbreader.network.tree;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.network.BasketItem;
+import org.geometerplus.fbreader.network.NetworkBookItem;
+import org.geometerplus.fbreader.network.NetworkItem;
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.network.QuietNetworkContext;
 
-import org.geometerplus.fbreader.tree.FBTree;
-import org.geometerplus.fbreader.network.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class BasketCatalogTree extends NetworkCatalogTree {
 	private long myGeneration = -1;

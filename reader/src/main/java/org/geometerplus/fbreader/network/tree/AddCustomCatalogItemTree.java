@@ -19,7 +19,8 @@
 
 package org.geometerplus.fbreader.network.tree;
 
-import org.geometerplus.fbreader.network.*;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.NetworkTree;
 
 public class AddCustomCatalogItemTree extends NetworkTree {
 	public AddCustomCatalogItemTree(NetworkTree parent) {

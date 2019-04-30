@@ -19,19 +19,19 @@
 
 package org.geometerplus.fbreader.library;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.formats.PluginCollection;
+import org.geometerplus.fbreader.book.Author;
+import org.geometerplus.fbreader.book.IBookCollection;
 
 public class BookWithAuthorsTree extends BookTree {
-	BookWithAuthorsTree(IBookCollection collection, PluginCollection pluginCollection, Book book) {
+	BookWithAuthorsTree(IBookCollection collection, org.geometerplus.fbreader.formats.PluginCollection pluginCollection, org.geometerplus.fbreader.book.Book book) {
 		super(collection, pluginCollection, book);
 	}
 
-	BookWithAuthorsTree(LibraryTree parent, Book book) {
+	BookWithAuthorsTree(LibraryTree parent, org.geometerplus.fbreader.book.Book book) {
 		super(parent, book);
 	}
 
-	BookWithAuthorsTree(LibraryTree parent, Book book, int position) {
+	BookWithAuthorsTree(LibraryTree parent, org.geometerplus.fbreader.book.Book book, int position) {
 		super(parent, book, position);
 	}
 

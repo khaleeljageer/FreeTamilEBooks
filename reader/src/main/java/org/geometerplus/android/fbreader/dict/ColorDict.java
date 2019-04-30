@@ -20,7 +20,6 @@
 package org.geometerplus.android.fbreader.dict;
 
 import android.content.Intent;
-
 import org.geometerplus.android.fbreader.FBReaderMainActivity;
 
 final class ColorDict extends DictionaryUtil.PackageInfo {

@@ -22,14 +22,14 @@ package org.geometerplus.android.fbreader.network.action;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
-import org.geometerplus.fbreader.network.*;
+import org.geometerplus.android.fbreader.network.Util;
+import org.geometerplus.fbreader.network.NetworkCatalogItem;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.NetworkTree;
+import org.geometerplus.fbreader.network.NetworkURLCatalogItem;
 import org.geometerplus.fbreader.network.tree.NetworkCatalogTree;
 import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
-
-import org.geometerplus.android.fbreader.network.Util;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 public class OpenInBrowserAction extends CatalogAction {
 	public OpenInBrowserAction(Activity activity) {

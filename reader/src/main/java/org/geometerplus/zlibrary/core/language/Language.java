@@ -19,12 +19,11 @@
 
 package org.geometerplus.zlibrary.core.language;
 
-import java.text.Normalizer;
-
 import android.annotation.TargetApi;
 import android.os.Build;
-
 import org.geometerplus.zlibrary.core.resources.ZLResource;
+
+import java.text.Normalizer;
 
 public class Language implements Comparable<Language> {
 	public static final String ANY_CODE = "any";

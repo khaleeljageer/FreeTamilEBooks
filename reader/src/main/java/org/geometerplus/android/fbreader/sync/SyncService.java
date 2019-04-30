@@ -19,25 +19,28 @@
 
 package org.geometerplus.android.fbreader.sync;
 
-import java.io.*;
-import java.util.*;
-
-import android.app.*;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
-
-import org.json.simple.JSONValue;
-
-import org.geometerplus.zlibrary.core.network.*;
-import org.geometerplus.zlibrary.core.options.Config;
-import org.geometerplus.zlibrary.ui.android.network.SQLiteCookieDatabase;
+import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
 import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.fbreader.options.SyncOptions;
 import org.geometerplus.fbreader.network.sync.SyncData;
-import org.geometerplus.android.fbreader.api.FBReaderIntents;
-import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
+import org.geometerplus.zlibrary.core.network.*;
+import org.geometerplus.zlibrary.core.options.Config;
+import org.geometerplus.zlibrary.ui.android.network.SQLiteCookieDatabase;
+import org.json.simple.JSONValue;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class SyncService extends Service implements IBookCollection.Listener<Book> {
 	private static void log(String message) {

@@ -19,13 +19,17 @@
 
 package org.geometerplus.fbreader.fbreader.options;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.Bookmark;
+import org.geometerplus.fbreader.book.BookmarkQuery;
+import org.geometerplus.fbreader.book.IBookCollection;
 import org.geometerplus.zlibrary.core.options.Config;
 import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.fbreader.book.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CancelMenuHelper {
 	private final static String GROUP_NAME = "CancelMenu";

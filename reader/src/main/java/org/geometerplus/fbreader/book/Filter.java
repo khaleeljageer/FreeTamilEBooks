@@ -31,28 +31,28 @@ public abstract class Filter {
 	}
 
 	public final static class ByAuthor extends Filter {
-		public final Author Author;
+		public final org.geometerplus.fbreader.book.Author Author;
 
-		public ByAuthor(Author author) {
+		public ByAuthor(org.geometerplus.fbreader.book.Author author) {
 			Author = author;
 		}
 
 		public boolean matches(AbstractBook book) {
-			final List<Author> bookAuthors = book.authors();
+			final List<org.geometerplus.fbreader.book.Author> bookAuthors = book.authors();
 			return
 				Author.NULL.equals(Author) ? bookAuthors.isEmpty() : bookAuthors.contains(Author);
 		}
 	}
 
 	public final static class ByTag extends Filter {
-		public final Tag Tag;
+		public final org.geometerplus.fbreader.book.Tag Tag;
 
-		public ByTag(Tag tag) {
+		public ByTag(org.geometerplus.fbreader.book.Tag tag) {
 			Tag = tag;
 		}
 
 		public boolean matches(AbstractBook book) {
-			final List<Tag> bookTags = book.tags();
+			final List<org.geometerplus.fbreader.book.Tag> bookTags = book.tags();
 			return
 				Tag.NULL.equals(Tag) ? bookTags.isEmpty() : bookTags.contains(Tag);
 		}

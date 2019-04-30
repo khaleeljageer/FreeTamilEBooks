@@ -21,7 +21,6 @@ package org.geometerplus.zlibrary.text.view;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import org.geometerplus.android.fbreader.TTSReadAction;
 import org.geometerplus.android.fbreader.util.FBReaderPercentUtils;
 import org.geometerplus.fbreader.book.Bookmark;
@@ -47,15 +46,7 @@ import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.image.BitmapImageData;
 import org.geometerplus.zlibrary.ui.android.image.ZLBitmapImage;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public abstract class ZLTextView extends ZLTextViewBase {
 	public interface ScrollingMode {
@@ -265,7 +256,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 	}
 
 	@Override
-	public synchronized void onScrollingFinished(PageIndex pageIndex) {
+	public synchronized void onScrollingFinished(ZLViewEnums.PageIndex pageIndex) {
 		switch (pageIndex) {
 			case current:
 				break;
@@ -446,13 +437,13 @@ public abstract class ZLTextView extends ZLTextViewBase {
 	}
 
 	@Override
-	public synchronized void preparePage(ZLPaintContext context, PageIndex pageIndex) {
+	public synchronized void preparePage(ZLPaintContext context, ZLViewEnums.PageIndex pageIndex) {
 		setContext(context);
 		preparePaintInfo(getPage(pageIndex));
 	}
 
 	@Override
-	public synchronized void paint(ZLPaintContext context, PageIndex pageIndex) {
+	public synchronized void paint(ZLPaintContext context, ZLViewEnums.PageIndex pageIndex) {
 		setContext(context);
 		final ZLFile wallpaper = getWallpaperFile();
 		if (wallpaper != null) {
@@ -605,7 +596,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 
     }
 
-    private ZLTextPage getPage(PageIndex pageIndex) {
+    private ZLTextPage getPage(ZLViewEnums.PageIndex pageIndex) {
 		switch (pageIndex) {
 			default:
 			case current:
@@ -639,7 +630,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		return myModel.getTextLength(myModel.getParagraphsNumber() - 1);
 	}
 
-	private final synchronized int getCurrentCharNumber(PageIndex pageIndex, boolean startNotEndOfPage) {
+	private final synchronized int getCurrentCharNumber(ZLViewEnums.PageIndex pageIndex, boolean startNotEndOfPage) {
 		if (myModel == null || myModel.getParagraphsNumber() == 0) {
 			return 0;
 		}
@@ -662,12 +653,12 @@ public abstract class ZLTextView extends ZLTextViewBase {
 	}
 
 	@Override
-	public final synchronized int getScrollbarThumbPosition(PageIndex pageIndex) {
+	public final synchronized int getScrollbarThumbPosition(ZLViewEnums.PageIndex pageIndex) {
 		return scrollbarType() == SCROLLBAR_SHOW_AS_PROGRESS ? 0 : getCurrentCharNumber(pageIndex, true);
 	}
 
 	@Override
-	public final synchronized int getScrollbarThumbLength(PageIndex pageIndex) {
+	public final synchronized int getScrollbarThumbLength(ZLViewEnums.PageIndex pageIndex) {
 		int start = scrollbarType() == SCROLLBAR_SHOW_AS_PROGRESS
 			? 0 : getCurrentCharNumber(pageIndex, true);
 		int end = getCurrentCharNumber(pageIndex, false);
@@ -788,7 +779,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 	}
 
 	public final synchronized PagePosition pagePosition() {
-		int current = computeTextPageNumber(getCurrentCharNumber(PageIndex.current, false));
+		int current = computeTextPageNumber(getCurrentCharNumber(ZLViewEnums.PageIndex.current, false));
 		int total = computeTextPageNumber(sizeOfFullText());
 
 		if (total > 3) {
@@ -1921,12 +1912,12 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		return mySelection.isEmpty();
 	}
 
-	public ZLTextRegion nextRegion(Direction direction, ZLTextRegion.Filter filter) {
+	public ZLTextRegion nextRegion(ZLViewEnums.Direction direction, ZLTextRegion.Filter filter) {
 		return myCurrentPage.TextElementMap.nextRegion(getOutlinedRegion(), direction, filter);
 	}
 
 	@Override
-	public boolean canScroll(PageIndex index) {
+	public boolean canScroll(ZLViewEnums.PageIndex index) {
 		switch (index) {
 			default:
 				return true;

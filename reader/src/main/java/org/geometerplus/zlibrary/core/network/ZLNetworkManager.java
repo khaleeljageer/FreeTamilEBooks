@@ -19,34 +19,45 @@
 
 package org.geometerplus.zlibrary.core.network;
 
-import java.io.*;
-import java.net.*;
-import java.nio.charset.Charset;
-import java.util.*;
-import java.util.zip.GZIPInputStream;
-
-import org.apache.http.*;
+import org.apache.http.Header;
+import org.apache.http.HeaderElement;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.auth.*;
 import org.apache.http.client.AuthenticationHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.ClientContext;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.client.*;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.*;
-import org.apache.http.protocol.HttpContext;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.BasicHttpContext;
-
+import org.apache.http.protocol.HttpContext;
 import org.fbreader.util.ComparisonUtil;
-
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.util.*;
+import java.util.zip.GZIPInputStream;
 
 public class ZLNetworkManager {
 	public static interface CookieStore extends org.apache.http.client.CookieStore {
@@ -105,8 +116,8 @@ public class ZLNetworkManager {
 	}
 
 	public static abstract class CredentialsCreator {
-		final private HashMap<AuthScopeKey,Credentials> myCredentialsMap =
-			new HashMap<AuthScopeKey,Credentials>();
+		final private HashMap<AuthScopeKey, Credentials> myCredentialsMap =
+			new HashMap<AuthScopeKey, Credentials>();
 
 		private volatile String myUsername;
 		private volatile String myPassword;
@@ -232,7 +243,7 @@ public class ZLNetworkManager {
 	};
 
 	final CookieStore CookieStore = new CookieStore() {
-		private volatile Map<Key,Cookie> myCookies;
+		private volatile Map<Key, Cookie> myCookies;
 
 		public synchronized void addCookie(Cookie cookie) {
 			if (myCookies == null) {
@@ -282,7 +293,7 @@ public class ZLNetworkManager {
 
 		public synchronized List<Cookie> getCookies() {
 			if (myCookies == null) {
-				myCookies = Collections.synchronizedMap(new HashMap<Key,Cookie>());
+				myCookies = Collections.synchronizedMap(new HashMap<Key, Cookie>());
 				final CookieDatabase db = CookieDatabase.getInstance();
 				if (db != null) {
 					for (Cookie c : db.loadCookies()) {
@@ -323,7 +334,7 @@ public class ZLNetworkManager {
 				protected AuthenticationHandler createTargetAuthenticationHandler() {
 					final AuthenticationHandler base = super.createTargetAuthenticationHandler();
 					return new AuthenticationHandler() {
-						public Map<String,Header> getChallenges(HttpResponse response, HttpContext context) throws MalformedChallengeException {
+						public Map<String, Header> getChallenges(HttpResponse response, HttpContext context) throws MalformedChallengeException {
 							return base.getChallenges(response, context);
 						}
 
@@ -331,7 +342,7 @@ public class ZLNetworkManager {
 							return base.isAuthenticationRequested(response, context);
 						}
 
-						public AuthScheme selectScheme(Map<String,Header> challenges, HttpResponse response, HttpContext context) throws AuthenticationException {
+						public AuthScheme selectScheme(Map<String, Header> challenges, HttpResponse response, HttpContext context) throws AuthenticationException {
 							try {
 								return base.selectScheme(challenges, response, context);
 							} catch (AuthenticationException e) {

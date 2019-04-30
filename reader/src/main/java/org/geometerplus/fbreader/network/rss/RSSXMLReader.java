@@ -19,13 +19,14 @@
 
 package org.geometerplus.fbreader.network.rss;
 
-import java.util.Map;
-
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.atom.ATOMFeedHandler;
+import org.geometerplus.fbreader.network.atom.ATOMId;
+import org.geometerplus.fbreader.network.atom.FormattedBuffer;
 import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 import org.geometerplus.zlibrary.core.xml.ZLXMLReaderAdapter;
 
-import org.geometerplus.fbreader.network.NetworkLibrary;
-import org.geometerplus.fbreader.network.atom.*;
+import java.util.Map;
 
 public class RSSXMLReader<MetadataType extends RSSChannelMetadata,EntryType extends RSSItem> extends ZLXMLReaderAdapter {
 	public RSSXMLReader(NetworkLibrary library, ATOMFeedHandler<MetadataType,EntryType> handler, boolean readEntryNotFeed) {

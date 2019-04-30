@@ -19,14 +19,17 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.util.HashSet;
-
-import android.view.*;
-import android.widget.*;
-
+import android.view.ContextMenu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import org.geometerplus.zlibrary.core.tree.ZLTree;
-
 import org.geometerplus.zlibrary.ui.android.R;
+
+import java.util.HashSet;
 
 public abstract class ZLTreeAdapter extends BaseAdapter implements AdapterView.OnItemClickListener, View.OnCreateContextMenuListener {
 	private final ListView myParent;

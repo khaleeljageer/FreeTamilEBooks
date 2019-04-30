@@ -19,7 +19,9 @@
 
 package org.geometerplus.android.fbreader.libraryService;
 
-import org.geometerplus.fbreader.book.*;
+import org.geometerplus.fbreader.book.Author;
+import org.geometerplus.fbreader.book.IBookCollection;
+import org.geometerplus.fbreader.book.Tag;
 
 abstract class Util {
 	static String authorToString(Author author) {

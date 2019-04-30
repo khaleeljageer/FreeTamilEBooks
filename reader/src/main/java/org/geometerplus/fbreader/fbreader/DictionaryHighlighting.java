@@ -20,7 +20,10 @@
 package org.geometerplus.fbreader.fbreader;
 
 import org.geometerplus.zlibrary.core.util.ZLColor;
-import org.geometerplus.zlibrary.text.view.*;
+import org.geometerplus.zlibrary.text.view.ZLTextHighlighting;
+import org.geometerplus.zlibrary.text.view.ZLTextPosition;
+import org.geometerplus.zlibrary.text.view.ZLTextSimpleHighlighting;
+import org.geometerplus.zlibrary.text.view.ZLTextView;
 
 public final class DictionaryHighlighting extends ZLTextSimpleHighlighting {
 	public static DictionaryHighlighting get(ZLTextView view) {

@@ -19,12 +19,12 @@
 
 package org.geometerplus.zlibrary.core.xml;
 
+import org.geometerplus.zlibrary.core.util.ZLArrayUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.util.ZLArrayUtils;
+import java.util.HashMap;
 
 final class ZLDTDParser {
 	private static final byte IGNORABLE_WHITESPACE = 0;

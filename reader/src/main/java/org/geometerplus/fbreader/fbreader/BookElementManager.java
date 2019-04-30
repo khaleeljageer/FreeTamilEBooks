@@ -19,15 +19,18 @@
 
 package org.geometerplus.fbreader.fbreader;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.network.*;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.opds.OPDSBookItem;
+import org.geometerplus.fbreader.network.opds.OPDSXMLReader;
+import org.geometerplus.fbreader.network.opds.SimpleOPDSFeedHandler;
+import org.geometerplus.zlibrary.core.network.QuietNetworkContext;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
 import org.geometerplus.zlibrary.text.view.ExtensionElementManager;
 
-import org.geometerplus.fbreader.network.NetworkLibrary;
-import org.geometerplus.fbreader.network.opds.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 class BookElementManager extends ExtensionElementManager {
 	private final FBView myView;

@@ -19,14 +19,14 @@
 
 package org.geometerplus.zlibrary.ui.android.view.animation;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import android.graphics.*;
-import android.util.FloatMath;
-
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.view.ZLViewEnums;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class AnimationProvider {
 	public static enum Mode {

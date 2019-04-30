@@ -19,12 +19,13 @@
 
 package org.geometerplus.fbreader.network.tree;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.network.NetworkBookItem;
+import org.geometerplus.fbreader.network.NetworkTree;
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 
-import org.geometerplus.fbreader.tree.FBTree;
-import org.geometerplus.fbreader.network.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 public class NetworkSeriesTree extends NetworkTree {

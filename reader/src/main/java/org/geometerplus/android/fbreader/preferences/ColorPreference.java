@@ -23,12 +23,9 @@ import android.content.Context;
 import android.preference.Preference;
 import android.view.View;
 import android.widget.TextView;
-
-
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.ZLColor;
-
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
 
@@ -55,6 +52,6 @@ public abstract class ColorPreference extends Preference {
 	@Override
 	protected void onClick() {
 		final ZLResource buttonResource = ZLResource.resource("dialog").getResource("button");
-		FBReader.toast("选择颜色");
+		FBReader.toast("Choose Color");
 	}
 }

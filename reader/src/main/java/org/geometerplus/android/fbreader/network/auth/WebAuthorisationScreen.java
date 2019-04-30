@@ -19,8 +19,6 @@
 
 package org.geometerplus.android.fbreader.network.auth;
 
-import java.util.*;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,14 +27,14 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.Window;
 import android.webkit.*;
-
-import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie2;
-
+import org.geometerplus.android.util.OrientationUtil;
 import org.geometerplus.zlibrary.core.network.ZLNetworkManager;
 import org.geometerplus.zlibrary.ui.android.network.SQLiteCookieDatabase;
 
-import org.geometerplus.android.util.OrientationUtil;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WebAuthorisationScreen extends Activity {
 	public static final String COMPLETE_URL_KEY = "android.fbreader.data.complete.url";

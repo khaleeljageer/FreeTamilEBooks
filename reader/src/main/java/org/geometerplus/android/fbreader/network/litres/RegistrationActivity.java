@@ -19,8 +19,6 @@
 
 package org.geometerplus.android.fbreader.network.litres;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -30,15 +28,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import org.geometerplus.android.fbreader.network.Util;
+import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
+import org.geometerplus.fbreader.network.authentication.litres.LitResLoginXMLReader;
+import org.geometerplus.fbreader.network.authentication.litres.LitResNetworkRequest;
+import org.geometerplus.fbreader.network.authentication.litres.LitResRegisterUserXMLReader;
 import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.ui.android.R;
 
-import org.geometerplus.fbreader.network.authentication.litres.*;
-
-import org.geometerplus.android.fbreader.network.Util;
-import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
+import java.util.List;
 
 abstract class RegistrationActivity extends Activity implements UserRegistrationConstants {
 	protected final ActivityNetworkContext myNetworkContext = new ActivityNetworkContext(this);

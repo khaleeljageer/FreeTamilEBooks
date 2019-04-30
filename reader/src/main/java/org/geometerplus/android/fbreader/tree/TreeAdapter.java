@@ -19,11 +19,13 @@
 
 package org.geometerplus.android.fbreader.tree;
 
-import java.util.*;
-
 import android.widget.BaseAdapter;
-
 import org.geometerplus.fbreader.tree.FBTree;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class TreeAdapter extends BaseAdapter {
 	private final TreeActivity myActivity;

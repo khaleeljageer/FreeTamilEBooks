@@ -20,13 +20,13 @@
 package org.geometerplus.fbreader.network.tree;
 
 import org.fbreader.util.Pair;
-
+import org.geometerplus.fbreader.network.INetworkLink;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.SearchItem;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
 import org.geometerplus.zlibrary.core.util.MimeType;
-
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 
 public class SearchCatalogTree extends NetworkCatalogTree {
 	public SearchCatalogTree(RootTree parent, SearchItem item) {

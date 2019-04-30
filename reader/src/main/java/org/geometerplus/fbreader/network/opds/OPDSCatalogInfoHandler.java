@@ -19,12 +19,11 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.List;
-
+import org.geometerplus.fbreader.network.atom.ATOMLink;
 import org.geometerplus.zlibrary.core.util.MimeType;
 import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
 
-import org.geometerplus.fbreader.network.atom.ATOMLink;
+import java.util.List;
 
 class OPDSCatalogInfoHandler extends AbstractOPDSFeedHandler {
 	public boolean FeedStarted;

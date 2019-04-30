@@ -4,6 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import org.geometerplus.android.fbreader.FBReader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 //import com.iflytek.cloud.ErrorCode;
 //import com.iflytek.cloud.InitListener;
@@ -12,13 +18,6 @@ import android.content.pm.PackageManager;
 //import com.iflytek.cloud.SpeechSynthesizer;
 //import com.iflytek.cloud.SpeechUtility;
 //import com.iflytek.cloud.SynthesizerListener;
-
-import org.geometerplus.android.fbreader.FBReader;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * desc:<br>

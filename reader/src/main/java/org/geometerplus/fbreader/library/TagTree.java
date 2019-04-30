@@ -19,20 +19,23 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.List;
-
-import org.geometerplus.fbreader.book.*;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookEvent;
+import org.geometerplus.fbreader.book.Filter;
+import org.geometerplus.fbreader.book.IBookCollection;
 import org.geometerplus.fbreader.formats.PluginCollection;
 
-public final class TagTree extends FilteredTree {
-	public final Tag Tag;
+import java.util.List;
 
-	TagTree(IBookCollection collection, PluginCollection pluginCollection, Tag tag) {
+public final class TagTree extends FilteredTree {
+	public final org.geometerplus.fbreader.book.Tag Tag;
+
+	TagTree(IBookCollection collection, PluginCollection pluginCollection, org.geometerplus.fbreader.book.Tag tag) {
 		super(collection, pluginCollection, new Filter.ByTag(tag));
 		Tag = tag;
 	}
 
-	TagTree(LibraryTree parent, Tag tag, int position) {
+	TagTree(LibraryTree parent, org.geometerplus.fbreader.book.Tag tag, int position) {
 		super(parent, new Filter.ByTag(tag), position);
 		Tag = tag;
 	}
@@ -59,7 +62,7 @@ public final class TagTree extends FilteredTree {
 		if (Tag.NULL.equals(Tag)) {
 			return book.tags().isEmpty();
 		}
-		for (Tag t : book.tags()) {
+		for (org.geometerplus.fbreader.book.Tag t : book.tags()) {
 			for (; t != null; t = t.Parent) {
 				if (t == Tag) {
 					return true;
@@ -73,7 +76,7 @@ public final class TagTree extends FilteredTree {
 	public void waitForOpening() {
 		clear();
 		if (!Tag.NULL.equals(Tag)) {
-			for (Tag t : Collection.tags()) {
+			for (org.geometerplus.fbreader.book.Tag t : Collection.tags()) {
 				if (Tag.equals(t.Parent)) {
 					createTagSubtree(t);
 				}
@@ -88,11 +91,11 @@ public final class TagTree extends FilteredTree {
 			case Added:
 			{
 				boolean changed = false;
-				final List<Tag> bookTags = book.tags();
+				final List<org.geometerplus.fbreader.book.Tag> bookTags = book.tags();
 				if (bookTags.isEmpty()) {
 					changed &= Tag.NULL.equals(Tag) && createBookWithAuthorsSubtree(book);
 				} else {
-					for (Tag t : bookTags) {
+					for (org.geometerplus.fbreader.book.Tag t : bookTags) {
 						if (Tag.equals(t)) {
 							changed &= createBookWithAuthorsSubtree(book);
 						} else if (Tag.equals(t.Parent)) {
@@ -109,11 +112,11 @@ public final class TagTree extends FilteredTree {
 			{
 				// TODO: remove empty tag trees (?)
 				boolean changed = removeBook(book);
-				final List<Tag> bookTags = book.tags();
+				final List<org.geometerplus.fbreader.book.Tag> bookTags = book.tags();
 				if (bookTags.isEmpty()) {
 					changed &= Tag.NULL.equals(Tag) && createBookWithAuthorsSubtree(book);
 				} else {
-					for (Tag t : bookTags) {
+					for (org.geometerplus.fbreader.book.Tag t : bookTags) {
 						if (Tag.equals(t)) {
 							changed &= createBookWithAuthorsSubtree(book);
 						} else if (Tag.equals(t.Parent)) {

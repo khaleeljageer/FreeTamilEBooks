@@ -19,29 +19,24 @@
 
 package org.geometerplus.android.fbreader;
 
-import android.content.Intent;
 import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.net.Uri;
-import android.os.Parcelable;
-import android.view.View;
-
-
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.text.view.*;
-
-import org.geometerplus.fbreader.Paths;
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
-import org.geometerplus.fbreader.bookmodel.FBHyperlinkType;
-import org.geometerplus.fbreader.network.NetworkLibrary;
-import org.geometerplus.fbreader.util.AutoTextSnippet;
-
 import org.geometerplus.android.fbreader.dict.DictionaryUtil;
 import org.geometerplus.android.fbreader.image.ImageViewActivity;
-import org.geometerplus.android.fbreader.network.*;
+import org.geometerplus.android.fbreader.network.BookDownloader;
+import org.geometerplus.android.fbreader.network.BookDownloaderService;
+import org.geometerplus.android.fbreader.network.Util;
 import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
 import org.geometerplus.android.util.OrientationUtil;
 import org.geometerplus.android.util.UIMessageUtil;
+import org.geometerplus.fbreader.Paths;
+import org.geometerplus.fbreader.bookmodel.FBHyperlinkType;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.util.AutoTextSnippet;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.text.view.*;
 
 //处理文中的超链接：目录点击、脚注点击等等
 class ProcessHyperlinkAction extends FBAndroidAction {

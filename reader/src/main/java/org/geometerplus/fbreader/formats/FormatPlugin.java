@@ -19,9 +19,7 @@
 
 package org.geometerplus.fbreader.formats;
 
-import java.util.Collections;
-import java.util.List;
-
+import org.geometerplus.fbreader.book.AbstractBook;
 import org.geometerplus.zlibrary.core.drm.FileEncryptionInfo;
 import org.geometerplus.zlibrary.core.encodings.EncodingCollection;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
@@ -29,7 +27,8 @@ import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.SystemInfo;
 
-import org.geometerplus.fbreader.book.AbstractBook;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class FormatPlugin {
 	protected final SystemInfo SystemInfo;

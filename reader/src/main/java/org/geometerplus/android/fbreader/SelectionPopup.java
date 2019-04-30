@@ -22,7 +22,6 @@ package org.geometerplus.android.fbreader;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.geometerplus.android.fbreader.util.FBReaderPercentUtils;
 import org.geometerplus.fbreader.fbreader.ActionCode;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;

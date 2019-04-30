@@ -1,6 +1,7 @@
 package org.amse.ys.zip;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 class ZipInputStream extends InputStream {
 	private final ZipFile myParent;

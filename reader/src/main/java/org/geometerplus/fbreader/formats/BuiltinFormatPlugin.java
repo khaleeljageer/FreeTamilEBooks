@@ -19,9 +19,8 @@
 
 package org.geometerplus.fbreader.formats;
 
-import org.geometerplus.zlibrary.core.util.SystemInfo;
-
 import org.geometerplus.fbreader.bookmodel.BookModel;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
 
 public abstract class BuiltinFormatPlugin extends FormatPlugin {
 	protected BuiltinFormatPlugin(SystemInfo systemInfo, String fileType) {

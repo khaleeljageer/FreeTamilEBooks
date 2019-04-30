@@ -19,9 +19,11 @@
 
 package org.geometerplus.zlibrary.ui.android.view.animation;
 
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
-
 import org.geometerplus.zlibrary.ui.android.view.ViewUtil;
 
 public final class SlideAnimationProvider extends SimpleAnimationProvider {

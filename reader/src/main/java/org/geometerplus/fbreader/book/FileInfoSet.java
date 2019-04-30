@@ -19,18 +19,19 @@
 
 package org.geometerplus.fbreader.book;
 
+import org.fbreader.util.Pair;
+import org.geometerplus.zlibrary.core.filesystem.ZLArchiveEntryFile;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
+
 import java.util.*;
 
-import org.fbreader.util.Pair;
-
-import org.geometerplus.zlibrary.core.filesystem.*;
-
 public final class FileInfoSet {
-	private final HashMap<ZLFile,FileInfo> myInfosByFile = new HashMap<ZLFile,FileInfo>();
-	private final HashMap<FileInfo,ZLFile> myFilesByInfo = new HashMap<FileInfo,ZLFile>();
-	private final HashMap<Pair<String,FileInfo>,FileInfo> myInfosByPair =
-		new HashMap<Pair<String,FileInfo>,FileInfo>();
-	private final HashMap<Long,FileInfo> myInfosById = new HashMap<Long,FileInfo>();
+	private final HashMap<ZLFile, FileInfo> myInfosByFile = new HashMap<ZLFile, FileInfo>();
+	private final HashMap<FileInfo, ZLFile> myFilesByInfo = new HashMap<FileInfo, ZLFile>();
+	private final HashMap<Pair<String, FileInfo>, FileInfo> myInfosByPair =
+		new HashMap<Pair<String, FileInfo>, FileInfo>();
+	private final HashMap<Long, FileInfo> myInfosById = new HashMap<Long, FileInfo>();
 
 	private final LinkedHashSet<FileInfo> myInfosToSave = new LinkedHashSet<FileInfo>();
 	private final LinkedHashSet<FileInfo> myInfosToRemove = new LinkedHashSet<FileInfo>();

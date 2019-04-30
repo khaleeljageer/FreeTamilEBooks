@@ -19,14 +19,15 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.RationalNumber;
 import org.geometerplus.zlibrary.core.util.ZLColor;
-
 import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public abstract class BooksDatabase {
 	protected interface HistoryEvent {

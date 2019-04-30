@@ -21,9 +21,8 @@ package org.geometerplus.android.fbreader.sync;
 
 import android.content.Context;
 import android.content.Intent;
-
-import org.geometerplus.fbreader.fbreader.options.SyncOptions;
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import org.geometerplus.fbreader.fbreader.options.SyncOptions;
 
 public abstract class SyncOperations {
 	public static void enableSync(Context context, SyncOptions options) {

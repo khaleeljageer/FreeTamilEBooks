@@ -19,14 +19,14 @@
 
 package org.geometerplus.zlibrary.core.xml;
 
-import java.io.*;
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.filesystem.*;
-
+import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
 import org.geometerplus.zlibrary.core.util.ZLArrayUtils;
-import org.geometerplus.zlibrary.core.xml.ZLStringMap;
-import org.geometerplus.zlibrary.core.xml.ZLXMLReader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.*;
 
 final class ZLXMLParser {
 	private static final byte START_DOCUMENT = 0;

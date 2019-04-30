@@ -19,15 +19,15 @@
 
 package org.geometerplus.android.util;
 
-import java.util.*;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.util.Log;
-
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class FileChooserUtil {
 	private FileChooserUtil() {
@@ -56,7 +56,7 @@ public abstract class FileChooserUtil {
 		String initialDir,
 		String regexp
 	) {
-		FBReader.toast("文件选择："+title);
+		FBReader.toast("Choose File："+title);
 	}
 
 	public static void runDirectoryChooser(
@@ -66,7 +66,7 @@ public abstract class FileChooserUtil {
 		String initialValue,
 		boolean chooseWritableDirsOnly
 	) {
-		FBReader.toast("文件选择："+title);
+		FBReader.toast("Choose File："+title);
 	}
 
 	public static String folderPathFromData(Intent data) {

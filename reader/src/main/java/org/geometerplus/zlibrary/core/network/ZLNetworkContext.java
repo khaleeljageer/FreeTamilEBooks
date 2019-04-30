@@ -19,14 +19,12 @@
 
 package org.geometerplus.zlibrary.core.network;
 
-import java.io.*;
+import org.apache.http.cookie.Cookie;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
 
+import java.io.*;
 import java.util.HashSet;
 import java.util.List;
-
-import org.apache.http.cookie.Cookie;
-
-import org.geometerplus.zlibrary.core.options.ZLStringOption;
 
 public abstract class ZLNetworkContext implements ZLNetworkManager.BearerAuthenticator {
 	private final ZLNetworkManager myManager = ZLNetworkManager.Instance();

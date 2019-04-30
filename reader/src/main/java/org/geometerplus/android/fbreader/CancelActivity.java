@@ -19,24 +19,24 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.util.List;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.*;
-import android.view.*;
-
-import org.geometerplus.zlibrary.core.options.Config;
-
-import org.geometerplus.zlibrary.ui.android.R;
-
-import org.geometerplus.fbreader.fbreader.options.CancelMenuHelper;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
 import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
-
 import org.geometerplus.android.util.ViewUtil;
+import org.geometerplus.fbreader.fbreader.options.CancelMenuHelper;
+import org.geometerplus.zlibrary.ui.android.R;
+
+import java.util.List;
 
 public class CancelActivity extends ListActivity {
 	private BookCollectionShadow myCollection;

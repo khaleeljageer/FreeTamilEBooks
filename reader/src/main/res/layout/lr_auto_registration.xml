@@ -8,15 +8,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:orientation="vertical">
         <TextView
                 android:id="@+id/lr_auto_registration_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
+                android:paddingStart="10dip"
+                android:paddingEnd="10dip"
                 android:paddingBottom="14dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         <include layout="@layout/lr_action_item" android:id="@+id/lr_auto_registration_action_signin"/>

@@ -198,8 +198,7 @@ sgi)
     # The second pass generates a dummy entry for each header file.
     tr ' ' '
 ' < "$tmpdepfile" \
-   | sed -e 's/^.*\.o://' -e 's/#.*$//' -e '/^$/ d' -e 's/$/:/' \
-   >> $depfile
+   | sed -e 's/^.*\.o://' -e 's/#.*$//' -e '/^$/ d' -e 's/$/:/' \>> $depfile
   else
     # The sourcefile does not contain any dependencies, so just
     # store a dummy comment line, to avoid errors with the Makefile

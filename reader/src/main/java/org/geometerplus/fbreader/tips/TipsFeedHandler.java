@@ -19,9 +19,11 @@
 
 package org.geometerplus.fbreader.tips;
 
-import java.util.*;
+import org.geometerplus.fbreader.network.atom.ATOMEntry;
+import org.geometerplus.fbreader.network.atom.AbstractATOMFeedHandler;
 
-import org.geometerplus.fbreader.network.atom.*;
+import java.util.LinkedList;
+import java.util.List;
 
 class TipsFeedHandler extends AbstractATOMFeedHandler {
 	final List<Tip> Tips = new LinkedList<Tip>();

@@ -7,12 +7,11 @@ package org.geometerplus.android.util.eink;
  * http://forum.xda-developers.com/showthread.php?t=1183173
  */
 
+import android.app.Activity;
+import org.geometerplus.android.util.DeviceType;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-
-import android.app.Activity;
-
-import org.geometerplus.android.util.DeviceType;
 
 public class Nook2Util {
 	private static Class epdControllerClass;

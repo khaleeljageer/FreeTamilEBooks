@@ -21,17 +21,12 @@ package org.geometerplus.android.fbreader.network.action;
 
 import android.app.Activity;
 import android.content.Intent;
-
-import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-
-import org.geometerplus.fbreader.network.NetworkTree;
-
 import org.geometerplus.android.fbreader.network.NetworkBookInfoActivity;
 import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
-
 import org.geometerplus.android.util.OrientationUtil;
 import org.geometerplus.android.util.UIUtil;
+import org.geometerplus.fbreader.network.NetworkTree;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
 
 public class ShowBookInfoAction extends BookAction {
 	private final ZLNetworkContext myNetworkContext;

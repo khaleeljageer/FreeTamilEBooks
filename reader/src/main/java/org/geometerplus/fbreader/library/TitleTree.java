@@ -19,13 +19,14 @@
 
 package org.geometerplus.fbreader.library;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.formats.PluginCollection;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.Filter;
+import org.geometerplus.fbreader.book.IBookCollection;
 
 public final class TitleTree extends FilteredTree {
 	public final String Prefix;
 
-	TitleTree(IBookCollection collection, PluginCollection pluginCollection, String prefix) {
+	TitleTree(IBookCollection collection, org.geometerplus.fbreader.formats.PluginCollection pluginCollection, String prefix) {
 		super(collection, pluginCollection, new Filter.ByTitlePrefix(prefix));
 		Prefix = prefix;
 	}

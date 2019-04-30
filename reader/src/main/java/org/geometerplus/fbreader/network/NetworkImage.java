@@ -19,16 +19,14 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.io.File;
-
 import android.net.Uri;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.image.*;
+import org.geometerplus.zlibrary.core.image.ZLFileImage;
+import org.geometerplus.zlibrary.core.image.ZLImageSimpleProxy;
 import org.geometerplus.zlibrary.core.network.QuietNetworkContext;
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-import org.geometerplus.zlibrary.core.util.MimeType;
 import org.geometerplus.zlibrary.core.util.SystemInfo;
+
+import java.io.File;
 
 public final class NetworkImage extends ZLImageSimpleProxy {
 	public final String Url;

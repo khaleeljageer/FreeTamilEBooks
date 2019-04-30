@@ -20,7 +20,6 @@
 package org.geometerplus.android.fbreader.api;
 
 import android.content.Intent;
-
 import org.geometerplus.fbreader.book.*;
 
 public abstract class FBReaderIntents {

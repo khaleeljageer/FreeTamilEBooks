@@ -19,8 +19,11 @@
 
 package org.geometerplus.zlibrary.core.encodings;
 
-import java.nio.*;
-import java.nio.charset.*;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CodingErrorAction;
 
 public class EncodingConverter {
 	public final String Name;

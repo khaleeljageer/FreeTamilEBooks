@@ -19,15 +19,13 @@
 
 package org.geometerplus.android.fbreader.sync;
 
-import java.util.*;
-
 import org.fbreader.util.ComparisonUtil;
-
+import org.geometerplus.fbreader.book.*;
+import org.geometerplus.fbreader.fbreader.options.SyncOptions;
 import org.geometerplus.zlibrary.core.network.JsonRequest2;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.fbreader.options.SyncOptions;
+import java.util.*;
 
 class BookmarkSyncUtil {
 	static void sync(SyncNetworkContext context, final IBookCollection<Book> collection) {

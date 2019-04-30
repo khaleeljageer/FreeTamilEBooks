@@ -6,5 +6,4 @@
 	android:textAppearance="?android:attr/textAppearanceMedium"
 	android:ellipsize="marquee"
 	android:marqueeRepeatLimit="marquee_forever"
-	android:gravity="center_vertical|start"
-/>
+	android:gravity="center_vertical|start" />

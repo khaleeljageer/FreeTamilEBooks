@@ -19,27 +19,24 @@
 
 package org.geometerplus.android.fbreader.bookmark;
 
-import java.util.*;
-
-import android.app.*;
-import android.os.*;
+import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
-import android.content.*;
-
-
-import org.geometerplus.zlibrary.core.util.MiscUtil;
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.core.options.ZLStringOption;
-
-import org.geometerplus.zlibrary.ui.android.R;
-
-import org.geometerplus.fbreader.book.*;
-
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
 import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
 import org.geometerplus.android.util.*;
+import org.geometerplus.fbreader.book.*;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.core.util.MiscUtil;
+import org.geometerplus.zlibrary.ui.android.R;
+
+import java.util.*;
+
 //我的书签
 public class BookmarksActivity extends Activity implements IBookCollection.Listener<Book> {
 	private static final int OPEN_ITEM_ID = 0;

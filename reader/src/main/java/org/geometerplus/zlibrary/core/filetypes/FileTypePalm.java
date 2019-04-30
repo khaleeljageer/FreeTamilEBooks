@@ -19,11 +19,12 @@
 
 package org.geometerplus.zlibrary.core.filetypes;
 
-import java.io.*;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.util.MimeType;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 abstract class FileTypePalm extends FileType {
 	protected static String palmFileType(final ZLFile file) {

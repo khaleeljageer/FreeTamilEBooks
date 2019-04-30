@@ -19,10 +19,10 @@
 
 package org.geometerplus.zlibrary.text.view;
 
+import org.geometerplus.zlibrary.text.model.ExtensionEntry;
+
 import java.util.List;
 import java.util.Map;
-
-import org.geometerplus.zlibrary.text.model.ExtensionEntry;
 
 public abstract class ExtensionElementManager {
 	final List<? extends ExtensionElement> getElements(ExtensionEntry entry) {

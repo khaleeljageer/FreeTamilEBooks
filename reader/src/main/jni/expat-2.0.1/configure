@@ -1415,8 +1415,7 @@ echo "$as_me: loading cache $cache_file" >&6;}
   fi
 else
   { echo "$as_me:$LINENO: creating cache $cache_file" >&5
-echo "$as_me: creating cache $cache_file" >&6;}
-  >$cache_file
+echo "$as_me: creating cache $cache_file" >&6;}>$cache_file
 fi
 
 # Check that the precious variables saved in the cache have kept the same

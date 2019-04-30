@@ -20,7 +20,6 @@
 package org.geometerplus.android.fbreader.preferences;
 
 import android.content.Context;
-
 import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 

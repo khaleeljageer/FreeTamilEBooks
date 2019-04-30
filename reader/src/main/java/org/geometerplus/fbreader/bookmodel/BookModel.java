@@ -19,18 +19,23 @@
 
 package org.geometerplus.fbreader.bookmodel;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.fonts.*;
+import org.geometerplus.fbreader.formats.BookReadingException;
+import org.geometerplus.fbreader.formats.BuiltinFormatPlugin;
+import org.geometerplus.fbreader.formats.FormatPlugin;
+import org.geometerplus.zlibrary.core.fonts.FileInfo;
+import org.geometerplus.zlibrary.core.fonts.FontEntry;
+import org.geometerplus.zlibrary.core.fonts.FontManager;
 import org.geometerplus.zlibrary.core.image.ZLImage;
-import org.geometerplus.zlibrary.text.model.*;
+import org.geometerplus.zlibrary.text.model.CachedCharStorage;
+import org.geometerplus.zlibrary.text.model.ZLTextModel;
+import org.geometerplus.zlibrary.text.model.ZLTextPlainModel;
 
-import org.geometerplus.fbreader.book.Book;
-import org.geometerplus.fbreader.book.BookUtil;
-import org.geometerplus.fbreader.formats.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public final class BookModel {
-	public static BookModel createModel(Book book, FormatPlugin plugin) throws BookReadingException {
+	public static BookModel createModel(org.geometerplus.fbreader.book.Book book, FormatPlugin plugin) throws BookReadingException {
 		if (plugin instanceof BuiltinFormatPlugin) {
 			final BookModel model = new BookModel(book);
 			((BuiltinFormatPlugin)plugin).readModel(model);
@@ -42,14 +47,14 @@ public final class BookModel {
 		);
 	}
 
-	public final Book Book;
-	public final TOCTree TOCTree = new TOCTree();
-	public final FontManager FontManager = new FontManager();
+	public final org.geometerplus.fbreader.book.Book Book;
+	public final org.geometerplus.fbreader.bookmodel.TOCTree TOCTree = new TOCTree();
+	public final org.geometerplus.zlibrary.core.fonts.FontManager FontManager = new FontManager();
 
 	protected CachedCharStorage myInternalHyperlinks;
-	protected final HashMap<String,ZLImage> myImageMap = new HashMap<String,ZLImage>();
+	protected final HashMap<String, ZLImage> myImageMap = new HashMap<String, ZLImage>();
 	protected ZLTextModel myBookTextModel;
-	protected final HashMap<String,ZLTextModel> myFootnotes = new HashMap<String,ZLTextModel>();
+	protected final HashMap<String, ZLTextModel> myFootnotes = new HashMap<String, ZLTextModel>();
 
 	public static final class Label {
 		public final String ModelId;
@@ -61,7 +66,7 @@ public final class BookModel {
 		}
 	}
 
-	protected BookModel(Book book) {
+	protected BookModel(org.geometerplus.fbreader.book.Book book) {
 		Book = book;
 	}
 
@@ -138,7 +143,7 @@ public final class BookModel {
 		myInternalHyperlinks = new CachedCharStorage(directoryName, fileExtension, blocksNumber);
 	}
 
-	private TOCTree myCurrentTree = TOCTree;
+	private org.geometerplus.fbreader.bookmodel.TOCTree myCurrentTree = TOCTree;
 
 	public void addTOCItem(String text, int reference) {
 		myCurrentTree = new TOCTree(myCurrentTree);

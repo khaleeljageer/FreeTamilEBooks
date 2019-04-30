@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:minHeight="?android:attr/listPreferredItemHeight"
               android:orientation="horizontal"
               android:paddingStart="5dip"
+              android:paddingEnd="5dip"
               android:gravity="center_vertical|start">
     <ImageView
             android:id="@+id/plugin_item_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:adjustViewBounds="false"/>
+            android:adjustViewBounds="false" tools:ignore="ContentDescription"/>
     <LinearLayout
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:orientation="vertical">
         <TextView
                 android:id="@+id/plugin_item_title"

@@ -19,15 +19,14 @@
 
 package org.geometerplus.android.fbreader.preferences.fileChooser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
-
-import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.options.ZLStringListOption;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileChooserCollection {
 	private final Context myContext;

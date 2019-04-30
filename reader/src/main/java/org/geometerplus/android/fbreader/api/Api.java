@@ -4,10 +4,10 @@
 
 package org.geometerplus.android.fbreader.api;
 
-import java.util.List;
-import java.util.Date;
-
 import android.graphics.Bitmap;
+
+import java.util.Date;
+import java.util.List;
 
 public interface Api {
 	// information about fbreader

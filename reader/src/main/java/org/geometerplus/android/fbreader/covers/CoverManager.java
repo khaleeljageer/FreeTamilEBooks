@@ -19,19 +19,18 @@
 
 package org.geometerplus.android.fbreader.covers;
 
-import java.util.concurrent.*;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
-
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.image.ZLImageProxy;
-
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageData;
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
 
-import org.geometerplus.fbreader.tree.FBTree;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 public class CoverManager {
 	final CoverCache Cache = new CoverCache();

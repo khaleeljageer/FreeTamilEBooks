@@ -19,18 +19,19 @@
 
 package org.geometerplus.fbreader.network.authentication.litres;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.network.*;
+import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
+import org.geometerplus.fbreader.network.opds.OPDSNetworkLink;
+import org.geometerplus.fbreader.network.urlInfo.BookUrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.DecoratedBookUrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 import org.geometerplus.zlibrary.core.money.Money;
 import org.geometerplus.zlibrary.core.network.*;
 import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
 
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.authentication.*;
-import org.geometerplus.fbreader.network.opds.OPDSNetworkLink;
-import org.geometerplus.fbreader.network.urlInfo.*;
+import java.util.*;
 
 public class LitResAuthenticationManager extends NetworkAuthenticationManager {
 	private final ZLNetworkContext myNetworkContext = new QuietNetworkContext();

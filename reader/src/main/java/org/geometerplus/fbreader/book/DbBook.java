@@ -19,14 +19,17 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.util.*;
-
 import org.fbreader.util.ComparisonUtil;
-
+import org.geometerplus.fbreader.formats.BookReadingException;
+import org.geometerplus.fbreader.formats.FormatPlugin;
+import org.geometerplus.fbreader.formats.PluginCollection;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
 
-import org.geometerplus.fbreader.formats.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public final class DbBook extends AbstractBook {
 	public final ZLFile File;

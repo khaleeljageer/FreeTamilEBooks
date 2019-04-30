@@ -19,13 +19,15 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-import java.util.*;
-
-import org.vimgadgets.linebreak.LineBreaker;
-
-import org.geometerplus.zlibrary.core.image.*;
+import org.geometerplus.zlibrary.core.image.ZLImage;
+import org.geometerplus.zlibrary.core.image.ZLImageData;
+import org.geometerplus.zlibrary.core.image.ZLImageManager;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.text.model.*;
+import org.vimgadgets.linebreak.LineBreaker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ZLTextParagraphCursor {
 	private static final class Processor {

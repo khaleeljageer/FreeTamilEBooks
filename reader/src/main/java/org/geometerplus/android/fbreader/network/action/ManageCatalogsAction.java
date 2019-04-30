@@ -19,15 +19,14 @@
 
 package org.geometerplus.android.fbreader.network.action;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
-
 import org.geometerplus.android.fbreader.FBReader;
-import org.geometerplus.fbreader.network.tree.RootTree;
-import org.geometerplus.fbreader.network.tree.ManageCatalogsItemTree;
 import org.geometerplus.fbreader.network.NetworkTree;
+import org.geometerplus.fbreader.network.tree.ManageCatalogsItemTree;
+import org.geometerplus.fbreader.network.tree.RootTree;
 import org.geometerplus.zlibrary.ui.android.R;
+
+import java.util.ArrayList;
 
 public class ManageCatalogsAction extends RootAction {
 	public ManageCatalogsAction(Activity activity) {
@@ -44,6 +43,6 @@ public class ManageCatalogsAction extends RootAction {
 		final ArrayList<String> ids = new ArrayList<String>(myLibrary.activeIds());
 		final ArrayList<String> inactiveIds = new ArrayList<String>(myLibrary.allIds());
 		inactiveIds.removeAll(ids);
-		FBReader.toast("管理书库");
+		FBReader.toast("Manage Library");
 	}
 }

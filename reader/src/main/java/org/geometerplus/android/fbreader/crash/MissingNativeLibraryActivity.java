@@ -20,10 +20,8 @@
 package org.geometerplus.android.fbreader.crash;
 
 import android.os.Bundle;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.android.fbreader.util.SimpleDialogActivity;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 public class MissingNativeLibraryActivity extends SimpleDialogActivity {
 	@Override

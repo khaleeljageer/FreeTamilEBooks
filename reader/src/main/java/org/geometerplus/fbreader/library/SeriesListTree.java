@@ -19,9 +19,12 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.Collections;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookEvent;
+import org.geometerplus.fbreader.book.Series;
+import org.geometerplus.fbreader.book.SeriesInfo;
 
-import org.geometerplus.fbreader.book.*;
+import java.util.Collections;
 
 public class SeriesListTree extends FirstLevelTree {
 	SeriesListTree(RootTree root) {

@@ -19,14 +19,15 @@
 
 package org.geometerplus.android.fbreader.httpd;
 
-import java.io.IOException;
-
 import android.app.Service;
-import android.content.*;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
-
 import org.geometerplus.android.fbreader.util.AndroidImageSynchronizer;
+
+import java.io.IOException;
 
 public class DataService extends Service {
 	final AndroidImageSynchronizer ImageSynchronizer = new AndroidImageSynchronizer(this);

@@ -4,11 +4,11 @@
 
 package org.geometerplus.android.fbreader.api;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ApiObject implements Parcelable {
 	protected static interface Type {

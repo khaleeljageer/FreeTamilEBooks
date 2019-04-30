@@ -22,12 +22,10 @@ package org.geometerplus.android.fbreader.error;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
+import org.geometerplus.android.fbreader.util.SimpleDialogActivity;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.zlibrary.ui.android.error.ErrorKeys;
 import org.geometerplus.zlibrary.ui.android.error.ErrorUtil;
-import org.geometerplus.android.fbreader.util.SimpleDialogActivity;
 
 public class BookReadingErrorActivity extends SimpleDialogActivity implements ErrorKeys {
 	@Override

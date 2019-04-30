@@ -20,12 +20,9 @@
 package org.geometerplus.android.fbreader.network.action;
 
 import android.app.Activity;
-
-import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
 import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.fbreader.network.tree.RootTree;
-
-import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
 
 public class OpenRootAction extends Action {
 	public OpenRootAction(Activity activity) {

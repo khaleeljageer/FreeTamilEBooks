@@ -20,7 +20,6 @@
 package org.geometerplus.android.util.eink;
 
 import android.app.Activity;
-
 import org.geometerplus.android.util.DeviceType;
 
 public abstract class EInkUtil {

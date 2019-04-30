@@ -19,15 +19,17 @@
 
 package org.geometerplus.android.fbreader.network.action;
 
-import java.util.*;
-
 import android.app.Activity;
-
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.tree.*;
+import org.geometerplus.android.fbreader.network.BuyBooksActivity;
+import org.geometerplus.fbreader.network.BasketItem;
+import org.geometerplus.fbreader.network.NetworkTree;
+import org.geometerplus.fbreader.network.tree.BasketCatalogTree;
+import org.geometerplus.fbreader.network.tree.NetworkBookTree;
 import org.geometerplus.fbreader.tree.FBTree;
 
-import org.geometerplus.android.fbreader.network.BuyBooksActivity;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BuyBasketBooksAction extends CatalogAction {
 	public BuyBasketBooksAction(Activity activity) {

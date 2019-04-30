@@ -37,8 +37,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp"/>
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"/>
 
                 <ImageView
                         android:id="@+id/light_slider_right"
@@ -133,7 +133,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_setting_font_day"
                         android:gravity="center"
-                        android:text="仿真"
+                        android:visibility="gone"
+                        android:text="@string/fbreader_setting_turn_page_type_simulation"
                         android:textColor="@color/color_fbreader_menu_unselected_day"
                         android:textSize="14sp"/>
 
@@ -145,7 +146,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_setting_font_day"
                         android:gravity="center"
-                        android:text="覆盖"
+                        android:text="@string/fbreader_setting_turn_page_type_shift"
                         android:textColor="@color/color_fbreader_menu_unselected_day"
                         android:textSize="14sp"/>
 
@@ -157,7 +158,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_setting_font_day"
                         android:gravity="center"
-                        android:text="滑动"
+                        android:text="@string/fbreader_setting_turn_page_type_slide"
                         android:textColor="@color/color_fbreader_menu_unselected_day"
                         android:textSize="14sp"/>
 
@@ -169,7 +170,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/bg_setting_font_day"
                         android:gravity="center"
-                        android:text="无"
+                        android:text="@string/fbreader_setting_turn_page_type_none"
                         android:textColor="@color/color_fbreader_menu_unselected_day"
                         android:textSize="14sp"/>
             </LinearLayout>

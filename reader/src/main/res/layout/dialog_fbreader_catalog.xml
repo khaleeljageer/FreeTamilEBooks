@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/id_dialog_fbreader_catalog_title"
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="80dp"
-            android:singleLine="true"
-            android:textColor="#333333"
-            android:textSize="24sp"/>
+            android:layout_height="180dp">
+
+        <ImageView
+                android:id="@+id/id_dialog_fbreader_catalog_book_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" tools:ignore="ContentDescription"/>
+        <View android:layout_width="match_parent" android:layout_height="match_parent"
+              android:background="#33ffffff"/>
+
+        <TextView
+                android:id="@+id/id_dialog_fbreader_catalog_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="#33ffffff"
+                android:paddingBottom="5dp"
+                android:paddingStart="17dp"
+                android:visibility="invisible"
+                android:paddingTop="5dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textSize="24sp" tools:ignore="RtlSymmetry"/>
+    </RelativeLayout>
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_height="56dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
         <TextView
@@ -30,7 +48,7 @@
                 android:paddingTop="12dp"
                 android:text="@string/fbreader_menu_catalogue"
                 android:textColor="@color/color_fbreader_menu_selected_day"
-                android:textSize="14sp"/>
+                android:textSize="14sp" tools:ignore="RtlSymmetry"/>
 
         <TextView
                 android:id="@+id/id_dialog_fbreader_catalog_menu_book_mark"

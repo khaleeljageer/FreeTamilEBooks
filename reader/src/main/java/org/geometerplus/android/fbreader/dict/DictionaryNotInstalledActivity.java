@@ -23,13 +23,16 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.*;
-import android.widget.*;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+import org.geometerplus.android.util.PackageUtil;
+import org.geometerplus.android.util.UIMessageUtil;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.ui.android.R;
-import org.geometerplus.android.util.UIMessageUtil;
-import org.geometerplus.android.util.PackageUtil;
 
 public class DictionaryNotInstalledActivity extends ListActivity {
 	static final String DICTIONARY_NAME_KEY = "fbreader.dictionary.name";

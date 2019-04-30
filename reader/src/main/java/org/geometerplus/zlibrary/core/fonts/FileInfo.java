@@ -20,7 +20,6 @@
 package org.geometerplus.zlibrary.core.fonts;
 
 import org.fbreader.util.ComparisonUtil;
-
 import org.geometerplus.zlibrary.core.drm.FileEncryptionInfo;
 
 public final class FileInfo {

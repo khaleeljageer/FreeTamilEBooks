@@ -19,11 +19,12 @@
 
 package org.geometerplus.android.fbreader;
 
-import android.animation.*;
+import android.animation.Animator;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.*;
-import android.widget.*;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
 
 public class NavigationWindow extends LinearLayout {
 	public NavigationWindow(Context context) {

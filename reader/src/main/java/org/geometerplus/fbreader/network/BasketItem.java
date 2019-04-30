@@ -19,12 +19,13 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.network.urlInfo.BookBuyUrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
 import org.geometerplus.zlibrary.core.money.Money;
 import org.geometerplus.zlibrary.core.options.ZLStringListOption;
 
-import org.geometerplus.fbreader.network.urlInfo.*;
+import java.util.*;
 
 public abstract class BasketItem extends NetworkCatalogItem {
 	private final NetworkLibrary myLibrary;

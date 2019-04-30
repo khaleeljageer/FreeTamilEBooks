@@ -19,11 +19,13 @@
 
 package org.geometerplus.fbreader.fbreader;
 
+import org.geometerplus.fbreader.book.Bookmark;
+import org.geometerplus.fbreader.book.IBookCollection;
 import org.geometerplus.zlibrary.core.util.ZLColor;
-
-import org.geometerplus.zlibrary.text.view.*;
-
-import org.geometerplus.fbreader.book.*;
+import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
+import org.geometerplus.zlibrary.text.view.ZLTextPosition;
+import org.geometerplus.zlibrary.text.view.ZLTextSimpleHighlighting;
+import org.geometerplus.zlibrary.text.view.ZLTextView;
 
 public final class BookmarkHighlighting extends ZLTextSimpleHighlighting {
 	final IBookCollection Collection;

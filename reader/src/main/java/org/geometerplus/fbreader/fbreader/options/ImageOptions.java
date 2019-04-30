@@ -19,10 +19,11 @@
 
 package org.geometerplus.fbreader.fbreader.options;
 
-import org.geometerplus.zlibrary.core.options.*;
-import org.geometerplus.zlibrary.core.util.ZLColor;
-
 import org.geometerplus.fbreader.fbreader.FBView;
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
+import org.geometerplus.zlibrary.core.options.ZLColorOption;
+import org.geometerplus.zlibrary.core.options.ZLEnumOption;
+import org.geometerplus.zlibrary.core.util.ZLColor;
 
 public class ImageOptions {
 	public final ZLColorOption ImageViewBackground;

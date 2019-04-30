@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.fbreader.fbreader.options.FooterOptions;
 import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.text.model.ZLTextAlignmentType;
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
 
@@ -33,6 +34,11 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
     private TextView mTvLineHeightMiddle;
     private TextView mTvLineHeightBigMiddle;
     private TextView mTvLineHeightBig;
+    private TextView mTvAlignmentDefault;
+    private TextView mTvAlignmentLeft;
+    private TextView mTvAlignmentRight;
+    private TextView mTvAlignmentCenter;
+    private TextView mTvAlignmentJustified;
     private View mViewShowChapterContainer;
     private ImageView mIvShowChapter;
     private View mViewShowTimeContainer;
@@ -54,6 +60,11 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
         mTvLineHeightMiddle = (TextView) findViewById(R.id.id_activity_fbreader_setting_line_height_middle);
         mTvLineHeightSmallMiddle = (TextView) findViewById(R.id.id_activity_fbreader_setting_line_height_small_middle);
         mTvLineHeightSmall = (TextView) findViewById(R.id.id_activity_fbreader_setting_line_height_small);
+        mTvAlignmentDefault = (TextView) findViewById(R.id.id_activity_fbreader_setting_alignment_default);
+        mTvAlignmentLeft = (TextView) findViewById(R.id.id_activity_fbreader_setting_alignment_left);
+        mTvAlignmentRight = (TextView) findViewById(R.id.id_activity_fbreader_setting_alignment_right);
+        mTvAlignmentCenter = (TextView) findViewById(R.id.id_activity_fbreader_setting_alignment_center);
+        mTvAlignmentJustified = (TextView) findViewById(R.id.id_activity_fbreader_setting_alignment_justified);
         mViewShowChapterContainer = findViewById(R.id.id_activity_fbreader_setting_show_chapter_name_container);
         mIvShowChapter = (ImageView) findViewById(R.id.id_activity_fbreader_setting_show_chapter_name);
         mViewShowTimeContainer = findViewById(R.id.id_activity_fbreader_setting_show_time_container);
@@ -63,6 +74,7 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
     private void initData() {
         myFBReaderApp = (FBReaderApp) FBReaderApp.Instance();
         initLineHeight();
+        initAlignment();
         initTime();
     }
 
@@ -72,6 +84,11 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
         mTvLineHeightMiddle.setOnClickListener(this);
         mTvLineHeightBigMiddle.setOnClickListener(this);
         mTvLineHeightBig.setOnClickListener(this);
+        mTvAlignmentDefault.setOnClickListener(this);
+        mTvAlignmentLeft.setOnClickListener(this);
+        mTvAlignmentRight.setOnClickListener(this);
+        mTvAlignmentCenter.setOnClickListener(this);
+        mTvAlignmentJustified.setOnClickListener(this);
         mViewBack.setOnClickListener(this);
         mViewShowTimeContainer.setOnClickListener(this);
         mViewShowChapterContainer.setOnClickListener(this);
@@ -92,13 +109,22 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
             changeLineHeight(lineHeights[1]);
         } else if (i == R.id.id_activity_fbreader_setting_line_height_small) {
             changeLineHeight(lineHeights[0]);
+        } else if (i == R.id.id_activity_fbreader_setting_alignment_default) {
+            changeAlignment(ZLTextAlignmentType.ALIGN_UNDEFINED);
+        } else if (i == R.id.id_activity_fbreader_setting_alignment_left) {
+            changeAlignment(ZLTextAlignmentType.ALIGN_LEFT);
+        } else if (i == R.id.id_activity_fbreader_setting_alignment_right) {
+            changeAlignment(ZLTextAlignmentType.ALIGN_RIGHT);
+        } else if (i == R.id.id_activity_fbreader_setting_alignment_center) {
+            changeAlignment(ZLTextAlignmentType.ALIGN_CENTER);
+        } else if (i == R.id.id_activity_fbreader_setting_alignment_justified) {
+            changeAlignment(ZLTextAlignmentType.ALIGN_JUSTIFY);
         } else if (i == R.id.id_activity_fbreader_setting_show_chapter_name_container) {
             changeShowCatalog();
         } else if (i == R.id.id_activity_fbreader_setting_show_time_container) {
             changeShowTime();
         }
     }
-
 
     //region 行间距
     private int minHeight;
@@ -144,6 +170,65 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
         myFBReaderApp.clearTextCaches();
         myFBReaderApp.getViewWidget().repaint();
         updateLineHeightView();
+    }
+    //endregion
+
+    //region alignment
+    private TextView[] alignmentViews = new TextView[5];
+
+    private void initAlignment() {
+        alignmentViews[0] = mTvAlignmentDefault;
+        alignmentViews[1] = mTvAlignmentLeft;
+        alignmentViews[2] = mTvAlignmentRight;
+        alignmentViews[3] = mTvAlignmentCenter;
+        alignmentViews[4] = mTvAlignmentJustified;
+        updateAlignment();
+
+    }
+
+    private void updateAlignment() {
+        ZLIntegerRangeOption spaceOption = myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().AlignmentOption;
+        int alignment = spaceOption.getValue();
+        int blackText = ZLAndroidColorUtil.rgb(myFBReaderApp.ViewOptions.getColorProfile().BlackTextOption.getValue());
+        int selectText = ZLAndroidColorUtil.rgb(myFBReaderApp.ViewOptions.getColorProfile().MenuSelectedTextOption.getValue());
+        for (TextView alignmentView : alignmentViews) {
+            alignmentView.setTextColor(blackText);
+        }
+
+        if (myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().UseCSSTextAlignmentOption.getValue()) {
+            alignmentViews[0].setTextColor(selectText);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_LEFT) {
+            alignmentViews[1].setTextColor(selectText);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_RIGHT) {
+            alignmentViews[2].setTextColor(selectText);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_CENTER) {
+            alignmentViews[3].setTextColor(selectText);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_JUSTIFY) {
+            alignmentViews[4].setTextColor(selectText);
+        }
+    }
+
+    private void changeAlignment(int alignment) {
+        ZLIntegerRangeOption spaceOption = myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().AlignmentOption;
+        if (alignment == ZLTextAlignmentType.ALIGN_UNDEFINED) {
+            myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().UseCSSTextAlignmentOption.setValue(true);
+            spaceOption.setValue(ZLTextAlignmentType.ALIGN_JUSTIFY);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_LEFT) {
+            myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().UseCSSTextAlignmentOption.setValue(false);
+            spaceOption.setValue(alignment);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_RIGHT) {
+            myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().UseCSSTextAlignmentOption.setValue(false);
+            spaceOption.setValue(alignment);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_CENTER) {
+            myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().UseCSSTextAlignmentOption.setValue(false);
+            spaceOption.setValue(alignment);
+        } else if (alignment == ZLTextAlignmentType.ALIGN_JUSTIFY) {
+            myFBReaderApp.ViewOptions.getTextStyleCollection().getBaseStyle().UseCSSTextAlignmentOption.setValue(false);
+            spaceOption.setValue(alignment);
+        }
+        myFBReaderApp.clearTextCaches();
+        myFBReaderApp.getViewWidget().repaint();
+        updateAlignment();
     }
     //endregion
 

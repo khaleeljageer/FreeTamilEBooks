@@ -19,10 +19,9 @@
 
 package org.geometerplus.fbreader.formats;
 
-import org.geometerplus.zlibrary.core.util.SystemInfo;
-
 import org.geometerplus.fbreader.book.AbstractBook;
 import org.geometerplus.fbreader.book.BookUtil;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
 
 public class DjVuPlugin extends ExternalFormatPlugin {
 	public DjVuPlugin(SystemInfo systemInfo) {

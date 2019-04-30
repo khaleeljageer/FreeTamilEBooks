@@ -19,9 +19,11 @@
 
 package org.geometerplus.zlibrary.core.options;
 
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.util.MiscUtil;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class ZLStringListOption extends ZLOption {
 	private final String myDelimiter;

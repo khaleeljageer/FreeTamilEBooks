@@ -19,15 +19,16 @@
 
 package org.geometerplus.zlibrary.ui.android.view.animation;
 
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.view.View;
-
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.util.BitmapUtil;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.view.ZLViewEnums;
-
 import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
 import org.geometerplus.zlibrary.ui.android.view.ViewUtil;
 import org.geometerplus.zlibrary.ui.android.view.ZLAndroidWidget;
@@ -169,7 +170,7 @@ public final class CurlAnimationProvider extends AnimationProvider {
 		canvas.restore();
 
 		//myEdgePaint.setColor(ZLAndroidColorUtil.rgb(ZLAndroidColorUtil.getAverageColor(getBitmapFrom())));
-		ZLColor backgroundColor = ((FBReaderApp)ZLApplication.Instance()).ViewOptions.getColorProfile().BackgroundOption.getValue();
+		ZLColor backgroundColor = ((FBReaderApp) ZLApplication.Instance()).ViewOptions.getColorProfile().BackgroundOption.getValue();
 		myEdgePaint.setColor(ZLAndroidColorUtil.rgb(backgroundColor));
 		try {
 			((ZLAndroidWidget) ZLApplication.Instance().getReader().getViewWidget()).setLayerType(View.LAYER_TYPE_SOFTWARE, null);

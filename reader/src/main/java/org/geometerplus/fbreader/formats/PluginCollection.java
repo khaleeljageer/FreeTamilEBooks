@@ -19,13 +19,13 @@
 
 package org.geometerplus.fbreader.formats;
 
-import java.util.*;
-
 import android.os.Build;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.filetypes.*;
+import org.geometerplus.zlibrary.core.filetypes.FileType;
+import org.geometerplus.zlibrary.core.filetypes.FileTypeCollection;
 import org.geometerplus.zlibrary.core.util.SystemInfo;
+
+import java.util.*;
 
 public class PluginCollection implements IFormatPluginCollection {
 	static {

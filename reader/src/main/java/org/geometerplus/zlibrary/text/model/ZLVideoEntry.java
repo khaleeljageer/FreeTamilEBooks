@@ -19,7 +19,9 @@
 
 package org.geometerplus.zlibrary.text.model;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ZLVideoEntry {
 	private final Map<String,String> mySources = new HashMap<String,String>();

@@ -19,10 +19,12 @@
 
 package org.geometerplus.zlibrary.core.filesystem;
 
-import java.io.*;
-import java.util.*;
+import org.amse.ys.zip.LocalFileHeader;
+import org.amse.ys.zip.ZipFile;
 
-import org.amse.ys.zip.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 final class ZLZipEntryFile extends ZLArchiveEntryFile {
 	static List<ZLFile> archiveEntries(ZLFile archive) {

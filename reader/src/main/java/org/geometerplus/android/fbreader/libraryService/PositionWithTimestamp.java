@@ -6,7 +6,6 @@ package org.geometerplus.android.fbreader.libraryService;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 

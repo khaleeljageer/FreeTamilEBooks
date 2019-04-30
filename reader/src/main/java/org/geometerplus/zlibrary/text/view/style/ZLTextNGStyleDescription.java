@@ -19,13 +19,14 @@
 
 package org.geometerplus.zlibrary.text.view.style;
 
-import java.util.Map;
-import java.util.HashMap;
-
 import org.fbreader.util.Boolean3;
-
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
-import org.geometerplus.zlibrary.text.model.*;
+import org.geometerplus.zlibrary.text.model.ZLTextAlignmentType;
+import org.geometerplus.zlibrary.text.model.ZLTextMetrics;
+import org.geometerplus.zlibrary.text.model.ZLTextStyleEntry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ZLTextNGStyleDescription {
 	public final String Name;

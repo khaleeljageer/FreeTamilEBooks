@@ -19,9 +19,11 @@
 
 package org.geometerplus.zlibrary.core.network;
 
-import java.io.*;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class ZLNetworkRequest {
 	public static abstract class Get extends ZLNetworkRequest {

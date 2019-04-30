@@ -19,17 +19,24 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.io.*;
-import java.util.*;
-
+import org.geometerplus.fbreader.network.INetworkLink;
+import org.geometerplus.fbreader.network.NetworkBookItem;
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.atom.ATOMAuthor;
+import org.geometerplus.fbreader.network.atom.ATOMCategory;
+import org.geometerplus.fbreader.network.atom.ATOMLink;
+import org.geometerplus.fbreader.network.urlInfo.*;
 import org.geometerplus.zlibrary.core.money.Money;
-import org.geometerplus.zlibrary.core.network.*;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
 import org.geometerplus.zlibrary.core.util.MimeType;
 import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
 
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.atom.*;
-import org.geometerplus.fbreader.network.urlInfo.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 public class OPDSBookItem extends NetworkBookItem implements OPDSConstants {
 	public static OPDSBookItem create(final NetworkLibrary library, ZLNetworkContext nc, INetworkLink link, String url) throws ZLNetworkException {
@@ -206,12 +213,12 @@ public class OPDSBookItem extends NetworkBookItem implements OPDSConstants {
 	private final NetworkLibrary myLibrary;
 
 	public OPDSBookItem(
-		NetworkLibrary library,
-		OPDSNetworkLink link, String id, int index,
-		CharSequence title, CharSequence summary,
-		List<AuthorData> authors, List<String> tags,
-		String seriesTitle, float indexInSeries,
-		UrlInfoCollection<?> urls
+            NetworkLibrary library,
+            OPDSNetworkLink link, String id, int index,
+            CharSequence title, CharSequence summary,
+            List<AuthorData> authors, List<String> tags,
+            String seriesTitle, float indexInSeries,
+            UrlInfoCollection<?> urls
 	) {
 		super(
 			link, id, index,

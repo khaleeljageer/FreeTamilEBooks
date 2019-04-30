@@ -19,13 +19,18 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.*;
-import java.io.*;
-
+import org.geometerplus.fbreader.network.INetworkLink;
+import org.geometerplus.fbreader.network.NetworkLibrary;
 import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
-import org.geometerplus.zlibrary.core.network.*;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
 
-import org.geometerplus.fbreader.network.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
 
 public class OPDSLinkReader {
 	static final String CATALOGS_URL = "https://data.fbreader.org/catalogs/generic-2.0.xml";

@@ -3,7 +3,6 @@ package org.geometerplus.android.fbreader.weight;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-
 import androidx.appcompat.widget.AppCompatTextView;
 import org.geometerplus.android.fbreader.util.FBReaderPercentUtils;
 

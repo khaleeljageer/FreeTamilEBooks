@@ -20,11 +20,12 @@
 package org.geometerplus.fbreader.fbreader.options;
 
 import org.geometerplus.android.fbreader.util.FBReaderPercentUtils;
-import org.geometerplus.zlibrary.core.library.ZLibrary;
-import org.geometerplus.zlibrary.core.options.*;
-import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
-
 import org.geometerplus.fbreader.fbreader.FBView;
+import org.geometerplus.zlibrary.core.library.ZLibrary;
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
+import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
 
 public class ViewOptions {
 	public final ZLBooleanOption TwoColumnView;

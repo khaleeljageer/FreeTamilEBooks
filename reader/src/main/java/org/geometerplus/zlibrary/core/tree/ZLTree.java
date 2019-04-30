@@ -156,7 +156,7 @@ public abstract class ZLTree<T extends ZLTree<T>> implements Iterable<T> {
 	}
 
 	private class TreeIterator implements Iterator<T> {
-		private T myCurrentElement = (T)ZLTree.this;
+		private T myCurrentElement = (T) ZLTree.this;
 		private final LinkedList<Integer> myIndexStack = new LinkedList<Integer>();
 		private final int myMaxLevel;
 

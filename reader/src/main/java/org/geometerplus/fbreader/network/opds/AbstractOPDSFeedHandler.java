@@ -19,11 +19,10 @@
 
 package org.geometerplus.fbreader.network.opds;
 
+import org.geometerplus.fbreader.network.atom.ATOMFeedHandler;
 import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 
-import org.geometerplus.fbreader.network.atom.ATOMFeedHandler;
-
-abstract class AbstractOPDSFeedHandler implements ATOMFeedHandler<OPDSFeedMetadata,OPDSEntry>, OPDSConstants {
+abstract class AbstractOPDSFeedHandler implements ATOMFeedHandler<OPDSFeedMetadata, OPDSEntry>, OPDSConstants {
 	public OPDSFeedMetadata createFeed(ZLStringMap attributes) {
 		return new OPDSFeedMetadata(attributes);
 	}

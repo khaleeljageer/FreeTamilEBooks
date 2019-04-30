@@ -19,9 +19,11 @@
 
 package org.geometerplus.zlibrary.core.network;
 
-import java.io.*;
-
 import org.json.simple.JSONValue;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public abstract class JsonRequest2 extends ZLNetworkRequest.PostWithBody {
 	public JsonRequest2(String url, Object data) {

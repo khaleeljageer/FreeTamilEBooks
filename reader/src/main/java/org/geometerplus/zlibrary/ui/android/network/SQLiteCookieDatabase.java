@@ -19,19 +19,16 @@
 
 package org.geometerplus.zlibrary.ui.android.network;
 
-import java.util.*;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie2;
-
+import org.geometerplus.android.util.SQLiteUtil;
 import org.geometerplus.zlibrary.core.network.CookieDatabase;
 
-import org.geometerplus.android.util.SQLiteUtil;
+import java.util.*;
 
 public class SQLiteCookieDatabase extends CookieDatabase {
 	public static synchronized void init(Context context) {

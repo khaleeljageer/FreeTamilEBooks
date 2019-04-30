@@ -19,10 +19,9 @@
 
 package org.geometerplus.fbreader.network.authentication.litres;
 
-import org.geometerplus.zlibrary.core.xml.ZLStringMap;
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-
 import org.geometerplus.fbreader.network.NetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 
 public class LitResPasswordRecoveryXMLReader extends LitResAuthenticationXMLReader {
 	private static final String TAG_PASSWORD_RECOVERY_OK = "catalit-pass-recover-ok";

@@ -19,15 +19,16 @@
 
 package org.geometerplus.fbreader.network.rss;
 
-import java.util.HashSet;
-
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
-import org.geometerplus.zlibrary.core.util.MimeType;
-
-import org.geometerplus.fbreader.network.*;
+import org.geometerplus.fbreader.network.INetworkLink;
+import org.geometerplus.fbreader.network.NetworkCatalogItem;
+import org.geometerplus.fbreader.network.NetworkOperationData;
+import org.geometerplus.fbreader.network.NetworkURLCatalogItem;
 import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
 import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
+
+import java.util.HashSet;
 
 public class RSSCatalogItem extends NetworkURLCatalogItem {
 	static class State extends NetworkOperationData {
@@ -41,8 +42,8 @@ public class RSSCatalogItem extends NetworkURLCatalogItem {
 	private State myLoadingState;
 
 	protected RSSCatalogItem(INetworkLink link, CharSequence title,
-			CharSequence summary, UrlInfoCollection<?> urls,
-			Accessibility accessibility, int flags) {
+                             CharSequence summary, UrlInfoCollection<?> urls,
+                             NetworkCatalogItem.Accessibility accessibility, int flags) {
 		super(link, title, summary, urls, accessibility, flags);
 	}
 

@@ -19,16 +19,17 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.util.*;
-import java.io.File;
-
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookUtil;
+import org.geometerplus.fbreader.book.IBookCollection;
+import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
+import org.geometerplus.fbreader.network.urlInfo.*;
 import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
 import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.network.urlInfo.*;
-import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NetworkBookItem extends NetworkItem {
 	public static enum Status {

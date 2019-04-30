@@ -5,7 +5,6 @@
 package org.geometerplus.android.fbreader.api;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 public final class TextPosition extends ApiObject {
 	public final int ParagraphIndex;
@@ -31,8 +30,8 @@ public final class TextPosition extends ApiObject {
 		parcel.writeInt(CharIndex);
 	}
 
-	public static final Creator<TextPosition> CREATOR =
-		new Creator<TextPosition>() {
+	public static final Parcelable.Creator<TextPosition> CREATOR =
+		new Parcelable.Creator<TextPosition>() {
 			public TextPosition createFromParcel(Parcel parcel) {
 				parcel.readInt();
 				return new TextPosition(parcel.readInt(), parcel.readInt(), parcel.readInt());

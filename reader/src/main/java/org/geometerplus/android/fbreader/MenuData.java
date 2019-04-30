@@ -19,14 +19,14 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.util.*;
-
+import org.geometerplus.android.fbreader.api.MenuNode;
+import org.geometerplus.fbreader.fbreader.ActionCode;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.ui.android.R;
 
-import org.geometerplus.fbreader.fbreader.ActionCode;
-
-import org.geometerplus.android.fbreader.api.MenuNode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class MenuData {
 	private static List<MenuNode> ourNodes;

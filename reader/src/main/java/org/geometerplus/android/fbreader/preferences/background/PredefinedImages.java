@@ -24,13 +24,13 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import org.geometerplus.fbreader.fbreader.WallpapersUtil;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.ui.android.R;
-
-import org.geometerplus.fbreader.fbreader.WallpapersUtil;
 
 //预定义纹理
 public class PredefinedImages extends ListActivity implements AdapterView.OnItemClickListener {

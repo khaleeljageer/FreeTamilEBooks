@@ -22,16 +22,13 @@ package org.geometerplus.android.fbreader;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.text.Html;
-
 import org.geometerplus.android.fbreader.util.fileprovider.FileProviderUtil;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookUtil;
 import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
 import org.geometerplus.zlibrary.core.filetypes.FileTypeCollection;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
-import org.geometerplus.fbreader.book.Book;
-import org.geometerplus.fbreader.book.BookUtil;
 
 public abstract class FBUtil {
 	public static void shareBook(Activity activity, Book book) {

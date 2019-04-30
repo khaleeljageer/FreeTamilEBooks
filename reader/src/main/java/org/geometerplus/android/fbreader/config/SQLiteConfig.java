@@ -19,8 +19,6 @@
 
 package org.geometerplus.android.fbreader.config;
 
-import java.util.*;
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +26,11 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-
 import org.geometerplus.android.fbreader.api.FBReaderIntents;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 final class SQLiteConfig extends ConfigInterface.Stub {
 	private final Service myService;

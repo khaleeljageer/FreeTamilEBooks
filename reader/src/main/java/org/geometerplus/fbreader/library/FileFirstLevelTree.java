@@ -19,14 +19,12 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.List;
-
 import org.fbreader.util.Pair;
-
+import org.geometerplus.fbreader.Paths;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.fbreader.Paths;
+import java.util.List;
 
 public class FileFirstLevelTree extends FirstLevelTree {
 	FileFirstLevelTree(RootTree root) {

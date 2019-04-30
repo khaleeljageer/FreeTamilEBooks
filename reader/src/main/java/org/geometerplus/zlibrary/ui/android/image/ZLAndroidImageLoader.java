@@ -19,16 +19,15 @@
 
 package org.geometerplus.zlibrary.ui.android.image;
 
+import android.os.Handler;
+import android.os.Message;
+import org.geometerplus.zlibrary.core.image.ZLImageProxy;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-
-import android.os.Handler;
-import android.os.Message;
-
-import org.geometerplus.zlibrary.core.image.ZLImageProxy;
 
 class ZLAndroidImageLoader {
 	void startImageLoading(final ZLImageProxy.Synchronizer synchronizer, final ZLImageProxy image, Runnable postAction) {

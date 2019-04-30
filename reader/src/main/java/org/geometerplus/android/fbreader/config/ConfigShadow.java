@@ -19,16 +19,14 @@
 
 package org.geometerplus.android.fbreader.config;
 
-import java.util.*;
-
 import android.app.Service;
 import android.content.*;
 import android.os.IBinder;
 import android.os.RemoteException;
-
+import org.geometerplus.android.fbreader.api.FBReaderIntents;
 import org.geometerplus.zlibrary.core.options.Config;
 
-import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import java.util.*;
 
 public final class ConfigShadow extends Config implements ServiceConnection {
 	private final Context myContext;

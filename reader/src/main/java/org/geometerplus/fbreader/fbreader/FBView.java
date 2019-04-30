@@ -20,13 +20,15 @@
 package org.geometerplus.fbreader.fbreader;
 
 import android.graphics.RectF;
-import android.util.Log;
-
-import java.util.*;
-
 import org.geometerplus.android.fbreader.HighlightPopup;
 import org.geometerplus.android.fbreader.SelectionPopup;
 import org.geometerplus.android.fbreader.util.FBReaderPercentUtils;
+import org.geometerplus.fbreader.bookmodel.BookModel;
+import org.geometerplus.fbreader.bookmodel.FBHyperlinkType;
+import org.geometerplus.fbreader.bookmodel.TOCTree;
+import org.geometerplus.fbreader.fbreader.options.*;
+import org.geometerplus.fbreader.util.FixedTextSnippet;
+import org.geometerplus.fbreader.util.TextSnippet;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
 import org.geometerplus.zlibrary.core.fonts.FontEntry;
@@ -34,17 +36,12 @@ import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.view.SelectionCursor;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
-
+import org.geometerplus.zlibrary.core.view.ZLViewEnums;
 import org.geometerplus.zlibrary.text.model.ZLTextModel;
 import org.geometerplus.zlibrary.text.view.*;
 import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
 
-import org.geometerplus.fbreader.bookmodel.BookModel;
-import org.geometerplus.fbreader.bookmodel.FBHyperlinkType;
-import org.geometerplus.fbreader.bookmodel.TOCTree;
-import org.geometerplus.fbreader.fbreader.options.*;
-import org.geometerplus.fbreader.util.FixedTextSnippet;
-import org.geometerplus.fbreader.util.TextSnippet;
+import java.util.*;
 
 public final class FBView extends ZLTextView {
     private final FBReaderApp myReader;
@@ -196,7 +193,7 @@ public final class FBView extends ZLTextView {
         }
 
         final boolean horizontal = myReader.PageTurningOptions.Horizontal.getValue();
-        final Direction direction = horizontal ? Direction.rightToLeft : Direction.up;
+        final ZLViewEnums.Direction direction = horizontal ? ZLViewEnums.Direction.rightToLeft : ZLViewEnums.Direction.up;
         myReader.getViewWidget().startManualScrolling(x, y, direction);
     }
 
@@ -353,9 +350,9 @@ public final class FBView extends ZLTextView {
             return true;
         }
 
-        final Direction direction = (diffY != 0) ?
-                (diffY > 0 ? Direction.down : Direction.up) :
-                (diffX > 0 ? Direction.leftToRight : Direction.rightToLeft);
+        final ZLViewEnums.Direction direction = (diffY != 0) ?
+                (diffY > 0 ? ZLViewEnums.Direction.down : ZLViewEnums.Direction.up) :
+                (diffX > 0 ? ZLViewEnums.Direction.leftToRight : ZLViewEnums.Direction.rightToLeft);
 
         new MoveCursorAction(myReader, direction).run();
         return true;
@@ -367,7 +364,7 @@ public final class FBView extends ZLTextView {
     }
 
     @Override
-    public ImageFitting getImageFitting() {
+    public ZLTextViewBase.ImageFitting getImageFitting() {
         return myReader.ImageOptions.FitToScreen.getValue();
     }
 
@@ -716,7 +713,7 @@ public final class FBView extends ZLTextView {
         }
     }
 
-    private class FooterKaoLaStyle extends Footer {
+    private class FooterStyle extends Footer {
 
         @Override
         public void paint(ZLPaintContext context) {
@@ -811,11 +808,11 @@ public final class FBView extends ZLTextView {
                 }
                 break;
             case SCROLLBAR_SHOW_AS_FOOTER_KAO_LA_STYLE:
-                if (!(myFooter instanceof FooterKaoLaStyle)) {
+                if (!(myFooter instanceof FooterStyle)) {
                     if (myFooter != null) {
                         myReader.removeTimerTask(myFooter.UpdateTask);
                     }
-                    myFooter = new FooterKaoLaStyle();
+                    myFooter = new FooterStyle();
                     myReader.addTimerTask(myFooter.UpdateTask, 15000);
                 }
                 break;
@@ -869,7 +866,7 @@ public final class FBView extends ZLTextView {
     }
 
     @Override
-    public Animation getAnimationType() {
+    public ZLViewEnums.Animation getAnimationType() {
         return myReader.PageTurningOptions.Animation.getValue();
     }
 
@@ -887,7 +884,7 @@ public final class FBView extends ZLTextView {
     }
 
     @Override
-    public synchronized void onScrollingFinished(PageIndex pageIndex) {
+    public synchronized void onScrollingFinished(ZLViewEnums.PageIndex pageIndex) {
         super.onScrollingFinished(pageIndex);
         myReader.storePosition();
     }

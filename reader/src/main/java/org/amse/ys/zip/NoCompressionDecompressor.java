@@ -1,6 +1,6 @@
 package org.amse.ys.zip;
 
-import java.io.*;
+import java.io.IOException;
 
 public final class NoCompressionDecompressor extends Decompressor {
 	private final LocalFileHeader myHeader;

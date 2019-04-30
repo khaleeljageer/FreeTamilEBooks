@@ -19,12 +19,12 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.math.BigDecimal;
-
 import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.book.IBookCollection;
 import org.geometerplus.fbreader.formats.PluginCollection;
 import org.geometerplus.fbreader.tree.FBTree;
+
+import java.math.BigDecimal;
 
 public final class BookInSeriesTree extends BookTree {
 	BookInSeriesTree(IBookCollection collection, PluginCollection pluginCollection, Book book) {

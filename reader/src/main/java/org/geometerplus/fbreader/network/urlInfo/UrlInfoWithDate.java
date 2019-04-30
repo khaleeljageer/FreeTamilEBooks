@@ -19,11 +19,10 @@
 
 package org.geometerplus.fbreader.network.urlInfo;
 
-import java.util.Date;
-
 import org.fbreader.util.ComparisonUtil;
-
 import org.geometerplus.zlibrary.core.util.MimeType;
+
+import java.util.Date;
 
 public final class UrlInfoWithDate extends UrlInfo {
 	private static final long serialVersionUID = -896768978957787222L;

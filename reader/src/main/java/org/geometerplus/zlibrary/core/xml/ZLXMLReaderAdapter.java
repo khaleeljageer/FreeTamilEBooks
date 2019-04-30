@@ -19,10 +19,16 @@
 
 package org.geometerplus.zlibrary.core.xml;
 
-import java.io.*;
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class ZLXMLReaderAdapter implements ZLXMLReader {
 	private Map<String,String> myNamespaceMap = Collections.emptyMap();

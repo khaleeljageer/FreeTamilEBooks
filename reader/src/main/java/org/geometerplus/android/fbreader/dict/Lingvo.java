@@ -20,12 +20,9 @@
 package org.geometerplus.android.fbreader.dict;
 
 import android.content.Intent;
-
 import com.abbyy.mobile.lingvo.api.MinicardContract;
-
-import org.geometerplus.zlibrary.core.language.Language;
-
 import org.geometerplus.android.fbreader.FBReaderMainActivity;
+import org.geometerplus.zlibrary.core.language.Language;
 
 final class Lingvo extends DictionaryUtil.PackageInfo {
 	Lingvo(String id, String title) {

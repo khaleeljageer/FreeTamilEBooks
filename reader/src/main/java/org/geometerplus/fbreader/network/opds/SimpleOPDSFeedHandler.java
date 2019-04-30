@@ -19,10 +19,11 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.*;
-
-import org.geometerplus.fbreader.network.NetworkItem;
 import org.geometerplus.fbreader.network.NetworkLibrary;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SimpleOPDSFeedHandler extends AbstractOPDSFeedHandler implements OPDSConstants {
 	private final NetworkLibrary myLibrary;

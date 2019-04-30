@@ -19,11 +19,11 @@
 
 package org.geometerplus.zlibrary.core.drm.embedding;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.security.MessageDigest;
-
 import org.geometerplus.zlibrary.core.util.InputStreamWithOffset;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
 
 public class EmbeddingInputStream extends InputStreamWithOffset {
 	private final byte[] myKey;

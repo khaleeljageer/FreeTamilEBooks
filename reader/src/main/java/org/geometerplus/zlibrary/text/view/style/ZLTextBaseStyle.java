@@ -19,17 +19,18 @@
 
 package org.geometerplus.zlibrary.text.view.style;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.geometerplus.zlibrary.core.fonts.FontEntry;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
-import org.geometerplus.zlibrary.core.options.*;
-
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
+import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.text.model.ZLTextAlignmentType;
 import org.geometerplus.zlibrary.text.model.ZLTextMetrics;
-import org.geometerplus.zlibrary.text.view.ZLTextStyle;
 import org.geometerplus.zlibrary.text.view.ZLTextHyperlink;
+import org.geometerplus.zlibrary.text.view.ZLTextStyle;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ZLTextBaseStyle extends ZLTextStyle {
 	private static final String GROUP = "Style";
@@ -40,7 +41,7 @@ public class ZLTextBaseStyle extends ZLTextStyle {
 	public final ZLBooleanOption UseCSSMarginsOption =
 		new ZLBooleanOption("Style", "css:margins", true);
 	public final ZLBooleanOption UseCSSFontSizeOption =
-		new ZLBooleanOption("Style", "css:fontSize", true);
+		new ZLBooleanOption("Style", "css:fontSize", false);
 	public final ZLBooleanOption UseCSSFontFamilyOption =
 		new ZLBooleanOption("Style", "css:fontFamily", true);
 

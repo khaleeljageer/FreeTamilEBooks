@@ -19,22 +19,20 @@
 
 package org.geometerplus.zlibrary.ui.android.view;
 
-import java.io.*;
-import java.util.*;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.DefaultHandler;
-
 import android.graphics.Typeface;
-
+import org.geometerplus.fbreader.Paths;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.fonts.FileInfo;
 import org.geometerplus.zlibrary.core.fonts.FontEntry;
-import org.geometerplus.zlibrary.core.util.*;
-
+import org.geometerplus.zlibrary.core.util.SystemInfo;
+import org.geometerplus.zlibrary.core.util.XmlUtil;
+import org.geometerplus.zlibrary.core.util.ZLTTFInfoDetector;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
 
-import org.geometerplus.fbreader.Paths;
+import java.io.*;
+import java.util.*;
 
 public final class AndroidFontUtil {
 	private static volatile Map<String,String[]> ourFontAssetMap;
@@ -137,7 +135,7 @@ public final class AndroidFontUtil {
 		}
 		try {
 			return Typeface.createFromAsset(
-				((ZLAndroidLibrary)ZLAndroidLibrary.Instance()).getAssets(), assets[style]
+				((ZLAndroidLibrary) ZLAndroidLibrary.Instance()).getAssets(), assets[style]
 			);
 		} catch (Throwable t) {
 		}

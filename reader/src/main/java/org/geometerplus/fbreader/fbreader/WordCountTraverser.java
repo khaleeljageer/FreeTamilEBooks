@@ -19,7 +19,10 @@
 
 package org.geometerplus.fbreader.fbreader;
 
-import org.geometerplus.zlibrary.text.view.*;
+import org.geometerplus.zlibrary.text.view.ZLTextControlElement;
+import org.geometerplus.zlibrary.text.view.ZLTextTraverser;
+import org.geometerplus.zlibrary.text.view.ZLTextView;
+import org.geometerplus.zlibrary.text.view.ZLTextWord;
 
 class WordCountTraverser extends ZLTextTraverser {
 	protected int myCount;

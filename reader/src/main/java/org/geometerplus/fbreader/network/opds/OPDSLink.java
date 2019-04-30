@@ -19,12 +19,13 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.xml.ZLStringMap;
-import org.geometerplus.zlibrary.core.money.Money;
-
 import org.geometerplus.fbreader.network.atom.ATOMLink;
+import org.geometerplus.zlibrary.core.money.Money;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
+
+import java.util.Currency;
+import java.util.LinkedList;
+import java.util.Locale;
 
 class OPDSLink extends ATOMLink {
 	public final LinkedList<Money> Prices = new LinkedList<Money>();

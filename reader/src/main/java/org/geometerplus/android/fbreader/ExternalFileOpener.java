@@ -19,24 +19,23 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.math.BigInteger;
-import java.util.Random;
-
 import android.app.AlertDialog;
-import android.content.*;
-
-import org.geometerplus.zlibrary.core.options.Config;
-import org.geometerplus.zlibrary.core.options.ZLStringOption;
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
+import org.geometerplus.android.fbreader.api.FBReaderIntents;
+import org.geometerplus.android.fbreader.formatPlugin.PluginUtil;
+import org.geometerplus.android.util.PackageUtil;
 import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.book.Bookmark;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.fbreader.formats.ExternalFormatPlugin;
+import org.geometerplus.zlibrary.core.options.Config;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.android.fbreader.api.FBReaderIntents;
-import org.geometerplus.android.fbreader.formatPlugin.PluginUtil;
-import org.geometerplus.android.util.PackageUtil;
+import java.math.BigInteger;
+import java.util.Random;
 
 class ExternalFileOpener implements FBReaderApp.ExternalFileOpener {
 	private final String myPluginCode = new BigInteger(80, new Random()).toString();

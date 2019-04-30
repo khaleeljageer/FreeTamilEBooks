@@ -19,13 +19,11 @@
 
 package org.geometerplus.android.fbreader;
 
-import android.content.Intent;
 import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.net.Uri;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 class OpenWebHelpAction extends FBAndroidAction {
 	OpenWebHelpAction(FBReader baseActivity, FBReaderApp fbreader) {

@@ -20,9 +20,10 @@
 package org.geometerplus.fbreader.network.tree;
 
 import org.fbreader.util.Pair;
-
+import org.geometerplus.fbreader.network.BasketItem;
+import org.geometerplus.fbreader.network.INetworkLink;
+import org.geometerplus.fbreader.network.NetworkCatalogItem;
 import org.geometerplus.fbreader.tree.FBTree;
-import org.geometerplus.fbreader.network.*;
 
 public class NetworkCatalogRootTree extends NetworkCatalogTree {
 	public NetworkCatalogRootTree(RootTree parent, INetworkLink link, int position) {

@@ -21,7 +21,6 @@ package org.geometerplus.zlibrary.ui.android.image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import org.geometerplus.zlibrary.core.image.ZLImageData;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
 

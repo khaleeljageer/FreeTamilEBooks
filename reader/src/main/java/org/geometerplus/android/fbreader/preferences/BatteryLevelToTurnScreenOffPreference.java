@@ -20,9 +20,8 @@
 package org.geometerplus.android.fbreader.preferences;
 
 import android.content.Context;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 class BatteryLevelToTurnScreenOffPreference extends ZLStringListPreference {
 	private final ZLIntegerRangeOption myOption;

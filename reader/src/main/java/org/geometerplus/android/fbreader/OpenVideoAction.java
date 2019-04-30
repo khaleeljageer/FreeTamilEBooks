@@ -19,20 +19,15 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.util.Map;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-
+import org.geometerplus.android.fbreader.httpd.DataUtil;
+import org.geometerplus.android.util.UIMessageUtil;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.zlibrary.core.util.MimeType;
 import org.geometerplus.zlibrary.text.view.ZLTextVideoElement;
 import org.geometerplus.zlibrary.text.view.ZLTextVideoRegionSoul;
-
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
-
-import org.geometerplus.android.fbreader.httpd.DataUtil;
-import org.geometerplus.android.util.UIMessageUtil;
 
 class OpenVideoAction extends FBAndroidAction {
 	OpenVideoAction(FBReader baseActivity, FBReaderApp fbreader) {

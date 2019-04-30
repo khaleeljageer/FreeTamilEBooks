@@ -19,8 +19,10 @@
 
 package org.geometerplus.zlibrary.ui.android.view.animation;
 
-import android.graphics.*;
-
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import org.geometerplus.zlibrary.ui.android.view.ViewUtil;
 
 public final class ShiftAnimationProvider extends SimpleAnimationProvider {

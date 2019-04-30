@@ -22,7 +22,6 @@ package org.geometerplus.android.fbreader.preferences.fileChooser;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.Preference;
-
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 abstract class FileChooserPreference extends Preference {

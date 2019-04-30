@@ -22,11 +22,9 @@ package org.geometerplus.android.fbreader.sync;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.android.fbreader.network.BookDownloaderService;
 import org.geometerplus.android.fbreader.util.SimpleDialogActivity;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 public class MissingBookActivity extends SimpleDialogActivity {
 	public static String errorTitle() {

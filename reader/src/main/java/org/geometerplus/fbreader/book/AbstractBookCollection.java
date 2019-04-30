@@ -19,7 +19,9 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class AbstractBookCollection<B extends AbstractBook> implements IBookCollection<B> {
 	private final List<Listener> myListeners = Collections.synchronizedList(new LinkedList<Listener>());

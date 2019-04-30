@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.FBReaderSettingActivity;
@@ -377,16 +376,16 @@ public class MenuDialog extends Dialog {
             mMenuBottomProgressTv.setTextColor(textColor);
             mViewProgressBottomContainer.setBackgroundColor(backgroundColor);
             mTvProgressTime.setTextColor(blackTextColor);
-            mTvProgressLastChapter.setTextColor(blackTextColor);
-            mTvProgressNextChapter.setTextColor(blackTextColor);
+            mIvProgressLastChapter.setImageResource(R.drawable.ic_fbreader_back_day);
+            mIvProgressNextChapter.setImageResource(R.drawable.ic_fbreader_back_day);
         } else {
             //夜间模式
             mMenuBottomProgressIv.setImageResource(R.drawable.ic_fbreader_menu_bottom_progress_selected_night);
             mMenuBottomProgressTv.setTextColor(textColor);
             mViewProgressBottomContainer.setBackgroundColor(backgroundColor);
             mTvProgressTime.setTextColor(blackTextColor);
-            mTvProgressLastChapter.setTextColor(blackTextColor);
-            mTvProgressNextChapter.setTextColor(blackTextColor);
+            mIvProgressLastChapter.setImageResource(R.drawable.ic_fbreader_back_night);
+            mIvProgressNextChapter.setImageResource(R.drawable.ic_fbreader_back_night);
         }
         mViewProgressContainer.setVisibility(View.VISIBLE);
         updateProgressView();
@@ -412,9 +411,9 @@ public class MenuDialog extends Dialog {
     private TextView mTvProgressProgress;
     private ImageView mIvProgressBack;
     private TextView mTvProgressTime;
-    private TextView mTvProgressLastChapter;
+    private ImageView mIvProgressLastChapter;
     private SeekBar mProgressSeekBar;
-    private TextView mTvProgressNextChapter;
+    private ImageView mIvProgressNextChapter;
 
     private ZLTextWordCursor startPosition = new ZLTextWordCursor();
     private ZLTextWordCursor endPosition = new ZLTextWordCursor();
@@ -426,11 +425,11 @@ public class MenuDialog extends Dialog {
         mTvProgressProgress = (TextView) findViewById(R.id.id_menu_bottom_progress_progress);
         mIvProgressBack = (ImageView) findViewById(R.id.id_menu_bottom_progress_back);
         mTvProgressTime = (TextView) findViewById(R.id.id_menu_bottom_progress_time);
-        mTvProgressLastChapter = (TextView) findViewById(R.id.id_menu_bottom_progress_last_chapter);
+        mIvProgressLastChapter = (ImageView) findViewById(R.id.id_menu_bottom_progress_last_chapter);
         mProgressSeekBar = (SeekBar) findViewById(R.id.id_menu_bottom_progress_seek_bar);
         int padding = FBReaderPercentUtils.dp2px(8);
         mProgressSeekBar.setPadding(padding, 0, padding, 0);
-        mTvProgressNextChapter = (TextView) findViewById(R.id.id_menu_bottom_progress_next_chapter);
+        mIvProgressNextChapter = (ImageView) findViewById(R.id.id_menu_bottom_progress_next_chapter);
 
         mViewProgressContainer.setOnClickListener(null);
         final ZLTextView.PagePosition pagePosition = myFBReaderApp.getTextView().pagePosition();
@@ -480,7 +479,7 @@ public class MenuDialog extends Dialog {
             }
         });
 
-        mTvProgressNextChapter.setOnClickListener(new View.OnClickListener() {
+        mIvProgressNextChapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TOCTree tocElement = myFBReaderApp.getNextTOCElement();
@@ -497,7 +496,7 @@ public class MenuDialog extends Dialog {
             }
         });
 
-        mTvProgressLastChapter.setOnClickListener(new View.OnClickListener() {
+        mIvProgressLastChapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TOCTree tocElement = myFBReaderApp.getPreTOCElement();

@@ -19,7 +19,10 @@
 
 package org.geometerplus.zlibrary.ui.android.view;
 
-import android.graphics.*;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 
 public abstract class ViewUtil {
 	public static void setColorLevel(Paint paint, Integer level) {

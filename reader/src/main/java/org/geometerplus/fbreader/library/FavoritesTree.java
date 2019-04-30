@@ -20,10 +20,9 @@
 package org.geometerplus.fbreader.library;
 
 import org.fbreader.util.Pair;
-
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.Filter;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
-import org.geometerplus.fbreader.book.*;
 
 public class FavoritesTree extends FilteredTree {
 	private final ZLResource myResource;

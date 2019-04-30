@@ -19,16 +19,16 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.*;
-
 import org.fbreader.util.NaturalOrderComparator;
 import org.fbreader.util.Pair;
-
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.CoverUtil;
+import org.geometerplus.fbreader.tree.FBTree;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.tree.FBTree;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 public class FileTree extends LibraryTree {
 	private static final NaturalOrderComparator ourNaturalOrderComparator =

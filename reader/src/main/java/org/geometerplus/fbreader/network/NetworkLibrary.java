@@ -19,23 +19,28 @@
 
 package org.geometerplus.fbreader.network;
 
+import org.geometerplus.fbreader.fbreader.options.SyncOptions;
+import org.geometerplus.fbreader.network.opds.OPDSLinkReader;
+import org.geometerplus.fbreader.network.opds.OPDSSyncNetworkLink;
+import org.geometerplus.fbreader.network.tree.*;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.fbreader.tree.FBTree;
+import org.geometerplus.zlibrary.core.image.ZLImage;
+import org.geometerplus.zlibrary.core.library.ZLibrary;
+import org.geometerplus.zlibrary.core.network.QuietNetworkContext;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
+import org.geometerplus.zlibrary.core.options.ZLStringListOption;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.core.util.MimeType;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
+import org.geometerplus.zlibrary.core.util.ZLNetworkUtil;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.*;
-
-import org.geometerplus.zlibrary.core.image.ZLImage;
-import org.geometerplus.zlibrary.core.library.ZLibrary;
-import org.geometerplus.zlibrary.core.network.*;
-import org.geometerplus.zlibrary.core.options.*;
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.core.util.*;
-
-import org.geometerplus.fbreader.fbreader.options.SyncOptions;
-import org.geometerplus.fbreader.tree.FBTree;
-import org.geometerplus.fbreader.network.opds.OPDSSyncNetworkLink;
-import org.geometerplus.fbreader.network.opds.OPDSLinkReader;
-import org.geometerplus.fbreader.network.tree.*;
-import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 
 public class NetworkLibrary {
 	public interface ChangeListener {
@@ -86,8 +91,8 @@ public class NetworkLibrary {
 		Collections.synchronizedList(new ArrayList<INetworkLink>());
 	private final Set<ChangeListener> myListeners =
 		Collections.synchronizedSet(new HashSet<ChangeListener>());
-	private final Map<NetworkTree,NetworkItemsLoader> myLoaders =
-		Collections.synchronizedMap(new HashMap<NetworkTree,NetworkItemsLoader>());
+	private final Map<NetworkTree, NetworkItemsLoader> myLoaders =
+		Collections.synchronizedMap(new HashMap<NetworkTree, NetworkItemsLoader>());
 
 	private final Map<String,WeakReference<ZLImage>> myImageMap =
 		Collections.synchronizedMap(new HashMap<String,WeakReference<ZLImage>>());

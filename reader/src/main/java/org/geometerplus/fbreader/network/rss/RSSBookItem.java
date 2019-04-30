@@ -19,13 +19,13 @@
 
 package org.geometerplus.fbreader.network.rss;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.geometerplus.fbreader.network.NetworkBookItem;
 import org.geometerplus.fbreader.network.atom.ATOMAuthor;
 import org.geometerplus.fbreader.network.atom.ATOMCategory;
 import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class RSSBookItem extends NetworkBookItem {
 	public RSSBookItem(

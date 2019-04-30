@@ -19,12 +19,13 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.util.LinkedList;
-
-import org.geometerplus.zlibrary.core.network.*;
+import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import java.util.LinkedList;
 
 public class AllCatalogsSearchItem extends SearchItem {
 	private final NetworkLibrary myLibrary;

@@ -19,43 +19,42 @@
 
 package org.geometerplus.android.fbreader.preferences;
 
-import java.text.DecimalFormatSymbols;
-import java.util.*;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.view.KeyEvent;
-
-import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
-import org.geometerplus.zlibrary.core.language.Language;
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-import org.geometerplus.zlibrary.core.network.JsonRequest;
-import org.geometerplus.zlibrary.core.options.*;
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-
-import org.geometerplus.zlibrary.text.view.style.*;
-
-import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
-import org.geometerplus.zlibrary.ui.android.view.ZLAndroidPaintContext;
-
-import org.geometerplus.fbreader.Paths;
-import org.geometerplus.fbreader.bookmodel.FBTextKind;
-import org.geometerplus.fbreader.fbreader.*;
-import org.geometerplus.fbreader.fbreader.options.*;
-import org.geometerplus.fbreader.network.sync.SyncData;
-import org.geometerplus.fbreader.network.sync.SyncUtil;
-import org.geometerplus.fbreader.tips.TipsManager;
-
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.dict.DictionaryUtil;
 import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
 import org.geometerplus.android.fbreader.network.auth.ActivityNetworkContext;
-import org.geometerplus.android.fbreader.preferences.fileChooser.FileChooserCollection;
 import org.geometerplus.android.fbreader.preferences.background.BackgroundPreference;
+import org.geometerplus.android.fbreader.preferences.fileChooser.FileChooserCollection;
 import org.geometerplus.android.fbreader.sync.SyncOperations;
-
-import org.geometerplus.android.util.UIUtil;
 import org.geometerplus.android.util.DeviceType;
+import org.geometerplus.android.util.UIUtil;
+import org.geometerplus.fbreader.Paths;
+import org.geometerplus.fbreader.fbreader.ActionCode;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
+import org.geometerplus.fbreader.fbreader.FBView;
+import org.geometerplus.fbreader.fbreader.options.*;
+import org.geometerplus.fbreader.network.sync.SyncData;
+import org.geometerplus.fbreader.network.sync.SyncUtil;
+import org.geometerplus.fbreader.tips.TipsManager;
+import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
+import org.geometerplus.zlibrary.core.language.Language;
+import org.geometerplus.zlibrary.core.network.JsonRequest;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.options.Config;
+import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.text.view.style.ZLTextBaseStyle;
+import org.geometerplus.zlibrary.text.view.style.ZLTextNGStyleDescription;
+import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
+import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
+import org.geometerplus.zlibrary.ui.android.view.ZLAndroidPaintContext;
+
+import java.text.DecimalFormatSymbols;
+import java.util.*;
 
 //阅读相关设置
 public class PreferenceActivity extends ZLPreferenceActivity {
@@ -117,7 +116,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final ZLTextStyleCollection collection = viewOptions.getTextStyleCollection();
 		final ZLKeyBindings keyBindings = new ZLKeyBindings();
 
-		final ZLAndroidLibrary androidLibrary = (ZLAndroidLibrary)ZLAndroidLibrary.Instance();
+		final ZLAndroidLibrary androidLibrary = (ZLAndroidLibrary) ZLAndroidLibrary.Instance();
 		// TODO: use user-defined locale, not the default one,
 		// or set user-defined locale as default
 		final String decimalSeparator =

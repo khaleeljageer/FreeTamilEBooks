@@ -21,7 +21,6 @@ package org.geometerplus.zlibrary.ui.android.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-
 import org.geometerplus.zlibrary.core.util.ZLColor;
 
 public abstract class ZLAndroidColorUtil {

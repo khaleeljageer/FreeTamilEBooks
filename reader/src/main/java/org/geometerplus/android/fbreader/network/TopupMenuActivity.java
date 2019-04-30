@@ -19,21 +19,19 @@
 
 package org.geometerplus.android.fbreader.network;
 
-import java.util.*;
-
-import android.content.*;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-
-import org.geometerplus.zlibrary.core.money.Money;
-
+import org.geometerplus.android.fbreader.api.PluginApi;
+import org.geometerplus.android.util.PackageUtil;
 import org.geometerplus.fbreader.network.INetworkLink;
 import org.geometerplus.fbreader.network.NetworkLibrary;
-import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
+import org.geometerplus.zlibrary.core.money.Money;
 
-import org.geometerplus.android.util.PackageUtil;
-
-import org.geometerplus.android.fbreader.api.PluginApi;
+import java.util.Map;
 
 public class TopupMenuActivity extends MenuActivity {
 	private static final String AMOUNT_KEY = "topup:amount";

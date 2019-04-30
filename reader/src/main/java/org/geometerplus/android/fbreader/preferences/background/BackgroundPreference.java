@@ -26,15 +26,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.preference.Preference;
 import android.view.View;
 import android.widget.TextView;
-
+import org.geometerplus.fbreader.fbreader.options.ColorProfile;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
-
-import org.geometerplus.fbreader.fbreader.options.ColorProfile;
 
 public class BackgroundPreference extends Preference {
 	static final String VALUE_KEY = "fbreader.background.value";

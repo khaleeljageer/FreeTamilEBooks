@@ -19,15 +19,15 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.util.*;
-
 import org.fbreader.util.Boolean3;
-
-import org.geometerplus.zlibrary.core.network.*;
-
 import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationManager;
-import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
 import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
+import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.network.ZLNetworkRequest;
+
+import java.util.Collections;
+import java.util.Map;
 
 public abstract class NetworkCatalogItem extends NetworkItem {
 	// bit mask for flags parameter

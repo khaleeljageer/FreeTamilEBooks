@@ -19,27 +19,44 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.*;
-
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.*;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.*;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.*;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
+import org.geometerplus.android.fbreader.api.*;
 import org.geometerplus.android.fbreader.dialog.MenuDialog;
+import org.geometerplus.android.fbreader.dict.DictionaryUtil;
+import org.geometerplus.android.fbreader.formatPlugin.PluginUtil;
+import org.geometerplus.android.fbreader.httpd.DataService;
+import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
+import org.geometerplus.android.fbreader.sync.SyncOperations;
+import org.geometerplus.android.fbreader.tips.TipsActivity;
 import org.geometerplus.android.fbreader.util.FBReaderConfig;
 import org.geometerplus.android.fbreader.util.FBReaderReadTimeUtils;
+import org.geometerplus.android.util.*;
+import org.geometerplus.fbreader.Paths;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookUtil;
+import org.geometerplus.fbreader.book.Bookmark;
+import org.geometerplus.fbreader.bookmodel.BookModel;
+import org.geometerplus.fbreader.fbreader.ActionCode;
+import org.geometerplus.fbreader.fbreader.DictionaryHighlighting;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
+import org.geometerplus.fbreader.fbreader.options.CancelMenuHelper;
+import org.geometerplus.fbreader.fbreader.options.ColorProfile;
+import org.geometerplus.fbreader.formats.ExternalFormatPlugin;
+import org.geometerplus.fbreader.formats.PluginCollection;
+import org.geometerplus.fbreader.tips.TipsManager;
 import org.geometerplus.fbreader.util.TurnPageJudgeUtil;
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.application.ZLApplicationWindow;
@@ -48,10 +65,8 @@ import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.options.Config;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
-
 import org.geometerplus.zlibrary.text.view.ZLTextRegion;
 import org.geometerplus.zlibrary.text.view.ZLTextView;
-
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.error.ErrorKeys;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidApplication;
@@ -59,25 +74,9 @@ import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
 import org.geometerplus.zlibrary.ui.android.view.AndroidFontUtil;
 import org.geometerplus.zlibrary.ui.android.view.ZLAndroidWidget;
 
-import org.geometerplus.fbreader.Paths;
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.bookmodel.BookModel;
-import org.geometerplus.fbreader.fbreader.*;
-import org.geometerplus.fbreader.fbreader.options.CancelMenuHelper;
-import org.geometerplus.fbreader.fbreader.options.ColorProfile;
-import org.geometerplus.fbreader.formats.ExternalFormatPlugin;
-import org.geometerplus.fbreader.formats.PluginCollection;
-import org.geometerplus.fbreader.tips.TipsManager;
-
-import org.geometerplus.android.fbreader.api.*;
-import org.geometerplus.android.fbreader.dict.DictionaryUtil;
-import org.geometerplus.android.fbreader.formatPlugin.PluginUtil;
-import org.geometerplus.android.fbreader.httpd.DataService;
-import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
-import org.geometerplus.android.fbreader.sync.SyncOperations;
-import org.geometerplus.android.fbreader.tips.TipsActivity;
-
-import org.geometerplus.android.util.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.*;
 
 public final class FBReader extends FBReaderMainActivity implements ZLApplicationWindow {
 	public static final int RESULT_DO_NOTHING = RESULT_FIRST_USER;
@@ -300,11 +299,36 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 
 		myFBReaderApp.setExternalFileOpener(new ExternalFileOpener(this));
 
-		getWindow().setFlags(
-			WindowManager.LayoutParams.FLAG_FULLSCREEN,
-			myShowStatusBarFlag ? 0 : WindowManager.LayoutParams.FLAG_FULLSCREEN
-		);
-
+		if(myShowStatusBarFlag){
+			getWindow().setFlags(
+					WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					0
+			);
+		} else {
+			Window window = getWindow();
+			window.setFlags(
+					WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN
+			);
+			try {
+				WindowManager.LayoutParams wlp = window.getAttributes();
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+					wlp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+				}
+				window.setAttributes(wlp);
+			} catch (Throwable t) {
+			}
+			try {
+				View decorView = window.getDecorView();
+				int systemUiVisibility = decorView.getSystemUiVisibility();
+				int flags = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+						| View.SYSTEM_UI_FLAG_FULLSCREEN;
+				systemUiVisibility |= flags;
+				window.getDecorView().setSystemUiVisibility(systemUiVisibility);
+			} catch (Throwable t) {
+			}
+		}
+//		NotchFit.fit(this, NotchScreenType.FULL_SCREEN, null);
 		//文字搜索 popupWindow：向左箭头，关闭、向右箭头
 		if (myFBReaderApp.getPopupById(TextSearchPopup.ID) == null) {
 			new TextSearchPopup(myFBReaderApp);
@@ -992,7 +1016,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 					myWakeLockToCreate = false;
 					myWakeLock =
 						((PowerManager)getSystemService(POWER_SERVICE))
-							.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "fte:fbReader");
+							.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "FBReader");
 					myWakeLock.acquire();
 				}
 			}
@@ -1309,10 +1333,10 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 
 	//region logger
 	private static boolean isOpen = false;
-	private static String logTAG = "KoaLaPush";
+	private static String logTAG = "FBReaderImpl";
 
 	/**
-	 * @param TAG 可传空 , 默认为KoaLaPush
+	 * @param TAG 可传空 , 默认为FBReaderImpl
 	 */
 	public static void openLog(String TAG) {
 		isOpen = true;

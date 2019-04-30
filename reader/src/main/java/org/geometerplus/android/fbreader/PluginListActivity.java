@@ -19,28 +19,29 @@
 
 package org.geometerplus.android.fbreader;
 
-import java.lang.reflect.Field;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.DefaultHandler;
-
 import android.app.ListActivity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.*;
-import android.view.*;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import org.geometerplus.android.util.PackageUtil;
+import org.geometerplus.android.util.ViewUtil;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.XmlUtil;
 import org.geometerplus.zlibrary.ui.android.R;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
 
-import org.geometerplus.android.util.PackageUtil;
-import org.geometerplus.android.util.ViewUtil;
+import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 
 public class PluginListActivity extends ListActivity {
 	private final ZLResource myResource = ZLResource.resource("plugins");

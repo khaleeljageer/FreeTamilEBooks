@@ -20,7 +20,6 @@
 package org.geometerplus.android.fbreader;
 
 import android.content.Intent;
-
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 class InstallPluginsAction extends FBAndroidAction {

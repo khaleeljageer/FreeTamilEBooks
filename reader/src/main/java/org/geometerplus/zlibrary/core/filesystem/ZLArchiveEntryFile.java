@@ -19,9 +19,10 @@
 
 package org.geometerplus.zlibrary.core.filesystem;
 
-import java.util.*;
-
 import org.geometerplus.zlibrary.core.filesystem.tar.ZLTarEntryFile;
+
+import java.util.Collections;
+import java.util.List;
 
 public abstract class ZLArchiveEntryFile extends ZLFile {
 	public static String normalizeEntryName(String entryName) {

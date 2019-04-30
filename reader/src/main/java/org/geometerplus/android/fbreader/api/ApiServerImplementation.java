@@ -19,25 +19,30 @@
 
 package org.geometerplus.android.fbreader.api;
 
-import java.util.*;
-
-import android.content.*;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
+import org.geometerplus.android.fbreader.MenuData;
+import org.geometerplus.fbreader.book.Author;
+import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.fbreader.book.BookUtil;
+import org.geometerplus.fbreader.book.UID;
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
+import org.geometerplus.fbreader.fbreader.TapZoneMap;
 import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.options.Config;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
 import org.geometerplus.zlibrary.core.util.RationalNumber;
-import org.geometerplus.zlibrary.text.view.*;
+import org.geometerplus.zlibrary.text.view.ZLTextElement;
+import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
+import org.geometerplus.zlibrary.text.view.ZLTextWord;
+import org.geometerplus.zlibrary.text.view.ZLTextWordCursor;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.fbreader.*;
-
-import org.geometerplus.android.fbreader.*;
+import java.util.*;
 
 public class ApiServerImplementation extends ApiInterface.Stub implements Api, ApiMethods {
 	public static void sendEvent(ContextWrapper context, String eventType) {
@@ -57,7 +62,7 @@ public class ApiServerImplementation extends ApiInterface.Stub implements Api, A
 
 	private synchronized FBReaderApp getReader() {
 		if (myReader == null) {
-			myReader = (FBReaderApp)FBReaderApp.Instance();
+			myReader = (FBReaderApp) FBReaderApp.Instance();
 		}
 		return myReader;
 	}
@@ -295,11 +300,11 @@ public class ApiServerImplementation extends ApiInterface.Stub implements Api, A
 		}
 	}
 
-	private Map<ApiObject,ApiObject> errorMap(ApiObject.Error error) {
-		return Collections.<ApiObject,ApiObject>singletonMap(error, error);
+	private Map<ApiObject, ApiObject> errorMap(ApiObject.Error error) {
+		return Collections.<ApiObject, ApiObject>singletonMap(error, error);
 	}
 
-	public Map<ApiObject,ApiObject> requestMap(int method, ApiObject[] parameters) {
+	public Map<ApiObject, ApiObject> requestMap(int method, ApiObject[] parameters) {
 		try {
 			switch (method) {
 				default:

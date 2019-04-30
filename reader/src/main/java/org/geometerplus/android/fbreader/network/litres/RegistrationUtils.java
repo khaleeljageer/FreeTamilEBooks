@@ -19,13 +19,17 @@
 
 package org.geometerplus.android.fbreader.network.litres;
 
-import java.util.*;
-import java.lang.reflect.*;
-import java.math.BigInteger;
-import java.security.SecureRandom;
-
 import android.content.Context;
 import android.net.wifi.WifiManager;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class RegistrationUtils {
 	private final Context myContext;

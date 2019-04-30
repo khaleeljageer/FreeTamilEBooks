@@ -19,40 +19,40 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.io.File;
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.filesystem.*;
-import org.geometerplus.zlibrary.core.image.ZLImage;
+import org.geometerplus.fbreader.formats.BookReadingException;
+import org.geometerplus.fbreader.formats.FormatPlugin;
+import org.geometerplus.zlibrary.core.filesystem.ZLArchiveEntryFile;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
 import org.geometerplus.zlibrary.core.util.SystemInfo;
-
 import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 
-import org.geometerplus.fbreader.formats.*;
+import java.io.File;
+import java.util.*;
 
 public class BookCollection extends AbstractBookCollection<DbBook> {
 	private static final String ZERO_HASH = String.format("%040d", 0);
 
 	private final SystemInfo mySystemInfo;
-	public final PluginCollection PluginCollection;
+	public final org.geometerplus.fbreader.formats.PluginCollection PluginCollection;
 	private final BooksDatabase myDatabase;
 	public final List<String> BookDirectories;
 	private Set<String> myActiveFormats;
 
-	private final Map<ZLFile,DbBook> myBooksByFile =
-		Collections.synchronizedMap(new LinkedHashMap<ZLFile,DbBook>());
-	private final Map<Long,DbBook> myBooksById =
-		Collections.synchronizedMap(new HashMap<Long,DbBook>());
+	private final Map<ZLFile, DbBook> myBooksByFile =
+		Collections.synchronizedMap(new LinkedHashMap<ZLFile, DbBook>());
+	private final Map<Long, DbBook> myBooksById =
+		Collections.synchronizedMap(new HashMap<Long, DbBook>());
 	private final List<String> myFilesToRescan =
 		Collections.synchronizedList(new LinkedList<String>());
 	private final DuplicateResolver myDuplicateResolver = new DuplicateResolver();
 
 	private volatile Status myStatus = Status.NotStarted;
 
-	private final Map<Integer,HighlightingStyle> myStyles =
-		Collections.synchronizedMap(new TreeMap<Integer,HighlightingStyle>());
+	private final Map<Integer, HighlightingStyle> myStyles =
+		Collections.synchronizedMap(new TreeMap<Integer, HighlightingStyle>());
 
 	public BookCollection(SystemInfo systemInfo, BooksDatabase db, List<String> bookDirectories) {
 		mySystemInfo = systemInfo;
@@ -537,7 +537,7 @@ public class BookCollection extends AbstractBookCollection<DbBook> {
 	private void build() {
 		// Step 0: get database books marked as "existing"
 		final FileInfoSet fileInfos = new FileInfoSet(myDatabase);
-		final Map<Long,DbBook> savedBooksByFileId = myDatabase.loadBooks(fileInfos, true);
+		final Map<Long, DbBook> savedBooksByFileId = myDatabase.loadBooks(fileInfos, true);
 
 		// Step 1: check if files corresponding to "existing" books really exists;
 		//         add books to library if yes (and reload book info if needed);
@@ -588,7 +588,7 @@ public class BookCollection extends AbstractBookCollection<DbBook> {
 
 		// Step 2: collect books from physical files; add new, update already added,
 		//         unmark orphaned as existing again, collect newly added
-		final Map<Long,DbBook> orphanedBooksByFileId = myDatabase.loadBooks(fileInfos, false);
+		final Map<Long, DbBook> orphanedBooksByFileId = myDatabase.loadBooks(fileInfos, false);
 		final Set<DbBook> newBooks = new HashSet<DbBook>();
 
 		final List<ZLPhysicalFile> physicalFilesList = collectPhysicalFiles(BookDirectories);
@@ -658,10 +658,10 @@ public class BookCollection extends AbstractBookCollection<DbBook> {
 	}
 
 	private void collectBooks(
-		ZLFile file, FileInfoSet fileInfos,
-		Map<Long,DbBook> savedBooksByFileId, Map<Long,DbBook> orphanedBooksByFileId,
-		Set<DbBook> newBooks,
-		boolean doReadMetaInfo
+            ZLFile file, FileInfoSet fileInfos,
+            Map<Long, DbBook> savedBooksByFileId, Map<Long, DbBook> orphanedBooksByFileId,
+            Set<DbBook> newBooks,
+            boolean doReadMetaInfo
 	) {
 		final long fileId = fileInfos.getId(file);
 		if (savedBooksByFileId.get(fileId) != null) {

@@ -19,15 +19,19 @@
 
 package org.geometerplus.fbreader.fbreader;
 
-import java.util.*;
-
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.core.options.ZLStringListOption;
+import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.core.util.XmlUtil;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.options.*;
-import org.geometerplus.zlibrary.core.util.XmlUtil;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class TapZoneMap {
 	private static final List<String> ourPredefinedMaps = new LinkedList<String>();
@@ -40,7 +44,7 @@ public class TapZoneMap {
 		ourPredefinedMaps.add("up");
 		ourMapsOption = new ZLStringListOption("TapZones", "List", ourPredefinedMaps, "\000");
 	}
-	private static final Map<String,TapZoneMap> ourMaps = new HashMap<String,TapZoneMap>();
+	private static final Map<String, TapZoneMap> ourMaps = new HashMap<String, TapZoneMap>();
 
 	public static List<String> zoneMapNames() {
 		return ourMapsOption.getValue();

@@ -22,12 +22,10 @@ package org.geometerplus.android.fbreader.preferences.fileChooser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-
+import org.geometerplus.android.util.FileChooserUtil;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
-
-import org.geometerplus.android.util.FileChooserUtil;
 
 class FileChooserSinglePreference extends FileChooserPreference {
 	private final ZLStringOption myOption;

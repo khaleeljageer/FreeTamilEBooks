@@ -19,8 +19,13 @@
 
 package org.geometerplus.zlibrary.core.filesystem;
 
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class ZLPhysicalFile extends ZLFile {
 	private final File myFile;

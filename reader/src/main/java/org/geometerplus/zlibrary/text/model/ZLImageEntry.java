@@ -19,9 +19,9 @@
 
 package org.geometerplus.zlibrary.text.model;
 
-import java.util.Map;
-
 import org.geometerplus.zlibrary.core.image.ZLImage;
+
+import java.util.Map;
 
 public final class ZLImageEntry {
 	private final Map<String,ZLImage> myImageMap;

@@ -4,6 +4,7 @@
               android:layout_height="wrap_content"
               android:minHeight="?android:attr/listPreferredItemHeight"
               android:paddingStart="5dip"
+              android:paddingEnd="5dip"
               android:orientation="horizontal"
               android:gravity="top|start">
     <ImageView
@@ -27,8 +28,8 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:orientation="vertical"
                 android:layout_toStartOf="@id/library_tree_item_status"
                 android:layout_alignParentStart="true"

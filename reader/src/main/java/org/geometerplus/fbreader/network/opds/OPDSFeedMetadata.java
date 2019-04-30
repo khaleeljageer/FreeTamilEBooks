@@ -19,9 +19,8 @@
 
 package org.geometerplus.fbreader.network.opds;
 
+import org.geometerplus.fbreader.network.atom.ATOMFeedMetadata;
 import org.geometerplus.zlibrary.core.xml.ZLStringMap;
-
-import org.geometerplus.fbreader.network.atom.*;
 
 class OPDSFeedMetadata extends ATOMFeedMetadata {
 	public int OpensearchTotalResults = -1;

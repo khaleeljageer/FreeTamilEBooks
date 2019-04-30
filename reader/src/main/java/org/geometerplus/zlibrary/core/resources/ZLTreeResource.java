@@ -19,15 +19,15 @@
 
 package org.geometerplus.zlibrary.core.resources;
 
-import java.util.*;
-
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
+import org.geometerplus.zlibrary.core.language.Language;
+import org.geometerplus.zlibrary.core.util.XmlUtil;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import org.geometerplus.zlibrary.core.filesystem.*;
-import org.geometerplus.zlibrary.core.language.Language;
-import org.geometerplus.zlibrary.core.util.XmlUtil;
+import java.util.*;
 
 final class ZLTreeResource extends ZLResource {
 	private static interface Condition {
@@ -122,7 +122,7 @@ final class ZLTreeResource extends ZLResource {
 
 	private boolean myHasValue;
 	private	String myValue;
-	private HashMap<String,ZLTreeResource> myChildren;
+	private HashMap<String, ZLTreeResource> myChildren;
 	private LinkedHashMap<Condition,String> myConditionalValues;
 
 	static void buildTree() {
@@ -223,7 +223,7 @@ final class ZLTreeResource extends ZLResource {
 
 	@Override
 	public ZLResource getResource(String key) {
-		final HashMap<String,ZLTreeResource> children = myChildren;
+		final HashMap<String, ZLTreeResource> children = myChildren;
 		if (children != null) {
 			ZLTreeResource child = children.get(key);
 			if (child != null) {
@@ -253,10 +253,10 @@ final class ZLTreeResource extends ZLResource {
 				final ZLTreeResource peek = stack.get(stack.size() - 1);
 				if (name != null) {
 					ZLTreeResource node;
-					HashMap<String,ZLTreeResource> children = peek.myChildren;
+					HashMap<String, ZLTreeResource> children = peek.myChildren;
 					if (children == null) {
 						node = null;
-						children = new HashMap<String,ZLTreeResource>();
+						children = new HashMap<String, ZLTreeResource>();
 						peek.myChildren = children;
 					} else {
 						node = children.get(name);

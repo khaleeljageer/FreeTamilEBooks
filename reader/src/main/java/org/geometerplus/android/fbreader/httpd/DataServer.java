@@ -19,24 +19,26 @@
 
 package org.geometerplus.android.fbreader.httpd;
 
-import java.io.*;
-import java.util.Map;
-
-import fi.iki.elonen.NanoHTTPD;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.image.*;
-import org.geometerplus.zlibrary.core.util.MimeType;
-import org.geometerplus.zlibrary.core.util.SliceInputStream;
-import org.geometerplus.zlibrary.ui.android.image.ZLBitmapImage;
-
+import fi.iki.elonen.NanoHTTPD;
 import org.geometerplus.fbreader.Paths;
 import org.geometerplus.fbreader.book.CoverUtil;
 import org.geometerplus.fbreader.formats.PluginCollection;
 import org.geometerplus.fbreader.formats.PluginImage;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.image.ZLFileImageProxy;
+import org.geometerplus.zlibrary.core.image.ZLImage;
+import org.geometerplus.zlibrary.core.image.ZLStreamImage;
+import org.geometerplus.zlibrary.core.util.MimeType;
+import org.geometerplus.zlibrary.core.util.SliceInputStream;
+import org.geometerplus.zlibrary.ui.android.image.ZLBitmapImage;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
 
 public class DataServer extends NanoHTTPD {
 	private final DataService myService;

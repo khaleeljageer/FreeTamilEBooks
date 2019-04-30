@@ -19,13 +19,14 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.util.*;
-
+import org.geometerplus.fbreader.formats.BookReadingException;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
 import org.geometerplus.zlibrary.core.util.RationalNumber;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 
-import org.geometerplus.fbreader.formats.BookReadingException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 class BookMergeHelper {
 	private final BookCollection myCollection;

@@ -21,10 +21,9 @@ package org.geometerplus.android.fbreader;
 
 import android.app.NotificationManager;
 import android.content.Context;
-
-import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
 import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.book.BookUtil;
+import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
 
 public abstract class NotificationUtil {
 	public static final int MISSING_BOOK_ID = 0x0fffffff;

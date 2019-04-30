@@ -19,12 +19,10 @@ public class FileProviderUtil {
         } else {
             fileUri = Uri.fromFile(file);
         }
-//        Log.e("test", "uri: " + fileUri.getPath());
         return fileUri;
     }
 
     public static Uri getUriForFile24(Context context, File file) {
-        //Log.e("test", "pa:" + context.getPackageName()); //"koalareading.com.public_lib"
         Uri fileUri = FileProvider.getUriForFile(context,
                 context.getPackageName() + ".fileProvider", file);
         return fileUri;

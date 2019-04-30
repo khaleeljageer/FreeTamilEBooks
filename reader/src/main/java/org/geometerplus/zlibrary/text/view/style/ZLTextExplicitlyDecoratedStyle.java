@@ -19,14 +19,15 @@
 
 package org.geometerplus.zlibrary.text.view.style;
 
+import org.fbreader.util.Boolean3;
+import org.geometerplus.zlibrary.core.fonts.FontEntry;
+import org.geometerplus.zlibrary.text.model.ZLTextCSSStyleEntry;
+import org.geometerplus.zlibrary.text.model.ZLTextMetrics;
+import org.geometerplus.zlibrary.text.model.ZLTextStyleEntry;
+import org.geometerplus.zlibrary.text.view.ZLTextStyle;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.fbreader.util.Boolean3;
-
-import org.geometerplus.zlibrary.core.fonts.FontEntry;
-import org.geometerplus.zlibrary.text.model.*;
-import org.geometerplus.zlibrary.text.view.ZLTextStyle;
 
 public class ZLTextExplicitlyDecoratedStyle extends ZLTextDecoratedStyle implements ZLTextStyleEntry.Feature, ZLTextStyleEntry.FontModifier {
 	private final ZLTextStyleEntry myEntry;

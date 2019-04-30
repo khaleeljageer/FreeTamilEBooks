@@ -19,11 +19,11 @@
 
 package org.geometerplus.zlibrary.core.money;
 
+import org.fbreader.util.ComparisonUtil;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Locale;
-
-import org.fbreader.util.ComparisonUtil;
 
 public class Money implements Comparable<Money>, Serializable {
 	public static final Money ZERO = new Money();

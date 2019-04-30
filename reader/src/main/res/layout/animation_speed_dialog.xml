@@ -7,5 +7,5 @@
 		android:id="@+id/animation_speed_slider"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:padding="4dip"/>
+		android:padding="4dip" />
 </ScrollView>

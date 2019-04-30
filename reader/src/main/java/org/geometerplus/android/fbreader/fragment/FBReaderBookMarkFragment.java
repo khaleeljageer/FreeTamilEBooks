@@ -19,6 +19,7 @@ import org.geometerplus.fbreader.fbreader.options.ColorProfile;
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,13 +154,14 @@ public class FBReaderBookMarkFragment extends Fragment {
             this.context = context;
         }
 
+        @NotNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
             return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_fbreader_catalog, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, final int position) {
+        public void onBindViewHolder(@NotNull ViewHolder holder, final int position) {
             final Bookmark bean = getItem(position);
             if (bean != null) {
                 holder.mTvContent.setText(bean.getText());

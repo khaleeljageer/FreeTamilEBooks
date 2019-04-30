@@ -19,8 +19,9 @@
 
 package org.geometerplus.zlibrary.ui.android.view;
 
-import android.graphics.*;
-
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import org.geometerplus.zlibrary.core.view.ZLView;
 import org.geometerplus.zlibrary.ui.android.view.animation.BitmapManager;
 

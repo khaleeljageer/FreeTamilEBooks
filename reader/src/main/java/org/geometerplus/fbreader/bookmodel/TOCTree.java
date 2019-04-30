@@ -20,7 +20,6 @@
 package org.geometerplus.fbreader.bookmodel;
 
 import org.geometerplus.zlibrary.core.tree.ZLTree;
-
 import org.geometerplus.zlibrary.text.model.ZLTextModel;
 
 public class TOCTree extends ZLTree<TOCTree> {

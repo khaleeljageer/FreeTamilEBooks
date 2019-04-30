@@ -19,10 +19,10 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.util.Collections;
-
 import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.formats.PluginCollection;
+
+import java.util.Collections;
 
 public final class SeriesTree extends FilteredTree {
 	public final Series Series;

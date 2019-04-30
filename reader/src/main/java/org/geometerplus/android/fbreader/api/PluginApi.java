@@ -4,11 +4,16 @@
 
 package org.geometerplus.android.fbreader.api;
 
-import java.util.*;
-
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-import android.os.*;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class PluginApi {
 	public static final String ACTION_REGISTER = "android.fbreader.action.plugin.REGISTER";

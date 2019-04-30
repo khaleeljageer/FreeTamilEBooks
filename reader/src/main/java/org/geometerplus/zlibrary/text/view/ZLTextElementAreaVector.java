@@ -19,7 +19,9 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 final class ZLTextElementAreaVector {
 	private final List<ZLTextElementArea> myAreas =

@@ -30,81 +30,81 @@ import org.geometerplus.zlibrary.ui.android.library.ZLAndroidApplication;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
 
 public abstract class FBReaderMainActivity extends AppCompatActivity {
-    public static final int REQUEST_PREFERENCES = 1;
-    public static final int REQUEST_CANCEL_MENU = 2;
-    public static final int REQUEST_DICTIONARY = 3;
+	public static final int REQUEST_PREFERENCES = 1;
+	public static final int REQUEST_CANCEL_MENU = 2;
+	public static final int REQUEST_DICTIONARY = 3;
 
-    private volatile Toast myToast;
+	private volatile Toast myToast;
 
-    @Override
-    protected void onCreate(Bundle saved) {
-        super.onCreate(saved);
-        Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler(this));
-    }
+	@Override
+	protected void onCreate(Bundle saved) {
+		super.onCreate(saved);
+		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler(this));
+	}
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            default:
-                super.onActivityResult(requestCode, resultCode, data);
-                break;
-            case REQUEST_DICTIONARY:
-                DictionaryUtil.onActivityResult(this, resultCode, data);
-                break;
-        }
-    }
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			default:
+				super.onActivityResult(requestCode, resultCode, data);
+				break;
+			case REQUEST_DICTIONARY:
+				DictionaryUtil.onActivityResult(this, resultCode, data);
+				break;
+		}
+	}
 
-    public ZLAndroidLibrary getZLibrary() {
-        return ((ZLAndroidApplication) getApplication()).library();
-    }
+	public ZLAndroidLibrary getZLibrary() {
+		return ((ZLAndroidApplication)getApplication()).library();
+	}
 
-    /* ++++++ SCREEN BRIGHTNESS ++++++ */
-    protected void setScreenBrightnessAuto() {
-        final WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        attrs.screenBrightness = -1.0f;
-        getWindow().setAttributes(attrs);
-    }
+	/* ++++++ SCREEN BRIGHTNESS ++++++ */
+	protected void setScreenBrightnessAuto() {
+		final WindowManager.LayoutParams attrs = getWindow().getAttributes();
+		attrs.screenBrightness = -1.0f;
+		getWindow().setAttributes(attrs);
+	}
 
-    public void setScreenBrightnessSystem(float level) {
-        final WindowManager.LayoutParams attrs = getWindow().getAttributes();
-        attrs.screenBrightness = level;
-        getWindow().setAttributes(attrs);
-    }
+	public void setScreenBrightnessSystem(float level) {
+		final WindowManager.LayoutParams attrs = getWindow().getAttributes();
+		attrs.screenBrightness = level;
+		getWindow().setAttributes(attrs);
+	}
 
-    public float getScreenBrightnessSystem() {
-        final float level = getWindow().getAttributes().screenBrightness;
-        return level >= 0 ? level : .5f;
-    }
-    /* ------ SCREEN BRIGHTNESS ------ */
+	public float getScreenBrightnessSystem() {
+		final float level = getWindow().getAttributes().screenBrightness;
+		return level >= 0 ? level : .5f;
+	}
+	/* ------ SCREEN BRIGHTNESS ------ */
 
-    /* ++++++ SUPER TOAST ++++++ */
-    public boolean isToastShown() {
-        final Toast toast = myToast;
-        return toast != null;
-    }
+	/* ++++++ SUPER TOAST ++++++ */
+	public boolean isToastShown() {
+		final Toast toast = myToast;
+		return toast != null;
+	}
 
-    public void hideToast() {
-        final Toast toast = myToast;
-        if (toast != null) {
-            myToast = null;
-            runOnUiThread(new Runnable() {
-                public void run() {
-                    toast.cancel();
-                }
-            });
-        }
-    }
+	public void hideToast() {
+		final Toast toast = myToast;
+		if (toast != null) {
+			myToast = null;
+			runOnUiThread(new Runnable() {
+				public void run() {
+					toast.cancel();
+				}
+			});
+		}
+	}
 
-    public void showToast(final Toast toast) {
-        hideToast();
-        myToast = toast;
-        runOnUiThread(new Runnable() {
-            public void run() {
-                toast.show();
-            }
-        });
-    }
-    /* ------ SUPER TOAST ------ */
+	public void showToast(final Toast toast) {
+		hideToast();
+		myToast = toast;
+		runOnUiThread(new Runnable() {
+			public void run() {
+				toast.show();
+			}
+		});
+	}
+	/* ------ SUPER TOAST ------ */
 
-    public abstract void hideDictionarySelection();
+	public abstract void hideDictionarySelection();
 }

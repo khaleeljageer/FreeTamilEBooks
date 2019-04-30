@@ -19,12 +19,11 @@
 
 package org.geometerplus.fbreader.network.opds;
 
-import java.util.List;
-import java.util.LinkedList;
-
+import org.geometerplus.fbreader.network.atom.ATOMEntry;
 import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 
-import org.geometerplus.fbreader.network.atom.*;
+import java.util.LinkedList;
+import java.util.List;
 
 class OPDSEntry extends ATOMEntry {
 	public String DCLanguage;

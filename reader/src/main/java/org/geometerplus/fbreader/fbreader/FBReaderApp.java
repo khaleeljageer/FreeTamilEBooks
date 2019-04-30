@@ -20,26 +20,30 @@
 package org.geometerplus.fbreader.fbreader;
 
 import android.util.Log;
-
-import java.util.*;
-
 import org.fbreader.util.ComparisonUtil;
-
-import org.geometerplus.zlibrary.core.application.*;
-import org.geometerplus.zlibrary.core.drm.FileEncryptionInfo;
+import org.geometerplus.fbreader.book.*;
+import org.geometerplus.fbreader.bookmodel.BookModel;
+import org.geometerplus.fbreader.bookmodel.TOCTree;
+import org.geometerplus.fbreader.fbreader.options.*;
+import org.geometerplus.fbreader.formats.BookReadingException;
+import org.geometerplus.fbreader.formats.ExternalFormatPlugin;
+import org.geometerplus.fbreader.formats.FormatPlugin;
+import org.geometerplus.fbreader.formats.PluginCollection;
+import org.geometerplus.fbreader.network.sync.SyncData;
+import org.geometerplus.fbreader.util.AutoTextSnippet;
+import org.geometerplus.fbreader.util.EmptyTextSnippet;
+import org.geometerplus.fbreader.util.TextSnippet;
+import org.geometerplus.zlibrary.core.application.ZLApplication;
+import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
 import org.geometerplus.zlibrary.core.drm.EncryptionMethod;
-import org.geometerplus.zlibrary.core.util.*;
-
+import org.geometerplus.zlibrary.core.drm.FileEncryptionInfo;
+import org.geometerplus.zlibrary.core.util.RationalNumber;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
 import org.geometerplus.zlibrary.text.hyphenation.ZLTextHyphenator;
 import org.geometerplus.zlibrary.text.model.ZLTextModel;
 import org.geometerplus.zlibrary.text.view.*;
 
-import org.geometerplus.fbreader.book.*;
-import org.geometerplus.fbreader.bookmodel.*;
-import org.geometerplus.fbreader.fbreader.options.*;
-import org.geometerplus.fbreader.formats.*;
-import org.geometerplus.fbreader.network.sync.SyncData;
-import org.geometerplus.fbreader.util.*;
+import java.util.*;
 
 public final class FBReaderApp extends ZLApplication {
     public interface ExternalFileOpener {
@@ -57,10 +61,10 @@ public final class FBReaderApp extends ZLApplication {
 	}
 
 	public final MiscOptions MiscOptions = new MiscOptions();
-	public final ImageOptions ImageOptions = new ImageOptions();
-	public final ViewOptions ViewOptions = new ViewOptions();
-	public final PageTurningOptions PageTurningOptions = new PageTurningOptions();
-	public final SyncOptions SyncOptions = new SyncOptions();
+	public final org.geometerplus.fbreader.fbreader.options.ImageOptions ImageOptions = new ImageOptions();
+	public final org.geometerplus.fbreader.fbreader.options.ViewOptions ViewOptions = new ViewOptions();
+	public final org.geometerplus.fbreader.fbreader.options.PageTurningOptions PageTurningOptions = new PageTurningOptions();
+	public final org.geometerplus.fbreader.fbreader.options.SyncOptions SyncOptions = new SyncOptions();
 
 	private final ZLKeyBindings myBindings = new ZLKeyBindings();
 

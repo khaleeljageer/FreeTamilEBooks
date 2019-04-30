@@ -21,12 +21,7 @@ package org.geometerplus.zlibrary.core.view;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import org.geometerplus.android.fbreader.util.FBReaderPercentUtils;
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.zlibrary.core.application.ZLApplication;
-import org.geometerplus.zlibrary.core.image.ZLImageData;
-import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.image.BitmapImageData;

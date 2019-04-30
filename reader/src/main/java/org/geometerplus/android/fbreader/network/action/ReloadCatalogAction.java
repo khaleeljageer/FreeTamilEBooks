@@ -19,14 +19,14 @@
 
 package org.geometerplus.android.fbreader.network.action;
 
-import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
-import org.geometerplus.zlibrary.ui.android.R;
-
-import org.geometerplus.fbreader.network.*;
+import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
+import org.geometerplus.fbreader.network.NetworkCatalogItem;
+import org.geometerplus.fbreader.network.NetworkTree;
+import org.geometerplus.fbreader.network.NetworkURLCatalogItem;
 import org.geometerplus.fbreader.network.tree.NetworkCatalogTree;
 import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
-
-import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
+import org.geometerplus.zlibrary.core.network.ZLNetworkContext;
+import org.geometerplus.zlibrary.ui.android.R;
 
 public class ReloadCatalogAction extends CatalogAction {
 	private final ZLNetworkContext myNetworkContext;

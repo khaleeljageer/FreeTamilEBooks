@@ -19,15 +19,14 @@
 
 package org.geometerplus.fbreader.network.authentication.litres;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.fbreader.network.*;
+import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
 import org.geometerplus.zlibrary.core.network.ZLNetworkAuthenticationException;
 import org.geometerplus.zlibrary.core.network.ZLNetworkException;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.fbreader.network.*;
-import org.geometerplus.fbreader.network.urlInfo.UrlInfoCollection;
-import org.geometerplus.fbreader.network.tree.NetworkItemsLoader;
+import java.util.*;
 
 abstract class SortedCatalogItem extends NetworkCatalogItem {
 	private final List<NetworkItem> myChildren = new LinkedList<NetworkItem>();

@@ -19,21 +19,23 @@
 
 package org.geometerplus.fbreader.formats;
 
-import java.util.*;
-
-import org.geometerplus.zlibrary.core.drm.FileEncryptionInfo;
-import org.geometerplus.zlibrary.core.encodings.EncodingCollection;
-import org.geometerplus.zlibrary.core.encodings.JavaEncodingCollection;
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.image.*;
-import org.geometerplus.zlibrary.core.util.SystemInfo;
-import org.geometerplus.zlibrary.text.model.CachedCharStorageException;
-
 import org.geometerplus.fbreader.book.AbstractBook;
 import org.geometerplus.fbreader.book.BookUtil;
 import org.geometerplus.fbreader.bookmodel.BookModel;
 import org.geometerplus.fbreader.formats.fb2.FB2NativePlugin;
 import org.geometerplus.fbreader.formats.oeb.OEBNativePlugin;
+import org.geometerplus.zlibrary.core.drm.FileEncryptionInfo;
+import org.geometerplus.zlibrary.core.encodings.EncodingCollection;
+import org.geometerplus.zlibrary.core.encodings.JavaEncodingCollection;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.image.ZLFileImage;
+import org.geometerplus.zlibrary.core.image.ZLFileImageProxy;
+import org.geometerplus.zlibrary.core.util.SystemInfo;
+import org.geometerplus.zlibrary.text.model.CachedCharStorageException;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class NativeFormatPlugin extends BuiltinFormatPlugin {
 	private static final Object ourNativeLock = new Object();

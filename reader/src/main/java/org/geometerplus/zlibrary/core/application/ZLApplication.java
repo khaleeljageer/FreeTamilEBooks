@@ -19,14 +19,13 @@
 
 package org.geometerplus.zlibrary.core.application;
 
-import java.util.*;
-
 import org.fbreader.util.Boolean3;
-
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.zlibrary.core.util.SystemInfo;
 import org.geometerplus.zlibrary.core.view.ZLView;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
+
+import java.util.*;
 
 public abstract class ZLApplication {
 	public static ZLApplication Instance() {

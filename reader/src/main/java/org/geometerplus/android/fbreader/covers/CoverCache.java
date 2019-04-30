@@ -19,11 +19,12 @@
 
 package org.geometerplus.android.fbreader.covers;
 
-import java.util.*;
-
 import android.graphics.Bitmap;
-
 import org.geometerplus.fbreader.tree.FBTree;
+
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 class CoverCache {
 	static class NullObjectException extends Exception {

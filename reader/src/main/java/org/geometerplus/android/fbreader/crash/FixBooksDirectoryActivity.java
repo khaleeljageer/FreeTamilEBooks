@@ -23,18 +23,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
-
+import android.widget.Button;
+import android.widget.TextView;
+import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.util.FileChooserUtil;
+import org.geometerplus.fbreader.Paths;
 import org.geometerplus.zlibrary.core.options.Config;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-
-import org.geometerplus.fbreader.Paths;
-
 import org.geometerplus.zlibrary.ui.android.R;
-
-import org.geometerplus.android.fbreader.FBReader;
-import org.geometerplus.android.util.FileChooserUtil;
 
 public class FixBooksDirectoryActivity extends Activity {
 	private TextView myDirectoryView;

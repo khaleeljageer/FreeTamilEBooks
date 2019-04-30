@@ -19,16 +19,14 @@
 
 package org.geometerplus.zlibrary.text.view.style;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.fbreader.util.Boolean3;
-
 import org.geometerplus.zlibrary.core.fonts.FontEntry;
 import org.geometerplus.zlibrary.text.model.ZLTextAlignmentType;
 import org.geometerplus.zlibrary.text.model.ZLTextMetrics;
 import org.geometerplus.zlibrary.text.view.ZLTextHyperlink;
 import org.geometerplus.zlibrary.text.view.ZLTextStyle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ZLTextNGStyle extends ZLTextDecoratedStyle {
 	private final ZLTextNGStyleDescription myDescription;

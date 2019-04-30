@@ -19,9 +19,8 @@
 
 package org.geometerplus.zlibrary.ui.android.image;
 
-import org.geometerplus.zlibrary.core.image.ZLImage;
-
 import android.graphics.Bitmap;
+import org.geometerplus.zlibrary.core.image.ZLImage;
 
 public class ZLBitmapImage implements ZLImage {
 	private final Bitmap myBitmap;

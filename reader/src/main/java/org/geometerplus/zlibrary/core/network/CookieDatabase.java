@@ -19,10 +19,10 @@
 
 package org.geometerplus.zlibrary.core.network;
 
-import java.util.List;
-import java.util.Date;
-
 import org.apache.http.cookie.Cookie;
+
+import java.util.Date;
+import java.util.List;
 
 public abstract class CookieDatabase {
 	private static CookieDatabase ourInstance;

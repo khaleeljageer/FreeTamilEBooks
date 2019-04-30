@@ -19,15 +19,16 @@
 
 package org.geometerplus.fbreader.book;
 
-import java.math.BigDecimal;
-import java.util.*;
-
 import org.fbreader.util.ComparisonUtil;
-
+import org.geometerplus.fbreader.sort.TitledEntity;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
 import org.geometerplus.zlibrary.core.util.RationalNumber;
 
-import org.geometerplus.fbreader.sort.TitledEntity;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 public abstract class AbstractBook extends TitledEntity<AbstractBook> {
 	public static final String FAVORITE_LABEL = "favorite";

@@ -19,13 +19,14 @@
 
 package org.geometerplus.fbreader.network.opds;
 
+import org.geometerplus.fbreader.network.NetworkLibrary;
+import org.geometerplus.fbreader.network.atom.ATOMDateConstruct;
+import org.geometerplus.fbreader.network.atom.ATOMFeedHandler;
+import org.geometerplus.fbreader.network.atom.ATOMXMLReader;
 import org.geometerplus.zlibrary.core.constants.XMLNamespaces;
 import org.geometerplus.zlibrary.core.money.Money;
 import org.geometerplus.zlibrary.core.money.MoneyException;
-import org.geometerplus.zlibrary.core.xml.*;
-
-import org.geometerplus.fbreader.network.NetworkLibrary;
-import org.geometerplus.fbreader.network.atom.*;
+import org.geometerplus.zlibrary.core.xml.ZLStringMap;
 
 public class OPDSXMLReader extends ATOMXMLReader<OPDSFeedMetadata,OPDSEntry> {
 	public static final String KEY_PRICE = "price";

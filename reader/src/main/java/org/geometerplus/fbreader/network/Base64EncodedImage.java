@@ -19,10 +19,13 @@
 
 package org.geometerplus.fbreader.network;
 
-import java.io.*;
-
 import org.geometerplus.zlibrary.core.image.ZLBase64EncodedImage;
 import org.geometerplus.zlibrary.core.util.MimeType;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 final class Base64EncodedImage extends ZLBase64EncodedImage {
 	private static final String ENCODED_SUFFIX = ".base64";
