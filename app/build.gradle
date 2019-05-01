@@ -16,8 +16,8 @@ android {
         applicationId "com.jskaleel.fte"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 25
-        versionName "6.0-beta"
+        versionCode 26
+        versionName "6.0.1-beta"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

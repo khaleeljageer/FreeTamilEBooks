@@ -69,21 +69,25 @@ class HomeFragment : Fragment(), BookClickListener {
         rvBookList.adapter = adapter
 
         RxBus.subscribe {
-            if (it is ScrollList) {
-                try {
-                    rvBookList.smoothScrollToPosition(0)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+            when (it) {
+                is ScrollList -> {
+                    try {
+                        rvBookList.smoothScrollToPosition(0)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
-            } else if (it is DownloadCompleted) {
-                if (isAdded) {
-                    val downloadedBook = appDataBase.localBooksDao().getDownloadedBook(it.downloadId)
-                    adapter.updateItemStatus(downloadsPositions.get(it.downloadId).toInt(), downloadedBook)
+                is DownloadCompleted -> {
+                    if (isAdded) {
+                        val downloadedBook = appDataBase.localBooksDao().getDownloadedBook(it.downloadId)
+                        adapter.updateItemStatus(downloadsPositions.get(it.downloadId).toInt(), downloadedBook)
+                    }
                 }
-            } else if (it is NewBookAdded) {
-                if (it.isBookAdded) {
-                    val newBookList = appDataBase.localBooksDao().getAllLocalBooks()
-                    adapter.loadBooks(newBookList)
+                is NewBookAdded -> {
+                    if (it.isBookAdded) {
+                        val newBookList = appDataBase.localBooksDao().getAllLocalBooks()
+                        adapter.loadBooks(newBookList)
+                    }
                 }
             }
         }
