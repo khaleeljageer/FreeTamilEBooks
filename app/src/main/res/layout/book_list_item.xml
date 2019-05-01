@@ -24,10 +24,18 @@
                     tools:ignore="ContentDescription"/>
             <RelativeLayout
                     android:id="@+id/rlDownloadView"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:background="@drawable/gradient_bg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+                <ProgressBar android:layout_width="50dp"
+                             android:id="@+id/pbDownloadProgress"
+                             style="@style/Widget.AppCompat.ProgressBar"
+                             android:layout_centerInParent="true"
+                             android:visibility="invisible"
+                             android:layout_gravity="center"
+                             android:layout_height="50dp"/>
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fabDownload"
                         android:layout_width="wrap_content"

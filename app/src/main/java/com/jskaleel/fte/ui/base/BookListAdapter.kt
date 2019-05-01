@@ -63,4 +63,9 @@ class BookListAdapter(
         booksList[itemPosition].downloadId = downloadedBook.downloadId
         notifyItemChanged(itemPosition)
     }
+
+    fun updateDownloadId(itemPosition: Int, downloadID: Long) {
+        booksList[itemPosition].downloadId = downloadID
+        notifyItemChanged(itemPosition)
+    }
 }

@@ -25,15 +25,19 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), BookClickListener {
 
-    var downloadsPositions = LongSparseArray<Long>()
+    private var downloadsPositions = LongSparseArray<Long>()
+    private lateinit var appDataBase: AppDatabase
 
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
-        PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
+        PrintLog.info("Search adapterPosition $adapterPosition ${book.title} downloadID: ${book.downloadId}")
         if (book.isDownloaded) {
             DownloadUtil.openSavedBook(mContext, book)
         } else {
-            val downloadID = DownloadUtil.queueForDownload(mContext, book)
-            downloadsPositions.put(downloadID, adapterPosition.toLong())
+            if (book.downloadId == 0L) {
+                val downloadID = DownloadUtil.queueForDownload(mContext, book)
+                adapter.updateDownloadId(adapterPosition, downloadID)
+                downloadsPositions.put(downloadID, adapterPosition.toLong())
+            }
         }
     }
 
@@ -42,7 +46,8 @@ class HomeFragment : Fragment(), BookClickListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        this.mContext = context;
+        this.mContext = context
+        this.appDataBase = AppDatabase.getAppDatabase(mContext)
     }
 
     override fun onResume() {
@@ -59,7 +64,6 @@ class HomeFragment : Fragment(), BookClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val appDataBase = AppDatabase.getAppDatabase(mContext)
         val booksList = appDataBase.localBooksDao().getAllLocalBooks()
         rvBookList.setHasFixedSize(true)
 

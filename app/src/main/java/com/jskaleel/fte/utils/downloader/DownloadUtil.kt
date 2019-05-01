@@ -11,7 +11,8 @@ import org.geometerplus.android.fbreader.FBReader
 
 object DownloadUtil {
 
-    fun queueForDownload(context: Context, book: LocalBooks) : Long {
+    fun queueForDownload(context: Context, book: LocalBooks): Long {
+        val localBooksDao = AppDatabase.getAppDatabase(context).localBooksDao()
 
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val url = book.epub
@@ -29,8 +30,8 @@ object DownloadUtil {
         val id = downloadManager.enqueue(request)
 
         DownloadManagerHelper.saveDownload(context, id)
-        AppDatabase.getAppDatabase(context).localBooksDao()
-            .updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
+
+        localBooksDao.updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
         return id
     }
 

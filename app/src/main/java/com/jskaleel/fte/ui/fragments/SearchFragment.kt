@@ -33,7 +33,10 @@ class SearchFragment : Fragment(), BookClickListener {
         if (book.isDownloaded) {
             DownloadUtil.openSavedBook(mContext, book)
         } else {
-            DownloadUtil.queueForDownload(mContext, book)
+            if (book.downloadId == 0L) {
+                val downloadID = DownloadUtil.queueForDownload(mContext, book)
+                adapter.updateDownloadId(adapterPosition, downloadID)
+            }
         }
     }
 
