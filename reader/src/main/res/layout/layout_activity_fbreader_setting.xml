@@ -2,19 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#f5f5f5"
+              android:background="#FFFFFF"
               android:orientation="vertical">
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="56dp"
             android:background="#ffffff">
 
         <ImageView
                 android:id="@+id/id_activity_fbreader_setting_back"
                 android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_height="match_parent"
                 android:padding="12dp"
+                android:tintMode="src_in"
+                android:tint="#000000"
                 android:src="@drawable/ic_fbreader_back" tools:ignore="ContentDescription"/>
 
         <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -22,10 +24,48 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/fbreader_menu_more_setting"
-                android:textColor="#333333"
+                android:textColor="#000000"
                 android:textSize="17sp"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_alignParentBottom="true"
+              android:layout_height="0.5dp"
+              android:background="#eeeeee"/>
     </RelativeLayout>
 
+    <!--<androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff">
+
+            <ImageView
+                    android:id="@+id/id_activity_fbreader_setting_back"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="centerInside"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_arrow_back_black_24dp"
+                    tools:ignore="ContentDescription"/>
+
+            <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:text="@string/fbreader_menu_more_setting"
+                    android:textColor="#000000"
+                    android:textSize="17sp"/>
+
+            <View android:layout_width="match_parent"
+                  android:layout_alignParentBottom="true"
+                  android:layout_height="0.5dp"
+                  android:background="#eeeeee"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>-->
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -38,7 +78,6 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:background="#ffffff"
                     android:orientation="vertical"
                     android:padding="17dp">
@@ -47,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fbreader_more_setting_line_spacing"
-                        android:textColor="#333333"
+                        android:textColor="#000000"
                         android:textSize="14sp"/>
 
                 <LinearLayout
@@ -64,7 +103,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_line_spacing_type_minimum"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -74,7 +113,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_line_spacing_type_less"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -84,7 +123,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_line_spacing_type_moderate"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -94,7 +133,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_line_spacing_type_more"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -104,16 +143,16 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_line_spacing_type_maximum"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
                 </LinearLayout>
 
             </LinearLayout>
-
+            <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                  android:background="#eeeeee"/>
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:background="#ffffff"
                     android:orientation="vertical"
                     android:padding="17dp">
@@ -122,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fbreader_more_setting_alignment"
-                        android:textColor="#333333"
+                        android:textColor="#000000"
                         android:textSize="14sp"/>
 
                 <LinearLayout
@@ -139,7 +178,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_alignment_default"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -149,7 +188,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_alignment_left"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -159,7 +198,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_alignment_right"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -169,7 +208,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_alignment_center"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
 
                     <org.geometerplus.android.fbreader.weight.FBReaderPercentTextView
@@ -179,17 +218,18 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/fbreader_more_setting_alignment_justified"
-                            android:textColor="#333333"
+                            android:textColor="#000000"
                             android:textSize="@dimen/fbreader_more_settings_linespace_size"/>
                 </LinearLayout>
-
             </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                  android:background="#eeeeee"/>
 
             <RelativeLayout
                     android:id="@+id/id_activity_fbreader_setting_show_chapter_name_container"
                     android:layout_width="match_parent"
                     android:layout_height="47dp"
-                    android:layout_marginTop="10dp"
                     android:background="#ffffff"
                     android:paddingStart="17dp"
                     android:paddingEnd="16dp">
@@ -199,16 +239,21 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/fbreader_more_setting_line_spacing_show_chapter_name"
-                        android:textColor="#333333" tools:ignore="RelativeOverlap"/>
+                        android:textColor="#000000" tools:ignore="RelativeOverlap"/>
 
-                <ImageView
+                <Switch
                         android:id="@+id/id_activity_fbreader_setting_show_chapter_name"
-                        android:layout_width="50dp"
-                        android:layout_height="34dp"
-                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_fbreader_setting_status_close" tools:ignore="ContentDescription"/>
+                        android:layout_width="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"/>
             </RelativeLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                  android:background="#eeeeee"/>
 
             <RelativeLayout
                     android:id="@+id/id_activity_fbreader_setting_show_time_container"
@@ -224,16 +269,21 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="@string/fbreader_more_setting_line_spacing_show_battery_time"
-                        android:textColor="#333333" tools:ignore="RelativeOverlap"/>
+                        android:textColor="#000000" tools:ignore="RelativeOverlap"/>
 
-                <ImageView
+                <Switch
                         android:id="@+id/id_activity_fbreader_setting_show_time"
-                        android:layout_width="50dp"
-                        android:layout_height="34dp"
-                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_fbreader_setting_status_close" tools:ignore="ContentDescription"/>
+                        android:layout_width="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"/>
             </RelativeLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                  android:background="#eeeeee"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
