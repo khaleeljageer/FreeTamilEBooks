@@ -16,11 +16,15 @@ import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
+import com.jskaleel.fte.utils.CommonAppData
 import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+    private lateinit var disposable: Disposable
+
     private lateinit var bottomNavDrawerFragment: BottomNavigationDrawerFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +32,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(bottomAppBar)
+        disposable = CommonAppData.updateBooksFromApi(this@MainActivity)
         subscribeBus()
 
         bottomNavDrawerFragment = BottomNavigationDrawerFragment()
@@ -43,6 +48,11 @@ class MainActivity : BaseActivity() {
                 slideUp()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
     }
 
     private fun slideUp() {

@@ -13,6 +13,7 @@ import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.model.DownloadCompleted
+import com.jskaleel.fte.model.NewBookAdded
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
@@ -78,6 +79,11 @@ class HomeFragment : Fragment(), BookClickListener {
                 if (isAdded) {
                     val downloadedBook = appDataBase.localBooksDao().getDownloadedBook(it.downloadId)
                     adapter.updateItemStatus(downloadsPositions.get(it.downloadId).toInt(), downloadedBook)
+                }
+            } else if (it is NewBookAdded) {
+                if (it.isBookAdded) {
+                    val newBookList = appDataBase.localBooksDao().getAllLocalBooks()
+                    adapter.loadBooks(newBookList)
                 }
             }
         }

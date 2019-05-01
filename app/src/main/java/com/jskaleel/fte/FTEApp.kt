@@ -7,6 +7,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.crashlytics.android.Crashlytics
 import com.jskaleel.fte.database.AppDatabase
+import com.jskaleel.fte.utils.CommonAppData
 import com.jskaleel.fte.utils.NetworkSchedulerService
 import io.fabric.sdk.android.Fabric
 import org.geometerplus.android.fbreader.FBReaderApplication

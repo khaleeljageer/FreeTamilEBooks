@@ -1,11 +1,10 @@
 package com.jskaleel.fte.utils
 
+import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.model.BooksResponse
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiInterface {
     @FormUrlEncoded
@@ -16,4 +15,7 @@ interface ApiInterface {
         @Field("entry_1250945452") email: String,
         @Field("entry_1221905149") comments: String
     ): Observable<ResponseBody>
+
+    @GET("master/booksdb.json")
+    fun getNewBooks(): Observable<BooksResponse>
 }

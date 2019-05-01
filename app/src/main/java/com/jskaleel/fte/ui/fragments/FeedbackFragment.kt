@@ -69,7 +69,7 @@ class FeedbackFragment : Fragment() {
             return
         }
 
-        if(!DeviceUtils.isEmailValid(email)) {
+        if (!DeviceUtils.isEmailValid(email)) {
             edtEmail.error = "Invalid e-mail"
             return
         }
@@ -103,6 +103,11 @@ class FeedbackFragment : Fragment() {
                     (activity!! as MainActivity).displayMaterialSnackBar(getString(R.string.thanks_comments))
                 }
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
     }
 
     /*https://docs.google.com/forms/d/e/1FAIpQLSc_BbE7RfJdUCEgzwGSeiaiUe3ugBdITgJIZY71ED93puqQ3g/formResponse
