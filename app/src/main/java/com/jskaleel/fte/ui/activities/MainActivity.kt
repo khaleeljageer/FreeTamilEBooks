@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
+import com.jskaleel.fte.model.DownloadCompleted
 import com.jskaleel.fte.model.NetWorkMessage
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.model.SelectedMenu
@@ -24,6 +25,7 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+    private var downloadMenu: MenuItem? = null
     private lateinit var disposable: Disposable
 
     private lateinit var bottomNavDrawerFragment: BottomNavigationDrawerFragment
@@ -63,9 +65,15 @@ class MainActivity : BaseActivity() {
     private fun subscribeBus() {
         RxBus.subscribe {
             when (it) {
-                is SelectedMenu ->
+                is SelectedMenu -> {
                     switchFragment(it)
-                is NetWorkMessage -> displayMaterialSnackBar(it.message)
+                }
+                is NetWorkMessage -> {
+                    displayMaterialSnackBar(it.message)
+                }
+                is DownloadCompleted -> {
+                    checkForDownloadMenu()
+                }
             }
         }
     }
@@ -108,7 +116,14 @@ class MainActivity : BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.bottomappbar_menu, menu)
+        downloadMenu = menu?.findItem(R.id.abDownloadsMenu)
+        checkForDownloadMenu()
         return true
+    }
+
+    private fun checkForDownloadMenu() {
+        val booksList = appDatabase.localBooksDao().getDownloadedBooks(true)
+        downloadMenu?.isVisible = !booksList.isNullOrEmpty()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -117,16 +132,24 @@ class MainActivity : BaseActivity() {
                 bottomNavDrawerFragment.show(supportFragmentManager, bottomNavDrawerFragment.tag)
             }
             R.id.abSearchMenu -> {
-                val navOptions = NavOptions.Builder()
-                navOptions.setEnterAnim(android.R.anim.slide_in_left)
-                navOptions.setExitAnim(android.R.anim.slide_out_right)
-                navOptions.setPopEnterAnim(android.R.anim.slide_in_left)
-                navOptions.setPopExitAnim(android.R.anim.slide_out_right)
-                navOptions.setLaunchSingleTop(true)
-                findNavController(R.id.navHostFragment).navigate(R.id.searchFragment, null, navOptions.build())
+                startFragment(R.id.searchFragment)
+            }
+
+            R.id.abDownloadsMenu -> {
+                startFragment(R.id.downloadsFragment)
             }
         }
         return true
+    }
+
+    private fun startFragment(fragmentId: Int) {
+        val navOptions = NavOptions.Builder()
+        navOptions.setEnterAnim(android.R.anim.slide_in_left)
+        navOptions.setExitAnim(android.R.anim.slide_out_right)
+        navOptions.setPopEnterAnim(android.R.anim.slide_in_left)
+        navOptions.setPopExitAnim(android.R.anim.slide_out_right)
+        navOptions.setLaunchSingleTop(true)
+        findNavController(R.id.navHostFragment).navigate(fragmentId, null, navOptions.build())
     }
 
     private var backToExitPressedOnce: Boolean = false

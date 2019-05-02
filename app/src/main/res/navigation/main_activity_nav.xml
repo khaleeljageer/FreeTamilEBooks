@@ -31,4 +31,9 @@
               android:name="com.jskaleel.fte.ui.fragments.SearchFragment"
               tools:layout="@layout/fragment_search"
               android:label="SearchFragment"/>
+
+    <fragment android:id="@+id/downloadsFragment"
+              android:name="com.jskaleel.fte.ui.fragments.DownloadsFragment"
+              tools:layout="@layout/fragment_downloads"
+              android:label="DownloadsFragment"/>
 </navigation>

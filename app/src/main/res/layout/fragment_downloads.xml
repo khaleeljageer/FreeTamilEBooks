@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rootContainer"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDownloadList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="56dp"
+            android:clipToPadding="false"/>
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            app:hideOnScroll="true"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            android:background="@android:color/transparent"
+            android:layout_height="?attr/actionBarSize"/>
+
+</RelativeLayout>

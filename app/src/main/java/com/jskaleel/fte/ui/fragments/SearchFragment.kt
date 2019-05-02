@@ -28,6 +28,10 @@ import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class SearchFragment : Fragment(), BookClickListener {
+    override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
+
+    }
+
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         if (book.isDownloaded) {
             DownloadUtil.openSavedBook(mContext, book)

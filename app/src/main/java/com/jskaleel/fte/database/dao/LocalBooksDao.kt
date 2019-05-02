@@ -8,8 +8,11 @@ import com.jskaleel.fte.database.entities.LocalBooks
 
 @Dao
 interface LocalBooksDao {
-    @Query("SELECT * from localBooks ORDER BY createdAt DESC")
+    @Query("SELECT * from localBooks")
     fun getAllLocalBooks(): List<LocalBooks>
+
+    @Query("SELECT * from localBooks ORDER BY createdAt DESC")
+    fun getAllLocalBooksByOrder(): List<LocalBooks>
 
     @Insert(onConflict = REPLACE)
     fun insert(localBooks: LocalBooks)

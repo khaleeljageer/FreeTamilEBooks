@@ -17,9 +17,7 @@ import com.jskaleel.fte.model.NewBookAdded
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
-import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
-import com.jskaleel.fte.utils.downloader.DownloadManagerHelper
 import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -27,6 +25,9 @@ class HomeFragment : Fragment(), BookClickListener {
 
     private var downloadsPositions = LongSparseArray<Long>()
     private lateinit var appDataBase: AppDatabase
+    override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
+
+    }
 
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
         if (book.isDownloaded) {
@@ -56,7 +57,7 @@ class HomeFragment : Fragment(), BookClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val booksList = appDataBase.localBooksDao().getAllLocalBooks()
+        val booksList = appDataBase.localBooksDao().getAllLocalBooksByOrder()
         rvBookList.setHasFixedSize(true)
 
         adapter = BookListAdapter(mContext, this@HomeFragment, booksList as MutableList<LocalBooks>, 1)
@@ -81,7 +82,7 @@ class HomeFragment : Fragment(), BookClickListener {
                 }
                 is NewBookAdded -> {
                     if (it.isBookAdded) {
-                        val newBookList = appDataBase.localBooksDao().getAllLocalBooks()
+                        val newBookList = appDataBase.localBooksDao().getAllLocalBooksByOrder()
                         adapter.loadBooks(newBookList)
                     }
                 }

@@ -47,12 +47,14 @@ class BookListAdapter(
     }
 
     fun loadBooks(books: List<LocalBooks>) {
+        previousClickedPosition = -1
         booksList.clear()
         booksList.addAll(books)
         notifyDataSetChanged()
     }
 
     fun clearBooks() {
+        previousClickedPosition = -1
         booksList.clear()
         notifyDataSetChanged()
     }

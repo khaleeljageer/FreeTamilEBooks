@@ -16,6 +16,11 @@ object DeviceUtils {
 
     }
 
+    fun convertDpToPixel(context: Context, dp: Float): Float {
+        val metrics = context.resources.displayMetrics
+        return dp * (metrics.densityDpi / 160f)
+    }
+
     fun getRootDirPath(context: Context): String {
         return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
             val file = ContextCompat.getExternalFilesDirs(
