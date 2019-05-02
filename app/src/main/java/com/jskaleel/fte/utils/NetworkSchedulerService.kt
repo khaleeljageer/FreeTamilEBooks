@@ -5,7 +5,6 @@ import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.Intent
 import android.content.IntentFilter
-import android.widget.Toast
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.NetWorkMessage
 import com.jskaleel.fte.utils.network.ConnectivityReceiver
@@ -25,7 +24,11 @@ class NetworkSchedulerService : JobService(), ConnectivityReceiverListener {
     }
 
     override fun onStopJob(params: JobParameters?): Boolean {
-        unregisterReceiver(mConnectivityReceiver)
+        try {
+            unregisterReceiver(mConnectivityReceiver)
+        } catch (e: Exception) {
+
+        }
         return true
     }
 

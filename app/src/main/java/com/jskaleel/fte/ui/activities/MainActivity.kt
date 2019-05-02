@@ -18,6 +18,7 @@ import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
 import com.jskaleel.fte.utils.CommonAppData
 import com.jskaleel.fte.utils.NetworkSchedulerService
+import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -175,7 +176,6 @@ class MainActivity : BaseActivity() {
 
     override fun onStart() {
         super.onStart()
-        // Start service and provide it a way to communicate with this class.
         try {
             val startServiceIntent = Intent(this, NetworkSchedulerService::class.java)
             startService(startServiceIntent)
@@ -187,9 +187,5 @@ class MainActivity : BaseActivity() {
     override fun onStop() {
         stopService(Intent(this, NetworkSchedulerService::class.java))
         super.onStop()
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }

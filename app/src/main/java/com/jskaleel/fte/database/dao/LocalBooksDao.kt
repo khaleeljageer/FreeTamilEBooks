@@ -8,7 +8,7 @@ import com.jskaleel.fte.database.entities.LocalBooks
 
 @Dao
 interface LocalBooksDao {
-    @Query("SELECT * from localBooks")
+    @Query("SELECT * from localBooks ORDER BY createdAt DESC")
     fun getAllLocalBooks(): List<LocalBooks>
 
     @Insert(onConflict = REPLACE)
@@ -17,7 +17,7 @@ interface LocalBooksDao {
     @Query("DELETE from localBooks")
     fun deleteAll()
 
-    @Query("SELECT * from localBooks WHERE bookid = :bookId")
+    @Query("SELECT EXISTS(SELECT bookid from localBooks WHERE bookid = :bookId)")
     fun isIdAvailable(bookId: String): Boolean
 
     @Query("SELECT * from localBooks WHERE title LIKE :title")
@@ -34,4 +34,7 @@ interface LocalBooksDao {
 
     @Query("UPDATE localBooks SET is_downloaded = :isDownloaded WHERE download_id = :downloadId")
     fun updateStatus(isDownloaded: Boolean, downloadId: Long)
+
+    @Query("SELECT * from localBooks WHERE is_downloaded = :isDownloaded")
+    fun getDownloadedBooks(isDownloaded: Boolean): List<LocalBooks>
 }

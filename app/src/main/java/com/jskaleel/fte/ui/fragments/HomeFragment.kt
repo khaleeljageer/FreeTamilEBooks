@@ -29,11 +29,10 @@ class HomeFragment : Fragment(), BookClickListener {
     private lateinit var appDataBase: AppDatabase
 
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
-        PrintLog.info("Search adapterPosition $adapterPosition ${book.title} downloadID: ${book.downloadId}")
         if (book.isDownloaded) {
             DownloadUtil.openSavedBook(mContext, book)
         } else {
-            if (book.downloadId == 0L) {
+            if (book.downloadId == -1L) {
                 val downloadID = DownloadUtil.queueForDownload(mContext, book)
                 adapter.updateDownloadId(adapterPosition, downloadID)
                 downloadsPositions.put(downloadID, adapterPosition.toLong())
@@ -48,13 +47,6 @@ class HomeFragment : Fragment(), BookClickListener {
         super.onAttach(context)
         this.mContext = context
         this.appDataBase = AppDatabase.getAppDatabase(mContext)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val downloads = DownloadManagerHelper.getDownloads(mContext)
-        PrintLog.info("Downloads $downloads")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

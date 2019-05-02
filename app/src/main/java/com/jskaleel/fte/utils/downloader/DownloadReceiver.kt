@@ -17,11 +17,12 @@ class DownloadReceiver : BroadcastReceiver() {
         if (id !in DownloadManagerHelper.getDownloads(context)) {
             return
         }
-        val localBooksDao = AppDatabase.getAppDatabase(context).localBooksDao()
+        val localBooksDao = AppDatabase.getAppDatabase(context.applicationContext).localBooksDao()
         val file = DownloadManagerHelper.getDownloadedFile(context, id)
         if (file.isSuccessful()) {
             PrintLog.info("Download Completed $id")
             localBooksDao.updateStatus(true, id)
+            PrintLog.info("Download Completed ${localBooksDao.getDownloadedBook(id)}")
             RxBus.publish(DownloadCompleted(id))
         }
     }

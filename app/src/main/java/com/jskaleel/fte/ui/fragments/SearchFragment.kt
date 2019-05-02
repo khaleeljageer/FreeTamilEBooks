@@ -29,11 +29,10 @@ import kotlinx.android.synthetic.main.fragment_search.*
 
 class SearchFragment : Fragment(), BookClickListener {
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
-        PrintLog.info("Search adapterPosition $adapterPosition ${book.title}")
         if (book.isDownloaded) {
             DownloadUtil.openSavedBook(mContext, book)
         } else {
-            if (book.downloadId == 0L) {
+            if (book.downloadId == -1L) {
                 val downloadID = DownloadUtil.queueForDownload(mContext, book)
                 adapter.updateDownloadId(adapterPosition, downloadID)
             }
