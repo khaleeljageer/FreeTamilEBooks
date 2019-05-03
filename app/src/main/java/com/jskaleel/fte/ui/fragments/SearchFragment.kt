@@ -5,11 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
 import android.view.View.OnTouchListener
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -25,6 +21,14 @@ import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_search.*
+import android.app.AlertDialog
+import android.util.Log
+import android.view.*
+
+import org.geometerplus.android.fbreader.util.FBReaderPercentUtils
+import com.jskaleel.fte.ui.activities.MainActivity
+
+import android.widget.PopupMenu
 
 
 class SearchFragment : Fragment(), BookClickListener {
@@ -45,6 +49,10 @@ class SearchFragment : Fragment(), BookClickListener {
     private lateinit var mContext: Context
     private var filterType = 1
     private val triggerNewService = 1001
+    private val TitleName = arrayOf(
+        "நூல் பெயர்","நூல் ஆசிரியர்"
+    )
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,6 +74,8 @@ class SearchFragment : Fragment(), BookClickListener {
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvSearchList.layoutManager = layoutManger
         rvSearchList.adapter = adapter
+
+        edtSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_menu_search, 0)
 
         val appDataBase = AppDatabase.getAppDatabase(mContext)
         searchHandler = @SuppressLint("HandlerLeak")
@@ -102,7 +112,31 @@ class SearchFragment : Fragment(), BookClickListener {
                             edtSearch.text?.clear()
                         }
                         "FILTER" -> {
-                            Toast.makeText(mContext, "Filter Clicked", Toast.LENGTH_SHORT).show()
+                            val popup = PopupMenu(activity, searchView,Gravity.END)
+                            popup.inflate(R.menu.popup_filter)
+                            val query = edtSearch.text.toString()
+                            popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                                override fun onMenuItemClick(item: MenuItem): Boolean {
+                                    when (item.getItemId()) {
+                                        R.id.title -> {
+                                            filterType = 1
+                                            val books = appDataBase.localBooksDao().getBooksByTitle("%$query%")
+                                            PrintLog.info("Books by Title $books")
+                                            loadBooks(books)
+                                            return true
+                                        }
+                                        R.id.author -> {
+                                            filterType = 2
+                                            val books = appDataBase.localBooksDao().getBooksByAuthor("%$query%")
+                                            PrintLog.info("Books by Author $books")
+                                            loadBooks(books)
+                                            return true
+                                        }
+                                        else -> return false
+                                    }
+                                }
+                            })
+                            popup.show()
                         }
                     }
                     return@OnTouchListener true

@@ -36,4 +36,7 @@
 
     <string name="downloading">பதிவிறக்குகிறது…</string>
     <string name="download_finished">பதிவிறக்கம் முடிந்தது</string>
+
+    <string name ="filter_titer">Title</string>
+
 </resources>
