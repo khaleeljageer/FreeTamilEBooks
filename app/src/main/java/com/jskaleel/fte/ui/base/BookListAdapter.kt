@@ -70,4 +70,11 @@ class BookListAdapter(
         booksList[itemPosition].downloadId = downloadID
         notifyItemChanged(itemPosition)
     }
+
+    fun removeItem(adapterPosition: Int, newBook: LocalBooks) {
+        previousClickedPosition = -1
+        booksList.removeAt(adapterPosition)
+        notifyItemRemoved(adapterPosition)
+        notifyItemRangeChanged(adapterPosition, itemCount)
+    }
 }

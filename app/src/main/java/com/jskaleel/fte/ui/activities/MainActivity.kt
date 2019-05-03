@@ -11,10 +11,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
-import com.jskaleel.fte.model.DownloadCompleted
-import com.jskaleel.fte.model.NetWorkMessage
-import com.jskaleel.fte.model.ScrollList
-import com.jskaleel.fte.model.SelectedMenu
+import com.jskaleel.fte.model.*
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
 import com.jskaleel.fte.utils.CommonAppData
@@ -71,7 +68,7 @@ class MainActivity : BaseActivity() {
                 is NetWorkMessage -> {
                     displayMaterialSnackBar(it.message)
                 }
-                is DownloadCompleted -> {
+                is CheckForDownloadsMenu -> {
                     checkForDownloadMenu()
                 }
             }

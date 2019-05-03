@@ -26,7 +26,8 @@ class HomeFragment : Fragment(), BookClickListener {
     private var downloadsPositions = LongSparseArray<Long>()
     private lateinit var appDataBase: AppDatabase
     override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
-
+        val newBook = DownloadUtil.removeDownload(mContext, book)
+        adapter.updateItemStatus(adapterPosition, newBook)
     }
 
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {

@@ -21,7 +21,12 @@ import kotlinx.android.synthetic.main.fragment_downloads.*
 
 class DownloadsFragment : Fragment(), BookClickListener {
     override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
-
+        val newBook = DownloadUtil.removeDownload(mContext, book)
+        adapter.removeItem(adapterPosition, newBook)
+        if(adapter.itemCount == 0) {
+            rvDownloadList.visibility = View.GONE
+            emptyLayout.visibility = View.VISIBLE
+        }
     }
 
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {

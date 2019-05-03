@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/rootContainer"
+                xmlns:tools="http://schemas.android.com/tools" android:id="@+id/rootContainer"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white">
 
+    <LinearLayout
+            android:id="@+id/emptyLayout"
+            android:layout_below="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_height="match_parent" tools:ignore="UseCompoundDrawables">
+        <ImageView android:layout_width="80dp"
+                   android:src="@drawable/ic_mood_bad_black_24dp"
+                   android:layout_marginBottom="10dp"
+                   android:tint="@color/colorAccent1"
+                   android:layout_height="80dp" tools:ignore="ContentDescription"/>
+        <TextView android:layout_width="match_parent"
+                  android:padding="11dp"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:gravity="center"
+                  android:text="@string/no_downloads"
+                  android:textColor="@color/colorAccent"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDownloadList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="56dp"
+            android:background="@color/colorPrimary"
             android:clipToPadding="false"/>
 
     <androidx.appcompat.widget.Toolbar
