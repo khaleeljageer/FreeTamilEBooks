@@ -36,6 +36,9 @@
 
     <string name="downloading">பதிவிறக்குகிறது…</string>
     <string name="download_finished">பதிவிறக்கம் முடிந்தது</string>
+
+    <string name ="filter_titer">Title</string>
+
     <string name="downloads">பதிவிறக்கங்கள்</string>
     <string name="no_downloads">மன்னிக்கவும்.\nபதிவிறக்கங்கள் எதுவும் காணப்படவில்லை.</string>
 </resources>
