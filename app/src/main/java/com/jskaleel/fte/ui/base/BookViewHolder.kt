@@ -29,10 +29,12 @@ class BookViewHolder(
 
         itemView.fabDownload.run {
             if (book.isDownloaded) {
+                itemView.fabDelete.visibility = View.VISIBLE
                 itemView.fabDownload.visibility = View.VISIBLE
                 itemView.pbDownloadProgress.visibility = View.INVISIBLE
                 setImageResource(R.drawable.ic_read_book_black_24dp)
             } else {
+                itemView.fabDelete.visibility = View.INVISIBLE
                 itemView.fabDownload.visibility = View.VISIBLE
                 itemView.pbDownloadProgress.visibility = View.INVISIBLE
                 setImageResource(R.drawable.ic_file_download_black_24dp)
@@ -58,6 +60,9 @@ class BookViewHolder(
             animSet.duration = 300
             animSet.startOffset = 100
             itemView.fabDownload.startAnimation(animSet)
+        }
+        itemView.fabDelete.setOnClickListener {
+            listener.bookRemoveClickListener(adapterPosition, book)
         }
 
         itemView.fabDownload.setOnClickListener {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FBReader</string>
+    <string name="app_name">FTEReader</string>
     <string name="empty_string"></string>
     <string name="fbreader_menu_catalogue">பொருளடக்கம்</string>
     <string name="fbreader_menu_progress">நிலை</string>
     <string name="fbreader_menu_brightness">ஒளிர்வு</string>
     <string name="fbreader_menu_setting">அமைப்பு</string>
-    <string name="fbreader_menu_more_setting">கூடுதல் அமைப்பு</string>
+    <string name="fbreader_menu_more_setting">கூடுதல் அமைப்புகள்</string>
 
     <string name="fbreader_progress_tips">%1$d/%2$d தற்போதைய பக்கம் %3$.2f</string>
     <string name="fbreader_progress_read_time">%d ம %d நிமி படிக்கலாம்</string>

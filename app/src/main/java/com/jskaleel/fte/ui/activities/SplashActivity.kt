@@ -76,10 +76,15 @@ class SplashActivity : BaseActivity() {
     ) : AsyncTask<Boolean, Int, Boolean>() {
         override fun doInBackground(vararg p0: Boolean?): Boolean {
             val booksJson = Gson().fromJson(booksString, BooksResponse::class.java)
-            if (booksJson != null && !booksJson.books.isEmpty()) {
+            if (booksJson != null && booksJson.books.isNotEmpty()) {
+                val timeStamp = System.currentTimeMillis()
                 for ((i, book) in booksJson.books.withIndex()) {
-                    publishProgress(((i.div(booksJson.books.size.toDouble())).times(100).toInt()))
+                    book.createdAt = timeStamp
+                    book.downloadId = -1
+                    book.isDownloaded = false
+                    book.savedPath = ""
                     appDatabase.localBooksDao().insert(book)
+                    publishProgress(((i.div(booksJson.books.size.toDouble())).times(100).toInt()))
                 }
                 return true
             }

@@ -4,8 +4,15 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+            android:id="@+id/abDownloadsMenu"
+            android:visible="false"
+            android:icon="@drawable/ic_folder_special_black_24dp"
+            android:title="@string/downloads"
+            app:showAsAction="always"/>
+
+    <item
             android:id="@+id/abSearchMenu"
             android:icon="@drawable/ic_search_white_24dp"
             android:title="@string/search"
-            app:showAsAction="always"/>
+            app:showAsAction="ifRoom"/>
 </menu>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,9 +41,9 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
     private TextView mTvAlignmentCenter;
     private TextView mTvAlignmentJustified;
     private View mViewShowChapterContainer;
-    private ImageView mIvShowChapter;
+    private Switch mIvShowChapter;
     private View mViewShowTimeContainer;
-    private ImageView mIvShowTime;
+    private Switch mIvShowTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,9 +67,9 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
         mTvAlignmentCenter = (TextView) findViewById(R.id.id_activity_fbreader_setting_alignment_center);
         mTvAlignmentJustified = (TextView) findViewById(R.id.id_activity_fbreader_setting_alignment_justified);
         mViewShowChapterContainer = findViewById(R.id.id_activity_fbreader_setting_show_chapter_name_container);
-        mIvShowChapter = (ImageView) findViewById(R.id.id_activity_fbreader_setting_show_chapter_name);
+        mIvShowChapter = (Switch) findViewById(R.id.id_activity_fbreader_setting_show_chapter_name);
         mViewShowTimeContainer = findViewById(R.id.id_activity_fbreader_setting_show_time_container);
-        mIvShowTime = (ImageView) findViewById(R.id.id_activity_fbreader_setting_show_time);
+        mIvShowTime = (Switch) findViewById(R.id.id_activity_fbreader_setting_show_time);
     }
 
     private void initData() {
@@ -235,12 +236,8 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
     //region time battery
     private void initTime() {
         FooterOptions footerOptions = myFBReaderApp.ViewOptions.getFooterOptions();
-        if (footerOptions.ShowClock.getValue() || footerOptions.ShowBattery.getValue()) {
-            mIvShowTime.setImageResource(R.drawable.ic_fbreader_setting_status_open);
-        }
-        if (myFBReaderApp.ViewOptions.HeaderShowCatalogName.getValue()) {
-            mIvShowChapter.setImageResource(R.drawable.ic_fbreader_setting_status_open);
-        }
+        mIvShowTime.setChecked(footerOptions.ShowClock.getValue() || footerOptions.ShowBattery.getValue());
+        mIvShowChapter.setChecked(myFBReaderApp.ViewOptions.HeaderShowCatalogName.getValue());
     }
 
     private void changeShowTime() {
@@ -248,11 +245,11 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
         if (footerOptions.ShowClock.getValue() || footerOptions.ShowBattery.getValue()) {
             footerOptions.ShowBattery.setValue(false);
             footerOptions.ShowClock.setValue(false);
-            mIvShowTime.setImageResource(R.drawable.ic_fbreader_setting_status_close);
+            mIvShowTime.setChecked(false);
         } else {
             footerOptions.ShowBattery.setValue(true);
             footerOptions.ShowClock.setValue(true);
-            mIvShowTime.setImageResource(R.drawable.ic_fbreader_setting_status_open);
+            mIvShowTime.setChecked(true);
         }
         myFBReaderApp.getViewWidget().reset();
         myFBReaderApp.getViewWidget().repaint();
@@ -261,10 +258,10 @@ public class FBReaderSettingActivity extends AppCompatActivity implements View.O
     private void changeShowCatalog() {
         if (myFBReaderApp.ViewOptions.HeaderShowCatalogName.getValue()) {
             myFBReaderApp.ViewOptions.HeaderShowCatalogName.setValue(false);
-            mIvShowChapter.setImageResource(R.drawable.ic_fbreader_setting_status_close);
+            mIvShowChapter.setChecked(false);
         } else {
             myFBReaderApp.ViewOptions.HeaderShowCatalogName.setValue(true);
-            mIvShowChapter.setImageResource(R.drawable.ic_fbreader_setting_status_open);
+            mIvShowChapter.setChecked(true);
         }
         myFBReaderApp.getViewWidget().reset();
         myFBReaderApp.getViewWidget().repaint();

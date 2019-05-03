@@ -47,12 +47,14 @@ class BookListAdapter(
     }
 
     fun loadBooks(books: List<LocalBooks>) {
+        previousClickedPosition = -1
         booksList.clear()
         booksList.addAll(books)
         notifyDataSetChanged()
     }
 
     fun clearBooks() {
+        previousClickedPosition = -1
         booksList.clear()
         notifyDataSetChanged()
     }
@@ -67,5 +69,12 @@ class BookListAdapter(
     fun updateDownloadId(itemPosition: Int, downloadID: Long) {
         booksList[itemPosition].downloadId = downloadID
         notifyItemChanged(itemPosition)
+    }
+
+    fun removeItem(adapterPosition: Int, newBook: LocalBooks) {
+        previousClickedPosition = -1
+        booksList.removeAt(adapterPosition)
+        notifyItemRemoved(adapterPosition)
+        notifyItemRangeChanged(adapterPosition, itemCount)
     }
 }

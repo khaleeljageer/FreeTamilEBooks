@@ -38,10 +38,6 @@ object DownloadManagerHelper {
         return PreferencesHelper.getDownloads(context)
     }
 
-    fun removeDownload(context: Context, id: Long) {
-        PreferencesHelper.removeDownload(context, id)
-    }
-
     fun saveDownload(context: Context, id: Long) {
         PreferencesHelper.saveDownload(context, id)
     }

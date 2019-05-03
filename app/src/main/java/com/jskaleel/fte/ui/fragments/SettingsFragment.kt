@@ -44,7 +44,6 @@ class SettingsFragment : Fragment() {
     private fun subscribeBus() {
         RxBus.subscribe {
             if (it is SelectedMenuItem) {
-                PrintLog.info("SelectedMenuItem ${it.menuItem.title}")
                 if (bottomSheet.isVisible) {
                     bottomSheet.dismiss()
                 }

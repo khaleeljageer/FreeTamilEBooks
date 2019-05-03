@@ -15,7 +15,7 @@ object CommonAppData {
 
     fun updateBooksFromApi(context: Context): Disposable {
         var isNewBookAdded = false
-        val localBooksDao = AppDatabase.getAppDatabase(context).localBooksDao();
+        val localBooksDao = AppDatabase.getAppDatabase(context).localBooksDao()
 
         val retrofit = Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -28,13 +28,16 @@ object CommonAppData {
             .subscribe { result ->
                 run {
                     if (result != null && result.books.isNotEmpty()) {
-                        for (localBook in result.books) {
+                        for ((i, localBook) in result.books.withIndex()) {
                             if (!localBooksDao.isIdAvailable(localBook.bookid)) {
+                                localBook.createdAt = System.currentTimeMillis()
+                                localBook.downloadId = -1
+                                localBook.isDownloaded = false
+                                localBook.savedPath = ""
                                 localBooksDao.insert(localBook)
                                 isNewBookAdded = true
                             }
                         }
-
                         RxBus.publish(NewBookAdded(isNewBookAdded))
                     }
                 }
