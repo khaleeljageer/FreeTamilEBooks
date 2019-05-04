@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.view.View
+import android.view.animation.*
 import com.google.gson.Gson
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
@@ -23,6 +24,21 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        val scaleAnim = ScaleAnimation(
+            0f, 1f,
+            0f, 1f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        )
+        val alphaAnim = AlphaAnimation(0f, 1f)
+        val animSet = AnimationSet(true)
+        animSet.addAnimation(scaleAnim)
+        animSet.addAnimation(alphaAnim)
+
+        animSet.interpolator = OvershootInterpolator()
+        animSet.duration = 600
+        llSplashLogo.startAnimation(animSet)
 
         val mHandler = FTEHandler(this@SplashActivity)
         mHandler.sendEmptyMessageDelayed(1, sleepDuration)

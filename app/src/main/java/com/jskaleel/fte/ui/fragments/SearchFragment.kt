@@ -5,8 +5,9 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.*
 import android.view.View.OnTouchListener
-import android.widget.Toast
+import android.widget.PopupMenu
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -21,14 +22,6 @@ import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_search.*
-import android.app.AlertDialog
-import android.util.Log
-import android.view.*
-
-import org.geometerplus.android.fbreader.util.FBReaderPercentUtils
-import com.jskaleel.fte.ui.activities.MainActivity
-
-import android.widget.PopupMenu
 
 
 class SearchFragment : Fragment(), BookClickListener {
@@ -55,7 +48,6 @@ class SearchFragment : Fragment(), BookClickListener {
     private val triggerNewService = 1001
 
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -77,7 +69,7 @@ class SearchFragment : Fragment(), BookClickListener {
         rvSearchList.layoutManager = layoutManger
         rvSearchList.adapter = adapter
 
-        edtSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_menu_search, 0)
+//        edtSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_search_white_24dp, 0)
 
         val appDataBase = AppDatabase.getAppDatabase(mContext)
         searchHandler = @SuppressLint("HandlerLeak")
@@ -114,24 +106,35 @@ class SearchFragment : Fragment(), BookClickListener {
                             edtSearch.text?.clear()
                         }
                         "FILTER" -> {
-                            val popup = PopupMenu(activity, searchView,Gravity.END)
+                            val popup = PopupMenu(activity, searchView, Gravity.END)
                             popup.inflate(R.menu.popup_filter)
+                            popup.menu.findItem(
+                                when (filterType) {
+                                    1 -> R.id.title
+                                    2 -> R.id.author
+                                    else -> R.id.title
+                                }
+                            ).isChecked = true
                             val query = edtSearch.text.toString()
                             popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
                                 override fun onMenuItemClick(item: MenuItem): Boolean {
-                                    when (item.getItemId()) {
+                                    when (item.itemId) {
                                         R.id.title -> {
+                                            item.isChecked = true
                                             filterType = 1
-                                            val books = appDataBase.localBooksDao().getBooksByTitle("%$query%")
-                                            PrintLog.info("Books by Title $books")
-                                            loadBooks(books)
+                                            if (query.length > 3) {
+                                                searchHandler.removeMessages(triggerNewService)
+                                                searchHandler.sendEmptyMessageDelayed(triggerNewService, 500)
+                                            }
                                             return true
                                         }
                                         R.id.author -> {
+                                            item.isChecked = true
                                             filterType = 2
-                                            val books = appDataBase.localBooksDao().getBooksByAuthor("%$query%")
-                                            PrintLog.info("Books by Author $books")
-                                            loadBooks(books)
+                                            if (query.length > 3) {
+                                                searchHandler.removeMessages(triggerNewService)
+                                                searchHandler.sendEmptyMessageDelayed(triggerNewService, 500)
+                                            }
                                             return true
                                         }
                                         else -> return false

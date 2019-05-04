@@ -7,12 +7,14 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.crashlytics.android.Crashlytics
 import com.jskaleel.fte.database.AppDatabase
-import com.jskaleel.fte.utils.CommonAppData
 import com.jskaleel.fte.utils.NetworkSchedulerService
 import io.fabric.sdk.android.Fabric
+import io.github.inflationx.calligraphy3.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+import io.github.inflationx.viewpump.ViewPump
 import org.geometerplus.android.fbreader.FBReaderApplication
 import org.geometerplus.android.fbreader.util.FBReaderConfig
-
+import org.geometerplus.zlibrary.ui.android.R
 
 class FTEApp : FBReaderApplication() {
     override fun onCreate() {
@@ -20,6 +22,18 @@ class FTEApp : FBReaderApplication() {
         Fabric.with(this, Crashlytics())
 
         MultiDex.install(this@FTEApp)
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
+                        CalligraphyConfig.Builder()
+                            .setDefaultFontPath("fonts/tamil_bharathi.ttf")
+                            .build()
+                    )
+                )
+                .build()
+        )
+
         scheduleJob()
         AppDatabase.getAppDatabase(this@FTEApp)
 
