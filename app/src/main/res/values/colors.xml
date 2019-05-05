@@ -5,10 +5,10 @@
     <color name="colorAccent">#000000</color>
     <color name="grey">#686767</color>
 
-    <color name="colorAccent1">#FFD600</color>
-    <color name="colorAccent_alpha_40">#66FFD600</color>
-    <color name="colorAccent_alpha_10">#1AFFD600</color>
-    <color name="colorAccent_alpha_80">#DFD1B003</color>
+    <color name="colorAccent1">#FFEB3B</color>
+    <color name="colorAccent_alpha_40">#66FFEB3B</color>
+    <color name="colorAccent_alpha_10">#1AFFEB3B</color>
+    <color name="colorAccent_alpha_80">#DFFFEB3B</color>
     <color name="black_alpha_80">#88000000</color>
     <color name="black_alpha_70">#B3000000</color>
     <color name="orangeDark">#FFC400</color>

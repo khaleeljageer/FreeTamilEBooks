@@ -13,9 +13,11 @@ import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.dao.LocalBooksDao
 import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.model.DownloadCompleted
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils
+import com.jskaleel.fte.utils.RxBus
 import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_downloads.*
 
@@ -83,5 +85,16 @@ class DownloadsFragment : Fragment(), BookClickListener {
 
             }
         })
+
+        RxBus.subscribe {
+            when (it) {
+                is DownloadCompleted -> {
+                    if (isAdded) {
+                        val downloadedBook = appDataBase.getDownloadedBook(it.downloadId)
+                        adapter.addNewItem(downloadedBook)
+                    }
+                }
+            }
+        }
     }
 }

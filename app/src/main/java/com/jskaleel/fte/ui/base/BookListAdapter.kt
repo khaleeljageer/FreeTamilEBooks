@@ -77,4 +77,10 @@ class BookListAdapter(
         notifyItemRemoved(adapterPosition)
         notifyItemRangeChanged(adapterPosition, itemCount)
     }
+
+    fun addNewItem(downloadedBook: LocalBooks) {
+        previousClickedPosition = -1;
+        booksList.add(downloadedBook)
+        notifyItemInserted(itemCount + 1)
+    }
 }
