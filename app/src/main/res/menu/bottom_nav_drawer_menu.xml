@@ -21,5 +21,9 @@
                 android:id="@+id/menuFeedBack"
                 android:icon="@drawable/ic_feedback_white_24dp"
                 android:title="@string/feedback"/>
+        <item
+                android:id="@+id/menuOssLicence"
+                android:icon="@drawable/ic_list_black_24dp"
+                android:title="@string/open_sources"/>
     </group>
 </menu>

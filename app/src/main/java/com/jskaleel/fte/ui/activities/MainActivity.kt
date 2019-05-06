@@ -8,18 +8,22 @@ import android.view.MenuItem
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
-import com.jskaleel.fte.model.*
+import com.jskaleel.fte.model.CheckForDownloadsMenu
+import com.jskaleel.fte.model.NetWorkMessage
+import com.jskaleel.fte.model.ScrollList
+import com.jskaleel.fte.model.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
 import com.jskaleel.fte.utils.CommonAppData
 import com.jskaleel.fte.utils.NetworkSchedulerService
-import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity() {
     private var downloadMenu: MenuItem? = null
@@ -104,6 +108,10 @@ class MainActivity : BaseActivity() {
             }
             R.id.menuFeedBack -> {
                 findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
+            }
+            R.id.menuOssLicence -> {
+                OssLicensesMenuActivity.setActivityTitle(getString(R.string.open_sources))
+                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
             }
         }
         if (bottomNavDrawerFragment.isVisible) {

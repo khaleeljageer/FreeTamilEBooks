@@ -37,8 +37,12 @@
     <string name="downloading">பதிவிறக்குகிறது…</string>
     <string name="download_finished">பதிவிறக்கம் முடிந்தது</string>
 
-    <string name ="filter_titer">தலைப்பு</string>
+    <string name="filter_titer">தலைப்பு</string>
 
     <string name="downloads">பதிவிறக்கங்கள்</string>
     <string name="no_downloads">மன்னிக்கவும்.\nபதிவிறக்கங்கள் எதுவும் காணப்படவில்லை.</string>
+    <string name="open_sources">திறந்த மூலங்கள்</string>
+    <string name="book_by_mariyani_from_the_noun_project">
+        Logo Credits:\nBook by Mariyani from the Noun Project
+    </string>
 </resources>
