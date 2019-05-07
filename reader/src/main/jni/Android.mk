@@ -31,7 +31,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE                  := NativeFormats-v4
 LOCAL_CFLAGS                  := -Wall
-LOCAL_LDLIBS                  := -lz -llog
+LOCAL_LDLIBS                  := -lz -llog -lGLESv2 -Wl, -s
 LOCAL_STATIC_LIBRARIES        := expat
 
 LOCAL_SRC_FILES               := \

@@ -18,10 +18,11 @@ android {
         applicationId "com.jskaleel.fte"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 26
-        versionName "6.0.1-beta"
+        versionCode 30
+        versionName "6.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
     }
     buildTypes {
         release {
@@ -68,11 +69,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'
 
     implementation 'com.google.firebase:firebase-core:16.0.8'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.0'
 
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
     implementation 'io.github.inflationx:viewpump:1.0.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:16.0.2'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
 }
 
 repositories {
