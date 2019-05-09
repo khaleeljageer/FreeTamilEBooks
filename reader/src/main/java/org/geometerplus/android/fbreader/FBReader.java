@@ -1016,7 +1016,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 					myWakeLockToCreate = false;
 					myWakeLock =
 						((PowerManager)getSystemService(POWER_SERVICE))
-							.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "FBReader");
+							.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "fte:mywakeFBReader");
 					myWakeLock.acquire();
 				}
 			}

@@ -40,7 +40,6 @@ object DownloadUtil {
 
     fun openSavedBook(context: Context, book: LocalBooks) {
         PrintLog.info("savedPath ${book.savedPath}")
-
         FBReader.openBookActivity(context, book.savedPath)
     }
 

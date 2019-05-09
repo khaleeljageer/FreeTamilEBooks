@@ -25,7 +25,7 @@ object CommonAppData {
 
         return retrofit.getNewBooks().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { result ->
+            .subscribe({ result ->
                 run {
                     if (result != null && result.books.isNotEmpty()) {
                         for ((i, localBook) in result.books.withIndex()) {
@@ -41,6 +41,10 @@ object CommonAppData {
                         RxBus.publish(NewBookAdded(isNewBookAdded))
                     }
                 }
-            }
+            }, { error ->
+                run {
+                    PrintLog.info(error.toString())
+                }
+            })
     }
 }

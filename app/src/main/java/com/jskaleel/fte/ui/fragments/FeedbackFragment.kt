@@ -12,6 +12,7 @@ import com.jskaleel.fte.R
 import com.jskaleel.fte.ui.activities.MainActivity
 import com.jskaleel.fte.utils.ApiInterface
 import com.jskaleel.fte.utils.DeviceUtils
+import com.jskaleel.fte.utils.PrintLog
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -91,7 +92,7 @@ class FeedbackFragment : Fragment() {
         disposable = retrofit.postFeedBack("application/json", name, email, comments)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { _ ->
+            .subscribe({ _ ->
                 run {
                     dialog.dismiss()
 
@@ -102,7 +103,11 @@ class FeedbackFragment : Fragment() {
                     activity!!.findNavController(R.id.navHostFragment).navigateUp()
                     (activity!! as MainActivity).displayMaterialSnackBar(getString(R.string.thanks_comments))
                 }
-            }
+            }, { error ->
+                run {
+                    PrintLog.info(error.toString())
+                }
+            })
     }
 
     /*https://docs.google.com/forms/d/e/1FAIpQLSc_BbE7RfJdUCEgzwGSeiaiUe3ugBdITgJIZY71ED93puqQ3g/formResponse
