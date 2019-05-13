@@ -54,7 +54,8 @@
 
     <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/settings_separater_height"
+            android:visibility="gone"
             android:background="@color/grey"/>
 
     <LinearLayout
@@ -85,10 +86,61 @@
                 android:text="@string/random"/>
     </LinearLayout>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_separater_height"
+            android:background="@color/grey"/>
+
+    <LinearLayout
+            android:id="@+id/rlOSSLayout"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+        <TextView
+                android:id="@+id/txtLabelOSS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/open_sources"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"/>
+    </LinearLayout>
 
     <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:visibility="gone"
+            android:layout_height="@dimen/settings_separater_height"
             android:background="@color/grey"/>
+
+    <LinearLayout
+            android:id="@+id/rlSourceCodeLayout"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+        <TextView
+                android:id="@+id/txtLabelSourceCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/source_code"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"/>
+    </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/settings_separater_height"
+            android:background="@color/grey"/>
+
+    <TextView
+            android:id="@+id/txtAppVersion"
+            android:layout_width="match_parent"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_height="wrap_content"/>
 </LinearLayout>

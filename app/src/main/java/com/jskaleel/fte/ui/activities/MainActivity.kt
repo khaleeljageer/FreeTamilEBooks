@@ -1,10 +1,13 @@
 package com.jskaleel.fte.ui.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
@@ -23,7 +26,6 @@ import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : BaseActivity() {
     private var downloadMenu: MenuItem? = null
@@ -109,9 +111,13 @@ class MainActivity : BaseActivity() {
             R.id.menuFeedBack -> {
                 findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
             }
-            R.id.menuOssLicence -> {
-                OssLicensesMenuActivity.setActivityTitle(getString(R.string.open_sources))
-                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+            R.id.menuShareApp -> {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "இந்த செயலிமூலம் மின்நூல்களை இலவசமாக தரவிறக்கி படிக்கமுடிகிறது. நீங்களும் முயற்சித்து பார்க்கவும். http://bit.ly/FTEAndroid")
+                    type = "text/plain"
+                }
+                startActivity(sendIntent)
             }
         }
         if (bottomNavDrawerFragment.isVisible) {
@@ -180,8 +186,6 @@ class MainActivity : BaseActivity() {
     }
 
     fun displayMaterialSnackBar(message: String) {
-        val marginSide = 0
-        val marginBottom = 550
         val snackBar = Snackbar.make(
             container2,
             message,
@@ -189,6 +193,13 @@ class MainActivity : BaseActivity() {
         )
 
         val snackBarView = snackBar.view
+        snackBarView.layoutParams = assignMarginsToSnackBar(snackBarView)
+        snackBar.show()
+    }
+
+    private fun assignMarginsToSnackBar(snackBarView: View): ViewGroup.LayoutParams {
+        val marginSide = 0
+        val marginBottom = 550
         val params = snackBarView.layoutParams as CoordinatorLayout.LayoutParams
 
         params.setMargins(
@@ -198,8 +209,7 @@ class MainActivity : BaseActivity() {
             params.bottomMargin + marginBottom
         )
 
-        snackBarView.layoutParams = params
-        snackBar.show()
+        return params
     }
 
     override fun onStart() {

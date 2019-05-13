@@ -15,7 +15,7 @@
     <string name="on">வேண்டும்</string>
     <string name="off">வேண்டாம்</string>
 
-    <string name="order_type">புத்தக பட்டியல்</string>
+    <string name="order_type">புத்தக பட்டியல் முறை</string>
     <string name="random">சீரற்ற முறையில்</string>
     <string name="new_first">புதியவை முதலில்</string>
     <string name="by_category">பிரிவுகளாக</string>
@@ -41,9 +41,13 @@
 
     <string name="downloads">பதிவிறக்கங்கள்</string>
     <string name="no_downloads">மன்னிக்கவும்.\nபதிவிறக்கங்கள் எதுவும் காணப்படவில்லை.</string>
-    <string name="open_sources">திறந்த மூலங்கள்</string>
+    <string name="open_sources">திறந்த மூல உரிமங்கள்</string>
     <string name="book_by_mariyani_from_the_noun_project">
         Logo Credits:\nBook by Mariyani from the Noun Project
     </string>
     <string name="search_for_books_authors">புத்தகம்/ஆசிரியர் பெயரில் தேடவும்…</string>
+    <string name="try_again_later">சிறிது நேரம் கழித்து முயற்சிக்கவும்…</string>
+    <string name="source_code">மூல நிரல்</string>
+    <string name="shapre_app">செயலியை பகிரவும்</string>
+    <string name="version">பதிப்பு : %s</string>
 </resources>

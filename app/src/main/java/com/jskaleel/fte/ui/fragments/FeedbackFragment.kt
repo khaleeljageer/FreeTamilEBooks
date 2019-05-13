@@ -9,10 +9,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.jskaleel.fte.R
+import com.jskaleel.fte.model.NetWorkMessage
 import com.jskaleel.fte.ui.activities.MainActivity
 import com.jskaleel.fte.utils.ApiInterface
 import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
+import com.jskaleel.fte.utils.RxBus
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -106,6 +108,7 @@ class FeedbackFragment : Fragment() {
             }, { error ->
                 run {
                     PrintLog.info(error.toString())
+                    RxBus.publish(NetWorkMessage(mContext.getString(R.string.try_again_later)))
                 }
             })
     }

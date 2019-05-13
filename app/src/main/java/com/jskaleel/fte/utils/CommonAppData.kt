@@ -1,7 +1,9 @@
 package com.jskaleel.fte.utils
 
 import android.content.Context
+import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
+import com.jskaleel.fte.model.NetWorkMessage
 import com.jskaleel.fte.model.NewBookAdded
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -44,6 +46,7 @@ object CommonAppData {
             }, { error ->
                 run {
                     PrintLog.info(error.toString())
+                    RxBus.publish(NetWorkMessage(context.getString(R.string.try_again_later)))
                 }
             })
     }

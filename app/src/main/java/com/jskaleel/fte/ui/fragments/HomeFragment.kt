@@ -36,8 +36,10 @@ class HomeFragment : Fragment(), BookClickListener {
         } else {
             if (book.downloadId == -1L) {
                 val downloadID = DownloadUtil.queueForDownload(mContext, book)
-                adapter.updateDownloadId(adapterPosition, downloadID)
-                downloadsPositions.put(downloadID, adapterPosition.toLong())
+                if(downloadID != 0L) {
+                    adapter.updateDownloadId(adapterPosition, downloadID)
+                    downloadsPositions.put(downloadID, adapterPosition.toLong())
+                }
             }
         }
     }

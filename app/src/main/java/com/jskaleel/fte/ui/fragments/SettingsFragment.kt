@@ -1,13 +1,17 @@
 package com.jskaleel.fte.ui.fragments
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.messaging.FirebaseMessaging
+import com.jskaleel.fte.BuildConfig
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.SelectedMenuItem
 import com.jskaleel.fte.utils.AppPreference
@@ -59,6 +63,22 @@ class SettingsFragment : Fragment() {
                 FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.CHANNEL_NAME)
             }
         }
+
+        rlOSSLayout.setOnClickListener {
+            OssLicensesMenuActivity.setActivityTitle(getString(R.string.open_sources))
+            startActivity(Intent(mContext, OssLicensesMenuActivity::class.java))
+        }
+        rlSourceCodeLayout.setOnClickListener {
+
+            val url = "https://github.com/khaleeljageer/FreeTamilEBooks"
+            val shareIntent: Intent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse(url)
+            }
+            startActivity(shareIntent)
+        }
+
+        txtAppVersion.text = String.format(getString(R.string.version, BuildConfig.VERSION_NAME))
     }
 
 

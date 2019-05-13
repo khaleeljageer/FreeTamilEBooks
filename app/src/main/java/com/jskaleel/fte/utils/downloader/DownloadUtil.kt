@@ -15,27 +15,31 @@ import java.io.File
 object DownloadUtil {
 
     fun queueForDownload(context: Context, book: LocalBooks): Long {
-        val localBooksDao = AppDatabase.getAppDatabase(context).localBooksDao()
+        try {
+            val localBooksDao = AppDatabase.getAppDatabase(context).localBooksDao()
 
-        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        val url = book.epub
-        PrintLog.info("Download : url $url")
-        val request = DownloadManager.Request(Uri.parse(url))
-        val extStorageDirectory = context.getExternalFilesDir("downloads")?.absolutePath
-        request.setTitle(book.title)
-        request.setDescription(context.getString(R.string.downloading))
+            val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val url = book.epub
+            PrintLog.info("Download : url $url")
+            val request = DownloadManager.Request(Uri.parse(url))
+            val extStorageDirectory = context.getExternalFilesDir("downloads")?.absolutePath
+            request.setTitle(book.title)
+            request.setDescription(context.getString(R.string.downloading))
 
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        request.setVisibleInDownloadsUi(false)
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE or DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        val filePath = "file://$extStorageDirectory/${book.bookid}.epub"
-        request.setDestinationUri(Uri.parse(filePath))
-        val id = downloadManager.enqueue(request)
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            request.setVisibleInDownloadsUi(false)
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE or DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            val filePath = "file://$extStorageDirectory/${book.bookid}.epub"
+            request.setDestinationUri(Uri.parse(filePath))
+            val id = downloadManager.enqueue(request)
 
-        DownloadManagerHelper.saveDownload(context, id)
+            DownloadManagerHelper.saveDownload(context, id)
 
-        localBooksDao.updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
-        return id
+            localBooksDao.updateDownloadDetails("$extStorageDirectory/${book.bookid}.epub", id, book.bookid)
+            return id
+        } catch (e: Exception) {
+            return 0L
+        }
     }
 
     fun openSavedBook(context: Context, book: LocalBooks) {
