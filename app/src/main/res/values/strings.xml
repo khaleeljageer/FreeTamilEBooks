@@ -16,7 +16,7 @@
     <string name="off">வேண்டாம்</string>
 
     <string name="order_type">புத்தக பட்டியல் முறை</string>
-    <string name="random">சீரற்ற முறையில்</string>
+    <string name="random">இயல்பான</string>
     <string name="new_first">புதியவை முதலில்</string>
     <string name="by_category">பிரிவுகளாக</string>
     <string name="home_fragment">HomeFragment</string>

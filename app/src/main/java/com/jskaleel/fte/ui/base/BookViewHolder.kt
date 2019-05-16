@@ -21,8 +21,8 @@ class BookViewHolder(
     override fun bindData(book: LocalBooks, adapterPosition: Int) {
         Glide.with(mContext)
             .load(book.image)
-            .transition(withCrossFade())
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .override(212, 300)
             .into(itemView.arBookImage)
 
         val expanded = book.isExpanded

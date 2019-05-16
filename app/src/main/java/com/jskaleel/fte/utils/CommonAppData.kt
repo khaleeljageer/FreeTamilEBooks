@@ -1,6 +1,7 @@
 package com.jskaleel.fte.utils
 
 import android.content.Context
+import android.text.TextUtils
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.model.NetWorkMessage
@@ -36,6 +37,25 @@ object CommonAppData {
                                 localBook.downloadId = -1
                                 localBook.isDownloaded = false
                                 localBook.savedPath = ""
+                                val categoryList: List<String> = localBook.category.split(",").map { it.trim() }
+                                val newCategory = if (TextUtils.isEmpty(categoryList[0])) {
+                                    "மற்றவை"
+                                }else {
+                                    when {
+                                        categoryList[0] == "பயணக் கட்டுரைகள்" -> "கட்டுரைகள்"
+                                        categoryList[0] == "ஆளுமைகள்" -> "வரலாறு"
+                                        categoryList[0] == "சமூக நாவல்" -> "நாவல்"
+                                        categoryList[0] == "உணவு" -> "உடல் நலம்"
+                                        categoryList[0] == "அறிவியல் புனைவுகள்" -> "அறிவியல்"
+                                        categoryList[0] == "பல்சுவை இதழ்கள்" -> "மற்றவை"
+                                        categoryList[0] == "கணிணி நுட்பம்" -> "கணினி நுட்பம்"
+                                        categoryList[0] == "கணிணி அறிவியல்" -> "கணினி நுட்பம்"
+                                        categoryList[0] == "கணினி அறிவியல்" -> "கணினி நுட்பம்"
+                                        categoryList[0] == "அறிவியல் கட்டுரைகள்" -> "அறிவியல்"
+                                        else -> categoryList[0]
+                                    }
+                                }
+                                localBook.category = newCategory
                                 localBooksDao.insert(localBook)
                                 isNewBookAdded = true
                             }
@@ -49,5 +69,46 @@ object CommonAppData {
                     RxBus.publish(NetWorkMessage(context.getString(R.string.try_again_later)))
                 }
             })
+    }
+
+    fun updateBooksCategory(context: Context) {
+        val booksDb = AppDatabase.getAppDatabase(context).localBooksDao()
+        var allBooks = booksDb.getAllLocalBooks()
+        for (item in allBooks) {
+            PrintLog.info("Before : ${item.category}")
+            val categoryList: List<String> = item.category.split(",").map { it.trim() }
+            val newCategory = if (TextUtils.isEmpty(categoryList[0])) {
+                "மற்றவை"
+            } else {
+                when {
+                    categoryList[0] == "பயணக் கட்டுரைகள்" -> "கட்டுரைகள்"
+                    categoryList[0] == "ஆளுமைகள்" -> "வரலாறு"
+                    categoryList[0] == "சமூக நாவல்" -> "நாவல்"
+                    categoryList[0] == "உணவு" -> "உடல் நலம்"
+                    categoryList[0] == "அறிவியல் புனைவுகள்" -> "அறிவியல்"
+                    categoryList[0] == "பல்சுவை இதழ்கள்" -> "மற்றவை"
+                    categoryList[0] == "கணிணி நுட்பம்" -> "கணினி நுட்பம்"
+                    categoryList[0] == "கணிணி அறிவியல்" -> "கணினி நுட்பம்"
+                    categoryList[0] == "கணினி அறிவியல்" -> "கணினி நுட்பம்"
+                    categoryList[0] == "அறிவியல் கட்டுரைகள்" -> "அறிவியல்"
+                    else -> categoryList[0]
+                }
+            }
+
+            booksDb.updateCategory(
+                newCategory, item.bookid
+            )
+        }
+
+
+        val categoryMap: MutableSet<String> = mutableSetOf()
+        allBooks = booksDb.getAllLocalBooks()
+        for (item in allBooks) {
+            categoryMap.add(item.category)
+        }
+
+//        val catBookList = appDataBase.localBooksDao().getBooksByCategory(categoryList[0])
+//        PrintLog.info("Category--> ${item.category} --> ${categoryList[0]}")
+        PrintLog.info("Category--> ${categoryMap.size} -- $categoryMap")
     }
 }

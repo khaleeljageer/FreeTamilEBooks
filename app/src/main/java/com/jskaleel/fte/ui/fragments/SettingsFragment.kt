@@ -40,6 +40,9 @@ class SettingsFragment : Fragment() {
         subscribeBus()
         bottomSheet = BottomSheetSettings()
 
+        val selectedMenu =
+            AppPreference.customPrefs(mContext)[Constants.SharedPreference.BOOK_LIST_TYPE, R.id.menuRandom]
+        setListTypeLabel(selectedMenu)
         rlListTypeLayout.setOnClickListener {
             bottomSheet.show(childFragmentManager, bottomSheet.tag)
         }
@@ -69,7 +72,6 @@ class SettingsFragment : Fragment() {
             startActivity(Intent(mContext, OssLicensesMenuActivity::class.java))
         }
         rlSourceCodeLayout.setOnClickListener {
-
             val url = "https://github.com/khaleeljageer/FreeTamilEBooks"
             val shareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_VIEW
@@ -81,11 +83,22 @@ class SettingsFragment : Fragment() {
         txtAppVersion.text = String.format(getString(R.string.version, BuildConfig.VERSION_NAME))
     }
 
+    private fun setListTypeLabel(selectedMenu: Int) {
+        txtListTypeStatus.apply {
+            text = when (selectedMenu) {
+                R.id.menuRandom -> getString(R.string.random)
+                else -> getString(R.string.by_category)
+            }
+        }
+    }
 
     private fun subscribeBus() {
         RxBus.subscribe {
             if (it is SelectedMenuItem) {
                 if (bottomSheet.isVisible) {
+                    val selectedType = it.menuItem.itemId
+                    AppPreference.customPrefs(mContext)[Constants.SharedPreference.BOOK_LIST_TYPE] = selectedType
+                    setListTypeLabel(selectedType)
                     bottomSheet.dismiss()
                 }
             }

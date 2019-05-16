@@ -17,6 +17,11 @@ import com.jskaleel.fte.model.NewBookAdded
 import com.jskaleel.fte.model.ScrollList
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
+import com.jskaleel.fte.utils.AppPreference
+import com.jskaleel.fte.utils.AppPreference.get
+import com.jskaleel.fte.utils.AppPreference.set
+import com.jskaleel.fte.utils.CommonAppData
+import com.jskaleel.fte.utils.Constants
 import com.jskaleel.fte.utils.RxBus
 import com.jskaleel.fte.utils.downloader.DownloadUtil
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -36,7 +41,7 @@ class HomeFragment : Fragment(), BookClickListener {
         } else {
             if (book.downloadId == -1L) {
                 val downloadID = DownloadUtil.queueForDownload(mContext, book)
-                if(downloadID != 0L) {
+                if (downloadID != 0L) {
                     adapter.updateDownloadId(adapterPosition, downloadID)
                     downloadsPositions.put(downloadID, adapterPosition.toLong())
                 }
@@ -61,6 +66,12 @@ class HomeFragment : Fragment(), BookClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         val booksList = appDataBase.localBooksDao().getAllLocalBooksByOrder()
+        val isCategoryModified =
+            AppPreference.customPrefs(mContext)[Constants.SharedPreference.IS_CATEGORY_MODIFIED, false]
+        if (!isCategoryModified) {
+            AppPreference.customPrefs(mContext)[Constants.SharedPreference.IS_CATEGORY_MODIFIED] = true
+            CommonAppData.updateBooksCategory(mContext)
+        }
         rvBookList.setHasFixedSize(true)
 
         adapter = BookListAdapter(mContext, this@HomeFragment, booksList as MutableList<LocalBooks>, 1)

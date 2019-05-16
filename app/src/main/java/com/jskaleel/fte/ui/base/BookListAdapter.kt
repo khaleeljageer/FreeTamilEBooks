@@ -28,21 +28,25 @@ class BookListAdapter(
         return booksList.size
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val bookItem = booksList[position]
+        val bookItem = booksList[holder.adapterPosition]
         holder.bindData(bookItem, holder.adapterPosition)
         holder.itemView.setOnClickListener {
-            if (previousClickedPosition == position) {
+            if (previousClickedPosition == holder.adapterPosition) {
                 return@setOnClickListener
             }
             if (previousClickedPosition != -1) {
                 booksList[previousClickedPosition].isExpanded = false
                 notifyItemChanged(previousClickedPosition)
             }
-            previousClickedPosition = position
+            previousClickedPosition = holder.adapterPosition
             val expanded = bookItem.isExpanded
             bookItem.isExpanded = !expanded
-            notifyItemChanged(position)
+            notifyItemChanged(holder.adapterPosition)
         }
     }
 

@@ -53,8 +53,8 @@
 
     <string name="fbreader_more_setting_alignment">உரை சீரமைப்பு</string>
     <string name="fbreader_more_setting_alignment_default">இயல்புநிலை</string>
-    <string name="fbreader_more_setting_alignment_left">வலது</string>
-    <string name="fbreader_more_setting_alignment_right">இடது</string>
+    <string name="fbreader_more_setting_alignment_left">இடது</string>
+    <string name="fbreader_more_setting_alignment_right">வலது</string>
     <string name="fbreader_more_setting_alignment_center">மையமாக</string>
     <string name="fbreader_more_setting_alignment_justified">ஓரச்சீரமை</string>
 

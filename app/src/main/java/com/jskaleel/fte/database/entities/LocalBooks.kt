@@ -19,7 +19,7 @@ data class LocalBooks(
     @ColumnInfo(name = "epub")
     val epub: String,
     @ColumnInfo(name = "category")
-    val category: String,
+    var category: String,
 
     @ColumnInfo(name = "createdAt")
     var createdAt: Long,

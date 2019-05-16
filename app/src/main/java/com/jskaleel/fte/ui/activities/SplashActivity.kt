@@ -12,6 +12,7 @@ import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.model.BooksResponse
 import com.jskaleel.fte.ui.base.BaseActivity
+import com.jskaleel.fte.utils.CommonAppData
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.io.InputStream
 import java.lang.ref.WeakReference

@@ -46,4 +46,10 @@ interface LocalBooksDao {
 
     @Query("SELECT * from localBooks WHERE is_downloaded = :isDownloaded")
     fun getDownloadedBooks(isDownloaded: Boolean): List<LocalBooks>
+
+    @Query("SELECT * from localBooks WHERE category LIKE :category")
+    fun getBooksByCategory(category: String): List<LocalBooks>
+
+    @Query("UPDATE localBooks SET category = :newCategory WHERE bookid = :bookId")
+    fun updateCategory(newCategory: String, bookId: String)
 }
