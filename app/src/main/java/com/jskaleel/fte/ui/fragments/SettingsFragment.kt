@@ -51,6 +51,15 @@ class SettingsFragment : Fragment() {
             activity!!.findNavController(R.id.navHostFragment).navigateUp()
         }
 
+        ivShare.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "இந்த செயலிமூலம் மின்நூல்களை இலவசமாக தரவிறக்கி படிக்கமுடிகிறது. நீங்களும் முயற்சித்து பார்க்கவும். http://bit.ly/FTEAndroid")
+                type = "text/plain"
+            }
+            startActivity(sendIntent)
+        }
+
         val isPushChecked = AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE, true]
 
         swPush.isChecked = isPushChecked
@@ -87,6 +96,7 @@ class SettingsFragment : Fragment() {
         txtListTypeStatus.apply {
             text = when (selectedMenu) {
                 R.id.menuRandom -> getString(R.string.random)
+                R.id.menuByAuthor -> getString(R.string.by_author)
                 else -> getString(R.string.by_category)
             }
         }

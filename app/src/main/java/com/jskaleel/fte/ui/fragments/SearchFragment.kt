@@ -11,6 +11,7 @@ import android.widget.PopupMenu
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
@@ -49,7 +50,6 @@ class SearchFragment : Fragment(), BookClickListener {
     private var filterType = 1
     private val triggerNewService = 1001
 
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -67,7 +67,8 @@ class SearchFragment : Fragment(), BookClickListener {
         super.onActivityCreated(savedInstanceState)
         rvSearchList.setHasFixedSize(true)
         adapter = BookListAdapter(mContext, this@SearchFragment, mutableListOf(), 2)
-        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        val layoutManger = GridLayoutManager(mContext, 2, RecyclerView.VERTICAL, false)
+//        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvSearchList.layoutManager = layoutManger
         rvSearchList.adapter = adapter
 

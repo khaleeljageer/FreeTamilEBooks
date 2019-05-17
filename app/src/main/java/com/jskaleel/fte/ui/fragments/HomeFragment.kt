@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
@@ -75,7 +75,8 @@ class HomeFragment : Fragment(), BookClickListener {
         rvBookList.setHasFixedSize(true)
 
         adapter = BookListAdapter(mContext, this@HomeFragment, booksList as MutableList<LocalBooks>, 1)
-        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        val layoutManger = GridLayoutManager(mContext, 2, RecyclerView.VERTICAL, false)
+//        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvBookList.layoutManager = layoutManger
         rvBookList.adapter = adapter
 

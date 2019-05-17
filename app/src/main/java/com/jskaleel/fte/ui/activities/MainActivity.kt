@@ -111,14 +111,6 @@ class MainActivity : BaseActivity() {
             R.id.menuFeedBack -> {
                 findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
             }
-            R.id.menuShareApp -> {
-                val sendIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "இந்த செயலிமூலம் மின்நூல்களை இலவசமாக தரவிறக்கி படிக்கமுடிகிறது. நீங்களும் முயற்சித்து பார்க்கவும். http://bit.ly/FTEAndroid")
-                    type = "text/plain"
-                }
-                startActivity(sendIntent)
-            }
         }
         if (bottomNavDrawerFragment.isVisible) {
             bottomNavDrawerFragment.dismiss()

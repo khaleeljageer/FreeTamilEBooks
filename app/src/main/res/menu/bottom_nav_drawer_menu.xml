@@ -14,16 +14,12 @@
                 android:icon="@drawable/ic_help_outline_black_24dp"
                 android:title="@string/publish_books"/>
         <item
-                android:id="@+id/menuSettings"
-                android:icon="@drawable/ic_outline_settings_24px"
-                android:title="@string/settings"/>
-        <item
                 android:id="@+id/menuFeedBack"
                 android:icon="@drawable/ic_feedback_white_24dp"
                 android:title="@string/feedback"/>
         <item
-                android:id="@+id/menuShareApp"
-                android:icon="@drawable/ic_share_black_24dp"
-                android:title="@string/shapre_app"/>
+                android:id="@+id/menuSettings"
+                android:icon="@drawable/ic_outline_settings_24px"
+                android:title="@string/settings"/>
     </group>
 </menu>

@@ -50,4 +50,6 @@
     <string name="source_code">மூல நிரல்</string>
     <string name="shapre_app">செயலியை பகிரவும்</string>
     <string name="version">பதிப்பு : %s</string>
+    <string name="authors_list">நூலாசிரியர் பட்டியல்</string>
+    <string name="by_author">நூலாசிரியர்</string>
 </resources>

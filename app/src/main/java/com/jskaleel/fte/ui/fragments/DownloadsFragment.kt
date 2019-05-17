@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
@@ -62,7 +63,8 @@ class DownloadsFragment : Fragment(), BookClickListener {
         rvDownloadList.setHasFixedSize(true)
 
         adapter = BookListAdapter(mContext, this@DownloadsFragment, mutableListOf(), 1)
-        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        val layoutManger = GridLayoutManager(mContext, 2, RecyclerView.VERTICAL, false)
+//        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvDownloadList.layoutManager = layoutManger
         rvDownloadList.adapter = adapter
 
