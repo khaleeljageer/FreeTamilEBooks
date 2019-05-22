@@ -13,12 +13,10 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jskaleel.fte.BuildConfig
 import com.jskaleel.fte.R
-import com.jskaleel.fte.model.SelectedMenuItem
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.AppPreference.set
 import com.jskaleel.fte.utils.Constants
-import com.jskaleel.fte.utils.RxBus
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
@@ -33,19 +31,9 @@ class SettingsFragment : Fragment() {
     }
 
     private lateinit var mContext: Context
-    private lateinit var bottomSheet: BottomSheetSettings
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeBus()
-        bottomSheet = BottomSheetSettings()
-
-        val selectedMenu =
-            AppPreference.customPrefs(mContext)[Constants.SharedPreference.BOOK_LIST_TYPE, R.id.menuRandom]
-        setListTypeLabel(selectedMenu)
-        rlListTypeLayout.setOnClickListener {
-            bottomSheet.show(childFragmentManager, bottomSheet.tag)
-        }
 
         toolBar.setNavigationOnClickListener {
             activity!!.findNavController(R.id.navHostFragment).navigateUp()
@@ -90,28 +78,5 @@ class SettingsFragment : Fragment() {
         }
 
         txtAppVersion.text = String.format(getString(R.string.version, BuildConfig.VERSION_NAME))
-    }
-
-    private fun setListTypeLabel(selectedMenu: Int) {
-        txtListTypeStatus.apply {
-            text = when (selectedMenu) {
-                R.id.menuRandom -> getString(R.string.random)
-                R.id.menuByAuthor -> getString(R.string.by_author)
-                else -> getString(R.string.by_category)
-            }
-        }
-    }
-
-    private fun subscribeBus() {
-        RxBus.subscribe {
-            if (it is SelectedMenuItem) {
-                if (bottomSheet.isVisible) {
-                    val selectedType = it.menuItem.itemId
-                    AppPreference.customPrefs(mContext)[Constants.SharedPreference.BOOK_LIST_TYPE] = selectedType
-                    setListTypeLabel(selectedType)
-                    bottomSheet.dismiss()
-                }
-            }
-        }
     }
 }

@@ -69,38 +69,6 @@
             android:background="@color/grey"/>
 
     <LinearLayout
-            android:id="@+id/rlListTypeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
-
-        <TextView
-                android:id="@+id/txtListTypeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/order_type"
-                android:textColor="@color/colorAccent"
-                android:textSize="14sp"/>
-
-        <Space
-                android:layout_width="match_parent"
-                android:layout_height="5dp"/>
-
-        <TextView
-                android:id="@+id/txtListTypeStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="@string/random"/>
-    </LinearLayout>
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_separater_height"
-            android:background="@color/grey"/>
-
-    <LinearLayout
             android:id="@+id/rlOSSLayout"
             android:visibility="visible"
             android:layout_width="match_parent"

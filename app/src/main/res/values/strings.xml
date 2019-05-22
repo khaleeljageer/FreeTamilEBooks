@@ -18,7 +18,6 @@
     <string name="order_type">புத்தக பட்டியல் முறை</string>
     <string name="random">இயல்பான</string>
     <string name="new_first">புதியவை முதலில்</string>
-    <string name="by_category">பிரிவுகளாக</string>
     <string name="home_fragment">HomeFragment</string>
     <string name="press_back_again">வெளியேற மீண்டும் அழுத்தவும்</string>
     <string name="connected_to_internet">இணையத்துடன் இணைக்கப்பட்டுள்ளது</string>
@@ -50,6 +49,6 @@
     <string name="source_code">மூல நிரல்</string>
     <string name="shapre_app">செயலியை பகிரவும்</string>
     <string name="version">பதிப்பு : %s</string>
-    <string name="authors_list">நூலாசிரியர் பட்டியல்</string>
-    <string name="by_author">நூலாசிரியர்</string>
+    <string name="authors_list">நூலாசிரியர்கள்</string>
+    <string name="category_list">பிரிவுகள்</string>
 </resources>
