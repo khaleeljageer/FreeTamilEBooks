@@ -52,4 +52,8 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="FTE.Title.TextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

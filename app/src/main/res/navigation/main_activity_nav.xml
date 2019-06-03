@@ -10,6 +10,14 @@
               tools:layout="@layout/fragment_home"
               android:label="@string/home_fragment"/>
 
+
+    <fragment android:id="@+id/authorCategoryListFragment"
+              android:name="com.jskaleel.fte.ui.fragments.CategoryAuthorsFragment"
+              tools:layout="@layout/fragment_author_category"
+              android:label="CategoryAuthorsFragment">
+        <argument android:name="TYPE" app:argType="integer" android:defaultValue="1"/>
+    </fragment>
+
     <fragment android:id="@+id/webViewFragment"
               android:name="com.jskaleel.fte.ui.fragments.WebViewFragment"
               tools:layout="@layout/fragment_webview"

@@ -1,7 +1,6 @@
 package com.jskaleel.fte.ui.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
@@ -110,6 +108,18 @@ class MainActivity : BaseActivity() {
             }
             R.id.menuFeedBack -> {
                 findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
+            }
+            R.id.menuCategoryList -> {
+
+                val args = Bundle()
+                args.putInt("TYPE", 1)
+                findNavController(R.id.navHostFragment).navigate(R.id.authorCategoryListFragment, args, navOptions.build())
+            }
+            R.id.menuAuthorsList -> {
+
+                val args = Bundle()
+                args.putInt("TYPE", 2)
+                findNavController(R.id.navHostFragment).navigate(R.id.authorCategoryListFragment, args, navOptions.build())
             }
         }
         if (bottomNavDrawerFragment.isVisible) {

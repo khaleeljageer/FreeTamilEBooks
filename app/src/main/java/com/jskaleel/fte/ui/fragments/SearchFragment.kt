@@ -65,14 +65,11 @@ class SearchFragment : Fragment(), BookClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rvSearchList.setHasFixedSize(true)
+        rvBookList.setHasFixedSize(true)
         adapter = BookListAdapter(mContext, this@SearchFragment, mutableListOf(), 2)
         val layoutManger = GridLayoutManager(mContext, 2, RecyclerView.VERTICAL, false)
-//        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-        rvSearchList.layoutManager = layoutManger
-        rvSearchList.adapter = adapter
-
-//        edtSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_search_white_24dp, 0)
+        rvBookList.layoutManager = layoutManger
+        rvBookList.adapter = adapter
 
         val appDataBase = AppDatabase.getAppDatabase(mContext)
         searchHandler = @SuppressLint("HandlerLeak")

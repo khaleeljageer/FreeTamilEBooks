@@ -51,7 +51,7 @@
 
     </com.google.android.material.card.MaterialCardView>
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSearchList"
+            android:id="@+id/rvBookList"
             android:layout_below="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

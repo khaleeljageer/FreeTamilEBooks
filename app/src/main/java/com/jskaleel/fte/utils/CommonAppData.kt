@@ -14,8 +14,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object CommonAppData {
-
-
     fun updateBooksFromApi(context: Context): Disposable {
         var isNewBookAdded = false
         val localBooksDao = AppDatabase.getAppDatabase(context).localBooksDao()
@@ -40,7 +38,7 @@ object CommonAppData {
                                 val categoryList: List<String> = localBook.category.split(",").map { it.trim() }
                                 val newCategory = if (TextUtils.isEmpty(categoryList[0])) {
                                     "மற்றவை"
-                                }else {
+                                } else {
                                     when {
                                         categoryList[0] == "பயணக் கட்டுரைகள்" -> "கட்டுரைகள்"
                                         categoryList[0] == "ஆளுமைகள்" -> "வரலாறு"
@@ -110,5 +108,43 @@ object CommonAppData {
 //        val catBookList = appDataBase.localBooksDao().getBooksByCategory(categoryList[0])
 //        PrintLog.info("Category--> ${item.category} --> ${categoryList[0]}")
         PrintLog.info("Category--> ${categoryMap.size} -- $categoryMap")
+    }
+
+    fun getAuthorsListWithCount(context: Context): MutableList<String> {
+
+        val authorsList = AppDatabase.getAppDatabase(context).localBooksDao().getAuthorsList()
+        val authorsMap = mutableMapOf<String, Int>()
+        for (author in authorsList) {
+            if (authorsMap.containsKey(author)) {
+                val count = authorsMap.getValue(author)
+                authorsMap[author] = count.plus(1)
+            } else {
+                authorsMap[author] = 1
+            }
+        }
+        val authorsListCount = mutableListOf<String>()
+        for (entry in authorsMap.entries) {
+            authorsListCount.add(entry.key + "(${entry.value})")
+        }
+        return authorsListCount
+    }
+
+    fun getCategoryListWithCount(context: Context): MutableList<String> {
+
+        val categoryList = AppDatabase.getAppDatabase(context).localBooksDao().getCategoryList()
+        val categoryMap = mutableMapOf<String, Int>()
+        for (category in categoryList) {
+            if (categoryMap.containsKey(category)) {
+                val count = categoryMap.getValue(category)
+                categoryMap[category] = count.plus(1)
+            } else {
+                categoryMap[category] = 1
+            }
+        }
+        val categoryListCount = mutableListOf<String>()
+        for (entry in categoryMap.entries) {
+            categoryListCount.add(entry.key + "(${entry.value})")
+        }
+        return categoryListCount
     }
 }

@@ -52,4 +52,10 @@ interface LocalBooksDao {
 
     @Query("UPDATE localBooks SET category = :newCategory WHERE bookid = :bookId")
     fun updateCategory(newCategory: String, bookId: String)
+
+    @Query("SELECT author from localBooks")
+    fun getAuthorsList(): List<String>
+
+    @Query("SELECT category from localBooks")
+    fun getCategoryList(): List<String>
 }
