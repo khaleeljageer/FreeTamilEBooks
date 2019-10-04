@@ -2,7 +2,6 @@ package com.jskaleel.fte.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 
 object AppPreference {
     fun customPrefs(context: Context): SharedPreferences =

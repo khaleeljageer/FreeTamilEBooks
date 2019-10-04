@@ -22,11 +22,12 @@ object CommonAppData {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://raw.githubusercontent.com/KaniyamFoundation/Free-Tamil-Ebooks/")
-            .build().create(ApiInterface::class.java)
+            .build()S
 
         return retrofit.getNewBooks().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ result ->
+            .subscribe(
+                { result ->
                 run {
                     if (result != null && result.books.isNotEmpty()) {
                         for ((i, localBook) in result.books.withIndex()) {
