@@ -13,19 +13,12 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!--连接网络权限，用于执行云端语音能力 -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!--读取网络信息状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!--获取当前wifi状态 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!--允许程序改变网络连接状态 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <!--读取手机信息权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!--外存储写权限，构建语法需要用到此权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!--外存储读权限，构建语法需要用到此权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application>
@@ -230,55 +223,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="org.geometerplus.android.fbreader.dict.DictionaryNotInstalledActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="false"
-            android:theme="@style/FBReader.Dialog" />
-        <activity
-            android:name="org.geometerplus.android.fbreader.CancelActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/FBReader.Dialog">
-            <intent-filter>
-                <action android:name="android.fbreader.action.CANCEL_MENU" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="org.geometerplus.android.fbreader.PluginListActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/FBReader.Dialog" />
-        <activity
-            android:name="org.geometerplus.android.fbreader.bookmark.BookmarksActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
-            android:process=":bookmarks"
-            android:theme="@style/FBReader.Activity.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
 
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-
-            <intent-filter>
-                <action android:name="android.fbreader.action.BOOKMARKS" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="org.geometerplus.android.fbreader.bookmark.EditBookmarkActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/FBReader.Dialog">
-            <intent-filter>
-                <action android:name="android.fbreader.action.EDIT_BOOKMARK" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="org.geometerplus.android.fbreader.bookmark.EditStyleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

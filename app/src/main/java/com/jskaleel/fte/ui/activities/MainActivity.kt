@@ -60,7 +60,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun slideUp() {
-        (bottomAppBar.behavior as HideBottomViewOnScrollBehavior).slideUp(bottomAppBar)
+        (bottomAppBar.behavior).slideUp(bottomAppBar)
     }
 
     private fun subscribeBus() {
