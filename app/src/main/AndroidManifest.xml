@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <uses-sdk tools:overrideLibrary="com.folioreader"/>
     <application
             android:allowBackup="false"
             android:name=".FTEApp"
@@ -48,6 +47,8 @@
                 android:name=".utils.NetworkSchedulerService"
                 android:exported="true"
                 android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+
         <receiver
                 android:name=".utils.downloader.DownloadReceiver"
                 android:enabled="true"

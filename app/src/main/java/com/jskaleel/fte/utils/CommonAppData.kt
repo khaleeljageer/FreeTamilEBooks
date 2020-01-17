@@ -22,52 +22,53 @@ object CommonAppData {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://raw.githubusercontent.com/KaniyamFoundation/Free-Tamil-Ebooks/")
-            .build()S
+            .build().create(ApiInterface::class.java)
 
         return retrofit.getNewBooks().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
-                run {
-                    if (result != null && result.books.isNotEmpty()) {
-                        for ((i, localBook) in result.books.withIndex()) {
-                            if (!localBooksDao.isIdAvailable(localBook.bookid)) {
-                                localBook.createdAt = System.currentTimeMillis()
-                                localBook.downloadId = -1
-                                localBook.isDownloaded = false
-                                localBook.savedPath = ""
-                                val categoryList: List<String> = localBook.category.split(",").map { it.trim() }
-                                val newCategory = if (TextUtils.isEmpty(categoryList[0])) {
-                                    "மற்றவை"
-                                } else {
-                                    when {
-                                        categoryList[0] == "பயணக் கட்டுரைகள்" -> "கட்டுரைகள்"
-                                        categoryList[0] == "ஆளுமைகள்" -> "வரலாறு"
-                                        categoryList[0] == "சமூக நாவல்" -> "நாவல்"
-                                        categoryList[0] == "உணவு" -> "உடல் நலம்"
-                                        categoryList[0] == "அறிவியல் புனைவுகள்" -> "அறிவியல்"
-                                        categoryList[0] == "பல்சுவை இதழ்கள்" -> "மற்றவை"
-                                        categoryList[0] == "கணிணி நுட்பம்" -> "கணினி நுட்பம்"
-                                        categoryList[0] == "கணிணி அறிவியல்" -> "கணினி நுட்பம்"
-                                        categoryList[0] == "கணினி அறிவியல்" -> "கணினி நுட்பம்"
-                                        categoryList[0] == "அறிவியல் கட்டுரைகள்" -> "அறிவியல்"
-                                        else -> categoryList[0]
+                    run {
+                        if (result != null && result.books.isNotEmpty()) {
+                            for ((i, localBook) in result.books.withIndex()) {
+                                if (!localBooksDao.isIdAvailable(localBook.bookid)) {
+                                    localBook.createdAt = System.currentTimeMillis()
+                                    localBook.downloadId = -1
+                                    localBook.isDownloaded = false
+                                    localBook.savedPath = ""
+                                    val categoryList: List<String> =
+                                        localBook.category.split(",").map { it.trim() }
+                                    val newCategory = if (TextUtils.isEmpty(categoryList[0])) {
+                                        "மற்றவை"
+                                    } else {
+                                        when {
+                                            categoryList[0] == "பயணக் கட்டுரைகள்" -> "கட்டுரைகள்"
+                                            categoryList[0] == "ஆளுமைகள்" -> "வரலாறு"
+                                            categoryList[0] == "சமூக நாவல்" -> "நாவல்"
+                                            categoryList[0] == "உணவு" -> "உடல் நலம்"
+                                            categoryList[0] == "அறிவியல் புனைவுகள்" -> "அறிவியல்"
+                                            categoryList[0] == "பல்சுவை இதழ்கள்" -> "மற்றவை"
+                                            categoryList[0] == "கணிணி நுட்பம்" -> "கணினி நுட்பம்"
+                                            categoryList[0] == "கணிணி அறிவியல்" -> "கணினி நுட்பம்"
+                                            categoryList[0] == "கணினி அறிவியல்" -> "கணினி நுட்பம்"
+                                            categoryList[0] == "அறிவியல் கட்டுரைகள்" -> "அறிவியல்"
+                                            else -> categoryList[0]
+                                        }
                                     }
+                                    localBook.category = newCategory
+                                    localBooksDao.insert(localBook)
+                                    isNewBookAdded = true
                                 }
-                                localBook.category = newCategory
-                                localBooksDao.insert(localBook)
-                                isNewBookAdded = true
                             }
+                            RxBus.publish(NewBookAdded(isNewBookAdded))
                         }
-                        RxBus.publish(NewBookAdded(isNewBookAdded))
                     }
-                }
-            }, { error ->
-                run {
-                    PrintLog.info(error.toString())
-                    RxBus.publish(NetWorkMessage(context.getString(R.string.try_again_later)))
-                }
-            })
+                }, { error ->
+                    run {
+                        PrintLog.info(error.toString())
+                        RxBus.publish(NetWorkMessage(context.getString(R.string.try_again_later)))
+                    }
+                })
     }
 
     fun updateBooksCategory(context: Context) {
