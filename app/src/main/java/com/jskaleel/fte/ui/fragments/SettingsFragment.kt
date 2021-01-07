@@ -7,6 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -19,7 +23,6 @@ import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.AppPreference.set
 import com.jskaleel.fte.utils.Constants
 import com.jskaleel.fte.utils.RxBus
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment() {
 
@@ -28,7 +31,11 @@ class SettingsFragment : Fragment() {
         mContext = context
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
@@ -38,6 +45,14 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeBus()
+        val toolBar = view.findViewById<Toolbar>(R.id.toolBar)
+        val rlListTypeLayout = view.findViewById<RelativeLayout>(R.id.rlListTypeLayout)
+        val rlSourceCodeLayout = view.findViewById<RelativeLayout>(R.id.rlSourceCodeLayout)
+        val rlOSSLayout = view.findViewById<RelativeLayout>(R.id.rlOSSLayout)
+        val swPush = view.findViewById<SwitchCompat>(R.id.swPush)
+        val txtPushStatus = view.findViewById<TextView>(R.id.txtPushStatus)
+        val txtAppVersion = view.findViewById<TextView>(R.id.txtAppVersion)
+
         bottomSheet = BottomSheetSettings()
 
         rlListTypeLayout.setOnClickListener {
@@ -45,16 +60,18 @@ class SettingsFragment : Fragment() {
         }
 
         toolBar.setNavigationOnClickListener {
-            activity!!.findNavController(R.id.navHostFragment).navigateUp()
+            requireActivity().findNavController(R.id.navHostFragment).navigateUp()
         }
 
-        val isPushChecked = AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE, true]
+        val isPushChecked =
+            AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE, true]
 
         swPush.isChecked = isPushChecked
         txtPushStatus.text = if (isPushChecked) getString(R.string.on) else getString(R.string.off)
 
         swPush.setOnCheckedChangeListener { _, isChecked ->
-            AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE] = isChecked
+            AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE] =
+                isChecked
             txtPushStatus.text = if (isChecked) getString(R.string.on) else getString(R.string.off)
 
             if (isChecked) {

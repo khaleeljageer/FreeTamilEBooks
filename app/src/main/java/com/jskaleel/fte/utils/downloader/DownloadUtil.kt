@@ -3,13 +3,15 @@ package com.jskaleel.fte.utils.downloader
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
+import com.folioreader.Config
+import com.folioreader.FolioReader
+import com.folioreader.util.AppUtil
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.model.CheckForDownloadsMenu
 import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.RxBus
-import org.geometerplus.android.fbreader.FBReader
 import java.io.File
 
 object DownloadUtil {
@@ -46,7 +48,14 @@ object DownloadUtil {
 
     fun openSavedBook(context: Context, book: LocalBooks) {
         PrintLog.info("savedPath ${book.savedPath}")
-        FBReader.openBookActivity(context, book.savedPath)
+//        FBReader.openBookActivity(context, book.savedPath)
+        var config = AppUtil.getSavedConfig(context)
+        if (config == null) config = Config()
+        config.allowedDirection = Config.AllowedDirection.VERTICAL_AND_HORIZONTAL
+        config.isShowTts = false
+        config.setThemeColorInt(context.getColor(R.color.colorPrimary))
+        val folioReader = FolioReader.get()
+        folioReader.setConfig(config, true).openBook(book.savedPath.replace("file://", ""))
     }
 
     fun removeDownload(context: Context, book: LocalBooks): LocalBooks {

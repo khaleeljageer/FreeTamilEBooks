@@ -19,7 +19,6 @@ import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.RxBus
 import com.jskaleel.fte.utils.downloader.DownloadUtil
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), BookClickListener {
 
@@ -59,6 +58,7 @@ class HomeFragment : Fragment(), BookClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val rvBookList = view.findViewById<RecyclerView>(R.id.rvBookList)
 
         val booksList = appDataBase.localBooksDao().getAllLocalBooksByOrder()
         rvBookList.setHasFixedSize(true)

@@ -8,11 +8,14 @@ import android.os.Message
 import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textfield.TextInputEditText
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
@@ -21,7 +24,6 @@ import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.downloader.DownloadUtil
-import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class SearchFragment : Fragment(), BookClickListener {
@@ -43,6 +45,9 @@ class SearchFragment : Fragment(), BookClickListener {
         }
     }
 
+    private var searchView: MaterialCardView? = null
+    private var rvSearchList: RecyclerView? = null
+    private var edtSearch: TextInputEditText? = null
     private lateinit var adapter: BookListAdapter
     private lateinit var searchHandler: Handler
     private lateinit var mContext: Context
@@ -57,29 +62,35 @@ class SearchFragment : Fragment(), BookClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val toolBar = view.findViewById<Toolbar>(R.id.toolBar)
+        rvSearchList = view.findViewById<RecyclerView>(R.id.rvSearchList)
+        edtSearch = view.findViewById<TextInputEditText>(R.id.edtSearch)
+        searchView = view.findViewById<MaterialCardView>(R.id.searchView)
+
         toolBar.setNavigationOnClickListener {
-            DeviceUtils.hideSoftKeyboard(activity!!)
-            activity!!.findNavController(R.id.navHostFragment).navigateUp()
+            DeviceUtils.hideSoftKeyboard(requireActivity())
+            requireActivity().findNavController(R.id.navHostFragment).navigateUp()
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rvSearchList.setHasFixedSize(true)
+        rvSearchList?.setHasFixedSize(true)
         adapter = BookListAdapter(mContext, this@SearchFragment, mutableListOf(), 2)
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-        rvSearchList.layoutManager = layoutManger
-        rvSearchList.adapter = adapter
+        rvSearchList?.layoutManager = layoutManger
+        rvSearchList?.adapter = adapter
 
 //        edtSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_search_white_24dp, 0)
 
         val appDataBase = AppDatabase.getAppDatabase(mContext)
         searchHandler = @SuppressLint("HandlerLeak")
         object : Handler() {
-            override fun handleMessage(msg: Message?) {
+            override fun handleMessage(msg: Message) {
                 if (msg != null) {
                     if (msg.what == triggerNewService && edtSearch != null && isAdded) {
-                        val query = edtSearch.text.toString()
+                        val query = edtSearch!!.text.toString()
                         when (filterType) {
                             1 -> {
                                 val books = appDataBase.localBooksDao().getBooksByTitle("%$query%")
@@ -97,15 +108,15 @@ class SearchFragment : Fragment(), BookClickListener {
             }
         }
 
-        edtSearch.tag = "FILTER"
-        edtSearch.setOnTouchListener(OnTouchListener { _, event ->
+        edtSearch?.tag = "FILTER"
+        edtSearch?.setOnTouchListener(OnTouchListener { _, event ->
             val drawableRight = 2
 
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= edtSearch.right - edtSearch.compoundDrawables[drawableRight].bounds.width()) {
-                    when (edtSearch.tag) {
+                if (event.rawX >= edtSearch!!.right - edtSearch!!.compoundDrawables[drawableRight].bounds.width()) {
+                    when (edtSearch!!.tag) {
                         "CLEAR" -> {
-                            edtSearch.text?.clear()
+                            edtSearch!!.text?.clear()
                         }
                         "FILTER" -> {
                             val popup = PopupMenu(activity, searchView, Gravity.END)
@@ -117,7 +128,7 @@ class SearchFragment : Fragment(), BookClickListener {
                                     else -> R.id.title
                                 }
                             ).isChecked = true
-                            val query = edtSearch.text.toString()
+                            val query = edtSearch!!.text.toString()
                             popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
                                 override fun onMenuItemClick(item: MenuItem): Boolean {
                                     when (item.itemId) {
@@ -152,7 +163,7 @@ class SearchFragment : Fragment(), BookClickListener {
             false
         })
 
-        edtSearch.doAfterTextChanged { edt ->
+        edtSearch?.doAfterTextChanged { edt ->
             if (edt != null) {
                 val query = edt.toString().trim()
                 if (query.isNotBlank() && query.isNotEmpty()) {
@@ -162,11 +173,11 @@ class SearchFragment : Fragment(), BookClickListener {
                         searchHandler.removeMessages(triggerNewService)
                         searchHandler.sendEmptyMessageDelayed(triggerNewService, 1000)
                     }
-                    edtSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_clear_black_24dp, 0)
-                    edtSearch.tag = "CLEAR"
+                    edtSearch?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_clear_black_24dp, 0)
+                    edtSearch?.tag = "CLEAR"
                 } else {
-                    edtSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_tune_black_24dp, 0)
-                    edtSearch.tag = "FILTER"
+                    edtSearch?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_tune_black_24dp, 0)
+                    edtSearch?.tag = "FILTER"
                     searchHandler.removeMessages(triggerNewService)
                     adapter.clearBooks()
                 }

@@ -1,7 +1,6 @@
 package com.jskaleel.fte.ui.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -11,8 +10,9 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
 import com.jskaleel.fte.model.CheckForDownloadsMenu
@@ -25,9 +25,12 @@ import com.jskaleel.fte.utils.CommonAppData
 import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+    private var fabHome: FloatingActionButton? = null
+    private var bottomAppBar: BottomAppBar? = null
+    private var container2: CoordinatorLayout? = null
+
     private var downloadMenu: MenuItem? = null
     private lateinit var disposable: Disposable
 
@@ -37,13 +40,17 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
+        fabHome = findViewById<FloatingActionButton>(R.id.fabHome)
+        container2 = findViewById<CoordinatorLayout>(R.id.container2)
+
         setSupportActionBar(bottomAppBar)
         disposable = CommonAppData.updateBooksFromApi(this@MainActivity)
         subscribeBus()
 
         bottomNavDrawerFragment = BottomNavigationDrawerFragment()
 
-        fabHome.setOnClickListener {
+        fabHome?.setOnClickListener {
             val currentDestination = findNavController(R.id.navHostFragment).currentDestination
             if (currentDestination != null) {
                 if (currentDestination.label == getString(R.string.home_fragment)) {
@@ -62,7 +69,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun slideUp() {
-        (bottomAppBar.behavior as HideBottomViewOnScrollBehavior).slideUp(bottomAppBar)
+        (bottomAppBar?.behavior as HideBottomViewOnScrollBehavior<*>).slideUp(bottomAppBar as Nothing)
     }
 
     private fun subscribeBus() {
@@ -93,28 +100,51 @@ class MainActivity : BaseActivity() {
             R.id.menuAbout -> {
                 val args = Bundle()
                 args.putInt("TYPE", 1)
-                findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args, navOptions.build())
+                findNavController(R.id.navHostFragment).navigate(
+                    R.id.webViewFragment,
+                    args,
+                    navOptions.build()
+                )
             }
             R.id.menuContribute -> {
                 val args = Bundle()
                 args.putInt("TYPE", 2)
-                findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args, navOptions.build())
+                findNavController(R.id.navHostFragment).navigate(
+                    R.id.webViewFragment,
+                    args,
+                    navOptions.build()
+                )
             }
             R.id.menuPublish -> {
                 val args = Bundle()
                 args.putInt("TYPE", 3)
-                findNavController(R.id.navHostFragment).navigate(R.id.webViewFragment, args, navOptions.build())
+                findNavController(R.id.navHostFragment).navigate(
+                    R.id.webViewFragment,
+                    args,
+                    navOptions.build()
+                )
             }
             R.id.menuSettings -> {
-                findNavController(R.id.navHostFragment).navigate(R.id.settingsFragment, null, navOptions.build())
+                findNavController(R.id.navHostFragment).navigate(
+                    R.id.settingsFragment,
+                    null,
+                    navOptions.build()
+                )
             }
             R.id.menuFeedBack -> {
-                findNavController(R.id.navHostFragment).navigate(R.id.feedBackFragment, null, navOptions.build())
+                findNavController(R.id.navHostFragment).navigate(
+                    R.id.feedBackFragment,
+                    null,
+                    navOptions.build()
+                )
             }
             R.id.menuShareApp -> {
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, "இந்த செயலிமூலம் மின்நூல்களை இலவசமாக தரவிறக்கி படிக்கமுடிகிறது. நீங்களும் முயற்சித்து பார்க்கவும். http://bit.ly/FTEAndroid")
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        "இந்த செயலிமூலம் மின்நூல்களை இலவசமாக தரவிறக்கி படிக்கமுடிகிறது. நீங்களும் முயற்சித்து பார்க்கவும். http://bit.ly/FTEAndroid"
+                    )
                     type = "text/plain"
                 }
                 startActivity(sendIntent)
@@ -137,7 +167,7 @@ class MainActivity : BaseActivity() {
         downloadMenu?.isVisible = !booksList.isNullOrEmpty()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId) {
             android.R.id.home -> {
                 bottomNavDrawerFragment.show(supportFragmentManager, bottomNavDrawerFragment.tag)
@@ -187,7 +217,7 @@ class MainActivity : BaseActivity() {
 
     fun displayMaterialSnackBar(message: String) {
         val snackBar = Snackbar.make(
-            container2,
+            container2!!,
             message,
             Snackbar.LENGTH_SHORT
         )
