@@ -22,7 +22,9 @@ object DownloadUtil {
             val url = book.epub
             PrintLog.info("Download : url $url")
             val request = DownloadManager.Request(Uri.parse(url))
-            val extStorageDirectory = context.getExternalFilesDir("downloads")?.absolutePath
+            val filesDirs = File(context.filesDir, "downloads")
+            if(!filesDirs.exists()) filesDirs.mkdirs()
+            val extStorageDirectory = filesDirs.absolutePath
             request.setTitle(book.title)
             request.setDescription(context.getString(R.string.downloading))
 
