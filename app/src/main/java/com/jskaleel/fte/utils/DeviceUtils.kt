@@ -11,28 +11,6 @@ import java.util.regex.Pattern
 
 
 object DeviceUtils {
-    private fun getAppDirectory(context: Context): File {
-        return File(context.getExternalFilesDir(null)!!.toString() + "/books")
-
-    }
-
-    fun convertDpToPixel(context: Context, dp: Float): Float {
-        val metrics = context.resources.displayMetrics
-        return dp * (metrics.densityDpi / 160f)
-    }
-
-    fun getRootDirPath(context: Context): String {
-        return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-            val file = ContextCompat.getExternalFilesDirs(
-                context.applicationContext,
-                null
-            )[0]
-            file.absolutePath
-        } else {
-            context.applicationContext.filesDir.absolutePath
-        }
-    }
-
     fun hideSoftKeyboard(activity: Activity) {
         val view = activity.currentFocus
         if (view != null) {

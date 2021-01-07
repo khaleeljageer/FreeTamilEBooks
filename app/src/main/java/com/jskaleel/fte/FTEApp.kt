@@ -7,9 +7,10 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import androidx.multidex.MultiDexApplication
+import com.downloader.PRDownloader
+import com.downloader.PRDownloaderConfig
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
-import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.Constants
@@ -21,8 +22,13 @@ class FTEApp : MultiDexApplication() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
 
+        val config = PRDownloaderConfig.newBuilder()
+            .setDatabaseEnabled(true)
+            .setUserAgent("FTEAndroid")
+            .build()
+        PRDownloader.initialize(applicationContext, config)
+
         scheduleJob()
-        AppDatabase.getAppDatabase(this@FTEApp)
 
         initNotificationChannel()
 

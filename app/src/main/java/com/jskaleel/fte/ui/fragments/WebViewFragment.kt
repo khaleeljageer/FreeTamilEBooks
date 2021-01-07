@@ -27,16 +27,16 @@ class WebViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewType = arguments?.let {
-            val safeArgs = WebViewFragmentArgs.fromBundle(it)
-            safeArgs.TYPE
+//            val safeArgs = WebViewFragmentArgs.fromBundle(it)
+//            safeArgs.TYPE
         }
         val webView = view.findViewById<WebView>(R.id.webView)
         val toolBar = view.findViewById<Toolbar>(R.id.toolBar)
 
         val assesUri = when (viewType) {
-            1 -> "file:///android_asset/htmlfiles/about_us.html"
-            2 -> "file:///android_asset/htmlfiles/team.html"
-            3 -> "file:///android_asset/htmlfiles/how_to_publish.html"
+//            1 -> "file:///android_asset/htmlfiles/about_us.html"
+//            2 -> "file:///android_asset/htmlfiles/team.html"
+//            3 -> "file:///android_asset/htmlfiles/how_to_publish.html"
             else -> ""
         }
 

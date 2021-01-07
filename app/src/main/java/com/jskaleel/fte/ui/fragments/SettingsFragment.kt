@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
@@ -46,9 +46,9 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         subscribeBus()
         val toolBar = view.findViewById<Toolbar>(R.id.toolBar)
-        val rlListTypeLayout = view.findViewById<RelativeLayout>(R.id.rlListTypeLayout)
-        val rlSourceCodeLayout = view.findViewById<RelativeLayout>(R.id.rlSourceCodeLayout)
-        val rlOSSLayout = view.findViewById<RelativeLayout>(R.id.rlOSSLayout)
+        val rlListTypeLayout = view.findViewById<LinearLayout>(R.id.rlListTypeLayout)
+        val rlSourceCodeLayout = view.findViewById<LinearLayout>(R.id.rlSourceCodeLayout)
+        val rlOSSLayout = view.findViewById<LinearLayout>(R.id.rlOSSLayout)
         val swPush = view.findViewById<SwitchCompat>(R.id.swPush)
         val txtPushStatus = view.findViewById<TextView>(R.id.txtPushStatus)
         val txtAppVersion = view.findViewById<TextView>(R.id.txtAppVersion)

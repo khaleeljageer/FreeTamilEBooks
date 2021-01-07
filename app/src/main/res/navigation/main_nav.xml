@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.jskaleel.fte.ui.fragments.HomeFragment"
+        android:label="@string/home_fragment"
+        tools:layout="@layout/fragment_home" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_dashboard"-->
+<!--        android:name="com.jskaleel.fte.ui.fragments.WebViewFragment"-->
+<!--        android:label="WebViewFragment"-->
+<!--        tools:layout="@layout/fragment_webview">-->
+<!--        <argument-->
+<!--            android:name="TYPE"-->
+<!--            android:defaultValue="0"-->
+<!--            app:argType="integer" />-->
+<!--    </fragment>-->
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.jskaleel.fte.ui.fragments.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.jskaleel.fte.ui.fragments.FeedbackFragment"
+        android:label="FeedBackFragment"
+        tools:layout="@layout/fragment_feedback" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_notifications"-->
+<!--        android:name="com.jskaleel.fte.ui.fragments.DownloadsFragment"-->
+<!--        android:label="DownloadsFragment"-->
+<!--        tools:layout="@layout/fragment_downloads" />-->
+</navigation>

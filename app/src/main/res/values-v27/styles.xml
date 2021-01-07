@@ -3,6 +3,7 @@
     <style name="Splash_Theme" parent="FTEBaseTheme">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/splash_window_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="AppTheme" parent="FTEBaseTheme">
