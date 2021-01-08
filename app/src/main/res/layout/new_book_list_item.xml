@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="210dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardContentLayer"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_button_bg"
+            android:text="Download"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:backgroundTint="@color/orangeDark" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImageLayer"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="25dp"
+        app:cardBackgroundColor="@color/colorAccent_alpha_10"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivBookCover"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@drawable/cover_2" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtBookTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:elevation="4dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="4dp"
+        android:maxLines="2"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="14sp"
+        app:autoSizeStepGranularity="5dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="@+id/cardContentLayer"
+        app:layout_constraintStart_toEndOf="@+id/cardImageLayer"
+        app:layout_constraintTop_toTopOf="@+id/cardContentLayer"
+        tools:text="அம்பேத்கரும் கம்யூனிசமும்"
+        tools:textColor="@color/black" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtBookAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:elevation="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/cardContentLayer"
+        app:layout_constraintStart_toEndOf="@+id/cardImageLayer"
+        app:layout_constraintTop_toBottomOf="@+id/txtBookTitle"
+        tools:ignore="SmallSp"
+        tools:text="ஆர். பட்டாபிராமன்"
+        tools:textColor="@color/black" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtDownload"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_button_bg"
+        android:elevation="5dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/cardContentLayer"
+        app:layout_constraintEnd_toEndOf="@+id/cardContentLayer"
+        app:textAllCaps="true"
+        tools:ignore="SmallSp"
+        tools:text="Download"
+        tools:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="4dp"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/txtDownload"
+        app:layout_constraintEnd_toEndOf="@+id/cardContentLayer"
+        app:layout_constraintStart_toEndOf="@+id/cardImageLayer">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="80"
+            android:visibility="visible"
+            app:hideAnimationBehavior="inward"
+            app:indicatorColor="@color/orangeDark"
+            app:indicatorDirectionLinear="leftToRight"
+            app:trackCornerRadius="2dp"
+            app:trackThickness="2dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:elevation="4dp"
+            android:maxLines="1"
+            android:textSize="9sp"
+            app:textAllCaps="true"
+            tools:ignore="SmallSp"
+            tools:text="0.21 MB/2.10 MB"
+            tools:textColor="@color/black" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

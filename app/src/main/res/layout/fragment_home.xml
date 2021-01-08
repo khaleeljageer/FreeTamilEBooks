@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/rootContainer"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvBookList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:clipToPadding="false"/>
+        android:id="@+id/rvBookList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="10dp"
+        tools:listitem="@layout/new_book_list_item" />
 
 </RelativeLayout>
