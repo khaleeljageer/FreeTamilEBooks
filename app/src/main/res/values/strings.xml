@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">FreeTamilEbooks</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
+    <string name="title_home">முகப்பு</string>
+    <string name="title_downloads">பதிவிறக்கங்கள்</string>
+    <string name="title_settings">அமைப்புகள்</string>
+    <string name="title_dashboard">தகவல் பலகை</string>
 
     <string name="about_us">எங்களை பற்றி</string>
     <string name="contributors">பங்களிப்பாளர்கள்</string>

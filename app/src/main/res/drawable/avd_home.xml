@@ -1,5 +1,4 @@
-<animated-vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt">
     <aapt:attr name="android:drawable">
         <vector
@@ -11,29 +10,30 @@
             <path
                 android:name="path_1"
                 android:pathData="M 12 3.5 L 2 12.5 L 5 12.5 L 5 20.5 L 11 20.5 L 11 14.5 L 13 14.5 L 13 20.5 L 19 20.5 L 19 12.5 L 22 12.5 Z"
-                android:strokeColor="#000000"
                 android:strokeWidth="1.5"
-                android:strokeLineJoin="round"/>
+                android:strokeColor="#000000"
+                android:strokeLineJoin="round" />
         </vector>
     </aapt:attr>
     <target android:name="path_1">
         <aapt:attr name="android:animation">
             <set>
                 <objectAnimator
-                    android:propertyName="trimPathOffset"
                     android:duration="500"
+                    android:interpolator="@android:anim/linear_interpolator"
+                    android:propertyName="trimPathOffset"
                     android:valueFrom="0.3"
                     android:valueTo="0"
-                    android:valueType="floatType"
-                    android:interpolator="@android:anim/linear_interpolator"/>
+                    android:valueType="floatType" />
                 <objectAnimator
-                    android:propertyName="trimPathStart"
                     android:duration="600"
+                    android:interpolator="@android:anim/linear_interpolator"
+                    android:propertyName="trimPathStart"
                     android:valueFrom="1"
                     android:valueTo="0"
-                    android:valueType="floatType"
-                    android:interpolator="@android:anim/linear_interpolator"/>
+                    android:valueType="floatType" />
             </set>
         </aapt:attr>
     </target>
 </animated-vector>
+

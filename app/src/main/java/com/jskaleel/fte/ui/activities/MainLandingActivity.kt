@@ -18,21 +18,16 @@ class MainLandingActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
 
         val menuItems = arrayOf(
-//            CbnMenuItem(
-//                R.drawable.ic_notification,
-//                R.drawable.avd_notification,
-//                R.id.navigation_notifications
-//            ),
-//            CbnMenuItem(
-//                R.drawable.ic_dashboard,
-//                R.drawable.avd_dashboard,
-//                R.id.navigation_dashboard
-//            ),
+            CbnMenuItem(
+                R.drawable.ic_dashboard,
+                R.drawable.avd_dashboard,
+                R.id.navigation_dashboard
+            ),
             CbnMenuItem(R.drawable.ic_home, R.drawable.avd_home, R.id.navigation_home),
             CbnMenuItem(
-                R.drawable.ic_profile,
-                R.drawable.avd_profile,
-                R.id.navigation_profile
+                R.drawable.ic_download,
+                R.drawable.avd_download,
+                R.id.navigation_downloads
             ),
             CbnMenuItem(
                 R.drawable.ic_settings,
@@ -40,7 +35,7 @@ class MainLandingActivity : AppCompatActivity() {
                 R.id.navigation_settings
             )
         )
-        binding.navView.setMenuItems(menuItems, 0)
+        binding.navView.setMenuItems(menuItems, 1)
         binding.navView.setupWithNavController(navController)
     }
 }
