@@ -8,7 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardContentLayer"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="145dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
@@ -114,8 +114,6 @@
             android:id="@+id/progressIndicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="80"
             app:hideAnimationBehavior="inward"
             app:indicatorColor="@color/orangeDark"
             app:indicatorDirectionLinear="leftToRight"

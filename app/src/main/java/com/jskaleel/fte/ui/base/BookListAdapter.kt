@@ -1,6 +1,7 @@
 package com.jskaleel.fte.ui.base
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -59,16 +60,33 @@ class BookListAdapter(
                 }
 
                 binding.txtDownload.setOnClickListener {
+                    binding.txtDownload.isEnabled = false
                     val dirPath = FileUtils.getRootDirPath(holder.itemView.context)
                     val prDownloader =
                         PRDownloader.download(this.epub, dirPath, "${this.bookid}.epub").build()
-                    prDownloader.start(object : OnDownloadListener {
+
+                    prDownloader.setOnStartOrResumeListener {
+                        binding.progressLayout.visibility = View.VISIBLE
+                        binding.progressIndicator.show()
+                    }.setOnProgressListener {
+                        val progressPercent: Long = it.currentBytes * 100 / it.totalBytes
+                        binding.progressIndicator.progress = progressPercent.toInt()
+                        binding.txtProgress.text =
+                            FileUtils.getProgressDisplayLine(it.currentBytes, it.totalBytes)
+                        binding.progressIndicator.isIndeterminate = false
+                    }.start(object : OnDownloadListener {
                         override fun onDownloadComplete() {
+                            binding.progressLayout.visibility = View.GONE
+                            binding.txtDownload.isEnabled = true
                             PrintLog.info("DownloadComplete : ${prDownloader.downloadId}")
+                            binding.progressIndicator.hide()
                         }
 
                         override fun onError(error: Error?) {
+                            binding.progressLayout.visibility = View.GONE
+                            binding.txtDownload.isEnabled = true
                             PrintLog.info("onError : ${error?.responseCode}")
+                            binding.progressIndicator.hide()
                         }
                     })
                 }
