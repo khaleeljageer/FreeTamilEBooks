@@ -1,27 +1,28 @@
 package com.jskaleel.fte.ui.base
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.downloader.Error
+import com.downloader.OnDownloadListener
+import com.downloader.PRDownloader
+import com.downloader.Status
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.databinding.NewBookListItemBinding
+import com.jskaleel.fte.utils.FileUtils
+import com.jskaleel.fte.utils.PrintLog
 
 class BookListAdapter(
-    private val mContext: Context,
-    private val listener: BookClickListener,
-    private val booksList: MutableList<LocalBooks>,
-    private val type: Int
-) : RecyclerView.Adapter<BookViewHolder>() {
-    private var previousClickedPosition: Int = -1
-
+    private val booksList: MutableList<LocalBooks>
+) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.book_list_item, parent, false)
-        val lp = view.layoutParams as StaggeredGridLayoutManager.LayoutParams
-        lp.height = if (type == 1) parent.measuredHeight / 3 else (parent.measuredHeight / 2.5).toInt()
-        view.layoutParams = lp
-        return BookViewHolder(mContext, view, listener)
+        val binding =
+            NewBookListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BookViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -29,32 +30,59 @@ class BookListAdapter(
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val bookItem = booksList[position]
-        holder.bindData(bookItem, holder.adapterPosition)
-        holder.itemView.setOnClickListener {
-            if (previousClickedPosition == position) {
-                return@setOnClickListener
+        with(holder) {
+            with(booksList[holder.adapterPosition]) {
+                binding.txtBookTitle.text = this.title
+                binding.txtBookAuthor.text = this.author
+
+                Glide.with(holder.itemView.context)
+                    .load(this.image)
+                    .placeholder(R.drawable.placeholder)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(binding.ivBookCover)
+
+                val status = PRDownloader.getStatus(this.bookid.hashCode())
+                binding.txtDownload.text = when (status) {
+                    Status.COMPLETED -> {
+                        "Open"
+                    }
+                    Status.FAILED, Status.CANCELLED, Status.UNKNOWN -> {
+                        "Download"
+                    }
+                    Status.RUNNING, Status.QUEUED -> {
+                        "Downloading"
+                    }
+                    else -> {
+                        "Download"
+                    }
+                }
+
+                binding.txtDownload.setOnClickListener {
+                    val dirPath = FileUtils.getRootDirPath(holder.itemView.context)
+                    val prDownloader =
+                        PRDownloader.download(this.epub, dirPath, "${this.bookid}.epub").build()
+                    prDownloader.start(object : OnDownloadListener {
+                        override fun onDownloadComplete() {
+                            PrintLog.info("DownloadComplete : ${prDownloader.downloadId}")
+                        }
+
+                        override fun onError(error: Error?) {
+                            PrintLog.info("onError : ${error?.responseCode}")
+                        }
+                    })
+                }
             }
-            if (previousClickedPosition != -1) {
-                booksList[previousClickedPosition].isExpanded = false
-                notifyItemChanged(previousClickedPosition)
-            }
-            previousClickedPosition = position
-            val expanded = bookItem.isExpanded
-            bookItem.isExpanded = !expanded
-            notifyItemChanged(position)
         }
     }
 
     fun loadBooks(books: List<LocalBooks>) {
-        previousClickedPosition = -1
         booksList.clear()
         booksList.addAll(books)
         notifyDataSetChanged()
     }
 
     fun clearBooks() {
-        previousClickedPosition = -1
         booksList.clear()
         notifyDataSetChanged()
     }
@@ -72,15 +100,18 @@ class BookListAdapter(
     }
 
     fun removeItem(adapterPosition: Int, newBook: LocalBooks) {
-        previousClickedPosition = -1
         booksList.removeAt(adapterPosition)
         notifyItemRemoved(adapterPosition)
         notifyItemRangeChanged(adapterPosition, itemCount)
     }
 
     fun addNewItem(downloadedBook: LocalBooks) {
-        previousClickedPosition = -1;
         booksList.add(downloadedBook)
         notifyItemInserted(itemCount + 1)
     }
+
+    inner class BookViewHolder(
+        val binding: NewBookListItemBinding,
+    ) :
+        RecyclerView.ViewHolder(binding.root)
 }

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.jskaleel.fte.database.dao.LocalBooksDao
 import com.jskaleel.fte.database.entities.LocalBooks
 
-@Database(entities = [LocalBooks::class], version = 2, exportSchema = false)
+@Database(entities = [LocalBooks::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun localBooksDao(): LocalBooksDao
@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "fte_local_books.db"
+                    "local_books.db"
                 ).allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()

@@ -77,7 +77,7 @@ class SearchFragment : Fragment(), BookClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvSearchList?.setHasFixedSize(true)
-        adapter = BookListAdapter(mContext, this@SearchFragment, mutableListOf(), 2)
+        adapter = BookListAdapter(mutableListOf())
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvSearchList?.layoutManager = layoutManger
         rvSearchList?.adapter = adapter
@@ -129,7 +129,8 @@ class SearchFragment : Fragment(), BookClickListener {
                                 }
                             ).isChecked = true
                             val query = edtSearch!!.text.toString()
-                            popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                            popup.setOnMenuItemClickListener(object :
+                                PopupMenu.OnMenuItemClickListener {
                                 override fun onMenuItemClick(item: MenuItem): Boolean {
                                     when (item.itemId) {
                                         R.id.title -> {
@@ -137,7 +138,10 @@ class SearchFragment : Fragment(), BookClickListener {
                                             filterType = 1
                                             if (query.length > 3) {
                                                 searchHandler.removeMessages(triggerNewService)
-                                                searchHandler.sendEmptyMessageDelayed(triggerNewService, 500)
+                                                searchHandler.sendEmptyMessageDelayed(
+                                                    triggerNewService,
+                                                    500
+                                                )
                                             }
                                             return true
                                         }
@@ -146,7 +150,10 @@ class SearchFragment : Fragment(), BookClickListener {
                                             filterType = 2
                                             if (query.length > 3) {
                                                 searchHandler.removeMessages(triggerNewService)
-                                                searchHandler.sendEmptyMessageDelayed(triggerNewService, 500)
+                                                searchHandler.sendEmptyMessageDelayed(
+                                                    triggerNewService,
+                                                    500
+                                                )
                                             }
                                             return true
                                         }
@@ -173,10 +180,20 @@ class SearchFragment : Fragment(), BookClickListener {
                         searchHandler.removeMessages(triggerNewService)
                         searchHandler.sendEmptyMessageDelayed(triggerNewService, 1000)
                     }
-                    edtSearch?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_clear_black_24dp, 0)
+                    edtSearch?.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_clear_black_24dp,
+                        0
+                    )
                     edtSearch?.tag = "CLEAR"
                 } else {
-                    edtSearch?.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_tune_black_24dp, 0)
+                    edtSearch?.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.ic_tune_black_24dp,
+                        0
+                    )
                     edtSearch?.tag = "FILTER"
                     searchHandler.removeMessages(triggerNewService)
                     adapter.clearBooks()
@@ -189,7 +206,11 @@ class SearchFragment : Fragment(), BookClickListener {
         adapter.loadBooks(books)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 }

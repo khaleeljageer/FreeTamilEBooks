@@ -74,7 +74,7 @@ class DownloadsFragment : Fragment(), BookClickListener {
         super.onActivityCreated(savedInstanceState)
         rvDownloadList?.setHasFixedSize(true)
 
-        adapter = BookListAdapter(mContext, this@DownloadsFragment, mutableListOf(), 1)
+        adapter = BookListAdapter(mutableListOf())
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvDownloadList?.layoutManager = layoutManger
         rvDownloadList?.adapter = adapter

@@ -32,7 +32,7 @@ object CommonAppData {
                     if (result != null && result.books.isNotEmpty()) {
                         for ((i, localBook) in result.books.withIndex()) {
                             if (!localBooksDao.isIdAvailable(localBook.bookid)) {
-                                localBook.createdAt = System.currentTimeMillis()
+//                                localBook.createdAt = System.currentTimeMillis()
                                 localBook.downloadId = -1
                                 localBook.isDownloaded = false
                                 localBook.savedPath = ""

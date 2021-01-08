@@ -16,7 +16,7 @@ object FileUtils {
             file.absolutePath
         } else {
             context.applicationContext.filesDir.absolutePath
-        }
+        } + "/books"
     }
 
     fun getProgressDisplayLine(currentBytes: Long, totalBytes: Long): String {

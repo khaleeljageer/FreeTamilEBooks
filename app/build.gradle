@@ -37,8 +37,8 @@ android {
     dexOptions {
         javaMaxHeapSize "4G"
     }
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding true
     }
 }
 

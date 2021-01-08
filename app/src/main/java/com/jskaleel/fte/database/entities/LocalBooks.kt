@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+
 @Entity(tableName = "localBooks")
 data class LocalBooks(
     @ColumnInfo(name = "title")
@@ -21,14 +22,10 @@ data class LocalBooks(
     @ColumnInfo(name = "category")
     val category: String,
 
-    @ColumnInfo(name = "createdAt")
-    var createdAt: Long,
     @ColumnInfo(name = "is_downloaded")
     var isDownloaded: Boolean,
     @ColumnInfo(name = "download_id")
     var downloadId: Long,
     @ColumnInfo(name = "saved_path")
-    var savedPath: String,
-
-    var isExpanded: Boolean = false
+    var savedPath: String
 ) : Serializable
