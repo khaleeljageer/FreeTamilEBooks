@@ -9,10 +9,10 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.databinding.NewBookListItemBinding
-import com.jskaleel.fte.utils.FileUtils
 
 class BookListAdapter(
-    private val booksList: MutableList<LocalBooks>, private val mListener: (LocalBooks) -> Unit
+    private val booksList: MutableList<LocalBooks>,
+    private val mListener: (position: Int, book: LocalBooks) -> Unit
 ) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -31,7 +31,7 @@ class BookListAdapter(
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         with(holder) {
-            with(booksList[holder.adapterPosition]) {
+            with(booksList[this.adapterPosition]) {
                 binding.txtBookTitle.text = this.title
                 binding.txtBookAuthor.text = this.author
 
@@ -46,7 +46,7 @@ class BookListAdapter(
 
                 binding.txtDownload.setOnClickListener {
                     binding.txtDownload.isEnabled = false
-                    mListener.invoke(this)
+                    mListener.invoke(holder.adapterPosition, this)
                 }
             }
         }

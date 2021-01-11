@@ -25,7 +25,7 @@ import java.io.File
 import java.lang.reflect.Type
 
 
-class HomeFragment : Fragment(), CoroutineScope, (LocalBooks) -> Unit {
+class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
 
     override val coroutineContext = Dispatchers.Main + Job()
     private val appDataBase: AppDatabase by lazy {
@@ -92,7 +92,7 @@ class HomeFragment : Fragment(), CoroutineScope, (LocalBooks) -> Unit {
         }
     }
 
-    override fun invoke(book: LocalBooks) {
+    override fun invoke(position: Int, book: LocalBooks) {
 
         launch {
             val message = withContext(Dispatchers.IO) {
