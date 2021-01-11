@@ -9,6 +9,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.databinding.NewBookListItemBinding
+import com.jskaleel.fte.utils.show
 
 class BookListAdapter(
     private val booksList: MutableList<LocalBooks>,
@@ -46,6 +47,7 @@ class BookListAdapter(
 
                 binding.txtDownload.setOnClickListener {
                     binding.txtDownload.isEnabled = false
+                    binding.progressIndicator.show()
                     mListener.invoke(holder.adapterPosition, this)
                 }
             }

@@ -1,6 +1,6 @@
 package com.jskaleel.fte.utils
 
-import android.content.Context
+import android.view.View
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -16,7 +16,16 @@ fun InputStream.copyStreamToFile(outputFile: File) {
                 if (byteCount < 0) break
                 output.write(buffer, 0, byteCount)
             }
+
             output.flush()
         }
     }
+}
+
+fun View.show() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.hide() {
+    this.visibility = View.GONE
 }

@@ -76,7 +76,7 @@ class SearchFragment : Fragment(), BookClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvSearchList?.setHasFixedSize(true)
-        adapter = BookListAdapter(mutableListOf()) {
+        adapter = BookListAdapter(mutableListOf()) { _, _ ->
 
         }
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)

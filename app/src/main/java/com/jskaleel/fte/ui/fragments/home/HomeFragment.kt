@@ -93,7 +93,6 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
     }
 
     override fun invoke(position: Int, book: LocalBooks) {
-
         launch {
             val message = withContext(Dispatchers.IO) {
                 downloadBook(book)
@@ -115,6 +114,7 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
         val response = httpClient.newCall(request).execute()
         if (response.body() != null) {
             val buffer = response.body()!!.byteStream()
+            val length = response.body()!!.contentLength()
             buffer.copyStreamToFile(filePath)
         }
 

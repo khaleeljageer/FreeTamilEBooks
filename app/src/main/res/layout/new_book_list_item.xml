@@ -8,7 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardContentLayer"
         android:layout_width="0dp"
-        android:layout_height="145dp"
+        android:layout_height="140dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:elevation="4dp"
         android:ellipsize="end"
         android:lineSpacingExtra="4dp"
@@ -64,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:elevation="4dp"
         android:ellipsize="end"
         android:maxLines="1"
@@ -95,45 +97,24 @@
         tools:text="Download"
         tools:textColor="@color/black" />
 
-    <LinearLayout
-        android:id="@+id/progressLayout"
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:elevation="4dp"
-        android:gravity="bottom"
-        android:orientation="vertical"
+        android:elevation="5dp"
+        android:indeterminate="true"
         android:visibility="gone"
+        app:hideAnimationBehavior="inward"
+        app:indicatorColor="@color/orangeDark"
+        app:indicatorDirectionLinear="leftToRight"
         app:layout_constraintBottom_toTopOf="@+id/txtDownload"
         app:layout_constraintEnd_toEndOf="@+id/cardContentLayer"
-        app:layout_constraintStart_toEndOf="@+id/cardImageLayer">
-
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressIndicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hideAnimationBehavior="inward"
-            app:indicatorColor="@color/orangeDark"
-            app:indicatorDirectionLinear="leftToRight"
-            app:showAnimationBehavior="outward"
-            app:showDelay="300"
-            app:trackCornerRadius="2dp"
-            app:trackThickness="2dp" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:elevation="4dp"
-            android:maxLines="1"
-            android:textSize="9sp"
-            app:textAllCaps="true"
-            tools:ignore="SmallSp"
-            tools:text="0.21 MB/2.10 MB"
-            tools:textColor="@color/black" />
-    </LinearLayout>
-
+        app:layout_constraintStart_toEndOf="@+id/cardImageLayer"
+        app:layout_constraintTop_toBottomOf="@+id/txtBookTitle"
+        app:showAnimationBehavior="outward"
+        app:showDelay="300"
+        app:trackCornerRadius="3dp"
+        app:trackThickness="3dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
