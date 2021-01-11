@@ -7,7 +7,7 @@ import java.io.File
 import java.util.*
 
 object FileUtils {
-    fun getRootDirPath(context: Context): String? {
+    fun getRootDirPath(context: Context): String {
         return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
             val file: File = ContextCompat.getExternalFilesDirs(
                 context.applicationContext,

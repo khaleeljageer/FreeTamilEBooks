@@ -23,26 +23,25 @@ import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.PrintLog
-import com.jskaleel.fte.utils.downloader.DownloadUtil
 
 
 class SearchFragment : Fragment(), BookClickListener {
     override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
-        val newBook = DownloadUtil.removeDownload(mContext, book)
-        adapter.updateItemStatus(adapterPosition, newBook)
+//        val newBook = DownloadUtil.removeDownload(mContext, book)
+//        adapter.updateItemStatus(adapterPosition, newBook)
     }
 
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
-        if (book.isDownloaded) {
-            DownloadUtil.openSavedBook(mContext, book)
-        } else {
-            if (book.downloadId == -1L) {
-                val downloadID = DownloadUtil.queueForDownload(mContext, book)
-                if (downloadID != 0L) {
-                    adapter.updateDownloadId(adapterPosition, downloadID)
-                }
-            }
-        }
+//        if (book.isDownloaded) {
+//            DownloadUtil.openSavedBook(mContext, book)
+//        } else {
+//            if (book.downloadId == -1L) {
+//                val downloadID = DownloadUtil.queueForDownload(mContext, book)
+//                if (downloadID != 0L) {
+//                    adapter.updateDownloadId(adapterPosition, downloadID)
+//                }
+//            }
+//        }
     }
 
     private var searchView: MaterialCardView? = null
@@ -77,7 +76,9 @@ class SearchFragment : Fragment(), BookClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rvSearchList?.setHasFixedSize(true)
-        adapter = BookListAdapter(mutableListOf())
+        adapter = BookListAdapter(mutableListOf()) {
+
+        }
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvSearchList?.layoutManager = layoutManger
         rvSearchList?.adapter = adapter

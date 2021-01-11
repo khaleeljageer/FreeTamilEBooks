@@ -1,25 +1,20 @@
 package com.jskaleel.fte.ui.base
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.downloader.Error
-import com.downloader.OnDownloadListener
-import com.downloader.PRDownloader
-import com.downloader.Status
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.databinding.NewBookListItemBinding
 import com.jskaleel.fte.utils.FileUtils
-import com.jskaleel.fte.utils.PrintLog
 
 class BookListAdapter(
-    private val booksList: MutableList<LocalBooks>
+    private val booksList: MutableList<LocalBooks>, private val mListener: (LocalBooks) -> Unit
 ) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val binding =
             NewBookListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +23,10 @@ class BookListAdapter(
 
     override fun getItemCount(): Int {
         return booksList.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
@@ -43,52 +42,11 @@ class BookListAdapter(
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.ivBookCover)
 
-                val status = PRDownloader.getStatus(this.bookid.hashCode())
-                binding.txtDownload.text = when (status) {
-                    Status.COMPLETED -> {
-                        "Open"
-                    }
-                    Status.FAILED, Status.CANCELLED, Status.UNKNOWN -> {
-                        "Download"
-                    }
-                    Status.RUNNING, Status.QUEUED -> {
-                        "Downloading"
-                    }
-                    else -> {
-                        "Download"
-                    }
-                }
+                binding.txtDownload.text = "Download"
 
                 binding.txtDownload.setOnClickListener {
                     binding.txtDownload.isEnabled = false
-                    val dirPath = FileUtils.getRootDirPath(holder.itemView.context)
-                    val prDownloader =
-                        PRDownloader.download(this.epub, dirPath, "${this.bookid}.epub").build()
-
-                    prDownloader.setOnStartOrResumeListener {
-                        binding.progressLayout.visibility = View.VISIBLE
-                        binding.progressIndicator.show()
-                    }.setOnProgressListener {
-                        val progressPercent: Long = it.currentBytes * 100 / it.totalBytes
-                        binding.progressIndicator.progress = progressPercent.toInt()
-                        binding.txtProgress.text =
-                            FileUtils.getProgressDisplayLine(it.currentBytes, it.totalBytes)
-                        binding.progressIndicator.isIndeterminate = false
-                    }.start(object : OnDownloadListener {
-                        override fun onDownloadComplete() {
-                            binding.progressLayout.visibility = View.GONE
-                            binding.txtDownload.isEnabled = true
-                            PrintLog.info("DownloadComplete : ${prDownloader.downloadId}")
-                            binding.progressIndicator.hide()
-                        }
-
-                        override fun onError(error: Error?) {
-                            binding.progressLayout.visibility = View.GONE
-                            binding.txtDownload.isEnabled = true
-                            PrintLog.info("onError : ${error?.responseCode}")
-                            binding.progressIndicator.hide()
-                        }
-                    })
+                    mListener.invoke(this)
                 }
             }
         }

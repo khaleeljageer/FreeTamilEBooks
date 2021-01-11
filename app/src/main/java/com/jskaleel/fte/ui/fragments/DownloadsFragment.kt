@@ -20,20 +20,19 @@ import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils
 import com.jskaleel.fte.utils.RxBus
-import com.jskaleel.fte.utils.downloader.DownloadUtil
 
 class DownloadsFragment : Fragment(), BookClickListener {
     override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
-        val newBook = DownloadUtil.removeDownload(mContext, book)
-        adapter.removeItem(adapterPosition, newBook)
-        if (adapter.itemCount == 0) {
-            rvDownloadList?.visibility = View.GONE
-            emptyLayout?.visibility = View.VISIBLE
-        }
+//        val newBook = DownloadUtil.removeDownload(mContext, book)
+//        adapter.removeItem(adapterPosition, newBook)
+//        if (adapter.itemCount == 0) {
+//            rvDownloadList?.visibility = View.GONE
+//            emptyLayout?.visibility = View.VISIBLE
+//        }
     }
 
     override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
-        DownloadUtil.openSavedBook(mContext, book)
+//        DownloadUtil.openSavedBook(mContext, book)
     }
 
     private var toolBar: Toolbar? = null
@@ -74,7 +73,9 @@ class DownloadsFragment : Fragment(), BookClickListener {
         super.onActivityCreated(savedInstanceState)
         rvDownloadList?.setHasFixedSize(true)
 
-        adapter = BookListAdapter(mutableListOf())
+        adapter = BookListAdapter(mutableListOf()) {
+
+        }
         val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         rvDownloadList?.layoutManager = layoutManger
         rvDownloadList?.adapter = adapter

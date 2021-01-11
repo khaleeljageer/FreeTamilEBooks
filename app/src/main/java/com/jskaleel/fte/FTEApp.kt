@@ -7,26 +7,31 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import androidx.multidex.MultiDexApplication
-import com.downloader.PRDownloader
-import com.downloader.PRDownloaderConfig
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
+import com.jskaleel.fte.module.networkModule
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.Constants
+import com.jskaleel.fte.utils.FileUtils
 import com.jskaleel.fte.utils.NetworkSchedulerService
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import java.io.File
 import java.util.*
+
 
 class FTEApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
 
-        val config = PRDownloaderConfig.newBuilder()
-            .setDatabaseEnabled(true)
-            .setUserAgent("FTEAndroid")
-            .build()
-        PRDownloader.initialize(applicationContext, config)
+        startKoin {
+            modules(networkModule)
+            androidContext(this@FTEApp)
+        }
+
+        createFolder()
 
         scheduleJob()
 
@@ -40,6 +45,11 @@ class FTEApp : MultiDexApplication() {
         } else {
             FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.CHANNEL_NAME)
         }
+    }
+
+    private fun createFolder() {
+        val dirPath = File(FileUtils.getRootDirPath(applicationContext))
+        if (!dirPath.exists()) dirPath.mkdirs()
     }
 
     private fun scheduleJob() {
