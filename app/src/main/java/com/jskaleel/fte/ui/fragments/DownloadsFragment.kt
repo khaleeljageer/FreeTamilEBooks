@@ -105,8 +105,8 @@ class DownloadsFragment : Fragment(), BookClickListener {
             when (it) {
                 is DownloadCompleted -> {
                     if (isAdded) {
-                        val downloadedBook = appDataBase.getDownloadedBook(it.downloadId)
-                        adapter.addNewItem(downloadedBook)
+//                        val downloadedBook = appDataBase.getDownloadedBook(it.downloadId)
+//                        adapter.addNewItem(downloadedBook)
                     }
                 }
             }

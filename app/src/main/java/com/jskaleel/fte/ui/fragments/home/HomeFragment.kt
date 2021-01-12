@@ -114,7 +114,6 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
         val response = httpClient.newCall(request).execute()
         if (response.body() != null) {
             val buffer = response.body()!!.byteStream()
-            val length = response.body()!!.contentLength()
             buffer.copyStreamToFile(filePath)
         }
 

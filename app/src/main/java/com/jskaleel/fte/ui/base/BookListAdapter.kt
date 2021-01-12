@@ -9,7 +9,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.databinding.NewBookListItemBinding
-import com.jskaleel.fte.utils.show
 
 class BookListAdapter(
     private val booksList: MutableList<LocalBooks>,
@@ -43,9 +42,19 @@ class BookListAdapter(
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.ivBookCover)
 
-                binding.txtDownload.text = "Download"
+
+                if (this.isClicked) {
+                    binding.txtDownload.text = "Downloading"
+                    binding.txtDownload.isEnabled = false
+                    binding.progressIndicator.show()
+                } else {
+                    binding.txtDownload.text = "Download"
+                    binding.txtDownload.isEnabled = true
+                    binding.progressIndicator.hide()
+                }
 
                 binding.txtDownload.setOnClickListener {
+                    this.isClicked = true
                     binding.txtDownload.isEnabled = false
                     binding.progressIndicator.show()
                     mListener.invoke(holder.adapterPosition, this)
@@ -68,12 +77,12 @@ class BookListAdapter(
     fun updateItemStatus(itemPosition: Int, downloadedBook: LocalBooks) {
         booksList[itemPosition].savedPath = downloadedBook.savedPath
         booksList[itemPosition].isDownloaded = downloadedBook.isDownloaded
-        booksList[itemPosition].downloadId = downloadedBook.downloadId
+//        booksList[itemPosition].downloadId = downloadedBook.downloadId
         notifyItemChanged(itemPosition)
     }
 
     fun updateDownloadId(itemPosition: Int, downloadID: Long) {
-        booksList[itemPosition].downloadId = downloadID
+//        booksList[itemPosition].downloadId = downloadID
         notifyItemChanged(itemPosition)
     }
 

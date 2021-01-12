@@ -26,20 +26,14 @@ interface LocalBooksDao {
     @Query("SELECT * from localBooks WHERE author LIKE :author")
     fun getBooksByAuthor(author: String): List<LocalBooks>
 
-    @Query("SELECT * from localBooks WHERE download_id = :downloadId")
-    fun getDownloadedBook(downloadId: Long): LocalBooks
-
     @Query("SELECT * from localBooks WHERE bookid = :bookId")
     fun getBookByBookId(bookId: String): LocalBooks
 
-    @Query("UPDATE localBooks SET download_id = :downloadId, saved_path = :filePath WHERE bookid = :bookId")
-    fun updateDownloadDetails(filePath: String, downloadId: Long, bookId: String)
+    @Query("UPDATE localBooks SET saved_path = :filePath WHERE bookid = :bookId")
+    fun updateDownloadDetails(filePath: String, bookId: String)
 
-    @Query("UPDATE localBooks SET is_downloaded = :isDownloaded WHERE download_id = :downloadId")
-    fun updateStatus(isDownloaded: Boolean, downloadId: Long)
-
-    @Query("UPDATE localBooks SET is_downloaded = :isDownloaded, download_id = :downloadId, saved_path = :filePath WHERE bookid = :bookId")
-    fun updateStatusByBookId(isDownloaded: Boolean, downloadId: Long, filePath: String, bookId: String)
+    @Query("UPDATE localBooks SET is_downloaded = :isDownloaded, saved_path = :filePath WHERE bookid = :bookId")
+    fun updateStatusByBookId(isDownloaded: Boolean, filePath: String, bookId: String)
 
     @Query("SELECT * from localBooks WHERE is_downloaded = :isDownloaded")
     fun getDownloadedBooks(isDownloaded: Boolean): List<LocalBooks>

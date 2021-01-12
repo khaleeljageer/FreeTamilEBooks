@@ -24,8 +24,8 @@ data class LocalBooks(
 
     @ColumnInfo(name = "is_downloaded")
     var isDownloaded: Boolean,
-    @ColumnInfo(name = "download_id")
-    var downloadId: Long,
     @ColumnInfo(name = "saved_path")
-    var savedPath: String
+    var savedPath: String,
+
+    var isClicked: Boolean = false
 ) : Serializable
