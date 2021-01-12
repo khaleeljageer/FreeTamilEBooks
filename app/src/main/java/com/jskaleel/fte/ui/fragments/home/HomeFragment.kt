@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,25 +13,21 @@ import com.google.gson.reflect.TypeToken
 import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.database.entities.SavedBooks
+import com.jskaleel.fte.model.DownloadResult
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.FileUtils
-import com.jskaleel.fte.utils.copyStreamToFile
+import com.jskaleel.fte.utils.PrintLog
 import kotlinx.coroutines.*
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import org.koin.android.ext.android.inject
-import java.io.File
 import java.lang.reflect.Type
-
 
 class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
 
-    override val coroutineContext = Dispatchers.Main + Job()
+    val job = Job()
+    override val coroutineContext = Dispatchers.Main + job
     private val appDataBase: AppDatabase by lazy {
         AppDatabase.getAppDatabase(mContext)
     }
-
-    private val httpClient: OkHttpClient by inject()
 
 //    override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
 //        val newBook = DownloadUtil.removeDownload(mContext, book)
@@ -90,33 +85,57 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
             this.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             this.adapter = bookListAdapter
         }
+
+        PrintLog.info("DBSize : ${appDataBase.savedBooksDao().getAllLocalBooks()}")
     }
 
     override fun invoke(position: Int, book: LocalBooks) {
-        launch {
-            val message = withContext(Dispatchers.IO) {
-                downloadBook(book)
-            }
-            Toast.makeText(requireContext(), "Status : $message", Toast.LENGTH_SHORT).show()
+        if (position == -1) {
+            openBook(book)
+        } else {
+            downloadBook(position, book)
         }
     }
 
-    private fun downloadBook(book: LocalBooks): String {
-        val filePath =
-            File(
-                FileUtils.getRootDirPath(requireContext()),
-                "${book.bookid}.epub"
-            )
-        val request =
-            Request.Builder()
-                .url(book.epub)
-                .build()
-        val response = httpClient.newCall(request).execute()
-        if (response.body() != null) {
-            val buffer = response.body()!!.byteStream()
-            buffer.copyStreamToFile(filePath)
-        }
+    private fun openBook(book: LocalBooks) {
+        FileUtils.openSavedBook(requireContext(), book)
+    }
 
-        return response.message()
+    private fun downloadBook(position: Int, book: LocalBooks) {
+        launch {
+            val result = withContext(Dispatchers.IO) {
+                FileUtils.downloadBook(requireContext(), book)
+            }
+            when (result) {
+                is DownloadResult.Success -> {
+                    book.savedPath = result.filePath.absolutePath
+                    book.isDownloaded = true
+                    bookListAdapter.successUiUpdate(position, book)
+                    updateDatabase(book)
+                }
+                is DownloadResult.Error -> {
+                    bookListAdapter.errorUiUpdate(position)
+                    //Show Snack bar. if needed
+                }
+            }
+        }
+    }
+
+    private fun updateDatabase(book: LocalBooks) {
+        appDataBase.savedBooksDao().insert(
+            SavedBooks(
+                book.title,
+                book.image,
+                book.author,
+                book.epub,
+                book.bookid,
+                book.savedPath
+            )
+        )
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
     }
 }

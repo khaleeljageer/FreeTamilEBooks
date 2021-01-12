@@ -43,21 +43,30 @@ class BookListAdapter(
                     .into(binding.ivBookCover)
 
 
+
                 if (this.isClicked) {
-                    binding.txtDownload.text = "Downloading"
+                    binding.txtDownload.text = "Wait..."
                     binding.txtDownload.isEnabled = false
                     binding.progressIndicator.show()
                 } else {
-                    binding.txtDownload.text = "Download"
+                    binding.txtDownload.text = if (this.isDownloaded) {
+                        "Read"
+                    } else {
+                        "Download"
+                    }
                     binding.txtDownload.isEnabled = true
                     binding.progressIndicator.hide()
                 }
 
                 binding.txtDownload.setOnClickListener {
-                    this.isClicked = true
-                    binding.txtDownload.isEnabled = false
-                    binding.progressIndicator.show()
-                    mListener.invoke(holder.adapterPosition, this)
+                    if (this.isDownloaded) {
+                        mListener.invoke(-1, this)
+                    } else {
+                        this.isClicked = true
+                        binding.txtDownload.isEnabled = false
+                        binding.progressIndicator.show()
+                        mListener.invoke(holder.adapterPosition, this)
+                    }
                 }
             }
         }
@@ -77,7 +86,6 @@ class BookListAdapter(
     fun updateItemStatus(itemPosition: Int, downloadedBook: LocalBooks) {
         booksList[itemPosition].savedPath = downloadedBook.savedPath
         booksList[itemPosition].isDownloaded = downloadedBook.isDownloaded
-//        booksList[itemPosition].downloadId = downloadedBook.downloadId
         notifyItemChanged(itemPosition)
     }
 
@@ -95,6 +103,24 @@ class BookListAdapter(
     fun addNewItem(downloadedBook: LocalBooks) {
         booksList.add(downloadedBook)
         notifyItemInserted(itemCount + 1)
+    }
+
+    fun successUiUpdate(itemPosition: Int, book: LocalBooks) {
+        booksList[itemPosition].apply {
+            savedPath = book.savedPath
+            isDownloaded = book.isDownloaded
+            isClicked = false
+        }
+        notifyItemChanged(itemPosition)
+    }
+
+    fun errorUiUpdate(itemPosition: Int) {
+        booksList[itemPosition].apply {
+            savedPath = ""
+            isDownloaded = false
+            isClicked = false
+        }
+        notifyItemChanged(itemPosition)
     }
 
     inner class BookViewHolder(

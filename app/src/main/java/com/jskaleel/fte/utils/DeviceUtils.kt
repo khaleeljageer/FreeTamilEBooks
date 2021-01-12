@@ -3,10 +3,7 @@ package com.jskaleel.fte.utils
 import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
-import android.os.Environment
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
-import java.io.File
 import java.util.regex.Pattern
 
 
@@ -14,13 +11,18 @@ object DeviceUtils {
     fun hideSoftKeyboard(activity: Activity) {
         val view = activity.currentFocus
         if (view != null) {
-            val inputManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            val inputManager =
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(
+                view.windowToken,
+                InputMethodManager.HIDE_NOT_ALWAYS
+            )
         }
     }
 
     fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
@@ -34,5 +36,12 @@ object DeviceUtils {
                     + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
                     + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
         ).matcher(email).matches()
+    }
+
+    fun getCommonErrorMessage(code: Int): String = when (code) {
+        400 -> "This request is wrong"
+        401 -> "You are not authorised to access this file"
+        404 -> "The file/page is not found"
+        else -> "Something gone wrong"
     }
 }

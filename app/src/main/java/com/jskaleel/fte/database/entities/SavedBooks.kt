@@ -10,9 +10,15 @@ import java.io.Serializable
 data class SavedBooks(
     @ColumnInfo(name = "title")
     val title: String,
+    @ColumnInfo(name = "image")
+    val image: String,
+    @ColumnInfo(name = "author")
+    val author: String,
+    @ColumnInfo(name = "epub")
+    val epub: String,
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "bookid")
     var bookid: String,
-    @ColumnInfo(name = "pr_id")
-    val prId: String
+    @ColumnInfo(name = "saved_path")
+    var savedPath: String
 ) : Serializable
