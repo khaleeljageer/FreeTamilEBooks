@@ -14,39 +14,20 @@ import com.jskaleel.fte.R
 import com.jskaleel.fte.database.AppDatabase
 import com.jskaleel.fte.database.entities.LocalBooks
 import com.jskaleel.fte.database.entities.SavedBooks
+import com.jskaleel.fte.databinding.FragmentHomeBinding
 import com.jskaleel.fte.model.DownloadResult
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.FileUtils
-import com.jskaleel.fte.utils.PrintLog
 import kotlinx.coroutines.*
 import java.lang.reflect.Type
 
 class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
 
-    val job = Job()
+    private val job = Job()
     override val coroutineContext = Dispatchers.Main + job
     private val appDataBase: AppDatabase by lazy {
         AppDatabase.getAppDatabase(mContext)
     }
-
-//    override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
-//        val newBook = DownloadUtil.removeDownload(mContext, book)
-//        adapter.updateItemStatus(adapterPosition, newBook)
-//    }
-//
-//    override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
-//        if (book.isDownloaded) {
-//            DownloadUtil.openSavedBook(mContext, book)
-//        } else {
-//            if (book.downloadId == -1L) {
-//                val downloadID = DownloadUtil.queueForDownload(mContext, book)
-//                if (downloadID != 0L) {
-//                    adapter.updateDownloadId(adapterPosition, downloadID)
-//                    downloadsPositions.put(downloadID, adapterPosition.toLong())
-//                }
-//            }
-//        }
-//    }
 
     private lateinit var bookListAdapter: BookListAdapter
     private lateinit var mContext: Context
@@ -60,8 +41,8 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        return FragmentHomeBinding.inflate(inflater, container, false).root
     }
 
     private fun Context.loadJSONFromAssets(fileName: String): String {
@@ -85,8 +66,6 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
             this.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             this.adapter = bookListAdapter
         }
-
-        PrintLog.info("DBSize : ${appDataBase.savedBooksDao().getAllLocalBooks()}")
     }
 
     override fun invoke(position: Int, book: LocalBooks) {
@@ -108,8 +87,8 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
             }
             when (result) {
                 is DownloadResult.Success -> {
-                    book.savedPath = result.filePath.absolutePath
                     book.isDownloaded = true
+                    book.savedPath = result.filePath.absolutePath
                     bookListAdapter.successUiUpdate(position, book)
                     updateDatabase(book)
                 }

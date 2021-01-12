@@ -2,6 +2,7 @@ package com.jskaleel.fte.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -32,29 +33,22 @@ class BookListAdapter(
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         with(holder) {
             with(booksList[this.adapterPosition]) {
+                val context = holder.itemView.context
                 binding.txtBookTitle.text = this.title
                 binding.txtBookAuthor.text = this.author
 
-                Glide.with(holder.itemView.context)
+                Glide.with(context)
                     .load(this.image)
                     .placeholder(R.drawable.placeholder)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.ivBookCover)
 
-
-
                 if (this.isClicked) {
-                    binding.txtDownload.text = "Wait..."
-                    binding.txtDownload.isEnabled = false
+                    binding.txtDownload.disableButton()
                     binding.progressIndicator.show()
                 } else {
-                    binding.txtDownload.text = if (this.isDownloaded) {
-                        "Read"
-                    } else {
-                        "Download"
-                    }
-                    binding.txtDownload.isEnabled = true
+                    binding.txtDownload.enableButton(this.isDownloaded)
                     binding.progressIndicator.hide()
                 }
 
@@ -63,12 +57,30 @@ class BookListAdapter(
                         mListener.invoke(-1, this)
                     } else {
                         this.isClicked = true
-                        binding.txtDownload.isEnabled = false
+                        binding.txtDownload.disableButton()
                         binding.progressIndicator.show()
                         mListener.invoke(holder.adapterPosition, this)
                     }
                 }
             }
+        }
+    }
+
+    private fun TextView.enableButton(status: Boolean) {
+        this.apply {
+            isEnabled = true
+            text = if (status) {
+                "Read"
+            } else {
+                "Download"
+            }
+        }
+    }
+
+    private fun TextView.disableButton() {
+        this.apply {
+            isEnabled = false
+            text = "Wait..."
         }
     }
 
@@ -81,28 +93,6 @@ class BookListAdapter(
     fun clearBooks() {
         booksList.clear()
         notifyDataSetChanged()
-    }
-
-    fun updateItemStatus(itemPosition: Int, downloadedBook: LocalBooks) {
-        booksList[itemPosition].savedPath = downloadedBook.savedPath
-        booksList[itemPosition].isDownloaded = downloadedBook.isDownloaded
-        notifyItemChanged(itemPosition)
-    }
-
-    fun updateDownloadId(itemPosition: Int, downloadID: Long) {
-//        booksList[itemPosition].downloadId = downloadID
-        notifyItemChanged(itemPosition)
-    }
-
-    fun removeItem(adapterPosition: Int, newBook: LocalBooks) {
-        booksList.removeAt(adapterPosition)
-        notifyItemRemoved(adapterPosition)
-        notifyItemRangeChanged(adapterPosition, itemCount)
-    }
-
-    fun addNewItem(downloadedBook: LocalBooks) {
-        booksList.add(downloadedBook)
-        notifyItemInserted(itemCount + 1)
     }
 
     fun successUiUpdate(itemPosition: Int, book: LocalBooks) {
