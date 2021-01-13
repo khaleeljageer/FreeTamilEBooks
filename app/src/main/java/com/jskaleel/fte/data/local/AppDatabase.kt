@@ -1,13 +1,13 @@
-package com.jskaleel.fte.database
+package com.jskaleel.fte.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.jskaleel.fte.database.dao.LocalBooksDao
-import com.jskaleel.fte.database.dao.SavedBooksDao
-import com.jskaleel.fte.database.entities.LocalBooks
-import com.jskaleel.fte.database.entities.SavedBooks
+import com.jskaleel.fte.data.dao.LocalBooksDao
+import com.jskaleel.fte.data.dao.SavedBooksDao
+import com.jskaleel.fte.data.entities.LocalBooks
+import com.jskaleel.fte.data.entities.SavedBooks
 
 @Database(entities = [LocalBooks::class, SavedBooks::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

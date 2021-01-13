@@ -1,6 +1,5 @@
-package com.jskaleel.fte.model
+package com.jskaleel.fte.data.entities
 
-import com.jskaleel.fte.database.entities.LocalBooks
 import java.io.File
 
 data class BooksResponse(val books: List<LocalBooks>)
@@ -8,4 +7,5 @@ data class BooksResponse(val books: List<LocalBooks>)
 sealed class DownloadResult {
     data class Error(val errorMessage: String) : DownloadResult()
     data class Success(val filePath: File) : DownloadResult()
+    data class Loading(val isLoading: Boolean) : DownloadResult()
 }

@@ -1,4 +1,4 @@
-package com.jskaleel.fte.ui.activities
+package com.jskaleel.fte.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

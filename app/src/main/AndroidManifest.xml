@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name="com.jskaleel.fte.ui.splash.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Splash_Theme">
@@ -45,23 +45,10 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".ui.activities.MainLandingActivity"
+            android:name=".ui.main.MainLandingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
-        <service
-            android:name=".utils.NetworkSchedulerService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <receiver
-            android:name=".utils.downloader.DownloadReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-            </intent-filter>
-        </receiver>
 
         <provider
             android:name="androidx.core.content.FileProvider"

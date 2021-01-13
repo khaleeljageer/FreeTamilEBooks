@@ -4,11 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import coil.load
 import com.jskaleel.fte.R
-import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.data.entities.LocalBooks
 import com.jskaleel.fte.databinding.NewBookListItemBinding
 
 class BookListAdapter(
@@ -36,13 +34,10 @@ class BookListAdapter(
                 val context = holder.itemView.context
                 binding.txtBookTitle.text = this.title
                 binding.txtBookAuthor.text = this.author
-
-                Glide.with(context)
-                    .load(this.image)
-                    .placeholder(R.drawable.placeholder)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(binding.ivBookCover)
+                binding.ivBookCover.load(this.image) {
+                    crossfade(true)
+                    placeholder(R.drawable.placeholder)
+                }
 
                 if (this.isClicked) {
                     binding.txtDownload.disableButton()

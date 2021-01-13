@@ -7,8 +7,8 @@ import com.folioreader.Config
 import com.folioreader.FolioReader
 import com.folioreader.util.AppUtil
 import com.jskaleel.fte.R
-import com.jskaleel.fte.database.entities.LocalBooks
-import com.jskaleel.fte.model.DownloadResult
+import com.jskaleel.fte.data.entities.LocalBooks
+import com.jskaleel.fte.data.entities.DownloadResult
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File

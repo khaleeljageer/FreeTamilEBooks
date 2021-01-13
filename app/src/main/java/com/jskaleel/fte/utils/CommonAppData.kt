@@ -2,9 +2,9 @@ package com.jskaleel.fte.utils
 
 import android.content.Context
 import com.jskaleel.fte.R
-import com.jskaleel.fte.database.AppDatabase
-import com.jskaleel.fte.model.NetWorkMessage
-import com.jskaleel.fte.model.NewBookAdded
+import com.jskaleel.fte.data.local.AppDatabase
+import com.jskaleel.fte.data.entities.NetWorkMessage
+import com.jskaleel.fte.data.entities.NewBookAdded
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers

@@ -17,7 +17,7 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jskaleel.fte.BuildConfig
 import com.jskaleel.fte.R
-import com.jskaleel.fte.model.SelectedMenuItem
+import com.jskaleel.fte.data.entities.SelectedMenuItem
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.AppPreference.set

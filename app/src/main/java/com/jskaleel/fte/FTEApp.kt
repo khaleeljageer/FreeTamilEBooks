@@ -2,38 +2,37 @@ package com.jskaleel.fte
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
 import android.content.Context
 import androidx.multidex.MultiDexApplication
+import coil.ImageLoader
+import coil.ImageLoaderFactory
+import coil.request.CachePolicy
+import coil.util.CoilUtils
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
-import com.jskaleel.fte.module.networkModule
+import com.jskaleel.fte.di.viewModel
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.Constants
 import com.jskaleel.fte.utils.FileUtils
-import com.jskaleel.fte.utils.NetworkSchedulerService
+import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import java.io.File
 import java.util.*
 
 
-class FTEApp : MultiDexApplication() {
+class FTEApp : MultiDexApplication(), ImageLoaderFactory {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
 
         startKoin {
-            modules(networkModule)
+            modules(viewModel)
             androidContext(this@FTEApp)
         }
 
         createFolder()
-
-        scheduleJob()
 
         initNotificationChannel()
 
@@ -47,24 +46,23 @@ class FTEApp : MultiDexApplication() {
         }
     }
 
+    override fun newImageLoader(): ImageLoader {
+        return ImageLoader.Builder(applicationContext)
+            .crossfade(true)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .networkCachePolicy(CachePolicy.ENABLED)
+            .okHttpClient {
+                OkHttpClient.Builder()
+                    .cache(CoilUtils.createDefaultCache(applicationContext))
+                    .build()
+            }
+            .build()
+    }
+
     private fun createFolder() {
         val dirPath = File(FileUtils.getRootDirPath(applicationContext))
         if (!dirPath.exists()) dirPath.mkdirs()
     }
-
-    private fun scheduleJob() {
-        val myJob = JobInfo.Builder(0, ComponentName(this, NetworkSchedulerService::class.java))
-            .setRequiresCharging(true)
-            .setMinimumLatency(1000)
-            .setOverrideDeadline(2000)
-            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-            .setPersisted(true)
-            .build()
-
-        val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobScheduler.schedule(myJob)
-    }
-
 
     private fun initNotificationChannel() {
 

@@ -12,10 +12,10 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
-import com.jskaleel.fte.database.AppDatabase
-import com.jskaleel.fte.database.dao.LocalBooksDao
-import com.jskaleel.fte.database.entities.LocalBooks
-import com.jskaleel.fte.model.DownloadCompleted
+import com.jskaleel.fte.data.local.AppDatabase
+import com.jskaleel.fte.data.dao.LocalBooksDao
+import com.jskaleel.fte.data.entities.LocalBooks
+import com.jskaleel.fte.data.entities.DownloadCompleted
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils

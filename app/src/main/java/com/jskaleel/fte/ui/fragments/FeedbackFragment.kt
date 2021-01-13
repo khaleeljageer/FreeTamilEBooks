@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.jskaleel.fte.R
-import com.jskaleel.fte.model.NetWorkMessage
+import com.jskaleel.fte.data.entities.NetWorkMessage
 import com.jskaleel.fte.ui.activities.MainActivity
 import com.jskaleel.fte.utils.ApiInterface
 import com.jskaleel.fte.utils.DeviceUtils

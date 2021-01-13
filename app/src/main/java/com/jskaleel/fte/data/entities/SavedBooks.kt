@@ -1,4 +1,4 @@
-package com.jskaleel.fte.database.entities
+package com.jskaleel.fte.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -2,7 +2,7 @@ package com.jskaleel.fte.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.jskaleel.fte.database.AppDatabase
+import com.jskaleel.fte.data.local.AppDatabase
 
 abstract class BaseActivity : AppCompatActivity() {
 

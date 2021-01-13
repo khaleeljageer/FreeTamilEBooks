@@ -1,10 +1,10 @@
-package com.jskaleel.fte.database.dao
+package com.jskaleel.fte.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.data.entities.LocalBooks
 
 @Dao
 interface LocalBooksDao {

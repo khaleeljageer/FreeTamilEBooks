@@ -1,4 +1,4 @@
-package com.jskaleel.fte.ui.fragments.home
+package com.jskaleel.fte.ui.main.home
 
 import android.content.Context
 import android.os.Bundle
@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jskaleel.fte.R
-import com.jskaleel.fte.database.AppDatabase
-import com.jskaleel.fte.database.entities.LocalBooks
-import com.jskaleel.fte.database.entities.SavedBooks
+import com.jskaleel.fte.data.entities.DownloadResult
+import com.jskaleel.fte.data.entities.LocalBooks
+import com.jskaleel.fte.data.entities.SavedBooks
+import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.FragmentHomeBinding
-import com.jskaleel.fte.model.DownloadResult
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.FileUtils
 import kotlinx.coroutines.*

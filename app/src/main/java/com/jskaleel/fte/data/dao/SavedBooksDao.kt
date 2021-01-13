@@ -1,10 +1,10 @@
-package com.jskaleel.fte.database.dao
+package com.jskaleel.fte.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jskaleel.fte.database.entities.SavedBooks
+import com.jskaleel.fte.data.entities.SavedBooks
 
 @Dao
 interface SavedBooksDao {

@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputEditText
 import com.jskaleel.fte.R
-import com.jskaleel.fte.database.AppDatabase
-import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.data.local.AppDatabase
+import com.jskaleel.fte.data.entities.LocalBooks
 import com.jskaleel.fte.ui.base.BookClickListener
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.DeviceUtils

@@ -10,8 +10,6 @@ buildscript {
         rx_version = '2.1.1'
         retrofit_version = '2.7.1'
         navigationVersion = '2.3.2'
-
-        glide_version = '4.9.0'
     }
     repositories {
         google()

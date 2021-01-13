@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.navigation.NavigationView
 import com.jskaleel.fte.R
-import com.jskaleel.fte.model.SelectedMenuItem
+import com.jskaleel.fte.data.entities.SelectedMenuItem
 import com.jskaleel.fte.utils.RxBus
 
 class BottomSheetSettings : BottomSheetDialogFragment() {

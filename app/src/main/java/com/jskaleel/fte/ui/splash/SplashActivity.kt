@@ -1,25 +1,23 @@
-package com.jskaleel.fte.ui.activities
+package com.jskaleel.fte.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.*
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.jskaleel.fte.R
-import com.jskaleel.fte.database.AppDatabase
+import com.jskaleel.fte.databinding.ActivitySplashBinding
+import com.jskaleel.fte.ui.main.MainLandingActivity
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
     private val activityScope = CoroutineScope(Dispatchers.Main)
 
-    private lateinit var appDatabase: AppDatabase
+    private val splashViewModel: SplashViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-        appDatabase = AppDatabase.getAppDatabase(applicationContext)
-        val llSplashLogo = findViewById<LinearLayout>(R.id.llSplashLogo)
-
+        val binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val scaleAnim = ScaleAnimation(
             0f, 1f,
@@ -34,8 +32,9 @@ class SplashActivity : AppCompatActivity() {
 
         animSet.interpolator = OvershootInterpolator()
         animSet.duration = 600
-        llSplashLogo.startAnimation(animSet)
+        binding.llSplashLogo.startAnimation(animSet)
 
+        splashViewModel.fetchBooks()
         activityScope.launch {
             delay(2000)
             startNextActivity()

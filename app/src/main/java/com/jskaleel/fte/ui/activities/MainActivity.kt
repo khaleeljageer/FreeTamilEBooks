@@ -15,14 +15,13 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
-import com.jskaleel.fte.model.CheckForDownloadsMenu
-import com.jskaleel.fte.model.NetWorkMessage
-import com.jskaleel.fte.model.ScrollList
-import com.jskaleel.fte.model.SelectedMenu
+import com.jskaleel.fte.data.entities.CheckForDownloadsMenu
+import com.jskaleel.fte.data.entities.NetWorkMessage
+import com.jskaleel.fte.data.entities.ScrollList
+import com.jskaleel.fte.data.entities.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
 import com.jskaleel.fte.utils.CommonAppData
-import com.jskaleel.fte.utils.NetworkSchedulerService
 import com.jskaleel.fte.utils.RxBus
 import io.reactivex.disposables.Disposable
 
@@ -240,20 +239,5 @@ class MainActivity : BaseActivity() {
         )
 
         return params
-    }
-
-    override fun onStart() {
-        super.onStart()
-        try {
-            val startServiceIntent = Intent(this, NetworkSchedulerService::class.java)
-            startService(startServiceIntent)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    override fun onStop() {
-        stopService(Intent(this, NetworkSchedulerService::class.java))
-        super.onStop()
     }
 }

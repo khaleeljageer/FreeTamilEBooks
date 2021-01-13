@@ -1,4 +1,4 @@
-package com.jskaleel.fte.model
+package com.jskaleel.fte.data.entities
 
 import android.view.MenuItem
 
