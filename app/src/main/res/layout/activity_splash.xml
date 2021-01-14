@@ -42,11 +42,10 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="45dp"
         android:gravity="center"
-        android:text="Loading..."
         android:textColor="@color/colorAccent"
         android:textSize="12sp"
         android:textStyle="bold"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
 
     <TextView

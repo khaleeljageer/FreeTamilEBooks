@@ -22,7 +22,7 @@ data class LocalBooks(
     @ColumnInfo(name = "category")
     val category: String,
 
-    @ColumnInfo(name = "is_downloaded")
+    @ColumnInfo(name = "downloaded")
     var isDownloaded: Boolean,
     @ColumnInfo(name = "saved_path")
     var savedPath: String,

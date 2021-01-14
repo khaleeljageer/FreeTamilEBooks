@@ -4,21 +4,18 @@ import android.content.Context
 import com.jskaleel.fte.data.remote.ApiService
 import com.jskaleel.fte.utils.Constants
 import com.jskaleel.fte.utils.DeviceUtils
-import com.jskaleel.fte.ui.splash.SplashViewModel
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-val viewModel = module {
+val networkModule = module {
     single { provideCache(get()) }
     single { provideHttpClient(get(), get()) }
-    single { provideRetrofit(get(), Constants.BASE_URL) }
+    single { provideRetrofit(get()) }
     single { provideApiService(get()) }
-    viewModel { SplashViewModel() }
 }
 
 private fun provideCache(context: Context): Cache {
@@ -27,16 +24,17 @@ private fun provideCache(context: Context): Cache {
     return Cache(context.cacheDir, cacheSize)
 }
 
-private fun provideRetrofit(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
+private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(baseUrl)
+        .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
 
-private fun provideApiService(retrofit: Retrofit): ApiService =
-    retrofit.create(ApiService::class.java)
+private fun provideApiService(retrofit: Retrofit): ApiService {
+    return retrofit.create(ApiService::class.java)
+}
 
 private fun provideHttpClient(context: Context, cache: Cache): OkHttpClient {
 

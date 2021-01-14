@@ -7,8 +7,8 @@ import com.folioreader.Config
 import com.folioreader.FolioReader
 import com.folioreader.util.AppUtil
 import com.jskaleel.fte.R
-import com.jskaleel.fte.data.entities.LocalBooks
 import com.jskaleel.fte.data.entities.DownloadResult
+import com.jskaleel.fte.data.entities.LocalBooks
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
@@ -16,8 +16,6 @@ import java.io.FileOutputStream
 import java.util.*
 
 object FileUtils {
-
-
     fun getRootDirPath(context: Context): String {
         return if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
             val file: File = ContextCompat.getExternalFilesDirs(
@@ -66,12 +64,15 @@ object FileUtils {
     }
 
     fun openSavedBook(context: Context, book: LocalBooks) {
+        if (book.savedPath == null) {
+            return
+        }
         var config = AppUtil.getSavedConfig(context)
         if (config == null) config = Config()
         config.allowedDirection = Config.AllowedDirection.VERTICAL_AND_HORIZONTAL
         config.isShowTts = false
         config.setThemeColorInt(ContextCompat.getColor(context, R.color.colorAccent1))
         val folioReader = FolioReader.get()
-        folioReader.setConfig(config, true).openBook(book.savedPath.replace("file://", ""))
+        folioReader.setConfig(config, true).openBook(book.savedPath!!.replace("file://", ""))
     }
 }

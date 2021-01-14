@@ -10,13 +10,15 @@ import coil.request.CachePolicy
 import coil.util.CoilUtils
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
-import com.jskaleel.fte.di.viewModel
+import com.jskaleel.fte.di.fteModule
+import com.jskaleel.fte.di.networkModule
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.Constants
 import com.jskaleel.fte.utils.FileUtils
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import java.io.File
 import java.util.*
@@ -28,7 +30,8 @@ class FTEApp : MultiDexApplication(), ImageLoaderFactory {
         FirebaseApp.initializeApp(this)
 
         startKoin {
-            modules(viewModel)
+            androidLogger()
+            modules(listOf(networkModule, fteModule))
             androidContext(this@FTEApp)
         }
 

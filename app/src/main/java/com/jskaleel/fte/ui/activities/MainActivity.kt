@@ -21,7 +21,6 @@ import com.jskaleel.fte.data.entities.ScrollList
 import com.jskaleel.fte.data.entities.SelectedMenu
 import com.jskaleel.fte.ui.base.BaseActivity
 import com.jskaleel.fte.ui.fragments.BottomNavigationDrawerFragment
-import com.jskaleel.fte.utils.CommonAppData
 import com.jskaleel.fte.utils.RxBus
 import io.reactivex.disposables.Disposable
 
@@ -44,7 +43,6 @@ class MainActivity : BaseActivity() {
         container2 = findViewById<CoordinatorLayout>(R.id.container2)
 
         setSupportActionBar(bottomAppBar)
-        disposable = CommonAppData.updateBooksFromApi(this@MainActivity)
         subscribeBus()
 
         bottomNavDrawerFragment = BottomNavigationDrawerFragment()
@@ -162,8 +160,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun checkForDownloadMenu() {
-        val booksList = appDatabase.localBooksDao().getDownloadedBooks(true)
-        downloadMenu?.isVisible = !booksList.isNullOrEmpty()
+//        val booksList = appDatabase.localBooksDao().getDownloadedBooks(true)
+//        downloadMenu?.isVisible = !booksList.isNullOrEmpty()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

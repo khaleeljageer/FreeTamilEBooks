@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.jskaleel.fte.R
 import com.jskaleel.fte.data.entities.DownloadResult
 import com.jskaleel.fte.data.entities.LocalBooks
@@ -19,7 +17,6 @@ import com.jskaleel.fte.databinding.FragmentHomeBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.FileUtils
 import kotlinx.coroutines.*
-import java.lang.reflect.Type
 
 class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
 
@@ -55,10 +52,10 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
         super.onViewCreated(view, savedInstanceState)
         val rvBookList = view.findViewById<RecyclerView>(R.id.rvBookList)
 
-        val localBooks = requireActivity().loadJSONFromAssets("booksdb.json")
-        val bookListType: Type = object : TypeToken<MutableList<LocalBooks>>() {}.type
-        val booksList: MutableList<LocalBooks> = Gson().fromJson(localBooks, bookListType)
-//        val booksList = appDataBase.localBooksDao().getAllLocalBooks()
+//        val localBooks = requireActivity().loadJSONFromAssets("booksdb.json")
+//        val bookListType: Type = object : TypeToken<MutableList<LocalBooks>>() {}.type
+//        val booksList: MutableList<LocalBooks> = Gson().fromJson(localBooks, bookListType)
+        val booksList = appDataBase.localBooksDao().getAllLocalBooks() as MutableList<LocalBooks>
 
         bookListAdapter = BookListAdapter(booksList, this)
         with(rvBookList) {
@@ -108,7 +105,7 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
                 book.author,
                 book.epub,
                 book.bookid,
-                book.savedPath
+                book.savedPath!!
             )
         )
     }

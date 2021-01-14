@@ -12,18 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.jskaleel.fte.R
-import com.jskaleel.fte.data.entities.NetWorkMessage
-import com.jskaleel.fte.ui.activities.MainActivity
-import com.jskaleel.fte.utils.ApiInterface
 import com.jskaleel.fte.utils.DeviceUtils
-import com.jskaleel.fte.utils.PrintLog
-import com.jskaleel.fte.utils.RxBus
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 class FeedbackFragment : Fragment() {
     private var edtName: TextInputEditText? = null
@@ -101,32 +91,32 @@ class FeedbackFragment : Fragment() {
         dialog.show()
         DeviceUtils.hideSoftKeyboard(requireActivity())
 
-        val retrofit = Retrofit.Builder()
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://docs.google.com/forms/d/")
-            .build().create(ApiInterface::class.java)
-
-        disposable = retrofit.postFeedBack("application/json", name, email, comments)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ _ ->
-                run {
-                    dialog.dismiss()
-
-                    edtName?.setText("")
-                    edtEmail?.setText("")
-                    edtComments?.setText("")
-
-                    requireActivity().findNavController(R.id.navHostFragment).navigateUp()
-                    (requireActivity() as MainActivity).displayMaterialSnackBar(getString(R.string.thanks_comments))
-                }
-            }, { error ->
-                run {
-                    PrintLog.info(error.toString())
-                    RxBus.publish(NetWorkMessage(mContext.getString(R.string.try_again_later)))
-                }
-            })
+//        val retrofit = Retrofit.Builder()
+//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .baseUrl("https://docs.google.com/forms/d/")
+//            .build().create(ApiInterface::class.java)
+//
+//        disposable = retrofit.postFeedBack("application/json", name, email, comments)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ _ ->
+//                run {
+//                    dialog.dismiss()
+//
+//                    edtName?.setText("")
+//                    edtEmail?.setText("")
+//                    edtComments?.setText("")
+//
+//                    requireActivity().findNavController(R.id.navHostFragment).navigateUp()
+//                    (requireActivity() as MainActivity).displayMaterialSnackBar(getString(R.string.thanks_comments))
+//                }
+//            }, { error ->
+//                run {
+//                    PrintLog.info(error.toString())
+//                    RxBus.publish(NetWorkMessage(mContext.getString(R.string.try_again_later)))
+//                }
+//            })
     }
 
     /*https://docs.google.com/forms/d/e/1FAIpQLSc_BbE7RfJdUCEgzwGSeiaiUe3ugBdITgJIZY71ED93puqQ3g/formResponse

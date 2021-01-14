@@ -29,12 +29,12 @@ interface LocalBooksDao {
     @Query("SELECT * from localBooks WHERE bookid = :bookId")
     fun getBookByBookId(bookId: String): LocalBooks
 
-    @Query("UPDATE localBooks SET saved_path = :filePath WHERE bookid = :bookId")
-    fun updateDownloadDetails(filePath: String, bookId: String)
+//    @Query("UPDATE localBooks SET saved_path = :filePath WHERE bookid = :bookId")
+//    fun updateDownloadDetails(filePath: String, bookId: String)
+//
+//    @Query("UPDATE localBooks SET is_downloaded = :isDownloaded, saved_path = :filePath WHERE bookid = :bookId")
+//    fun updateStatusByBookId(isDownloaded: Boolean, filePath: String, bookId: String)
 
-    @Query("UPDATE localBooks SET is_downloaded = :isDownloaded, saved_path = :filePath WHERE bookid = :bookId")
-    fun updateStatusByBookId(isDownloaded: Boolean, filePath: String, bookId: String)
-
-    @Query("SELECT * from localBooks WHERE is_downloaded = :isDownloaded")
-    fun getDownloadedBooks(isDownloaded: Boolean): List<LocalBooks>
+//    @Query("SELECT * from localBooks WHERE is_downloaded = :isDownloaded")
+//    fun getDownloadedBooks(isDownloaded: Boolean): List<LocalBooks>
 }

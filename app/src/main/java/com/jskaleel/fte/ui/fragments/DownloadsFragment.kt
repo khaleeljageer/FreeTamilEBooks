@@ -80,8 +80,8 @@ class DownloadsFragment : Fragment(), BookClickListener {
         rvDownloadList?.layoutManager = layoutManger
         rvDownloadList?.adapter = adapter
 
-        val downloadedList = appDataBase.getDownloadedBooks(true)
-        adapter.loadBooks(downloadedList)
+//        val downloadedList = appDataBase.getDownloadedBooks(true)
+//        adapter.loadBooks(downloadedList)
 
         rvDownloadList?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 

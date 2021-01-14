@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jskaleel.fte.databinding.ActivitySplashBinding
 import com.jskaleel.fte.ui.main.MainLandingActivity
 import kotlinx.coroutines.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : AppCompatActivity() {
     private val activityScope = CoroutineScope(Dispatchers.Main)
 
-    private val splashViewModel: SplashViewModel by inject()
+    private val splashViewModel: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,16 +34,24 @@ class SplashActivity : AppCompatActivity() {
         animSet.duration = 600
         binding.llSplashLogo.startAnimation(animSet)
 
-        splashViewModel.fetchBooks()
         activityScope.launch {
-            delay(2000)
-            startNextActivity()
+            delay(1000)
+            splashViewModel.fetchBooks()
         }
+
+        splashViewModel.messageData.observe(this, {
+            binding.txtLoading.text = it
+        })
+
+        splashViewModel.viewState.observe(this, {
+            if (it) {
+                startNextActivity()
+            }
+        })
     }
 
     private fun startNextActivity() {
         startActivity(Intent(this@SplashActivity, MainLandingActivity::class.java))
-//        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         this@SplashActivity.finish()
     }
 
