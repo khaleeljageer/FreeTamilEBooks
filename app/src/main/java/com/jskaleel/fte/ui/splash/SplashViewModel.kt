@@ -57,7 +57,7 @@ class SplashViewModel constructor(
 
             override fun onError(errorModel: ErrorModel?) {
                 _mMessageData.value = errorModel?.message ?: "Something wrong"
-                _mViewState.value = false
+                _mViewState.value = true
             }
         })
     }

@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
         })
 
         splashViewModel.viewState.observe(this, {
-            if (it) {
+            if (!it) {
                 startNextActivity()
             }
         })
