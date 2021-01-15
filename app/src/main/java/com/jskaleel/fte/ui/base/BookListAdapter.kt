@@ -65,9 +65,9 @@ class BookListAdapter(
         this.apply {
             isEnabled = true
             text = if (status) {
-                "Read"
+                context.getString(R.string.read)
             } else {
-                "Download"
+                context.getString(R.string.download)
             }
         }
     }
@@ -75,7 +75,7 @@ class BookListAdapter(
     private fun TextView.disableButton() {
         this.apply {
             isEnabled = false
-            text = "Wait..."
+            text = context.getString(R.string.wait)
         }
     }
 
