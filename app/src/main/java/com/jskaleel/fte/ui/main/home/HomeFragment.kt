@@ -1,6 +1,7 @@
 package com.jskaleel.fte.ui.main.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.jskaleel.fte.R
 import com.jskaleel.fte.data.entities.DownloadResult
 import com.jskaleel.fte.data.entities.LocalBooks
@@ -15,6 +17,7 @@ import com.jskaleel.fte.data.entities.SavedBooks
 import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.FragmentHomeBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
+import com.jskaleel.fte.ui.search.SearchActivity
 import com.jskaleel.fte.utils.FileUtils
 import kotlinx.coroutines.*
 
@@ -51,6 +54,10 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvBookList = view.findViewById<RecyclerView>(R.id.rvBookList)
+        val searchWidget = view.findViewById<MaterialCardView>(R.id.searchWidget)
+        searchWidget.setOnClickListener {
+            startActivity(Intent(requireContext(), SearchActivity::class.java))
+        }
 
 //        val localBooks = requireActivity().loadJSONFromAssets("booksdb.json")
 //        val bookListType: Type = object : TypeToken<MutableList<LocalBooks>>() {}.type
