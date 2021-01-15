@@ -23,6 +23,6 @@ interface LocalBooksDao {
     @Query("SELECT * from localBooks WHERE bookid = :bookId")
     fun getBookByBookId(bookId: String): LocalBooks
 
-    @Query("SELECT * from localBooks WHERE title LIKE (':key') OR author LIKE (':key')")
+    @Query("SELECT * from localBooks WHERE title LIKE (:key) OR author LIKE (:key)")
     fun getBooksByKey(key: String): List<LocalBooks>
 }

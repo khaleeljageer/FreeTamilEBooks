@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:paddingStart="@dimen/margin_5dp"
         android:paddingTop="@dimen/margin_5dp"
+        android:paddingEnd="@dimen/margin_5dp"
         android:paddingBottom="@dimen/margin_65dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 

@@ -7,8 +7,12 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.jskaleel.fte.data.entities.LocalBooks
 import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.ActivitySearchBinding
+import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.PrintLog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,11 +21,15 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import kotlin.coroutines.CoroutineContext
 
-class SearchActivity : AppCompatActivity(), CoroutineScope {
+class SearchActivity : AppCompatActivity(), CoroutineScope, (Int, LocalBooks) -> Unit {
 
     private lateinit var binding: ActivitySearchBinding
     private val appDataBase: AppDatabase by inject()
     private val job = Job()
+
+    private val searchListAdapter by lazy {
+        BookListAdapter(mutableListOf(), this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +68,16 @@ class SearchActivity : AppCompatActivity(), CoroutineScope {
             }
             return@setOnEditorActionListener false
         }
+
+        with(binding.rvBookList) {
+            this.setHasFixedSize(true)
+            this.layoutManager = LinearLayoutManager(
+                baseContext,
+                androidx.recyclerview.widget.RecyclerView.VERTICAL,
+                false
+            )
+            this.adapter = searchListAdapter
+        }
     }
 
     private fun performSearch(editable: Editable?) {
@@ -68,6 +86,10 @@ class SearchActivity : AppCompatActivity(), CoroutineScope {
             launch {
                 val searchResult = appDataBase.localBooksDao().getBooksByKey("%$key%")
                 PrintLog.info("Search Key : $key Result : ${searchResult.size}")
+                runOnUiThread {
+                    searchListAdapter.clearBooks()
+                    searchListAdapter.loadBooks(searchResult)
+                }
             }
         }
     }
@@ -82,5 +104,9 @@ class SearchActivity : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         job.cancel()
         super.onDestroy()
+    }
+
+    override fun invoke(position: Int, book: LocalBooks) {
+
     }
 }
