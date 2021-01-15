@@ -20,24 +20,9 @@ interface LocalBooksDao {
     @Query("SELECT EXISTS(SELECT bookid from localBooks WHERE bookid = :bookId)")
     fun isIdAvailable(bookId: String): Boolean
 
-    @Query("SELECT * from localBooks WHERE title LIKE :title")
-    fun getBooksByTitle(title: String): List<LocalBooks>
-
-    @Query("SELECT * from localBooks WHERE author LIKE :author")
-    fun getBooksByAuthor(author: String): List<LocalBooks>
-
     @Query("SELECT * from localBooks WHERE bookid = :bookId")
     fun getBookByBookId(bookId: String): LocalBooks
 
-    @Query("SELECT * from localBooks WHERE title LIKE (:key) OR author LIKE (:key)")
+    @Query("SELECT * from localBooks WHERE title LIKE (':key') OR author LIKE (':key')")
     fun getBooksByKey(key: String): List<LocalBooks>
-
-//    @Query("UPDATE localBooks SET saved_path = :filePath WHERE bookid = :bookId")
-//    fun updateDownloadDetails(filePath: String, bookId: String)
-//
-//    @Query("UPDATE localBooks SET is_downloaded = :isDownloaded, saved_path = :filePath WHERE bookid = :bookId")
-//    fun updateStatusByBookId(isDownloaded: Boolean, filePath: String, bookId: String)
-
-//    @Query("SELECT * from localBooks WHERE is_downloaded = :isDownloaded")
-//    fun getDownloadedBooks(isDownloaded: Boolean): List<LocalBooks>ஜேம்ஸ் ஆலன்
 }

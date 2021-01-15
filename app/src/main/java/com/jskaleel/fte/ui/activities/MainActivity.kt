@@ -169,9 +169,6 @@ class MainActivity : BaseActivity() {
             android.R.id.home -> {
                 bottomNavDrawerFragment.show(supportFragmentManager, bottomNavDrawerFragment.tag)
             }
-            R.id.abSearchMenu -> {
-                startFragment(R.id.searchFragment)
-            }
 
             R.id.abDownloadsMenu -> {
                 startFragment(R.id.downloadsFragment)
