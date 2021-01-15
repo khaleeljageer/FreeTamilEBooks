@@ -1,115 +1,123 @@
 package com.jskaleel.fte.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.jskaleel.fte.R
-import com.jskaleel.fte.data.local.AppDatabase
-import com.jskaleel.fte.data.dao.LocalBooksDao
+import com.jskaleel.fte.data.entities.DownloadResult
 import com.jskaleel.fte.data.entities.LocalBooks
-import com.jskaleel.fte.data.entities.DownloadCompleted
-import com.jskaleel.fte.ui.base.BookClickListener
+import com.jskaleel.fte.data.entities.SavedBooks
+import com.jskaleel.fte.data.local.AppDatabase
+import com.jskaleel.fte.databinding.FragmentDownloadsBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
-import com.jskaleel.fte.utils.DeviceUtils
-import com.jskaleel.fte.utils.RxBus
+import com.jskaleel.fte.utils.FileUtils
+import com.jskaleel.fte.utils.openBook
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class DownloadsFragment : Fragment(), BookClickListener {
-    override fun bookRemoveClickListener(adapterPosition: Int, book: LocalBooks) {
-//        val newBook = DownloadUtil.removeDownload(mContext, book)
-//        adapter.removeItem(adapterPosition, newBook)
-//        if (adapter.itemCount == 0) {
-//            rvDownloadList?.visibility = View.GONE
-//            emptyLayout?.visibility = View.VISIBLE
-//        }
+class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
+
+    private val downloadAdapter: BookListAdapter by lazy {
+        BookListAdapter(mutableListOf(), this)
     }
-
-    override fun bookItemClickListener(adapterPosition: Int, book: LocalBooks) {
-//        DownloadUtil.openSavedBook(mContext, book)
-    }
-
-    private var toolBar: Toolbar? = null
-    private var rvDownloadList: RecyclerView? = null
-    private var emptyLayout: LinearLayout? = null
-    private lateinit var adapter: BookListAdapter
-    private lateinit var mContext: Context
-    private lateinit var appDataBase: LocalBooksDao
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mContext = context
-        this.appDataBase = AppDatabase.getAppDatabase(mContext).localBooksDao()
+    private val appDataBase: AppDatabase by lazy {
+        AppDatabase.getAppDatabase(requireContext())
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_downloads, container, false)
+    ): View {
+        return FragmentDownloadsBinding.inflate(inflater, container, false).root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolBar = view.findViewById<Toolbar>(R.id.toolBar)
-        emptyLayout = view.findViewById<LinearLayout>(R.id.emptyLayout)
-        rvDownloadList = view.findViewById<RecyclerView>(R.id.rvDownloadList)
+        val emptyLayout = view.findViewById<LinearLayout>(R.id.emptyLayout)
+        val rvDownloadList = view.findViewById<RecyclerView>(R.id.rvDownloadList)
 
-        toolBar?.setNavigationOnClickListener {
-            DeviceUtils.hideSoftKeyboard(requireActivity())
-            requireActivity().findNavController(R.id.navHostFragment).navigateUp()
+
+        with(rvDownloadList) {
+            this.setHasFixedSize(true)
+            this.layoutManager = LinearLayoutManager(
+                requireContext(),
+                RecyclerView.VERTICAL,
+                false
+            )
+            this.adapter = downloadAdapter
+        }
+
+        val downloadedList = appDataBase.savedBooksDao().getAllLocalBooks()
+        val localBooks: MutableList<LocalBooks> = mutableListOf()
+        for (book in downloadedList) {
+            localBooks.add(
+                LocalBooks(
+                    book.title,
+                    book.bookid,
+                    book.author,
+                    book.image,
+                    book.epub,
+                    "",
+                    true,
+                    book.savedPath
+                )
+            )
+        }
+
+        downloadAdapter.clearBooks()
+        downloadAdapter.loadBooks(localBooks)
+    }
+
+    override fun invoke(position: Int, book: LocalBooks) {
+        if (position == -1) {
+            book.openBook(requireContext())
+        } else {
+            downloadBook(position, book)
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        rvDownloadList?.setHasFixedSize(true)
-
-        adapter = BookListAdapter(mutableListOf()) { _, _ ->
-
-        }
-        val layoutManger = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-        rvDownloadList?.layoutManager = layoutManger
-        rvDownloadList?.adapter = adapter
-
-//        val downloadedList = appDataBase.getDownloadedBooks(true)
-//        adapter.loadBooks(downloadedList)
-
-        rvDownloadList?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val `val` = rvDownloadList!!.computeVerticalScrollOffset()
-                    .toFloat() / 150.toFloat() * 100.toFloat()
-                if (`val` <= 100) {
-                    toolBar?.alpha = 1 - `val` / 100
-                } else {
-                    toolBar?.alpha = 0f
+    private fun downloadBook(position: Int, book: LocalBooks) {
+        launch {
+            val result = withContext(Dispatchers.IO) {
+                FileUtils.downloadBook(requireContext(), book)
+            }
+            when (result) {
+                is DownloadResult.Success -> {
+                    book.isDownloaded = true
+                    book.savedPath = result.filePath.absolutePath
+                    downloadAdapter.successUiUpdate(position, book)
+                    updateDatabase(book)
                 }
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, scrollState: Int) {
-
-            }
-        })
-
-        RxBus.subscribe {
-            when (it) {
-                is DownloadCompleted -> {
-                    if (isAdded) {
-//                        val downloadedBook = appDataBase.getDownloadedBook(it.downloadId)
-//                        adapter.addNewItem(downloadedBook)
-                    }
+                is DownloadResult.Error -> {
+                    downloadAdapter.errorUiUpdate(position)
+                    //Show Snack bar. if needed
                 }
             }
         }
     }
+
+    private fun updateDatabase(book: LocalBooks) {
+        appDataBase.savedBooksDao().insert(
+            SavedBooks(
+                book.title,
+                book.image,
+                book.author,
+                book.epub,
+                book.bookid,
+                book.savedPath
+            )
+        )
+    }
+
+    val job: Job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job
+
 }

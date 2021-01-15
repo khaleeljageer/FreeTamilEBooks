@@ -9,15 +9,16 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jskaleel.fte.data.entities.DownloadResult
 import com.jskaleel.fte.data.entities.LocalBooks
+import com.jskaleel.fte.data.entities.SavedBooks
 import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.ActivitySearchBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
+import com.jskaleel.fte.utils.FileUtils
 import com.jskaleel.fte.utils.PrintLog
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.jskaleel.fte.utils.openBook
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import kotlin.coroutines.CoroutineContext
 
@@ -107,6 +108,43 @@ class SearchActivity : AppCompatActivity(), CoroutineScope, (Int, LocalBooks) ->
     }
 
     override fun invoke(position: Int, book: LocalBooks) {
+        if (position == -1) {
+            book.openBook(baseContext)
+        } else {
+            downloadBook(position, book)
+        }
+    }
 
+    private fun downloadBook(position: Int, book: LocalBooks) {
+        launch {
+            val result = withContext(Dispatchers.IO) {
+                FileUtils.downloadBook(baseContext, book)
+            }
+            when (result) {
+                is DownloadResult.Success -> {
+                    book.isDownloaded = true
+                    book.savedPath = result.filePath.absolutePath
+                    searchListAdapter.successUiUpdate(position, book)
+                    updateDatabase(book)
+                }
+                is DownloadResult.Error -> {
+                    searchListAdapter.errorUiUpdate(position)
+                    //Show Snack bar. if needed
+                }
+            }
+        }
+    }
+
+    private fun updateDatabase(book: LocalBooks) {
+        appDataBase.savedBooksDao().insert(
+            SavedBooks(
+                book.title,
+                book.image,
+                book.author,
+                book.epub,
+                book.bookid,
+                book.savedPath
+            )
+        )
     }
 }

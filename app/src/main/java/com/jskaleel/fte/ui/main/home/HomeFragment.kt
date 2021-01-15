@@ -19,6 +19,7 @@ import com.jskaleel.fte.databinding.FragmentHomeBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.ui.search.SearchActivity
 import com.jskaleel.fte.utils.FileUtils
+import com.jskaleel.fte.utils.openBook
 import kotlinx.coroutines.*
 
 class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
@@ -45,12 +46,6 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
         return FragmentHomeBinding.inflate(inflater, container, false).root
     }
 
-    private fun Context.loadJSONFromAssets(fileName: String): String {
-        return applicationContext.assets.open(fileName).bufferedReader().use { reader ->
-            reader.readText()
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rvBookList = view.findViewById<RecyclerView>(R.id.rvBookList)
@@ -59,9 +54,6 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
             startActivity(Intent(requireContext(), SearchActivity::class.java))
         }
 
-//        val localBooks = requireActivity().loadJSONFromAssets("booksdb.json")
-//        val bookListType: Type = object : TypeToken<MutableList<LocalBooks>>() {}.type
-//        val booksList: MutableList<LocalBooks> = Gson().fromJson(localBooks, bookListType)
         val booksList = appDataBase.localBooksDao().getAllLocalBooks() as MutableList<LocalBooks>
 
         bookListAdapter = BookListAdapter(booksList, this)
@@ -74,14 +66,10 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
 
     override fun invoke(position: Int, book: LocalBooks) {
         if (position == -1) {
-            openBook(book)
+            book.openBook(requireContext())
         } else {
             downloadBook(position, book)
         }
-    }
-
-    private fun openBook(book: LocalBooks) {
-        FileUtils.openSavedBook(requireContext(), book)
     }
 
     private fun downloadBook(position: Int, book: LocalBooks) {
