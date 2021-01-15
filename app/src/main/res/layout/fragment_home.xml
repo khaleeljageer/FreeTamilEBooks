@@ -1,19 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:paddingStart="5dp"
-    android:paddingEnd="5dp">
+    android:paddingStart="@dimen/margin_5dp"
+    android:paddingEnd="@dimen/margin_5dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingTop="10dp"
-        android:paddingBottom="65dp"
+        android:paddingTop="@dimen/margin_60dp"
+        android:paddingBottom="@dimen/margin_65dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/new_book_list_item" />
-</RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchWidget"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_65dp"
+        android:background="@android:color/transparent"
+        app:cardCornerRadius="@dimen/margin_6dp"
+        app:cardElevation="@dimen/margin_3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="@dimen/margin_10dp"
+        app:contentPaddingBottom="@dimen/margin_12dp"
+        app:contentPaddingTop="@dimen/margin_12dp"
+        app:layout_anchor="@id/rvBookList"
+        app:layout_anchorGravity="top">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawablePadding="@dimen/margin_10dp"
+            android:gravity="center_vertical"
+            android:text="@string/search_for_books_authors"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/textsize_13sp"
+            app:drawableStartCompat="@drawable/ic_search_white_24dp"
+            app:drawableTint="@color/grey" />
+    </com.google.android.material.card.MaterialCardView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

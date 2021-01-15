@@ -3,5 +3,14 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="settings_separater_height">0.5dp</dimen>
+    <dimen name="margin_65dp">65dp</dimen>
+    <dimen name="margin_60dp">60dp</dimen>
+    <dimen name="margin_0dp">0dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="margin_3dp">3dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="textsize_13sp">13sp</dimen>
     <item name="sixtyeen_by_nine" format="float" type="dimen">1.7778</item>
 </resources>
