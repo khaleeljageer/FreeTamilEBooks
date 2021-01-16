@@ -1,5 +1,7 @@
 package com.jskaleel.fte.ui.splash
 
+import android.content.Context
+import com.jskaleel.fte.R
 import com.jskaleel.fte.data.entities.BooksResponse
 import com.jskaleel.fte.data.entities.ErrorModel
 import com.jskaleel.fte.data.local.AppDatabase
@@ -9,12 +11,13 @@ import com.jskaleel.fte.ui.base.BaseViewModel
 import kotlinx.coroutines.cancel
 
 class SplashViewModel constructor(
+    private val context: Context,
     private val booksUseCase: GetBooksUseCase,
     private val appDatabase: AppDatabase
 ) : BaseViewModel() {
 
     fun fetchBooks() {
-        _mMessageData.value = "Loading..."
+        _mMessageData.value = context.getString(R.string.loading)
         _mViewState.value = true
         booksUseCase.invoke(scope, object : UseCaseResponse<BooksResponse> {
             override fun onSuccess(result: BooksResponse) {

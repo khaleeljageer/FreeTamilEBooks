@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/navigation_downloads"
-        android:name="com.jskaleel.fte.ui.fragments.DownloadsFragment"
+        android:name="com.jskaleel.fte.ui.main.download.DownloadsFragment"
         android:label="@string/title_downloads"
         tools:layout="@layout/fragment_downloads" />
 

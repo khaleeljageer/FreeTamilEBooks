@@ -1,4 +1,4 @@
-package com.jskaleel.fte.ui.fragments
+package com.jskaleel.fte.ui.main.download
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jskaleel.fte.R
 import com.jskaleel.fte.data.entities.DownloadResult
 import com.jskaleel.fte.data.entities.LocalBooks
-import com.jskaleel.fte.data.entities.SavedBooks
-import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.FragmentDownloadsBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.FileUtils
+import com.jskaleel.fte.utils.hide
 import com.jskaleel.fte.utils.openBook
+import com.jskaleel.fte.utils.show
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
 import kotlin.coroutines.CoroutineContext
 
 class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
@@ -25,9 +26,9 @@ class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit 
     private val downloadAdapter: BookListAdapter by lazy {
         BookListAdapter(mutableListOf(), this)
     }
-    private val appDataBase: AppDatabase by lazy {
-        AppDatabase.getAppDatabase(requireContext())
-    }
+
+    private val downloadsViewModel: DownloadsViewModel by inject()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,25 +55,17 @@ class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit 
             this.adapter = downloadAdapter
         }
 
-        val downloadedList = appDataBase.savedBooksDao().getAllLocalBooks()
-        val localBooks: MutableList<LocalBooks> = mutableListOf()
-        for (book in downloadedList) {
-            localBooks.add(
-                LocalBooks(
-                    book.title,
-                    book.bookid,
-                    book.author,
-                    book.image,
-                    book.epub,
-                    "",
-                    true,
-                    book.savedPath
-                )
-            )
-        }
-
-        downloadAdapter.clearBooks()
-        downloadAdapter.loadBooks(localBooks)
+        downloadsViewModel.loadSavedBooks()
+        downloadsViewModel.savedBooks.observe(viewLifecycleOwner, {
+            if (it.isNullOrEmpty()) {
+                emptyLayout.show()
+                rvDownloadList.hide()
+            } else {
+                emptyLayout.hide()
+                rvDownloadList.show()
+                downloadAdapter.loadBooks(it)
+            }
+        })
     }
 
     override fun invoke(position: Int, book: LocalBooks) {
@@ -93,7 +86,7 @@ class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit 
                     book.isDownloaded = true
                     book.savedPath = result.filePath.absolutePath
                     downloadAdapter.successUiUpdate(position, book)
-                    updateDatabase(book)
+                    downloadsViewModel.updateDatabase(book)
                 }
                 is DownloadResult.Error -> {
                     downloadAdapter.errorUiUpdate(position)
@@ -101,19 +94,6 @@ class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit 
                 }
             }
         }
-    }
-
-    private fun updateDatabase(book: LocalBooks) {
-        appDataBase.savedBooksDao().insert(
-            SavedBooks(
-                book.title,
-                book.image,
-                book.author,
-                book.epub,
-                book.bookid,
-                book.savedPath
-            )
-        )
     }
 
     val job: Job = Job()

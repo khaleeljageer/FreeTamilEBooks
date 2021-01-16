@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/downloadsFragment"
-        android:name="com.jskaleel.fte.ui.fragments.DownloadsFragment"
+        android:name="com.jskaleel.fte.ui.main.download.DownloadsFragment"
         android:label="DownloadsFragment"
         tools:layout="@layout/fragment_downloads" />
 </navigation>
