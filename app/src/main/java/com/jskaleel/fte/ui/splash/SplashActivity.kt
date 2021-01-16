@@ -6,6 +6,7 @@ import android.view.animation.*
 import androidx.appcompat.app.AppCompatActivity
 import com.jskaleel.fte.databinding.ActivitySplashBinding
 import com.jskaleel.fte.ui.main.MainLandingActivity
+import com.jskaleel.fte.utils.show
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -46,6 +47,8 @@ class SplashActivity : AppCompatActivity() {
         splashViewModel.viewState.observe(this, {
             if (!it) {
                 startNextActivity()
+            } else {
+                binding.progressLoader.show()
             }
         })
     }

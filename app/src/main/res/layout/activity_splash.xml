@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,50 +13,51 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivAppLogo"
-            android:layout_width="210dp"
-            android:layout_height="210dp"
-            android:src="@drawable/ic_launcher_splash"
+            android:layout_width="@dimen/logo_height_width"
+            android:layout_height="@dimen/logo_height_width"
+            app:srcCompat="@drawable/ic_launcher_splash"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressLoader"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/txtLoading"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="10dp"
-        android:indeterminate="false"
-        android:max="100"
-        android:progressDrawable="@drawable/rounded_progress"
-        android:visibility="invisible" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_15dp"
+        android:indeterminate="true"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        app:indicatorColor="@color/orangeDark"
+        app:indicatorSize="@dimen/margin_50dp"
+        app:trackCornerRadius="@dimen/margin_5dp"
+        app:trackThickness="@dimen/margin_5dp" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtLoading"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="45dp"
+        android:layout_height="@dimen/margin_50dp"
+        android:layout_above="@+id/txtCredit"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
         android:gravity="center"
         android:textColor="@color/colorAccent"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_14sp"
         android:textStyle="bold"
         android:visibility="visible" />
 
-
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtCredit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="@dimen/margin_5dp"
+        android:layout_marginBottom="@dimen/margin_5dp"
         android:text="@string/book_by_mariyani_from_the_noun_project"
         android:textColor="@color/colorAccent"
-        android:textSize="11sp" />
+        android:textSize="@dimen/text_size_12sp"
+        tools:ignore="RelativeOverlap" />
 </RelativeLayout>

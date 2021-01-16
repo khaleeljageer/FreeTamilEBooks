@@ -1,7 +1,7 @@
 package com.jskaleel.fte.utils
 
 object Constants {
-    const val BASE_URL = "https://raw.githubusercontent.com/KaniyamFoundation/Free-Tamil-Ebooks/"
+    const val BASE_URL = "https://raw.githubusercontent.com/KaniyamFoundation/Free-Tamil-Ebooks1/"
 
     const val CHANNEL_NAME = "fte_books"
 
