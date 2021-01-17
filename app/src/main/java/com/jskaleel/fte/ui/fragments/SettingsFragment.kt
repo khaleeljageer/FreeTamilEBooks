@@ -59,10 +59,6 @@ class SettingsFragment : Fragment() {
             bottomSheet.show(childFragmentManager, bottomSheet.tag)
         }
 
-        toolBar.setNavigationOnClickListener {
-            requireActivity().findNavController(R.id.navHostFragment).navigateUp()
-        }
-
         val isPushChecked =
             AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE, true]
 

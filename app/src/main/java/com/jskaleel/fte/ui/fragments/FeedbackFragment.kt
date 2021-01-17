@@ -47,11 +47,6 @@ class FeedbackFragment : Fragment() {
         edtEmail = view.findViewById(R.id.edtEmail)
         edtComments = view.findViewById(R.id.edtComments)
 
-        toolBar.setNavigationOnClickListener {
-            DeviceUtils.hideSoftKeyboard(requireActivity())
-            requireActivity().findNavController(R.id.navHostFragment).navigateUp()
-        }
-
         ivSend.setOnClickListener {
             submitFeedBack()
         }
