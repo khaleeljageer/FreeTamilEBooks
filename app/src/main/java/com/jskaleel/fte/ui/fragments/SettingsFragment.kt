@@ -17,12 +17,10 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jskaleel.fte.BuildConfig
 import com.jskaleel.fte.R
-import com.jskaleel.fte.data.entities.SelectedMenuItem
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.AppPreference.set
 import com.jskaleel.fte.utils.Constants
-import com.jskaleel.fte.utils.RxBus
 
 class SettingsFragment : Fragment() {
 
@@ -40,24 +38,23 @@ class SettingsFragment : Fragment() {
     }
 
     private lateinit var mContext: Context
-    private lateinit var bottomSheet: BottomSheetSettings
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeBus()
+//        subscribeBus()
         val toolBar = view.findViewById<Toolbar>(R.id.toolBar)
-        val rlListTypeLayout = view.findViewById<LinearLayout>(R.id.rlListTypeLayout)
+//        val rlListTypeLayout = view.findViewById<LinearLayout>(R.id.rlListTypeLayout)
         val rlSourceCodeLayout = view.findViewById<LinearLayout>(R.id.rlSourceCodeLayout)
         val rlOSSLayout = view.findViewById<LinearLayout>(R.id.rlOSSLayout)
         val swPush = view.findViewById<SwitchCompat>(R.id.swPush)
         val txtPushStatus = view.findViewById<TextView>(R.id.txtPushStatus)
         val txtAppVersion = view.findViewById<TextView>(R.id.txtAppVersion)
 
-        bottomSheet = BottomSheetSettings()
-
-        rlListTypeLayout.setOnClickListener {
-            bottomSheet.show(childFragmentManager, bottomSheet.tag)
-        }
+//        bottomSheet = BottomSheetSettings()
+//
+//        rlListTypeLayout.setOnClickListener {
+//            bottomSheet.show(childFragmentManager, bottomSheet.tag)
+//        }
 
         val isPushChecked =
             AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE, true]
@@ -82,7 +79,6 @@ class SettingsFragment : Fragment() {
             startActivity(Intent(mContext, OssLicensesMenuActivity::class.java))
         }
         rlSourceCodeLayout.setOnClickListener {
-
             val url = "https://github.com/khaleeljageer/FreeTamilEBooks"
             val shareIntent: Intent = Intent().apply {
                 action = Intent.ACTION_VIEW
@@ -92,16 +88,5 @@ class SettingsFragment : Fragment() {
         }
 
         txtAppVersion.text = String.format(getString(R.string.version, BuildConfig.VERSION_NAME))
-    }
-
-
-    private fun subscribeBus() {
-        RxBus.subscribe {
-            if (it is SelectedMenuItem) {
-                if (bottomSheet.isVisible) {
-                    bottomSheet.dismiss()
-                }
-            }
-        }
     }
 }
