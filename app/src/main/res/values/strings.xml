@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">FreeTamilEbooks</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
+    <string name="app_name" translatable="false">FreeTamilEbooks</string>
+    <string name="title_home">முகப்பு</string>
+    <string name="title_downloads">பதிவிறக்கங்கள்</string>
+    <string name="title_settings">அமைப்புகள்</string>
+    <string name="title_dashboard">தகவல் பலகை</string>
 
     <string name="about_us">எங்களை பற்றி</string>
     <string name="contributors">பங்களிப்பாளர்கள்</string>
@@ -18,7 +18,8 @@
     <string name="order_type">புத்தக பட்டியல் முறை</string>
     <string name="random">இயல்பான</string>
     <string name="new_first">புதியவை முதலில்</string>
-    <string name="home_fragment">HomeFragment</string>
+    <string name="by_category">பிரிவுகளாக</string>
+    <string name="home_fragment" translatable="false">HomeFragment</string>
     <string name="press_back_again">வெளியேற மீண்டும் அழுத்தவும்</string>
     <string name="connected_to_internet">இணையத்துடன் இணைக்கப்பட்டுள்ளது</string>
     <string name="no_internet">மன்னிக்கவும்! இணையத்துடன் இணைக்கப்படவில்லை</string>
@@ -49,6 +50,8 @@
     <string name="source_code">மூல நிரல்</string>
     <string name="shapre_app">செயலியை பகிரவும்</string>
     <string name="version">பதிப்பு : %s</string>
-    <string name="authors_list">நூலாசிரியர்கள்</string>
-    <string name="category_list">பிரிவுகள்</string>
+    <string name="wait">Wait…</string>
+    <string name="read">Read</string>
+    <string name="download">Download</string>
+    <string name="loading">Loading…</string>
 </resources>

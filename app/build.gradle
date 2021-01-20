@@ -2,30 +2,23 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
 
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
-apply plugin: 'com.google.firebase.firebase-perf'
-
-
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion versions.androidCompileSdk
     defaultConfig {
         applicationId "com.jskaleel.fte"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 33
-        versionName "6.1"
+        minSdkVersion versions.androidMinSdk
+        targetSdkVersion versions.androidTargetSdk
+        versionCode 32
+        versionName "8.0"
         multiDexEnabled true
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
     }
     buildTypes {
         release {
@@ -40,19 +33,22 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    dexOptions {
+        javaMaxHeapSize "4G"
+    }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0-rc01'
-    implementation 'com.google.android.material:material:1.2.0-alpha03'
 
-    implementation("com.github.bumptech.glide:glide:$glide_version") {
-        exclude group: "com.android.support"
-    }
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    implementation 'androidx.appcompat:appcompat:1.3.0-beta01'
+    implementation 'androidx.core:core-ktx:1.5.0-beta01'
+    implementation 'com.google.android.material:material:1.3.0-rc01'
 
     //Retrofit for REST
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -60,24 +56,35 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     implementation "io.reactivex.rxjava2:rxandroid:$rx_version"
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.11'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
 
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_comp_version"
+    implementation 'androidx.room:room-runtime:2.3.0-alpha04'
+    kapt 'androidx.room:room-compiler:2.3.0-alpha04'
 
-    implementation "androidx.navigation:navigation-fragment:$navigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
+
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation project(':reader')
+    implementation project(':folioreader')
 
-    implementation 'com.google.firebase:firebase-core:17.2.1'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation 'com.google.firebase:firebase-core:18.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.3.0'
 
-    implementation 'io.github.inflationx:calligraphy3:3.1.1'
-    implementation 'io.github.inflationx:viewpump:1.0.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
-    implementation 'com.google.firebase:firebase-perf:19.0.4'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+
+    implementation 'np.com.susanthapa.curved_bottom_navigation:curved_bottom_navigation:0.6.3'
+    // Koin for Android
+    implementation "org.koin:koin-android:$versions.koin"
+    // or Koin for Lifecycle scoping
+    implementation "org.koin:koin-androidx-scope:$versions.koin"
+    // or Koin for Android Architecture ViewModel
+    implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+
+    implementation 'io.coil-kt:coil:1.1.1'
 }
 
 repositories {

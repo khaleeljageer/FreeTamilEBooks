@@ -2,12 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/menuCategoryList"
-                android:title="@string/category_list"/>
-        <item
-                android:id="@+id/menuAuthorsList"
-                android:title="@string/authors_list"/>
-        <item
                 android:id="@+id/menuAbout"
                 android:icon="@drawable/ic_info_outline_black_24dp"
                 android:title="@string/about_us"/>

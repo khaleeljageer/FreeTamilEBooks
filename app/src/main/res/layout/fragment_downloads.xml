@@ -1,50 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools" android:id="@+id/rootContainer"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:paddingStart="@dimen/margin_5dp"
+    android:paddingEnd="@dimen/margin_5dp">
 
     <LinearLayout
-            android:id="@+id/emptyLayout"
-            android:layout_below="@+id/toolBar"
+        android:id="@+id/emptyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_mood_bad_black_24dp"
+            app:tint="@color/colorAccent1"
+            tools:ignore="ContentDescription" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:visibility="gone"
-            android:layout_height="match_parent" tools:ignore="UseCompoundDrawables">
-        <ImageView android:layout_width="80dp"
-                   android:src="@drawable/ic_mood_bad_black_24dp"
-                   android:layout_marginBottom="10dp"
-                   android:tint="@color/colorAccent1"
-                   android:layout_height="80dp" tools:ignore="ContentDescription"/>
-        <TextView android:layout_width="match_parent"
-                  android:padding="11dp"
-                  android:textSize="14sp"
-                  android:textStyle="bold"
-                  android:gravity="center"
-                  android:text="@string/no_downloads"
-                  android:textColor="@color/colorAccent"
-                  android:layout_height="wrap_content"/>
+            android:padding="11dp"
+            android:text="@string/no_downloads"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvDownloadList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="56dp"
-            android:background="@color/colorPrimary"
-            android:clipToPadding="false"/>
-
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolBar"
-            android:layout_width="match_parent"
-            app:hideOnScroll="true"
-            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-            android:background="@android:color/transparent"
-            android:layout_height="?attr/actionBarSize"/>
-
+        android:id="@+id/rvDownloadList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/margin_10dp"
+        android:paddingBottom="@dimen/margin_65dp"
+        android:visibility="visible" />
 </RelativeLayout>

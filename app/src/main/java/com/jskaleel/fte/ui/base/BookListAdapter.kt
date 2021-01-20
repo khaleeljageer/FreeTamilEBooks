@@ -1,28 +1,23 @@
 package com.jskaleel.fte.ui.base
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import coil.load
 import com.jskaleel.fte.R
-import com.jskaleel.fte.database.entities.LocalBooks
+import com.jskaleel.fte.data.entities.LocalBooks
+import com.jskaleel.fte.databinding.NewBookListItemBinding
 
 class BookListAdapter(
-    private val mContext: Context,
-    private val listener: BookClickListener,
     private val booksList: MutableList<LocalBooks>,
-    private val type: Int
-) : RecyclerView.Adapter<BookViewHolder>() {
-    private var previousClickedPosition: Int = -1
+    private val mListener: (position: Int, book: LocalBooks) -> Unit
+) : RecyclerView.Adapter<BookListAdapter.BookViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.book_list_item, parent, false)
-        val lp = view.layoutParams as GridLayoutManager.LayoutParams
-        lp.height = if (type == 1) parent.measuredHeight / 3 else (parent.measuredHeight / 2.5).toInt()
-        view.layoutParams = lp
-        return BookViewHolder(mContext, view, listener)
+        val binding =
+            NewBookListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return BookViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -34,58 +29,87 @@ class BookListAdapter(
     }
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        val bookItem = booksList[holder.adapterPosition]
-        holder.bindData(bookItem, holder.adapterPosition)
-        holder.itemView.setOnClickListener {
-            if (previousClickedPosition == holder.adapterPosition) {
-                return@setOnClickListener
+        with(holder) {
+            with(booksList[this.adapterPosition]) {
+                val context = holder.itemView.context
+                binding.txtBookTitle.text = this.title
+                binding.txtBookAuthor.text = this.author
+                binding.ivBookCover.load(this.image) {
+                    crossfade(true)
+                    placeholder(R.drawable.placeholder)
+                }
+
+                if (this.isClicked) {
+                    binding.txtDownload.disableButton()
+                    binding.progressIndicator.show()
+                } else {
+                    binding.txtDownload.enableButton(this.isDownloaded)
+                    binding.progressIndicator.hide()
+                }
+
+                binding.txtDownload.setOnClickListener {
+                    if (this.isDownloaded) {
+                        mListener.invoke(-1, this)
+                    } else {
+                        this.isClicked = true
+                        binding.txtDownload.disableButton()
+                        binding.progressIndicator.show()
+                        mListener.invoke(holder.adapterPosition, this)
+                    }
+                }
             }
-            if (previousClickedPosition != -1) {
-                booksList[previousClickedPosition].isExpanded = false
-                notifyItemChanged(previousClickedPosition)
+        }
+    }
+
+    private fun TextView.enableButton(status: Boolean) {
+        this.apply {
+            isEnabled = true
+            text = if (status) {
+                context.getString(R.string.read)
+            } else {
+                context.getString(R.string.download)
             }
-            previousClickedPosition = holder.adapterPosition
-            val expanded = bookItem.isExpanded
-            bookItem.isExpanded = !expanded
-            notifyItemChanged(holder.adapterPosition)
+        }
+    }
+
+    private fun TextView.disableButton() {
+        this.apply {
+            isEnabled = false
+            text = context.getString(R.string.wait)
         }
     }
 
     fun loadBooks(books: List<LocalBooks>) {
-        previousClickedPosition = -1
         booksList.clear()
         booksList.addAll(books)
         notifyDataSetChanged()
     }
 
     fun clearBooks() {
-        previousClickedPosition = -1
         booksList.clear()
         notifyDataSetChanged()
     }
 
-    fun updateItemStatus(itemPosition: Int, downloadedBook: LocalBooks) {
-        booksList[itemPosition].savedPath = downloadedBook.savedPath
-        booksList[itemPosition].isDownloaded = downloadedBook.isDownloaded
-        booksList[itemPosition].downloadId = downloadedBook.downloadId
+    fun successUiUpdate(itemPosition: Int, book: LocalBooks) {
+        booksList[itemPosition].apply {
+            savedPath = book.savedPath
+            isDownloaded = book.isDownloaded
+            isClicked = false
+        }
         notifyItemChanged(itemPosition)
     }
 
-    fun updateDownloadId(itemPosition: Int, downloadID: Long) {
-        booksList[itemPosition].downloadId = downloadID
+    fun errorUiUpdate(itemPosition: Int) {
+        booksList[itemPosition].apply {
+            savedPath = ""
+            isDownloaded = false
+            isClicked = false
+        }
         notifyItemChanged(itemPosition)
     }
 
-    fun removeItem(adapterPosition: Int, newBook: LocalBooks) {
-        previousClickedPosition = -1
-        booksList.removeAt(adapterPosition)
-        notifyItemRemoved(adapterPosition)
-        notifyItemRangeChanged(adapterPosition, itemCount)
-    }
-
-    fun addNewItem(downloadedBook: LocalBooks) {
-        previousClickedPosition = -1;
-        booksList.add(downloadedBook)
-        notifyItemInserted(itemCount + 1)
-    }
+    inner class BookViewHolder(
+        val binding: NewBookListItemBinding,
+    ) :
+        RecyclerView.ViewHolder(binding.root)
 }
