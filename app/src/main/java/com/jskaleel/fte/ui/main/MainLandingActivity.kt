@@ -2,7 +2,7 @@ package com.jskaleel.fte.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.jskaleel.fte.R
 import com.jskaleel.fte.databinding.ActivityMainLandingBinding
 import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem
@@ -15,7 +15,7 @@ class MainLandingActivity : AppCompatActivity() {
         binding = ActivityMainLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navHost = supportFragmentManager.findFragmentById(R.id.nav_container) as NavHostFragment
 
         val menuItems = arrayOf(
             CbnMenuItem(
@@ -36,6 +36,6 @@ class MainLandingActivity : AppCompatActivity() {
             )
         )
         binding.navView.setMenuItems(menuItems, 1)
-        binding.navView.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navHost.navController)
     }
 }

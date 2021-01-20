@@ -41,8 +41,8 @@ object FileUtils {
     ): DownloadResult {
         val filePath = File(getRootDirPath(context), "${book.bookid}.epub")
         val request = Request.Builder().url(book.epub).build()
-        val response = OkHttpClient().newCall(request).execute()
         try {
+            val response = OkHttpClient().newCall(request).execute()
             if (response.body() != null) {
                 val buffer = response.body()!!.byteStream()
                 val outputStream = FileOutputStream(filePath)
@@ -59,7 +59,8 @@ object FileUtils {
 
             return DownloadResult.Success(filePath)
         } catch (e: Exception) {
-            return DownloadResult.Error(DeviceUtils.getCommonErrorMessage(response.code()))
+            e.printStackTrace()
+            return DownloadResult.Error("Something went wrong.")
         }
     }
 
