@@ -57,7 +57,7 @@ class FeedbackActivity : AppCompatActivity() {
         DeviceUtils.hideSoftKeyboard(this@FeedbackActivity)
         dialog.show()
 
-        feedbackViewModel.submitFeedback(name, email, comments)
+        feedbackViewModel.submitFeedback(name, email, "[FTE]-$comments")
         feedbackViewModel.viewState.observe(this, {
             if (it) {
                 dialog.dismiss()
@@ -66,6 +66,7 @@ class FeedbackActivity : AppCompatActivity() {
                 binding.edtEmail.setText("")
                 binding.edtComments.setText("")
                 Toast.makeText(baseContext, "Feedback submitted", Toast.LENGTH_SHORT).show()
+                finish()
             }
         })
     }

@@ -3,6 +3,7 @@ package com.jskaleel.fte.ui.feedback
 import com.jskaleel.fte.data.remote.ApiService
 import com.jskaleel.fte.ui.base.BaseViewModel
 import com.jskaleel.fte.utils.PrintLog
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,5 +24,11 @@ class FeedbackViewModel : BaseViewModel() {
                 _mViewState.postValue(true)
             }
         }
+    }
+    
+    // Cancel the job when the view model is destroyed
+    override fun onCleared() {
+        super.onCleared()
+        scope.cancel()
     }
 }
