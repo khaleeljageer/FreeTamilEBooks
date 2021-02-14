@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="true">
 
     <LinearLayout
         android:id="@+id/llTop"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,8 +17,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView1"
-            android:layout_width="0dp"
+            android:id="@+id/mcvAboutUs"
+            android:layout_width="@dimen/margin_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:cardBackgroundColor="#8D6E63"
@@ -35,8 +36,8 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="55dp"
-                    android:minHeight="55dp"
+                    android:minWidth="@dimen/margin_45dp"
+                    android:minHeight="@dimen/margin_45dp"
                     app:srcCompat="@drawable/ic_info_outline_black_24dp"
                     app:tint="@color/white" />
 
@@ -47,14 +48,13 @@
                     android:padding="@dimen/margin_5dp"
                     android:text="@string/about_us"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView2"
-            android:layout_width="0dp"
+            android:id="@+id/mcvContributors"
+            android:layout_width="@dimen/margin_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:cardBackgroundColor="#7e3ff2"
@@ -72,8 +72,8 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="55dp"
-                    android:minHeight="55dp"
+                    android:minWidth="@dimen/margin_45dp"
+                    android:minHeight="@dimen/margin_45dp"
                     app:srcCompat="@drawable/ic_people_outline_black_24dp"
                     app:tint="@color/white" />
 
@@ -84,16 +84,15 @@
                     android:padding="@dimen/margin_5dp"
                     android:text="@string/contributors"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/mcvReleaseBooks"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
         app:cardBackgroundColor="#546E7A"
         app:cardCornerRadius="@dimen/margin_5dp"
         app:cardElevation="@dimen/margin_5dp"
@@ -113,8 +112,8 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="55dp"
-                android:minHeight="55dp"
+                android:minWidth="@dimen/margin_45dp"
+                android:minHeight="@dimen/margin_45dp"
                 app:srcCompat="@drawable/ic_help_outline_black_24dp"
                 app:tint="@color/white" />
 
@@ -125,15 +124,14 @@
                 android:padding="@dimen/margin_5dp"
                 android:text="@string/publish_books"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/mcvComments"
+        android:layout_width="@dimen/margin_0dp"
+        android:layout_height="@dimen/margin_0dp"
         app:cardBackgroundColor="#D81B60"
         app:cardCornerRadius="@dimen/margin_5dp"
         app:cardElevation="@dimen/margin_5dp"
@@ -142,7 +140,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/materialCardView3">
+        app:layout_constraintTop_toBottomOf="@id/mcvReleaseBooks">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -153,8 +151,8 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="55dp"
-                android:minHeight="55dp"
+                android:minWidth="@dimen/margin_45dp"
+                android:minHeight="@dimen/margin_45dp"
                 app:srcCompat="@drawable/ic_feedback_white_24dp"
                 app:tint="@color/white" />
 
@@ -165,8 +163,7 @@
                 android:padding="@dimen/margin_5dp"
                 android:text="@string/feedback"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="16sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

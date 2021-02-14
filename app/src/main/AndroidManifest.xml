@@ -44,6 +44,12 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
+        <activity
+            android:name=".ui.webview.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
