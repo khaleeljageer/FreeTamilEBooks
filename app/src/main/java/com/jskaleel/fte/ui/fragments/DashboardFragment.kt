@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.jskaleel.fte.databinding.FragmentDashboardBinding
+import com.jskaleel.fte.ui.feedback.FeedbackActivity
 import com.jskaleel.fte.ui.webview.WebViewActivity
 
 class DashboardFragment : Fragment() {
@@ -33,7 +34,7 @@ class DashboardFragment : Fragment() {
         }
 
         binding.mcvComments.setOnClickListener {
-
+            startActivity(Intent(requireContext(), FeedbackActivity::class.java))
         }
 
         binding.mcvReleaseBooks.setOnClickListener {
