@@ -8,6 +8,7 @@ import com.jskaleel.fte.data.remote.ApiService
 import com.jskaleel.fte.data.remote.BooksRepositoryImp
 import com.jskaleel.fte.data.remote.GetBooksUseCase
 import com.jskaleel.fte.ui.feedback.FeedbackViewModel
+import com.jskaleel.fte.ui.main.download.DownloadsRepositoryImpl
 import com.jskaleel.fte.ui.main.download.DownloadsViewModel
 import com.jskaleel.fte.ui.main.home.HomeViewModel
 import com.jskaleel.fte.ui.splash.SplashViewModel
@@ -25,8 +26,13 @@ val fteModule = module {
     single { provideBooksUseCase(get(), provideApiErrorHandle()) }
 
     single { provideBooksRepository(get()) }
+    single { provideDownloadsRepository(get()) }
 
     single { provideDatabase(androidContext()) }
+}
+
+fun provideDownloadsRepository(appDatabase: AppDatabase): DownloadsRepositoryImpl {
+    return DownloadsRepositoryImpl(appDatabase)
 }
 
 fun provideDatabase(context: Context): AppDatabase {

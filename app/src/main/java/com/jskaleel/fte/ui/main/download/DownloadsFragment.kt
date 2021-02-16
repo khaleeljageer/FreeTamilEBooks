@@ -55,17 +55,45 @@ class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit 
             this.adapter = downloadAdapter
         }
 
-        downloadsViewModel.loadSavedBooks()
-        downloadsViewModel.savedBooks.observe(viewLifecycleOwner, {
-            if (it.isNullOrEmpty()) {
+        downloadsViewModel.loadSavedBooks().observe(viewLifecycleOwner, {
+            val localBooks = mutableListOf<LocalBooks>()
+            it?.let {
+                for (book in it) {
+                    localBooks.add(
+                        LocalBooks(
+                            book.title,
+                            book.bookid,
+                            book.author,
+                            book.image,
+                            book.epub,
+                            "",
+                            true,
+                            book.savedPath
+                        )
+                    )
+                }
+            }
+
+            if (localBooks.isNullOrEmpty()) {
                 emptyLayout.show()
                 rvDownloadList.hide()
             } else {
                 emptyLayout.hide()
                 rvDownloadList.show()
-                downloadAdapter.loadBooks(it)
+                downloadAdapter.loadBooks(localBooks)
             }
         })
+
+//        downloadsViewModel.savedBooks.observe(viewLifecycleOwner, {
+//            if (it.isNullOrEmpty()) {
+//                emptyLayout.show()
+//                rvDownloadList.hide()
+//            } else {
+//                emptyLayout.hide()
+//                rvDownloadList.show()
+//                downloadAdapter.loadBooks(it)
+//            }
+//        })
     }
 
     override fun invoke(position: Int, book: LocalBooks) {

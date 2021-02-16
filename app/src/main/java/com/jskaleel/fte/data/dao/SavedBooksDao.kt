@@ -1,5 +1,6 @@
 package com.jskaleel.fte.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,7 +10,7 @@ import com.jskaleel.fte.data.entities.SavedBooks
 @Dao
 interface SavedBooksDao {
     @Query("SELECT * from savedBooks")
-    fun getAllLocalBooks(): List<SavedBooks>
+    fun getAllLocalBooks(): LiveData<List<SavedBooks>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(savedBook: SavedBooks)
