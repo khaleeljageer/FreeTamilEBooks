@@ -3,7 +3,6 @@ package com.jskaleel.fte.ui.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.jskaleel.fte.R
 import com.jskaleel.fte.databinding.ActivityMainLandingBinding
@@ -43,8 +42,6 @@ class MainLandingActivity : AppCompatActivity() {
             )
         )
         binding.navView.setMenuItems(menuItems, 1)
-
-//        binding.navView.setupWithNavController(navHost.navController)
 
         loadFragment(HomeFragment(), HOME_TAG)
 
@@ -106,15 +103,6 @@ class MainLandingActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount == 1) {
-            finish()
-        } else {
-            super.onBackPressed()
-            binding.navView.onMenuItemClick(1)
-            val entry = supportFragmentManager.getBackStackEntryAt(1)
-            supportFragmentManager.popBackStack(entry.id, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
-            loadFragment(HomeFragment(), HOME_TAG)
-        }
+        finish()
     }
 }
