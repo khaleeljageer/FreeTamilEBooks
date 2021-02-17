@@ -18,5 +18,6 @@
     <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="margin_15dp">15dp</dimen>
     <dimen name="logo_height_width">210dp</dimen>
+    <dimen name="margin_45dp">45dp</dimen>
     <item name="sixtyeen_by_nine" format="float" type="dimen">1.7778</item>
 </resources>

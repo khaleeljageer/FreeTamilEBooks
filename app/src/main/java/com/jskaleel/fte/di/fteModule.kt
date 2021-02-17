@@ -7,6 +7,8 @@ import com.jskaleel.fte.data.remote.ApiErrorHandle
 import com.jskaleel.fte.data.remote.ApiService
 import com.jskaleel.fte.data.remote.BooksRepositoryImp
 import com.jskaleel.fte.data.remote.GetBooksUseCase
+import com.jskaleel.fte.ui.feedback.FeedbackViewModel
+import com.jskaleel.fte.ui.main.download.DownloadsRepositoryImpl
 import com.jskaleel.fte.ui.main.download.DownloadsViewModel
 import com.jskaleel.fte.ui.main.home.HomeViewModel
 import com.jskaleel.fte.ui.splash.SplashViewModel
@@ -16,15 +18,21 @@ import org.koin.dsl.module
 
 val fteModule = module {
 
-    viewModel { SplashViewModel(androidContext(), get(), get()) }
+    viewModel { SplashViewModel(get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { DownloadsViewModel(get()) }
+    viewModel { FeedbackViewModel() }
 
     single { provideBooksUseCase(get(), provideApiErrorHandle()) }
 
     single { provideBooksRepository(get()) }
+    single { provideDownloadsRepository(get()) }
 
     single { provideDatabase(androidContext()) }
+}
+
+fun provideDownloadsRepository(appDatabase: AppDatabase): DownloadsRepositoryImpl {
+    return DownloadsRepositoryImpl(appDatabase)
 }
 
 fun provideDatabase(context: Context): AppDatabase {

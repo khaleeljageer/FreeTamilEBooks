@@ -7,9 +7,8 @@ buildscript {
 
     ext {
         kotlin_version = '1.4.21'
-        rx_version = '2.1.1'
-        retrofit_version = '2.7.1'
-        navigationVersion = '2.3.2'
+        retrofit_version = '2.9.0'
+        navigationVersion = '2.3.3'
     }
     repositories {
         google()
@@ -22,8 +21,8 @@ buildscript {
         classpath "com.android.tools.build:gradle:$versions.androidGradlePlugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-        classpath 'com.google.gms:google-services:4.3.4'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
+        classpath 'com.google.gms:google-services:4.3.5'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
         classpath 'com.google.android.gms:oss-licenses-plugin:0.10.2'
 
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'

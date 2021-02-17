@@ -11,12 +11,11 @@ import com.jskaleel.fte.ui.base.BaseViewModel
 import kotlinx.coroutines.cancel
 
 class SplashViewModel constructor(
-    private val context: Context,
     private val booksUseCase: GetBooksUseCase,
     private val appDatabase: AppDatabase
 ) : BaseViewModel() {
 
-    fun fetchBooks() {
+    fun fetchBooks(context: Context) {
         _mMessageData.value = context.getString(R.string.loading)
         _mViewState.value = true
         booksUseCase.invoke(scope, object : UseCaseResponse<BooksResponse> {

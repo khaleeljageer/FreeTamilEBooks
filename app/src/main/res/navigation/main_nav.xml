@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.jskaleel.fte.ui.fragments.FeedbackFragment"
+        android:name="com.jskaleel.fte.ui.fragments.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_feedback" />
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>
