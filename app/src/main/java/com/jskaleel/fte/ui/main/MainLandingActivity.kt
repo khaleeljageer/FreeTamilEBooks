@@ -21,8 +21,6 @@ class MainLandingActivity : AppCompatActivity() {
         binding = ActivityMainLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val navHost = supportFragmentManager.findFragmentById(R.id.nav_container) as NavHostFragment
-
         val menuItems = arrayOf(
             CbnMenuItem(
                 R.drawable.ic_dashboard,
