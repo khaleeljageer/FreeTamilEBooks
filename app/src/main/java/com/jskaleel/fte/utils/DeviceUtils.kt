@@ -37,11 +37,4 @@ object DeviceUtils {
                     + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
         ).matcher(email).matches()
     }
-
-    fun getCommonErrorMessage(code: Int): String = when (code) {
-        400 -> "This request is wrong"
-        401 -> "You are not authorised to access this file"
-        404 -> "The file/page is not found"
-        else -> "Something gone wrong"
-    }
 }

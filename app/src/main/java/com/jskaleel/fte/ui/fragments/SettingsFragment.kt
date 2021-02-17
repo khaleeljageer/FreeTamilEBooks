@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.jskaleel.fte.BuildConfig
@@ -41,20 +40,11 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        subscribeBus()
-        val toolBar = view.findViewById<Toolbar>(R.id.toolBar)
-//        val rlListTypeLayout = view.findViewById<LinearLayout>(R.id.rlListTypeLayout)
         val rlSourceCodeLayout = view.findViewById<LinearLayout>(R.id.rlSourceCodeLayout)
         val rlOSSLayout = view.findViewById<LinearLayout>(R.id.rlOSSLayout)
         val swPush = view.findViewById<SwitchCompat>(R.id.swPush)
         val txtPushStatus = view.findViewById<TextView>(R.id.txtPushStatus)
         val txtAppVersion = view.findViewById<TextView>(R.id.txtAppVersion)
-
-//        bottomSheet = BottomSheetSettings()
-//
-//        rlListTypeLayout.setOnClickListener {
-//            bottomSheet.show(childFragmentManager, bottomSheet.tag)
-//        }
 
         val isPushChecked =
             AppPreference.customPrefs(mContext)[Constants.SharedPreference.NEW_BOOKS_UPDATE, true]

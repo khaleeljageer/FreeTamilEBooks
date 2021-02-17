@@ -14,23 +14,12 @@
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
 
-        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="alertDialogTheme">@style/CustomAlertDialog</item>
     </style>
-
 
     <style name="Splash_Theme" parent="FTEBaseTheme">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@drawable/splash_window_bg</item>
-    </style>
-
-    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/AppModalStyle</item>
-        <item name="colorControlHighlight">@color/colorAccent_alpha_40</item>
-    </style>
-
-    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">@drawable/rounded_corner_bottom_sheet</item>
     </style>
 
     <style name="CustomAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -49,9 +38,4 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-
-    <style name="FTE.Title.TextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">14sp</item>
-    </style>
-
 </resources>

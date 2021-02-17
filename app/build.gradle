@@ -58,10 +58,6 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.3.0-beta01'
     kapt 'androidx.room:room-compiler:2.3.0-beta01'
 
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
-
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':folioreader')
 
