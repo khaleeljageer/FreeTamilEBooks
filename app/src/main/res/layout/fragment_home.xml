@@ -40,9 +40,7 @@
             android:drawablePadding="@dimen/margin_10dp"
             android:gravity="center_vertical"
             android:text="@string/search_for_books_authors"
-            android:textColor="@color/grey"
             android:textSize="@dimen/textsize_13sp"
-            app:drawableStartCompat="@drawable/ic_search_white_24dp"
-            app:drawableTint="@color/grey" />
+            app:drawableStartCompat="@drawable/ic_search_white_24dp" />
     </com.google.android.material.card.MaterialCardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

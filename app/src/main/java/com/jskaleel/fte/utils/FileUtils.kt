@@ -72,7 +72,7 @@ object FileUtils {
         if (config == null) config = Config()
         config.allowedDirection = Config.AllowedDirection.VERTICAL_AND_HORIZONTAL
         config.isShowTts = false
-        config.setThemeColorInt(ContextCompat.getColor(context, R.color.colorAccent1))
+        config.setThemeColorInt(ContextCompat.getColor(context, R.color.fte_blue_700))
         val folioReader = FolioReader.get()
         folioReader.setConfig(config, true).openBook(book.savedPath!!.replace("file://", ""))
     }

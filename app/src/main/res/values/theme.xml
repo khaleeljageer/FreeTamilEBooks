@@ -28,18 +28,19 @@
         <item name="android:statusBarColor">@color/immersive_sys_ui</item>
 
         <!--Default styles-->
-<!--        <item name="bottomNavigationStyle">@style/Widget.Fte.BottomNavigationView</item>-->
+        <!--        <item name="bottomNavigationStyle">@style/Widget.Fte.BottomNavigationView</item>-->
 
     </style>
 
 
     <style name="Fte" parent="@style/Base.Fte" />
 
-    <style name="Fte.Blue">
+    <style name="Fte.Blue" parent="@style/Fte">
         <item name="colorPrimary">@color/fte_blue_700</item>
         <item name="colorPrimaryVariant">@color/fte_blue_800</item>
         <item name="colorSecondary">@color/fte_yellow_500</item>
         <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+        <item name="colorOnPrimary">#fff</item>
     </style>
 
     <style name="ThemeOverlay.Fte.Blue" parent="@style/ThemeOverlay.MaterialComponents.Light">

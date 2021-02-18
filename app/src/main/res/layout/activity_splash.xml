@@ -30,7 +30,7 @@
         android:layout_marginBottom="@dimen/margin_15dp"
         android:indeterminate="true"
         android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-        app:indicatorColor="@color/orangeDark"
+        app:indicatorColor="?attr/colorPrimaryDark"
         app:indicatorSize="@dimen/margin_50dp"
         app:trackCornerRadius="@dimen/margin_5dp"
         app:trackThickness="@dimen/margin_5dp" />

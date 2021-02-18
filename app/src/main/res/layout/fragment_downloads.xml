@@ -24,7 +24,7 @@
             android:layout_marginBottom="10dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_mood_bad_black_24dp"
-            app:tint="@color/colorAccent1"
+            app:tint="?attr/colorAccent"
             tools:ignore="ContentDescription" />
 
         <TextView
