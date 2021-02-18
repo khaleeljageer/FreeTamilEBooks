@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#000000</color>
-    <color name="grey">#686767</color>
+    <color name="fte_yellow_400">#ffc000</color>
+    <color name="fte_yellow_500">#ffde03</color>
 
-    <color name="colorAccent1">#FFDE03</color>
-    <color name="colorAccent_alpha_40">#66FFDE03</color>
-    <color name="colorAccent_alpha_10">#1AFFDE03</color>
-    <color name="colorAccent_alpha_80">#DFFFDE03</color>
-    <color name="black_alpha_80">#88000000</color>
-    <color name="black_alpha_70">#B3000000</color>
-    <color name="orangeDark">#FFC400</color>
-    <color name="white_8_alpha">#14ffffff</color>
+    <color name="fte_blue_200">#91a4fc</color>
+    <color name="fte_blue_700">#0336ff</color>
+    <color name="fte_blue_800">#0035c9</color>
+    <color name="fte_blue_dark_primary">#1c1d24</color>
 
-    <color name="menuTintColor">#FFFFFF</color>
-    <color name="black">#000000</color>
+    <!--background protection for nav-bar, varied on Q+-->
+    <color name="immersive_sys_ui">#33000000</color>
+    <color name="nav_bar">@color/immersive_sys_ui</color>
 </resources>
