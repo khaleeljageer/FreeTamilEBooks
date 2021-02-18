@@ -24,37 +24,34 @@ class MainLandingActivity : AppCompatActivity() {
         val menuItems = arrayOf(
             CbnMenuItem(
                 R.drawable.ic_dashboard,
-                R.drawable.avd_dashboard,
-                R.id.navigation_dashboard
+                R.drawable.avd_dashboard
             ),
-            CbnMenuItem(R.drawable.ic_home, R.drawable.avd_home, R.id.navigation_home),
+            CbnMenuItem(R.drawable.ic_home, R.drawable.avd_home),
             CbnMenuItem(
                 R.drawable.ic_download,
-                R.drawable.avd_download,
-                R.id.navigation_downloads
+                R.drawable.avd_download
             ),
             CbnMenuItem(
                 R.drawable.ic_settings,
-                R.drawable.avd_settings,
-                R.id.navigation_settings
+                R.drawable.avd_settings
             )
         )
         binding.navView.setMenuItems(menuItems, 1)
 
         loadFragment(HomeFragment(), HOME_TAG)
 
-        binding.navView.setOnMenuItemClickListener { cbnMenuItem, i ->
-            when (cbnMenuItem.destinationId) {
-                R.id.navigation_dashboard -> {
+        binding.navView.setOnMenuItemClickListener { _, i ->
+            when (i) {
+                0 -> {
                     loadFragment(DashboardFragment(), DASHBOARD_TAG)
                 }
-                R.id.navigation_home -> {
+                1 -> {
                     loadFragment(HomeFragment(), HOME_TAG)
                 }
-                R.id.navigation_downloads -> {
+                2 -> {
                     loadFragment(DownloadsFragment(), DOWNLOADS_TAG)
                 }
-                R.id.navigation_settings -> {
+                3 -> {
                     loadFragment(SettingsFragment(), SETTINGS_TAG)
                 }
             }

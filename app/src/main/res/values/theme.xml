@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Base theme, all common styling here-->
+    <style name="Base.Fte" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!--Material shape attributes-->
+        <!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Fte.SmallComponent</item>-->
+        <!--        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Fte.MediumComponent</item>-->
+        <!--        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Fte.LargeComponent</item>-->
+
+        <!--Material type attributes-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Fte.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Fte.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Fte.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Fte.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Fte.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Fte.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Fte.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Fte.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Fte.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Fte.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Fte.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Fte.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Fte.Overline</item>
+
+        <!--Platform attributes-->
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+        <item name="android:statusBarColor">@color/immersive_sys_ui</item>
+
+        <!--Default styles-->
+<!--        <item name="bottomNavigationStyle">@style/Widget.Fte.BottomNavigationView</item>-->
+
+    </style>
+
+
+    <style name="Fte" parent="@style/Base.Fte" />
+
+    <style name="Fte.Blue">
+        <item name="colorPrimary">@color/fte_blue_700</item>
+        <item name="colorPrimaryVariant">@color/fte_blue_800</item>
+        <item name="colorSecondary">@color/fte_yellow_500</item>
+        <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+    </style>
+
+    <style name="ThemeOverlay.Fte.Blue" parent="@style/ThemeOverlay.MaterialComponents.Light">
+        <item name="colorPrimary">@color/fte_blue_700</item>
+        <item name="colorPrimaryVariant">@color/fte_blue_800</item>
+        <item name="colorSecondary">@color/fte_yellow_500</item>
+        <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+        <item name="colorOnPrimary">#fff</item>
+    </style>
+
+    <style name="ThemeOverlay.Fte.Blue.Dark" parent="@style/ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorPrimary">@color/fte_blue_700</item>
+        <item name="colorPrimaryVariant">@color/fte_blue_800</item>
+        <item name="colorSecondary">@color/fte_yellow_500</item>
+        <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+        <item name="colorOnPrimary">#fff</item>
+    </style>
+</resources>
