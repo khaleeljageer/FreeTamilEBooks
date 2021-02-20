@@ -24,37 +24,47 @@
         <item name="textAppearanceOverline">@style/TextAppearance.Fte.Overline</item>
 
         <!--Platform attributes-->
-        <item name="android:navigationBarColor">@color/nav_bar</item>
-        <item name="android:statusBarColor">@color/immersive_sys_ui</item>
+        <item name="android:navigationBarColor">@color/fte_blue_800</item>
+        <item name="android:statusBarColor">@color/fte_yellow_500</item>
 
         <!--Default styles-->
-<!--        <item name="bottomNavigationStyle">@style/Widget.Fte.BottomNavigationView</item>-->
+        <!--        <item name="bottomNavigationStyle">@style/Widget.Fte.BottomNavigationView</item>-->
 
     </style>
-
 
     <style name="Fte" parent="@style/Base.Fte" />
 
-    <style name="Fte.Blue">
+    <!-- Base application theme. -->
+    <style name="FTEBaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/fte_blue_700</item>
-        <item name="colorPrimaryVariant">@color/fte_blue_800</item>
+        <item name="colorPrimaryDark">@color/fte_blue_800</item>
         <item name="colorSecondary">@color/fte_yellow_500</item>
         <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+        <item name="colorOnPrimary">#fff</item>
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+    </style>
+
+    <style name="Fte.Blue" parent="@style/Fte">
+        <item name="colorPrimary">@color/fte_yellow_500</item>
+        <item name="colorPrimaryVariant">@color/fte_yellow_400</item>
+        <item name="colorSecondary">@color/fte_blue_700</item>
+        <item name="colorSecondaryVariant">@color/fte_blue_800</item>
+        <item name="colorOnPrimary">#fff</item>
     </style>
 
     <style name="ThemeOverlay.Fte.Blue" parent="@style/ThemeOverlay.MaterialComponents.Light">
-        <item name="colorPrimary">@color/fte_blue_700</item>
-        <item name="colorPrimaryVariant">@color/fte_blue_800</item>
-        <item name="colorSecondary">@color/fte_yellow_500</item>
-        <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+        <item name="colorPrimary">@color/fte_yellow_500</item>
+        <item name="colorPrimaryVariant">@color/fte_yellow_400</item>
+        <item name="colorSecondary">@color/fte_blue_700</item>
+        <item name="colorSecondaryVariant">@color/fte_blue_800</item>
         <item name="colorOnPrimary">#fff</item>
     </style>
 
     <style name="ThemeOverlay.Fte.Blue.Dark" parent="@style/ThemeOverlay.MaterialComponents.Dark">
-        <item name="colorPrimary">@color/fte_blue_700</item>
-        <item name="colorPrimaryVariant">@color/fte_blue_800</item>
-        <item name="colorSecondary">@color/fte_yellow_500</item>
-        <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+        <item name="colorPrimary">@color/fte_yellow_500</item>
+        <item name="colorPrimaryVariant">@color/fte_yellow_400</item>
+        <item name="colorSecondary">@color/fte_blue_700</item>
+        <item name="colorSecondaryVariant">@color/fte_blue_800</item>
         <item name="colorOnPrimary">#fff</item>
     </style>
 </resources>

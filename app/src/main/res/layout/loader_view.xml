@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="150dp"
-              android:layout_height="90dp"
-              android:gravity="center_horizontal"
-              android:padding="10dp"
-              android:orientation="vertical">
+    android:layout_width="150dp"
+    android:layout_height="90dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
+
     <ProgressBar
-            android:layout_width="wrap_content"
-            android:progressTint="@color/colorAccent1"
-            android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="?attr/colorPrimaryDark" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/colorAccent"
-            android:text="@string/pls_wait"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/pls_wait"
+        android:textColor="@color/colorAccent" />
 </LinearLayout>

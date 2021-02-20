@@ -4,18 +4,7 @@
 
     </style>
 
-    <!-- Base application theme. -->
-    <style name="FTEBaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorAccent1</item>
 
-        <item name="android:textColorPrimary">@color/colorAccent</item>
-        <item name="android:textColorSecondary">@color/colorAccent</item>
-
-        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
-    </style>
 
     <style name="Splash_Theme" parent="FTEBaseTheme">
         <item name="android:windowFullscreen">true</item>
@@ -25,15 +14,15 @@
     <style name="CustomAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="android:textColorPrimary">@color/colorAccent</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
-        <item name="colorControlActivated">@color/colorAccent1</item>
-        <item name="colorAccent">@color/colorAccent1</item>
+<!--        <item name="colorControlActivated">@color/colorAccent1</item>-->
+<!--        <item name="colorAccent">@color/colorAccent1</item>-->
         <item name="windowFixedWidthMajor">45%</item>
         <item name="windowFixedWidthMinor">45%</item>
     </style>
 
     <style name="Theme.Transparent" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/black_alpha_80</item>
+<!--        <item name="android:windowBackground">@color/black_alpha_80</item>-->
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">false</item>

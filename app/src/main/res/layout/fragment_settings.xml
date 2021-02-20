@@ -59,8 +59,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_separater_height"
-        android:background="@color/grey" />
+        android:layout_height="@dimen/settings_separater_height" />
 
     <LinearLayout
         android:id="@+id/rlOSSLayout"
@@ -81,8 +80,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_separater_height"
-        android:background="@color/grey" />
+        android:layout_height="@dimen/settings_separater_height" />
 
     <LinearLayout
         android:id="@+id/rlSourceCodeLayout"
@@ -103,8 +101,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_separater_height"
-        android:background="@color/grey" />
+        android:layout_height="@dimen/settings_separater_height" />
 
     <TextView
         android:id="@+id/txtAppVersion"

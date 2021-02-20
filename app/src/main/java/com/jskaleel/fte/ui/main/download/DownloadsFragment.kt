@@ -44,7 +44,6 @@ class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit 
         val emptyLayout = view.findViewById<LinearLayout>(R.id.emptyLayout)
         val rvDownloadList = view.findViewById<RecyclerView>(R.id.rvDownloadList)
 
-
         with(rvDownloadList) {
             this.setHasFixedSize(true)
             this.layoutManager = LinearLayoutManager(

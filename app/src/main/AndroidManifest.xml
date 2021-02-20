@@ -21,7 +21,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Fte.Blue"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.jskaleel.fte.ui.splash.SplashActivity"
@@ -36,23 +36,19 @@
         </activity>
         <activity
             android:name=".ui.main.MainLandingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.search.SearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
             android:name=".ui.webview.WebViewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ui.feedback.FeedbackActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <provider
@@ -74,6 +70,6 @@
             android:resource="@drawable/ic_notification" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent1" />
+            android:resource="@color/fte_yellow_500" />
     </application>
 </manifest>
