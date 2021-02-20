@@ -21,7 +21,7 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="#8D6E63"
+            app:cardBackgroundColor="#00796B"
             app:cardCornerRadius="@dimen/margin_5dp"
             app:cardElevation="@dimen/margin_5dp"
             app:cardPreventCornerOverlap="true"
@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:minWidth="@dimen/margin_45dp"
                     android:minHeight="@dimen/margin_45dp"
-                    app:srcCompat="@drawable/ic_info_outline_black_24dp"
+                    app:srcCompat="@drawable/ic_round_info_24"
                     app:tint="@color/white" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -57,7 +57,7 @@
             android:layout_width="@dimen/margin_0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:cardBackgroundColor="#7e3ff2"
+            app:cardBackgroundColor="#0277BD"
             app:cardCornerRadius="@dimen/margin_5dp"
             app:cardElevation="@dimen/margin_5dp"
             app:cardPreventCornerOverlap="true"
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:minWidth="@dimen/margin_45dp"
                     android:minHeight="@dimen/margin_45dp"
-                    app:srcCompat="@drawable/ic_people_outline_black_24dp"
+                    app:srcCompat="@drawable/ic_round_people_24"
                     app:tint="@color/white" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -93,7 +93,7 @@
         android:id="@+id/mcvReleaseBooks"
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="@dimen/margin_0dp"
-        app:cardBackgroundColor="#546E7A"
+        app:cardBackgroundColor="#4527A0"
         app:cardCornerRadius="@dimen/margin_5dp"
         app:cardElevation="@dimen/margin_5dp"
         app:cardPreventCornerOverlap="true"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:minWidth="@dimen/margin_45dp"
                 android:minHeight="@dimen/margin_45dp"
-                app:srcCompat="@drawable/ic_help_outline_black_24dp"
+                app:srcCompat="@drawable/ic_round_help_24"
                 app:tint="@color/white" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -128,42 +128,87 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcvComments"
+    <LinearLayout
         android:layout_width="@dimen/margin_0dp"
         android:layout_height="@dimen/margin_0dp"
-        app:cardBackgroundColor="#D81B60"
-        app:cardCornerRadius="@dimen/margin_5dp"
-        app:cardElevation="@dimen/margin_5dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mcvReleaseBooks">
+        app:layout_constraintTop_toBottomOf="@+id/mcvReleaseBooks">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvComments"
+            android:layout_width="@dimen/margin_0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            app:cardBackgroundColor="#5C6BC0"
+            app:cardCornerRadius="@dimen/margin_5dp"
+            app:cardElevation="@dimen/margin_5dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minWidth="@dimen/margin_45dp"
-                android:minHeight="@dimen/margin_45dp"
-                app:srcCompat="@drawable/ic_feedback_white_24dp"
-                app:tint="@color/white" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/margin_5dp"
-                android:text="@string/feedback"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/margin_45dp"
+                    android:minHeight="@dimen/margin_45dp"
+                    app:srcCompat="@drawable/ic_round_feedback_24"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_5dp"
+                    android:text="@string/feedback"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcvWriters"
+            android:layout_width="@dimen/margin_0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:cardBackgroundColor="#b00020"
+            app:cardCornerRadius="@dimen/margin_5dp"
+            app:cardElevation="@dimen/margin_5dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/margin_45dp"
+                    android:minHeight="@dimen/margin_45dp"
+                    app:srcCompat="@drawable/ic_round_groups_24"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_5dp"
+                    android:text="@string/book_writers"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
