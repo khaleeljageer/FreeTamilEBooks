@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootContainer"
+    android:background="?attr/colorPrimarySurface"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -46,6 +47,7 @@
                     android:layout_toStartOf="@+id/ivClear"
                     android:layout_toEndOf="@+id/ivBack"
                     android:background="@null"
+                    android:textAppearance="?attr/textAppearanceBody2"
                     android:gravity="center_vertical"
                     android:hint="@string/search_for_books_authors"
                     android:imeOptions="actionSearch"

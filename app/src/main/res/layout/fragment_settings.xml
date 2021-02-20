@@ -4,111 +4,247 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:isScrollContainer="true"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="@dimen/margin_5dp">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/title_settings" />
+            app:title="@string/title_settings"
+            app:titleTextAppearance="?attr/textAppearanceHeadline6" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlPushLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:ignore="RelativeOverlap">
+            android:paddingBottom="@dimen/margin_60dp">
 
-            <TextView
-                android:id="@+id/txtPushLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/push_notification"
-                android:textColor="@color/colorAccent"
-                android:textSize="14sp" />
-
-            <Space
+            <RelativeLayout
+                android:id="@+id/rlPushLayout"
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_20dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivNotificationLogo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_round_notifications_active_24" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20dp"
+                    android:layout_toEndOf="@+id/ivNotificationLogo"
+                    android:orientation="vertical"
+                    tools:ignore="RelativeOverlap">
+
+                    <TextView
+                        android:id="@+id/txtPushLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/push_notification"
+                        android:textAppearance="?attr/textAppearanceBody2" />
+
+                    <TextView
+                        android:id="@+id/txtPushStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:text="@string/on"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swPush"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/rlOSSLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15dp">
+
+                <TextView
+                    android:id="@+id/txtLabelOSS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/open_sources"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:drawableStartCompat="@drawable/ic_oss" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rlSourceCodeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtLabelSourceCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/source_code"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:drawableStartCompat="@drawable/ic_git" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llShareApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15dp">
+
+                <TextView
+                    android:id="@+id/txtShareApp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/share_app"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:drawableStartCompat="@drawable/ic_round_share_24" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llPrivacyPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15dp">
+
+                <TextView
+                    android:id="@+id/txtPrivacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/privacy_policy"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    app:drawableStartCompat="@drawable/ic_round_policy_24" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/margin_20dp"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/llPoweredBy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20dp"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_15dp"
+                    android:text="@string/powered_by"
+                    android:textAppearance="?attr/textAppearanceCaption" />
+
+                <LinearLayout
+                    android:id="@+id/layout_kaniyam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="90dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/logo_kaniyam" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_5dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kaniyam_foundation"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtKaniyamDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?attr/textAppearanceCaption" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_vglug"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="90dp"
+                        android:layout_height="60dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/vglug_logo" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/margin_5dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vglug_foundation"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtVglugDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?attr/textAppearanceCaption" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/txtPushStatus"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtAppVersion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/on"
-                android:textSize="12sp" />
+                android:gravity="center"
+                android:padding="5dp"
+                android:textAppearance="?attr/textAppearanceCaption" />
         </LinearLayout>
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/swPush"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_separater_height" />
-
-    <LinearLayout
-        android:id="@+id/rlOSSLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:visibility="visible">
-
-        <TextView
-            android:id="@+id/txtLabelOSS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/open_sources"
-            android:textColor="@color/colorAccent"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_separater_height" />
-
-    <LinearLayout
-        android:id="@+id/rlSourceCodeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:visibility="visible">
-
-        <TextView
-            android:id="@+id/txtLabelSourceCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/source_code"
-            android:textColor="@color/colorAccent"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_separater_height" />
-
-    <TextView
-        android:id="@+id/txtAppVersion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="5dp"
-        android:textColor="@color/colorAccent"
-        android:textSize="12sp" />
+    </ScrollView>
 </LinearLayout>
