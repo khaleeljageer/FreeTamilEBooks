@@ -55,7 +55,7 @@
     </style>
 
     <style name="TextAppearance.Fte.Body1" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="fontFamily">@font/madurai</item>
+        <item name="fontFamily">@font/madurai_bold</item>
         <item name="lineHeight">28sp</item>
     </style>
 
@@ -65,8 +65,8 @@
     </style>
 
     <style name="TextAppearance.Fte.Button" parent="TextAppearance.MaterialComponents.Button">
-        <item name="fontFamily">@font/madurai_bold</item>
-        <item name="android:textStyle">bold</item>
+        <item name="font">@font/madurai_bold</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextAppearance.Fte.Caption" parent="TextAppearance.MaterialComponents.Caption">

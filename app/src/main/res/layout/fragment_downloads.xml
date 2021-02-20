@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:paddingStart="@dimen/margin_5dp"
-    android:paddingEnd="@dimen/margin_5dp">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/emptyLayout"
@@ -42,7 +39,6 @@
         android:id="@+id/rvDownloadList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
         android:clipToPadding="false"
         android:paddingTop="@dimen/margin_10dp"
         android:paddingBottom="@dimen/margin_65dp"

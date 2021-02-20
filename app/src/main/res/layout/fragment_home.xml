@@ -5,7 +5,6 @@
     android:id="@+id/rootContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:paddingStart="@dimen/margin_5dp"
     android:paddingEnd="@dimen/margin_5dp">
 
@@ -41,6 +40,7 @@
             android:gravity="center_vertical"
             android:text="@string/search_for_books_authors"
             android:textSize="@dimen/textsize_13sp"
+            app:drawableTint="?attr/colorSecondaryVariant"
             app:drawableStartCompat="@drawable/ic_round_search_24" />
     </com.google.android.material.card.MaterialCardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
