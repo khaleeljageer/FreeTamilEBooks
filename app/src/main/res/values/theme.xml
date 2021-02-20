@@ -32,8 +32,17 @@
 
     </style>
 
-
     <style name="Fte" parent="@style/Base.Fte" />
+
+    <!-- Base application theme. -->
+    <style name="FTEBaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/fte_blue_700</item>
+        <item name="colorPrimaryDark">@color/fte_blue_800</item>
+        <item name="colorSecondary">@color/fte_yellow_500</item>
+        <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
+        <item name="colorOnPrimary">#fff</item>
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+    </style>
 
     <style name="Fte.Blue" parent="@style/Fte">
         <item name="colorPrimary">@color/fte_blue_700</item>

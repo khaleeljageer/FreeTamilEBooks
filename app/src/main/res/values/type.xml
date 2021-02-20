@@ -60,7 +60,7 @@
     </style>
 
     <style name="TextAppearance.Fte.Body2" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="fontFamily">@font/madurai</item>
+        <item name="font">@font/madurai_bold</item>
         <item name="lineHeight">16sp</item>
     </style>
 

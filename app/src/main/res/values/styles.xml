@@ -4,18 +4,7 @@
 
     </style>
 
-    <!-- Base application theme. -->
-    <style name="FTEBaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-<!--        <item name="colorControlActivated">@color/colorAccent1</item>-->
 
-        <item name="android:textColorPrimary">@color/colorAccent</item>
-        <item name="android:textColorSecondary">@color/colorAccent</item>
-
-        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
-    </style>
 
     <style name="Splash_Theme" parent="FTEBaseTheme">
         <item name="android:windowFullscreen">true</item>
