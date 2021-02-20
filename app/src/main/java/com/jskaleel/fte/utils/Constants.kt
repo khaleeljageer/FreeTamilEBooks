@@ -2,6 +2,8 @@ package com.jskaleel.fte.utils
 
 object Constants {
     const val BASE_URL = "https://raw.githubusercontent.com/KaniyamFoundation/Free-Tamil-Ebooks/"
+    const val STORE_URL = "https://play.google.com/store/apps/details?id=com.jskaleel.fte"
+    const val PRIVACY_POLICY_URL = "https://www.privacypolicies.com/privacy/view/4f7a3c7ec5657505b8f02e0527d2041a"
 
     const val CHANNEL_NAME = "fte_books"
     const val LIST_BY_DEFAULT = 101

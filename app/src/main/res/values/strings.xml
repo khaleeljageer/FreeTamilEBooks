@@ -41,7 +41,7 @@
 
     <string name="downloads">பதிவிறக்கங்கள்</string>
     <string name="no_downloads">மன்னிக்கவும்.\nபதிவிறக்கங்கள் எதுவும் காணப்படவில்லை.</string>
-    <string name="open_sources">திறந்த மூல உரிமங்கள்</string>
+    <string name="open_sources">மூன்றாம் தரப்பு நூலகங்கள்</string>
     <string name="book_by_mariyani_from_the_noun_project">
         Logo Credits:\nBook by Mariyani from the Noun Project
     </string>
@@ -55,4 +55,16 @@
     <string name="download">Download</string>
     <string name="loading">Loading…</string>
     <string name="book_writers">நூலாசிரியர்கள்</string>
+    <string name="share_app">செயலியை பகிரவும்</string>
+    <string name="share_text">FreeTamilEbooks செயலிமூலம் 500க்கும் மேற்பட்ட மின்நூல்களை இலவசமாக தரவிறக்கி படிக்கலாம்.\n%s</string>
+    <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <string name="powered_by">Powered by</string>
+    <string name="kaniyam_foundation">கணியம் அறக்கட்டளை</string>
+    <string name="kaniyam_foundation_desc"><![CDATA[<p><b>தொலை நோக்கு – Vision</b><br>தமிழ் மொழி மற்றும் இனக்குழுக்கள் சார்ந்த மெய்நிகர்வளங்கள், கருவிகள் மற்றும் அறிவுத்தொகுதிகள், அனைவருக்கும்  கட்டற்ற அணுக்கத்தில் கிடைக்கும் சூழல்
+<br><b>பணி இலக்கு  – Mission</b><br>அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஒப்ப, தமிழ் மொழியின் பயன்பாடு வளர்வதை உறுதிப்படுத்துவதும், அனைத்து அறிவுத் தொகுதிகளும், வளங்களும் கட்டற்ற அணுக்கத்தில் அனைவருக்கும் கிடைக்கச்செய்தலும்.<br>
+<a>https://kaniyam.com</a></p>]]></string>
+    <string name="vglug_foundation">VGLUG அறக்கட்டளை</string>
+    <string name="vglug_foundation_desc"><![CDATA[<p>விழுப்புரம் குனு/லினக்ஸ் பயனர்கள் குழு (VGLUG) என்பது 2013 ஆம் ஆண்டில் தொடங்கப்பட்ட ஒரு இலாப நோக்கற்ற அமைப்பாகும். இந்த அமைப்பு ஒரு சமூக இயக்கமாகும். இது கட்டற்ற மென்பொருள் தத்துவத்தின் சாரத்துடன் அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஏற்ப FOSS தத்துவத்தினை மக்களிடையே கொண்டு சேர்க்கும் வேலையை செய்துவருகிறது.
+    <br>
+<a>https://vglug.org</a></p>]]></string>
 </resources>

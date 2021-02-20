@@ -79,7 +79,7 @@ class DownloadsFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit 
             } else {
                 emptyLayout.hide()
                 rvDownloadList.show()
-                downloadAdapter.loadBooks(localBooks)
+                downloadAdapter.loadBooks(localBooks.reversed())
             }
         })
 

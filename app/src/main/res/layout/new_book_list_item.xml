@@ -65,6 +65,7 @@
         android:elevation="4dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textSize="@dimen/text_size_14sp"
         android:textAppearance="?attr/textAppearanceCaption"
         app:layout_constraintEnd_toEndOf="@+id/cardContentLayer"
         app:layout_constraintStart_toEndOf="@+id/cardImageLayer"
