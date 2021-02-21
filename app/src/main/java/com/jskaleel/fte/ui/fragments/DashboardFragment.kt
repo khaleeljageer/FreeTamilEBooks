@@ -40,6 +40,9 @@ class DashboardFragment : Fragment() {
         binding.mcvReleaseBooks.setOnClickListener {
             launchWebActivity(WebViewActivity.TYPE_PUBLISH)
         }
+        binding.mcvWriters.setOnClickListener {
+            launchWebActivity(WebViewActivity.TYPE_AUTHORS)
+        }
     }
 
     private fun launchWebActivity(type: Int) {
