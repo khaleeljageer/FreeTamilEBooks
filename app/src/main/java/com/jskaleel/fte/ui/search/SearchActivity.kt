@@ -16,7 +16,6 @@ import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.ActivitySearchBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
 import com.jskaleel.fte.utils.FileUtils
-import com.jskaleel.fte.utils.PrintLog
 import com.jskaleel.fte.utils.openBook
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
@@ -86,10 +85,17 @@ class SearchActivity : AppCompatActivity(), CoroutineScope, (Int, LocalBooks) ->
             val key = it.toString().trim()
             launch {
                 val searchResult = appDataBase.localBooksDao().getBooksByKey("%$key%")
-                PrintLog.info("Search Key : $key Result : ${searchResult.size}")
+
                 runOnUiThread {
                     searchListAdapter.clearBooks()
-                    searchListAdapter.loadBooks(searchResult)
+                    if (searchResult.isEmpty()) {
+                        binding.rvBookList.visibility = View.GONE
+                        binding.txtNoResult.visibility = View.VISIBLE
+                    } else {
+                        binding.rvBookList.visibility = View.VISIBLE
+                        binding.txtNoResult.visibility = View.GONE
+                        searchListAdapter.loadBooks(searchResult)
+                    }
                 }
             }
         }

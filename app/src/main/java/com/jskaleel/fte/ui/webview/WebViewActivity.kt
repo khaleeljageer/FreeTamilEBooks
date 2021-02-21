@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jskaleel.fte.R
 import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.ActivityWebviewBinding
+import com.jskaleel.fte.utils.Constants
 
 class WebViewActivity : AppCompatActivity() {
 
@@ -63,8 +64,18 @@ class WebViewActivity : AppCompatActivity() {
                 webSettings.domStorageEnabled = true
                 binding.webView.loadUrl(assesUri)
             }
-            else -> {
+            5 -> {
+                binding.toolBar.title = getString(R.string.privacy_policy)
+                binding.webView.visibility = View.VISIBLE
+                binding.listView.visibility = View.GONE
 
+                val webSettings = binding.webView.settings
+                webSettings.javaScriptEnabled = true
+                webSettings.defaultTextEncodingName = "utf-8"
+                webSettings.domStorageEnabled = true
+                binding.webView.loadUrl(Constants.PRIVACY_POLICY_URL)
+            }
+            else -> {
                 binding.toolBar.title = getString(R.string.book_writers)
                 binding.webView.visibility = View.GONE
                 binding.listView.visibility = View.VISIBLE
@@ -92,5 +103,6 @@ class WebViewActivity : AppCompatActivity() {
         const val TYPE_TEAM = 2
         const val TYPE_PUBLISH = 3
         const val TYPE_AUTHORS = 4
+        const val TYPE_PRIVACY_POLICY = 5
     }
 }

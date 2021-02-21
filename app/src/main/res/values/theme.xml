@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Base theme, all common styling here-->
-    <style name="Base.Fte" parent="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Fte" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
 
         <!--Material shape attributes-->
         <!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Fte.SmallComponent</item>-->
         <!--        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Fte.MediumComponent</item>-->
-                <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Fte.LargeComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Fte.LargeComponent</item>
 
         <!--Material type attributes-->
         <item name="textAppearanceHeadline1">@style/TextAppearance.Fte.Headline1</item>

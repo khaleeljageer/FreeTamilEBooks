@@ -14,6 +14,7 @@ import com.jskaleel.fte.BuildConfig
 import com.jskaleel.fte.R
 import com.jskaleel.fte.databinding.FragmentSettingsBinding
 import com.jskaleel.fte.ui.main.MainLandingActivity
+import com.jskaleel.fte.ui.webview.WebViewActivity
 import com.jskaleel.fte.utils.AppPreference
 import com.jskaleel.fte.utils.AppPreference.get
 import com.jskaleel.fte.utils.AppPreference.set
@@ -75,12 +76,7 @@ class SettingsFragment : Fragment() {
         }
 
         binding.rlSourceCodeLayout.setOnClickListener {
-            val url = "https://github.com/khaleeljageer/FreeTamilEBooks"
-            val shareIntent: Intent = Intent().apply {
-                action = Intent.ACTION_VIEW
-                data = Uri.parse(url)
-            }
-            startActivity(shareIntent)
+            openUrl("https://github.com/khaleeljageer/FreeTamilEBooks")
         }
 
         binding.llShareApp.setOnClickListener {
@@ -98,6 +94,12 @@ class SettingsFragment : Fragment() {
 
         }
 
+        binding.llPrivacyPolicy.setOnClickListener {
+            val intent = Intent(requireContext(), WebViewActivity::class.java)
+            intent.putExtra(WebViewActivity.KEY_TYPE, WebViewActivity.TYPE_PRIVACY_POLICY)
+            startActivity(intent)
+        }
+
         binding.txtAppVersion.text =
             String.format(getString(R.string.version, BuildConfig.VERSION_NAME))
 
@@ -109,5 +111,13 @@ class SettingsFragment : Fragment() {
             getString(R.string.vglug_foundation_desc),
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
+    }
+
+    fun openUrl(url: String) {
+        val shareIntent: Intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = Uri.parse(url)
+        }
+        startActivity(shareIntent)
     }
 }
