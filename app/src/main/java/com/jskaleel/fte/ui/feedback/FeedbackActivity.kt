@@ -19,11 +19,15 @@ class FeedbackActivity : AppCompatActivity() {
         binding = ActivityFeedbackBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.ivSend.setOnClickListener {
+        binding.btnSend.setOnClickListener {
             val name = binding.edtName.text.toString()
             val email = binding.edtEmail.text.toString()
             val comments = binding.edtComments.text.toString()
             submitFeedBack(name, email, comments)
+        }
+        binding.toolBar.title = getString(R.string.feedback)
+        binding.toolBar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 

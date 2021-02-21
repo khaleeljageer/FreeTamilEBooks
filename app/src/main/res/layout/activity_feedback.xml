@@ -1,44 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimary">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="@dimen/margin_0dp"
+        app:contentInsetStartWithNavigation="@dimen/margin_0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        app:title="@string/feedback" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-            app:title="@string/feedback">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/ivSend"
-                    android:layout_width="45dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/submit"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_send_black_24dp" />
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/name">
+            android:hint="@string/name"
+            app:boxBackgroundColor="?attr/colorPrimary"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="?attr/colorSecondaryVariant">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtName"
@@ -53,11 +50,15 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/email">
+            android:layout_below="@+id/til1"
+            android:hint="@string/email"
+            app:boxBackgroundColor="?attr/colorPrimary"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="?attr/colorSecondaryVariant">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"
@@ -72,16 +73,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/til2"
             android:hint="@string/comments"
+            app:boxBackgroundColor="?attr/colorPrimary"
+            app:boxBackgroundMode="filled"
+            app:boxStrokeColor="@color/black"
             app:counterEnabled="true"
             app:counterMaxLength="1000"
-            app:counterOverflowTextColor="?attr/colorAccent"
+            app:counterOverflowTextColor="?attr/colorError"
             app:counterTextColor="?attr/colorAccent"
-            app:hintTextColor="?attr/colorControlActivated">
+            app:hintTextColor="?attr/colorSecondaryVariant">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtComments"
@@ -90,5 +94,19 @@
                 android:maxLines="10"
                 android:textCursorDrawable="@null" />
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_below="@+id/til3"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/fte_blue_700"
+            android:paddingStart="80dp"
+            android:paddingEnd="80dp"
+            android:text="@string/send"
+            android:textAppearance="?attr/textAppearanceButton"
+            android:textSize="@dimen/text_size_14sp"
+            app:cornerRadius="25dp" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

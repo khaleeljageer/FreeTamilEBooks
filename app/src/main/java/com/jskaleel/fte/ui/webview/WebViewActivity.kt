@@ -37,6 +37,9 @@ class WebViewActivity : AppCompatActivity() {
             }
             else -> ""
         }
+        binding.toolBar.setNavigationOnClickListener {
+            onBackPressed()
+        }
         setSupportActionBar(binding.toolBar)
 
         binding.webView.webViewClient = object : WebViewClient() {
