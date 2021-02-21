@@ -6,6 +6,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.jskaleel.fte.R
 import com.jskaleel.fte.databinding.ActivityWebviewBinding
 
 class WebViewActivity : AppCompatActivity() {
@@ -15,17 +16,28 @@ class WebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityWebviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         var viewType = 1
         if (intent != null && intent.hasExtra(KEY_TYPE)) {
             viewType = intent.getIntExtra(KEY_TYPE, 1)
         }
 
         val assesUri = when (viewType) {
-            1 -> "file:///android_asset/htmlfiles/about_us.html"
-            2 -> "file:///android_asset/htmlfiles/team.html"
-            3 -> "file:///android_asset/htmlfiles/how_to_publish.html"
+            1 -> {
+                binding.toolBar.title = getString(R.string.about_us)
+                "file:///android_asset/htmlfiles/about_us.html"
+            }
+            2 -> {
+                binding.toolBar.title = getString(R.string.contributors)
+                "file:///android_asset/htmlfiles/team.html"
+            }
+            3 -> {
+                binding.toolBar.title = getString(R.string.publish_books)
+                "file:///android_asset/htmlfiles/how_to_publish.html"
+            }
             else -> ""
         }
+        setSupportActionBar(binding.toolBar)
 
         binding.webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
