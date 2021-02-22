@@ -2,6 +2,7 @@
 <resources>
     <color name="fte_yellow_400">#ffc000</color>
     <color name="fte_yellow_500">#ffde03</color>
+    <color name="fte_yellow_50">#FFF8E1</color>
 
     <color name="fte_blue_200">#91a4fc</color>
     <color name="fte_blue_700">#0336ff</color>

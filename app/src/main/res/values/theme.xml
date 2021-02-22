@@ -50,6 +50,7 @@
         <item name="colorSecondary">@color/fte_blue_700</item>
         <item name="colorSecondaryVariant">@color/fte_blue_800</item>
         <item name="colorOnPrimary">#fff</item>
+        <item name="colorAccent">@color/fte_yellow_50</item>
     </style>
 
     <style name="ThemeOverlay.Fte.Blue" parent="@style/ThemeOverlay.MaterialComponents.Light">
