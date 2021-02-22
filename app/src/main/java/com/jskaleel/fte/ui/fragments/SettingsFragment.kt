@@ -100,6 +100,14 @@ class SettingsFragment : Fragment() {
             startActivity(intent)
         }
 
+        binding.layoutKaniyam.setOnClickListener {
+            openUrl("https://kaniyam.com")
+        }
+
+        binding.layoutVglug.setOnClickListener {
+            openUrl("https://vglug.org")
+        }
+
         binding.txtAppVersion.text =
             String.format(getString(R.string.version, BuildConfig.VERSION_NAME))
 
@@ -113,7 +121,7 @@ class SettingsFragment : Fragment() {
         )
     }
 
-    fun openUrl(url: String) {
+    private fun openUrl(url: String) {
         val shareIntent: Intent = Intent().apply {
             action = Intent.ACTION_VIEW
             data = Uri.parse(url)

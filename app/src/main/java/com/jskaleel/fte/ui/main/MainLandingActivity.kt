@@ -1,9 +1,11 @@
 package com.jskaleel.fte.ui.main
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.fte.R
 import com.jskaleel.fte.databinding.ActivityMainLandingBinding
 import com.jskaleel.fte.ui.fragments.DashboardFragment
@@ -14,6 +16,8 @@ import np.com.susanthapa.curved_bottom_navigation.CbnMenuItem
 
 
 class MainLandingActivity : AppCompatActivity() {
+
+    private val mainLandingViewModel: MainLandingViewModel by viewModels()
 
     private lateinit var binding: ActivityMainLandingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +60,10 @@ class MainLandingActivity : AppCompatActivity() {
                 }
             }
         }
+
+        mainLandingViewModel.message.observe(this, {
+            Snackbar.make(binding.container2, it, Snackbar.LENGTH_LONG).show()
+        })
     }
 
     private fun loadFragment(fragment: Fragment, tag: String) {

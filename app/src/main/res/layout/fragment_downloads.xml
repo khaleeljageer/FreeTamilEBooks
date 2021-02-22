@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:ignore="UseCompoundDrawables">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -21,7 +21,7 @@
             android:layout_marginBottom="10dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_mood_bad_black_24dp"
-            app:tint="?attr/colorAccent"
+            app:tint="?attr/colorSecondary"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:gravity="center"
             android:padding="11dp"
             android:text="@string/no_downloads"
-            android:textColor="@color/colorAccent"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -42,5 +42,5 @@
         android:clipToPadding="false"
         android:paddingTop="@dimen/margin_10dp"
         android:paddingBottom="@dimen/margin_65dp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 </RelativeLayout>

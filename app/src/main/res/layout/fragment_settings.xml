@@ -174,7 +174,7 @@
                     android:textAppearance="?attr/textAppearanceCaption" />
 
                 <LinearLayout
-                    android:id="@+id/layout_kaniyam"
+                    android:id="@+id/layoutKaniyam"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_20dp"
@@ -208,7 +208,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layout_vglug"
+                    android:id="@+id/layoutVglug"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_20dp"
