@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Base theme, all common styling here-->
-    <style name="Base.Fte" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
-
-        <!--Material shape attributes-->
-        <!--        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Fte.SmallComponent</item>-->
-        <!--        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Fte.MediumComponent</item>-->
+    <style name="Base.Fte" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Fte.LargeComponent</item>
 
         <!--Material type attributes-->
@@ -25,11 +21,8 @@
 
         <!--Platform attributes-->
         <item name="android:navigationBarColor">@color/fte_blue_800</item>
-        <item name="android:statusBarColor">@color/fte_yellow_500</item>
-
-        <!--Default styles-->
-        <!--        <item name="bottomNavigationStyle">@style/Widget.Fte.BottomNavigationView</item>-->
-
+        <item name="android:statusBarColor">@color/fte_yellow_400</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="Fte" parent="@style/Base.Fte" />
@@ -42,6 +35,8 @@
         <item name="colorSecondaryVariant">@color/fte_yellow_400</item>
         <item name="colorOnPrimary">#fff</item>
         <item name="alertDialogTheme">@style/CustomAlertDialog</item>
+        <item name="android:statusBarColor">@color/fte_yellow_400</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="Fte.Blue" parent="@style/Fte">
@@ -49,8 +44,8 @@
         <item name="colorPrimaryVariant">@color/fte_yellow_400</item>
         <item name="colorSecondary">@color/fte_blue_700</item>
         <item name="colorSecondaryVariant">@color/fte_blue_800</item>
-        <item name="colorOnPrimary">#fff</item>
         <item name="colorAccent">@color/fte_yellow_50</item>
+        <item name="colorControlActivated">@color/fte_blue_700</item>
     </style>
 
     <style name="ThemeOverlay.Fte.Blue" parent="@style/ThemeOverlay.MaterialComponents.Light">
