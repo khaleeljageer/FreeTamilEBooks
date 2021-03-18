@@ -78,6 +78,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
 
     implementation 'io.coil-kt:coil:1.1.1'
+    implementation "com.vorlonsoft:androidrate:1.2.1"
 }
 
 repositories {
