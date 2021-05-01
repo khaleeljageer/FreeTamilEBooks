@@ -16,8 +16,8 @@ android {
         applicationId "com.jskaleel.fte"
         minSdkVersion versions.androidMinSdk
         targetSdkVersion versions.androidTargetSdk
-        versionCode 32
-        versionName "8.1"
+        versionCode 36
+        versionName "8.1.0"
         multiDexEnabled true
     }
     buildTypes {
@@ -39,6 +39,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+
+    defaultConfig {
+        resConfigs "en", "ta"
     }
 }
 
