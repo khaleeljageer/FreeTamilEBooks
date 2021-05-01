@@ -75,4 +75,6 @@
     <string name="new_rate_dialog_ok">Rate Now</string>
     <string name="new_rate_dialog_later">Later</string>
     <string name="new_rate_dialog_never">Never</string>
+
+    <string name="cc_declaration">All books listed here are CC by license.\n\nஇங்கு பட்டியலிடப்பட்டுள்ள அனைத்து புத்தகங்களும் CC by உரிமத்தில் உள்ளவை.</string>
 </resources>
