@@ -9,11 +9,11 @@ import com.jskaleel.fte.data.dao.SavedBooksDao
 import com.jskaleel.fte.data.entities.LocalBooks
 import com.jskaleel.fte.data.entities.SavedBooks
 
-@Database(entities = [LocalBooks::class, SavedBooks::class], version = 1, exportSchema = false)
+@Database(entities = [LocalBooks::class, SavedBooks::class], version = 4, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun localBooksDao(): LocalBooksDao
     abstract fun savedBooksDao(): SavedBooksDao
+    abstract fun localBooksDao(): LocalBooksDao
 
     companion object {
         private var instance: AppDatabase? = null
