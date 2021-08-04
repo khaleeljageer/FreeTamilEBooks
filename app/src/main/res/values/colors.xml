@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fte_yellow_400">#ddb892</color>
-    <color name="fte_yellow_500">#e6ccb2</color>
-    <color name="fte_yellow_50">#ede0d4</color>
+    <color name="fte_yellow_4001">#ddb892</color>
+    <color name="fte_yellow_5001">#e6ccb2</color>
+    <color name="fte_yellow_501">#ede0d4</color>
 
-    <color name="fte_blue_200">#b08968</color>
-    <color name="fte_blue_700">#9c6644</color>
-    <color name="fte_blue_800">#7f5539</color>
+    <color name="fte_yellow_400">#FFEE15</color>
+    <color name="fte_yellow_500">#FFEB3B</color>
+    <color name="fte_yellow_50">#FFFDE7</color>
+
+    <color name="fte_blue_200">#90CAF9</color>
+    <color name="fte_blue_700">#1976D2</color>
+    <color name="fte_blue_800">#1565C0</color>
     <color name="fte_blue_dark_primary">#1c1d24</color>
 
     <!--background protection for nav-bar, varied on Q+-->

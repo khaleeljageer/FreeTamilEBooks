@@ -48,7 +48,6 @@
         android:id="@+id/searchWidget"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_75dp"
-        android:background="@android:color/transparent"
         app:cardCornerRadius="@dimen/margin_6dp"
         app:cardElevation="@dimen/margin_5dp"
         app:cardPreventCornerOverlap="true"

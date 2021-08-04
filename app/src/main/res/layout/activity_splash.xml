@@ -10,7 +10,8 @@
         android:id="@+id/llSplashLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -55,7 +56,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/margin_5dp"
         android:layout_marginBottom="@dimen/margin_5dp"
+        android:autoLink="web"
+        android:padding="@dimen/margin_10dp"
         android:text="@string/book_by_mariyani_from_the_noun_project"
+        android:textColorLink="@color/fte_blue_700"
         android:textSize="@dimen/text_size_12sp"
         app:fontFamily="@font/madurai"
         tools:ignore="RelativeOverlap" />

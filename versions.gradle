@@ -25,6 +25,6 @@ versions.gson = "2.8.6"
 
 versions.lifecycle = "2.2.0"
 versions.localbcmanager = "1.0.0"
-versions.koin = "2.2.2"
+versions.koin = "2.2.3"
 
 ext.versions = versions

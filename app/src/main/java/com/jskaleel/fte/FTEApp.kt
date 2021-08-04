@@ -31,8 +31,8 @@ class FTEApp : MultiDexApplication(), ImageLoaderFactory {
 
         startKoin {
             androidLogger()
-            modules(listOf(networkModule, fteModule))
             androidContext(this@FTEApp)
+            modules(listOf(networkModule, fteModule))
         }
 
         createFolder()

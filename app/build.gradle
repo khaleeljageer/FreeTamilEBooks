@@ -16,7 +16,7 @@ android {
         applicationId "com.jskaleel.fte"
         minSdkVersion versions.androidMinSdk
         targetSdkVersion versions.androidTargetSdk
-        versionCode 36
+        versionCode 37
         versionName "8.1.0"
         multiDexEnabled true
     }
@@ -71,13 +71,14 @@ dependencies {
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
     implementation 'com.google.firebase:firebase-messaging:21.0.1'
 
-    implementation 'np.com.susanthapa.curved_bottom_navigation:curved_bottom_navigation:0.6.3'
+    implementation 'np.com.susanthapa:curved_bottom_navigation:0.6.5'
     // Koin for Android
-    implementation "org.koin:koin-android:$versions.koin"
-    // or Koin for Lifecycle scoping
-    implementation "org.koin:koin-androidx-scope:$versions.koin"
-    // or Koin for Android Architecture ViewModel
-    implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
+    implementation "io.insert-koin:koin-android:$versions.koin"
+    // Koin AndroidX Scope features
+    implementation "io.insert-koin:koin-androidx-scope:$versions.koin"
+    // Koin AndroidX ViewModel features
+    implementation "io.insert-koin:koin-androidx-viewmodel:$versions.koin"
+
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
 
