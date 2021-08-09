@@ -6,13 +6,14 @@ buildscript {
     apply from: 'versions.gradle'
 
     ext {
-        kotlin_version = '1.4.21'
+        kotlin_version = '1.5.20'
         retrofit_version = '2.9.0'
         navigationVersion = '2.3.3'
     }
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven {
             url 'https://maven.fabric.io/public'
         }

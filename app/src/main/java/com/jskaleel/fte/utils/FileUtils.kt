@@ -64,16 +64,15 @@ object FileUtils {
         }
     }
 
-    fun openSavedBook(context: Context, book: LocalBooks) {
-        if (book.savedPath == null) {
-            return
+    fun openSavedBook(context: Context, book: LocalBooks?) {
+        book?.let {
+            var config = AppUtil.getSavedConfig(context)
+            if (config == null) config = Config()
+            config.allowedDirection = Config.AllowedDirection.VERTICAL_AND_HORIZONTAL
+            config.isShowTts = false
+            config.setThemeColorInt(ContextCompat.getColor(context, R.color.fte_blue_700))
+            val folioReader = FolioReader.get()
+            folioReader.setConfig(config, true).openBook(book.savedPath.replace("file://", ""))
         }
-        var config = AppUtil.getSavedConfig(context)
-        if (config == null) config = Config()
-        config.allowedDirection = Config.AllowedDirection.VERTICAL_AND_HORIZONTAL
-        config.isShowTts = false
-        config.setThemeColorInt(ContextCompat.getColor(context, R.color.fte_blue_700))
-        val folioReader = FolioReader.get()
-        folioReader.setConfig(config, true).openBook(book.savedPath!!.replace("file://", ""))
     }
 }

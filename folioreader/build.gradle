@@ -74,6 +74,10 @@ android {
     checkstyle {
         ignoreFailures = true
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 apply from: '../folioreader/bintray/installv1.gradle'

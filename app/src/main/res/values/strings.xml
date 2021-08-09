@@ -40,10 +40,10 @@
     <string name="filter_titer">தலைப்பு</string>
 
     <string name="downloads">பதிவிறக்கங்கள்</string>
-    <string name="no_downloads">மன்னிக்கவும்.\nபதிவிறக்கங்கள் எதுவும் காணப்படவில்லை.</string>
+    <string name="no_downloads">பதிவிறக்கங்கள் எதுவும்\nகாணப்படவில்லை.</string>
     <string name="open_sources">மூன்றாம் தரப்பு நூலகங்கள்</string>
     <string name="book_by_mariyani_from_the_noun_project">
-        Logo Credits:\nBook by Mariyani from the Noun Project
+        Logo Credits:\nThis file is licensed under the Creative Commons Attribution 4.0 International license.\nBook by Mariyani from the Noun Project
     </string>
     <string name="search_for_books_authors">புத்தகம்/ஆசிரியர் பெயரில் தேடவும்…</string>
     <string name="try_again_later">சிறிது நேரம் கழித்து முயற்சிக்கவும்…</string>
@@ -67,4 +67,14 @@
     <string name="vglug_foundation_desc"><![CDATA[<p>விழுப்புரம் குனு/லினக்ஸ் பயனர்கள் குழு (VGLUG) என்பது 2013 ஆம் ஆண்டில் தொடங்கப்பட்ட ஒரு இலாப நோக்கற்ற அமைப்பாகும். இந்த அமைப்பு ஒரு சமூக இயக்கமாகும். இது கட்டற்ற மென்பொருள் தத்துவத்தின் சாரத்துடன் அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஏற்ப FOSS தத்துவத்தினை மக்களிடையே கொண்டு சேர்க்கும் வேலையை செய்துவருகிறது.
     <br>
 <a>https://vglug.org</a></p>]]></string>
+    <string name="send">Send</string>
+    <string name="no_books_found">இந்த தலைப்பில் புத்தகங்கள் எதுவும் கிடைக்கவில்லை…</string>
+
+    <string name="new_rate_dialog_title">Rate this app</string>
+    <string name="new_rate_dialog_message">If you like this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
+    <string name="new_rate_dialog_ok">Rate Now</string>
+    <string name="new_rate_dialog_later">Later</string>
+    <string name="new_rate_dialog_never">Never</string>
+
+    <string name="cc_declaration">All books listed here are CC by license.\n\nஇங்கு பட்டியலிடப்பட்டுள்ள அனைத்து புத்தகங்களும் CC by உரிமத்தில் உள்ளவை.</string>
 </resources>

@@ -53,7 +53,9 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startNextActivity() {
-        startActivity(Intent(this@SplashActivity, MainLandingActivity::class.java))
+        startActivity(
+            Intent(this@SplashActivity, MainLandingActivity::class.java)
+        )
         this@SplashActivity.finish()
     }
 

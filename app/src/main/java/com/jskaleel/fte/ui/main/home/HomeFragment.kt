@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jskaleel.fte.data.entities.DownloadResult
@@ -14,6 +15,7 @@ import com.jskaleel.fte.data.entities.SavedBooks
 import com.jskaleel.fte.data.local.AppDatabase
 import com.jskaleel.fte.databinding.FragmentHomeBinding
 import com.jskaleel.fte.ui.base.BookListAdapter
+import com.jskaleel.fte.ui.main.MainLandingViewModel
 import com.jskaleel.fte.ui.search.SearchActivity
 import com.jskaleel.fte.utils.FileUtils
 import com.jskaleel.fte.utils.PrintLog
@@ -29,6 +31,7 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
     }
 
     private lateinit var bookListAdapter: BookListAdapter
+    private val mainLandingViewModel: MainLandingViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,10 +79,11 @@ class HomeFragment : Fragment(), CoroutineScope, (Int, LocalBooks) -> Unit {
                     book.savedPath = result.filePath.absolutePath
                     bookListAdapter.successUiUpdate(position, book)
                     updateDatabase(book)
+                    mainLandingViewModel.showToast("${book.title} பதிவிறக்கப்பட்டது...")
                 }
                 is DownloadResult.Error -> {
                     bookListAdapter.errorUiUpdate(position)
-                    //Show Snack bar. if needed
+                    mainLandingViewModel.showToast(result.errorMessage)
                 }
             }
         }
