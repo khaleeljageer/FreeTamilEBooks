@@ -2,7 +2,7 @@ package com.jskaleel.fte.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.jskaleel.fte.data.entities.LocalBooks
 
@@ -11,7 +11,7 @@ interface LocalBooksDao {
     @Query("SELECT * from localBooks")
     fun getAllLocalBooks(): List<LocalBooks>
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(localBooks: LocalBooks)
 
     @Query("DELETE from localBooks")

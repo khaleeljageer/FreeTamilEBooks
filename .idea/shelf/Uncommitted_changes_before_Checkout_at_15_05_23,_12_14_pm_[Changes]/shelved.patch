@@ -1,0 +1,46 @@
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	
++++ b/app/src/main/res/values/strings.xml	
+@@ -1,5 +1,5 @@
+ <resources>
+-    <string name="app_name" translatable="false">FreeTamilEbooks</string>
++    <string name="app_name" translatable="false">FTE-Books</string>
+     <string name="title_home">முகப்பு</string>
+     <string name="title_downloads">பதிவிறக்கங்கள்</string>
+     <string name="title_settings">அமைப்புகள்</string>
+Index: .idea/jarRepositories.xml
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+--- a/.idea/jarRepositories.xml	
++++ b/.idea/jarRepositories.xml	
+@@ -46,5 +46,10 @@
+       <option name="name" value="maven2" />
+       <option name="url" value="https://dl.bintray.com/susonthapa/curved-bottom-navigation" />
+     </remote-repository>
++    <remote-repository>
++      <option name="id" value="MavenLocal" />
++      <option name="name" value="MavenLocal" />
++      <option name="url" value="file:$USER_HOME$/.m2/repository/" />
++    </remote-repository>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/compiler.xml
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	
++++ b/.idea/compiler.xml	
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="CompilerConfiguration">
+-    <bytecodeTargetLevel target="1.8" />
++    <bytecodeTargetLevel target="13" />
+   </component>
+ </project>
+\ No newline at end of file
