@@ -39,17 +39,17 @@ class SplashActivity : AppCompatActivity() {
             splashViewModel.fetchBooks(baseContext)
         }
 
-        splashViewModel.messageData.observe(this, {
+        splashViewModel.messageData.observe(this) {
             binding.txtLoading.text = it
-        })
+        }
 
-        splashViewModel.viewState.observe(this, {
+        splashViewModel.viewState.observe(this) {
             if (!it) {
                 startNextActivity()
             } else {
                 binding.progressLoader.show()
             }
-        })
+        }
     }
 
     private fun startNextActivity() {

@@ -59,12 +59,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.1.2'
 
     implementation 'np.com.susanthapa:curved_bottom_navigation:0.6.5'
-    // Koin for Android
-    implementation "org.koin:koin-android:$versions.koin"
-    // or Koin for Lifecycle scoping
-    implementation "org.koin:koin-androidx-scope:$versions.koin"
-    // or Koin for Android Architecture ViewModel
-    implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
+    implementation 'io.insert-koin:koin-android:3.4.0'
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
 
