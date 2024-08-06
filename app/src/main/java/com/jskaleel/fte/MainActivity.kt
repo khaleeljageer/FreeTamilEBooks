@@ -18,7 +18,6 @@ import com.jskaleel.fte.ui.components.FteAppState
 import com.jskaleel.fte.ui.components.rememberFteAppState
 import com.jskaleel.fte.ui.screens.app.FteApp
 import com.jskaleel.fte.ui.theme.FteTheme
-import com.jskaleel.fte.ui.theme.shouldUseDarkTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -27,14 +26,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
-            navigationBarStyle = SystemBarStyle.light(Color.WHITE, Color.WHITE)
-        )
-
         var uiState: MainActivityUiState by mutableStateOf(
             MainActivityUiState()
         )
@@ -50,14 +43,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val appState: FteAppState = rememberFteAppState()
-            val darkTheme = shouldUseDarkTheme(
-                isLoading = uiState.isLoading,
-                darkThemeConfig = uiState.uiModel.themeConfig,
-            )
 
-            FteTheme(
-                darkTheme = darkTheme,
-            ) {
+            FteTheme {
                 FteApp(
                     isOnline = uiState.isOnline,
                     appState = appState

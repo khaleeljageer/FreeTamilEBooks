@@ -24,9 +24,6 @@ import com.jskaleel.fte.ui.components.FteGradientBackground
 import com.jskaleel.fte.ui.navigation.NavigationHost
 import com.jskaleel.fte.ui.theme.LocalGradientColors
 
-@OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class
-)
 @Composable
 fun FteApp(
     isOnline: Boolean,
@@ -46,6 +43,7 @@ fun FteApp(
                 }
             }
             Scaffold(
+                modifier = Modifier.fillMaxSize(),
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 snackbarHost = { SnackbarHost(snackBarHostState) },
@@ -64,7 +62,6 @@ fun FteApp(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(padding)
-                        .consumeWindowInsets(padding)
                 ) {
                     NavigationHost(navHostController = appState.navController)
                 }

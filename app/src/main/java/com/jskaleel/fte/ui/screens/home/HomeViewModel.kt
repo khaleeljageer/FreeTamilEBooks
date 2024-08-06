@@ -2,8 +2,6 @@ package com.jskaleel.fte.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jskaleel.fte.R
-import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.GetBooksUseCase
 import com.jskaleel.fte.domain.usecase.RefreshBooksUseCase
@@ -24,7 +22,7 @@ class HomeViewModel @Inject constructor(
     private val getBooksUseCase: GetBooksUseCase
 ) : ViewModel() {
 
-    private val viewModelState = MutableStateFlow(HomeViewModelState())
+    private val viewModelState = MutableStateFlow(HomeViewModelState(isLoading = true))
 
     val uiState = viewModelState.map {
         it.toUiState()
@@ -35,22 +33,25 @@ class HomeViewModel @Inject constructor(
     )
 
     init {
-        viewModelState.update { it.copy(loading = true) }
-        viewModelScope.launch { }
+        loadBooks()
+        refreshBooksIfNeeded()
+    }
+
+    private fun loadBooks() {
+        viewModelState.update { it.copy(isLoading = true) }
         viewModelScope.launch(Dispatchers.IO) {
             getBooksUseCase.getBooks()
                 .collect { books ->
                     if (books.isNotEmpty()) {
                         viewModelState.update {
                             it.copy(
-                                loading = false,
+                                isLoading = false,
                                 books = books
                             )
                         }
                     }
                 }
         }
-        refreshBooksIfNeeded()
     }
 
     private fun refreshBooksIfNeeded() {
@@ -74,30 +75,27 @@ class HomeViewModel @Inject constructor(
 }
 
 private data class HomeViewModelState(
-    val loading: Boolean = false,
+    val isLoading: Boolean = false,
     val books: List<Book> = emptyList(),
+    val error: String? = null
 ) {
-    fun toUiState() = HomeViewModelUiState(
-        loading = loading,
-        books = books.map {
-            BooksUiModel(
-                title = it.title,
-                author = it.author,
-                category = it.category,
-                image = it.image,
-                icon = ImageType.ResourceImage(R.drawable.ic_download)
-            )
-        },
-    )
+    fun toUiState() =
+        when {
+            isLoading -> HomeViewModelUiState.Loading
+            error != null -> HomeViewModelUiState.Error(error)
+            else -> HomeViewModelUiState.Success(books = books.map {
+                BookUiModel(
+                    title = it.title,
+                    author = it.author,
+                    category = it.category,
+                    image = it.image
+                )
+            })
+        }
 }
 
-data class HomeViewModelUiState(
-    val loading: Boolean,
-    val books: List<BooksUiModel>,
-)
-
-sealed class BookUiState {
-    object Loading : BookUiState()
-    data class Success(val books: List<Book>) : BookUiState()
-    data class Error(val message: String) : BookUiState()
+sealed class HomeViewModelUiState {
+    data object Loading : HomeViewModelUiState()
+    data class Success(val books: List<BookUiModel>) : HomeViewModelUiState()
+    data class Error(val message: String) : HomeViewModelUiState()
 }

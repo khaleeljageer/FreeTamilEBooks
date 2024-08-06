@@ -11,7 +11,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -39,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,7 +60,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     loading: Boolean,
     onDownloadClick: (Int) -> Unit,
-    books: List<BooksUiModel>,
+    books: List<BookUiModel>,
 ) {
     AppBarWithSearch {
         Column {
@@ -87,7 +87,7 @@ fun HomeScreen(
 @Composable
 fun BookListContent(
     onDownloadClick: (Int) -> Unit,
-    books: List<BooksUiModel>
+    books: List<BookUiModel>
 ) {
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -108,7 +108,6 @@ fun BookListContent(
                     title = book.title,
                     author = book.author,
                     category = book.category,
-                    downloadIcon = book.icon,
                 )
             }
         }
@@ -128,7 +127,7 @@ fun BookListContent(
 }
 
 @Composable
-fun ScrollUp(onClick: CallBack) {
+private fun ScrollUp(onClick: CallBack) {
     ElevatedButton(
         onClick = onClick,
         modifier = Modifier
@@ -139,7 +138,7 @@ fun ScrollUp(onClick: CallBack) {
 }
 
 @Composable
-private fun BookListLoaderContent() {
+fun BookListLoaderContent() {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimension.medium),
         contentPadding = PaddingValues(vertical = MaterialTheme.dimension.medium),
@@ -235,7 +234,6 @@ fun BookItem(
     author: String,
     category: String,
     image: ImageType,
-    downloadIcon: ImageType,
 ) {
     FteCard(
         modifier = Modifier.height(180.dp),
@@ -299,7 +297,7 @@ fun BookItem(
                         onClick = onDownloadClick
                     ) {
                         Icon(
-                            painter = downloadIcon.getImagePainter(),
+                            painter = painterResource(id = R.drawable.ic_download),
                             contentDescription = null
                         )
                     }
@@ -343,7 +341,6 @@ private fun BookItemPreview() {
             title = "Book Item Preview",
             author = "Author",
             category = "Category",
-            downloadIcon = ImageType.ResourceImage(R.drawable.ic_download),
         )
     }
 }
@@ -356,10 +353,9 @@ private fun BookListLoaderContentPreview() {
     }
 }
 
-data class BooksUiModel(
+data class BookUiModel(
     val title: String,
     val image: ImageType,
     val author: String,
     val category: String,
-    val icon: ImageType
 )
