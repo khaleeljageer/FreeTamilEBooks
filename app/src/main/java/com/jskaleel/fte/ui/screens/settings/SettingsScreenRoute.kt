@@ -10,8 +10,5 @@ fun SettingsScreenRoute(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    SettingsScreen(
-        darkThemeConfig = uiState.darkThemeConfig,
-        onChangeDarkThemeConfig = viewModel::onChangeDarkThemeConfig,
-    )
+    SettingsScreen()
 }

@@ -1,9 +1,6 @@
 package com.jskaleel.fte.domain.usecase
 
-import com.jskaleel.fte.data.repository.BooksRepository
 import com.jskaleel.fte.data.repository.DownloadRepository
-import com.jskaleel.fte.domain.model.Book
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface RemoveBookUseCase {

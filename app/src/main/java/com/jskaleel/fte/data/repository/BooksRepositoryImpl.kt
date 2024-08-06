@@ -66,5 +66,5 @@ private fun BookDto.toEntity() =
         image = ImageType.NetworkImage(image).toTypeString(),
         epub = epub,
         category = category,
-        downloaded = downloaded
+        downloaded = downloaded,
     )

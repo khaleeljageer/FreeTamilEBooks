@@ -37,7 +37,10 @@ class DownloadRepositoryImpl @Inject constructor(
 
                         is DownloadResult.Success -> {
                             showDownloadSuccessNotification(result.id, result.name)
-                            localBooks.updateDownloadStatus(result.id, true)
+                            localBooks.updateDownloadStatus(
+                                result.id,
+                                isDownloaded = true
+                            )
                             emit(DownloadResult.Success(id, fileName, result.file))
                         }
 
@@ -54,7 +57,7 @@ class DownloadRepositoryImpl @Inject constructor(
     }
 
     override suspend fun removeBook(id: String) {
-        localBooks.deleteBookById(bookId = id)
+        localBooks.updateDownloadStatus(isDownloaded = false, bookId = id)
     }
 
     private fun showDownloadSuccessNotification(id: String, fileName: String) {

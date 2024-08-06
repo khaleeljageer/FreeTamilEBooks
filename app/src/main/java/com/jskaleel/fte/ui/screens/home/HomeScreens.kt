@@ -305,9 +305,10 @@ fun BookItem(
                         .fillMaxWidth()
                         .align(Alignment.TopCenter)
                 ) {
+
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         modifier = Modifier.fillMaxWidth(),
                         maxLines = 2,
                         softWrap = true,
@@ -315,7 +316,7 @@ fun BookItem(
                     )
                     Text(
                         text = author,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                     )
                 }
 

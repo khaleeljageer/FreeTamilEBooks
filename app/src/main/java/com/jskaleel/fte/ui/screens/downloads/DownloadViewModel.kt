@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.DownloadedBooksUseCase
+import com.jskaleel.fte.domain.usecase.RemoveBookUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DownloadViewModel @Inject constructor(
-    private val downloadedBooksUseCase: DownloadedBooksUseCase
+    private val downloadedBooksUseCase: DownloadedBooksUseCase,
+    private val removeBookUseCase: RemoveBookUseCase
 ) : ViewModel() {
     private val viewModelState = MutableStateFlow(DownloadViewModelState(isEmpty = true))
 
@@ -38,21 +40,19 @@ class DownloadViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             downloadedBooksUseCase.getBooks()
                 .collect { books ->
-                    if (books.isNotEmpty()) {
-                        viewModelState.update {
-                            it.copy(
-                                books = books.reversed(),
-                                isEmpty = books.isEmpty()
-                            )
-                        }
+                    viewModelState.update {
+                        it.copy(
+                            books = books.reversed(),
+                            isEmpty = books.isEmpty()
+                        )
                     }
                 }
         }
     }
 
-    fun itemRemoved(index: Int) {
+    fun itemRemoved(bookId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-
+            removeBookUseCase.removeBook(bookId)
         }
     }
 }
@@ -69,6 +69,7 @@ data class DownloadViewModelState(
         else -> DownloadViewModelUiState.Success(
             books = books.map {
                 SavedBookUiModel(
+                    id = it.bookid,
                     title = it.title,
                     author = it.author,
                     category = it.category,

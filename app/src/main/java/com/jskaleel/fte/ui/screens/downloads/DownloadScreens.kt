@@ -1,5 +1,7 @@
 package com.jskaleel.fte.ui.screens.downloads
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,19 +16,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -36,13 +42,17 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.jskaleel.fte.R
 import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.core.model.consume
 import com.jskaleel.fte.core.model.getImagePainter
 import com.jskaleel.fte.core.utils.CallBack
 import com.jskaleel.fte.ui.components.FteCard
-import com.jskaleel.fte.ui.screens.home.BookListLoaderContent
 import com.jskaleel.fte.ui.screens.home.CategoryText
 import com.jskaleel.fte.ui.theme.dimension
 import kotlinx.coroutines.launch
@@ -50,7 +60,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun DownloadScreen(
     uiState: DownloadViewModelUiState,
-    addBook: CallBack
+    addBook: CallBack,
+    onRemove: (String) -> Unit
 ) {
     when (uiState) {
         is DownloadViewModelUiState.Error -> {
@@ -59,6 +70,7 @@ fun DownloadScreen(
 
         is DownloadViewModelUiState.Success -> {
             BookListContent(
+                onRemove = onRemove,
                 books = uiState.books,
                 errorState = uiState.error
             )
@@ -74,22 +86,31 @@ fun DownloadScreen(
 fun EmptyContent(
     addBook: CallBack
 ) {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty_books))
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("No books found")
+
+        LottieAnimation(
+            modifier = Modifier.height(280.dp),
+            composition = composition,
+            iterations = LottieConstants.IterateForever
+        )
+
         Button(onClick = addBook) {
             Text("Add books")
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun BookListContent(
     books: List<SavedBookUiModel>,
-    errorState: ErrorState
+    errorState: ErrorState,
+    onRemove: (String) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -117,13 +138,16 @@ private fun BookListContent(
                 modifier = Modifier
                     .clipToBounds()
                     .padding(horizontal = MaterialTheme.dimension.medium)
+                    .animateContentSize()
             ) {
-                itemsIndexed(books) { index, book ->
-                    DownloadedBookItem(
-                        image = book.image,
+                items(books) { book ->
+                    DownloadedItem(
+                        modifier = Modifier.animateItemPlacement(),
                         title = book.title,
                         author = book.author,
                         category = book.category,
+                        image = book.image,
+                        onRemove = { onRemove(book.id) }
                     )
                 }
             }
@@ -132,14 +156,16 @@ private fun BookListContent(
 }
 
 @Composable
-private fun DownloadedBookItem(
+private fun DownloadedItem(
     title: String,
     author: String,
     category: String,
     image: ImageType,
+    onRemove: CallBack,
+    modifier: Modifier,
 ) {
     FteCard(
-        modifier = Modifier.height(180.dp),
+        modifier = modifier.then(Modifier.height(180.dp)),
     ) {
         Row(
             modifier = Modifier
@@ -172,7 +198,7 @@ private fun DownloadedBookItem(
                 ) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleSmall,
                         modifier = Modifier.fillMaxWidth(),
                         maxLines = 2,
                         softWrap = true,
@@ -180,7 +206,7 @@ private fun DownloadedBookItem(
                     )
                     Text(
                         text = author,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodySmall,
                     )
                 }
 
@@ -200,6 +226,15 @@ private fun DownloadedBookItem(
                         )
 
                         Spacer(modifier = Modifier.weight(1f))
+                        IconButton(
+                            onClick = onRemove,
+                            modifier = Modifier.minimumInteractiveComponentSize()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Delete,
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             }
@@ -209,6 +244,7 @@ private fun DownloadedBookItem(
 
 @Immutable
 data class SavedBookUiModel(
+    val id: String,
     val title: String,
     val category: String,
     val author: String,

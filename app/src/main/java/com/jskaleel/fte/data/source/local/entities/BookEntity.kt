@@ -21,5 +21,5 @@ data class BookEntity(
     @ColumnInfo
     val category: String,
     @ColumnInfo
-    val downloaded: Boolean
+    val downloaded: Boolean,
 ) : Serializable

@@ -20,7 +20,7 @@ fun NavGraphBuilder.savedNavGraph(
             DownloadScreenRoute(
                 openBook = {},
                 addBook = {
-                    navController.navigate(Screen.Home.route)
+                    navController.popBackStack()
                 },
                 viewModel = hiltViewModel()
             )

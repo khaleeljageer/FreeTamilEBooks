@@ -10,6 +10,8 @@ import com.jskaleel.fte.domain.usecase.MainActivityUseCase
 import com.jskaleel.fte.domain.usecase.MainActivityUseCaseImpl
 import com.jskaleel.fte.domain.usecase.RefreshBooksUseCase
 import com.jskaleel.fte.domain.usecase.RefreshBooksUseCaseImpl
+import com.jskaleel.fte.domain.usecase.RemoveBookUseCase
+import com.jskaleel.fte.domain.usecase.RemoveBookUseCaseImpl
 import com.jskaleel.fte.domain.usecase.SettingsUseCase
 import com.jskaleel.fte.domain.usecase.SettingsUseCaseImpl
 import dagger.Binds
@@ -50,6 +52,12 @@ abstract class UseCaseModule {
     abstract fun downloadedBooksUseCase(
         downloadedBooksUseCaseImpl: DownloadedBooksUseCaseImpl,
     ): DownloadedBooksUseCase
+
+    @Binds
+    @Singleton
+    abstract fun removeBookUseCase(
+        removeBookUseCaseImpl: RemoveBookUseCaseImpl,
+    ): RemoveBookUseCase
 
     @Binds
     @Singleton

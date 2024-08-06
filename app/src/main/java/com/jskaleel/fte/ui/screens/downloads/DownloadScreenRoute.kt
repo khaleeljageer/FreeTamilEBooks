@@ -15,6 +15,7 @@ fun DownloadScreenRoute(
 
     DownloadScreen(
         uiState = uiState,
+        onRemove = viewModel::itemRemoved,
         addBook = addBook,
     )
 }

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
@@ -28,16 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.jskaleel.fte.BuildConfig
 import com.jskaleel.fte.R
-import com.jskaleel.fte.core.model.ThemeConfig
 import com.jskaleel.fte.core.utils.CallBack
 import com.jskaleel.fte.ui.components.AppBarNoTitle
 import com.jskaleel.fte.ui.extensions.screenPadding
 
 @Composable
-fun SettingsScreen(
-    darkThemeConfig: ThemeConfig,
-    onChangeDarkThemeConfig: (darkThemeConfig: ThemeConfig) -> Unit,
-) {
+fun SettingsScreen() {
 
     AppBarNoTitle() {
         Column(
@@ -45,40 +40,14 @@ fun SettingsScreen(
                 .verticalScroll(rememberScrollState())
                 .screenPadding()
         ) {
-            SettingsPanel(
-                darkThemeConfig = darkThemeConfig,
-                onChangeDarkThemeConfig = onChangeDarkThemeConfig,
-            )
+            SettingsPanel()
         }
     }
 }
 
 
 @Composable
-private fun SettingsPanel(
-    darkThemeConfig: ThemeConfig,
-    onChangeDarkThemeConfig: (themeConfig: ThemeConfig) -> Unit,
-) {
-    SettingsSectionTitle(text = stringResource(R.string.title_theme))
-    Column(Modifier.selectableGroup()) {
-        SettingsThemeChooserRow(
-            text = stringResource(R.string.str_system_default),
-            selected = darkThemeConfig == ThemeConfig.FOLLOW_SYSTEM,
-            onClick = { onChangeDarkThemeConfig(ThemeConfig.FOLLOW_SYSTEM) },
-        )
-        SettingsThemeChooserRow(
-            text = stringResource(R.string.str_light),
-            selected = darkThemeConfig == ThemeConfig.LIGHT,
-            onClick = { onChangeDarkThemeConfig(ThemeConfig.LIGHT) },
-        )
-        SettingsThemeChooserRow(
-            text = stringResource(R.string.str_dark),
-            selected = darkThemeConfig == ThemeConfig.DARK,
-            onClick = { onChangeDarkThemeConfig(ThemeConfig.DARK) },
-        )
-    }
-
-    HorizontalDivider(modifier = Modifier.padding(top = 16.dp))
+private fun SettingsPanel() {
     LinksPanel()
 }
 
@@ -101,7 +70,7 @@ fun LinksPanel() {
             text = stringResource(R.string.feedback),
             url = FEEDBACK_URL,
         )
-        Divider(modifier = Modifier.padding(top = 16.dp))
+        HorizontalDivider(modifier = Modifier.padding(top = 16.dp))
         Text(
             text = "App version: ${BuildConfig.VERSION_NAME}",
             style = MaterialTheme.typography.labelLarge,
