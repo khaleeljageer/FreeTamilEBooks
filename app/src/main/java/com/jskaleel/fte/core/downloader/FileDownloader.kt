@@ -19,6 +19,7 @@ interface FileDownloader {
     suspend fun downloadFile(
         url: String,
         uniqueId: String,
+        fileName: String,
         coroutineScope: CoroutineScope
     ): Flow<DownloadResult>
 }
@@ -31,20 +32,27 @@ class FileDownloaderImpl @Inject constructor(
     override suspend fun downloadFile(
         url: String,
         uniqueId: String,
+        fileName: String,
         coroutineScope: CoroutineScope
     ): Flow<DownloadResult> = flow {
+        val name = fileName
         if (!isValidUrl(url)) {
-            emit(DownloadResult.Error(IllegalArgumentException("Invalid URL")))
+            emit(DownloadResult.Error(id = uniqueId, IllegalArgumentException("Invalid URL")))
             return@flow
         }
-
+        emit(DownloadResult.Queued(id = uniqueId))
         val destinationFile = File(context.filesDir, "${uniqueId}.epub")
 
         val request = Request.Builder().url(url).build()
         try {
             val response = client.newCall(request).execute()
             if (!response.isSuccessful) {
-                emit(DownloadResult.Error(IOException("Unexpected response ${response.code}")))
+                emit(
+                    DownloadResult.Error(
+                        id = uniqueId,
+                        IOException("Unexpected response ${response.code}")
+                    )
+                )
                 return@flow
             }
 
@@ -68,13 +76,13 @@ class FileDownloaderImpl @Inject constructor(
             output.close()
             input.close()
 
-            emit(DownloadResult.Success(destinationFile))
+            emit(DownloadResult.Success(id = uniqueId, name = name, file = destinationFile))
         } catch (e: CancellationException) {
             destinationFile.delete() // Clean up partial file
             throw e // Re-throw cancellation exception
         } catch (e: Exception) {
             destinationFile.delete() // Clean up partial file
-            emit(DownloadResult.Error(e))
+            emit(DownloadResult.Error(id = uniqueId, e))
         }
     }.flowOn(Dispatchers.IO)
 
@@ -93,7 +101,8 @@ class FileDownloaderImpl @Inject constructor(
 }
 
 sealed interface DownloadResult {
-    data class Success(val file: File) : DownloadResult
-    data class Error(val exception: Exception) : DownloadResult
-    data class Progress(val percentage: Int) : DownloadResult
+    data class Queued(val id: String) : DownloadResult
+    data class Progress(val id: String, val percentage: Int) : DownloadResult
+    data class Success(val id: String, val name: String, val file: File) : DownloadResult
+    data class Error(val id: String, val exception: Exception) : DownloadResult
 }

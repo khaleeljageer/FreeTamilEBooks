@@ -57,20 +57,24 @@ class BooksRepositoryImpl @Inject constructor(
     }
 
     override suspend fun downloadBook(id: String, url: String, fileName: String) {
-        downloadManager.downloadFile(url, id, CoroutineScope(Dispatchers.IO))
+        downloadManager.downloadFile(url, id, fileName, CoroutineScope(Dispatchers.IO))
             .collect { result ->
                 when (result) {
                     is DownloadResult.Progress -> {
-                        Timber.tag("Khaleel").d("Progress: ${result.percentage}")
+                        result.id
                     }
 
                     is DownloadResult.Success -> {
-                        Timber.tag("Khaleel").d("Success: ${result.file.path}")
-                        showDownloadSuccessNotification(id, fileName)
+                        showDownloadSuccessNotification(result.id, result.name)
                     }
 
                     is DownloadResult.Error -> {
-                        Timber.tag("Khaleel").d("Success: ${result.exception}")
+                        result.id
+                        result.exception
+                    }
+
+                    is DownloadResult.Queued -> {
+                        result.id
                     }
                 }
             }
@@ -80,7 +84,7 @@ class BooksRepositoryImpl @Inject constructor(
         val notification = NotificationCompat.Builder(context, "download_channel")
             .setSmallIcon(android.R.drawable.stat_sys_download_done)
             .setContentTitle(fileName)
-            .setContentText("Download complete successfully")
+            .setContentText("புத்தகம் பதிவிறக்கப்பட்டது...")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .build()
