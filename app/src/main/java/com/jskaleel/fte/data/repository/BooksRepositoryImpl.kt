@@ -1,5 +1,8 @@
 package com.jskaleel.fte.data.repository
 
+import android.app.NotificationManager
+import android.content.Context
+import androidx.core.app.NotificationCompat
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.downloader.DownloadResult
 import com.jskaleel.fte.core.model.ImageType
@@ -11,6 +14,7 @@ import com.jskaleel.fte.data.source.local.dao.LocalBooksDao
 import com.jskaleel.fte.data.source.local.entities.BookEntity
 import com.jskaleel.fte.data.source.remote.ApiService
 import com.jskaleel.fte.domain.model.Book
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -20,11 +24,16 @@ import javax.inject.Inject
 import javax.net.ssl.HttpsURLConnection
 
 class BooksRepositoryImpl @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val apiService: ApiService,
     private val localBooks: LocalBooksDao,
     private val appPreferenceStore: AppPreferenceStore,
     private val downloadManager: FileDownloader,
 ) : BooksRepository {
+
+    private val notificationManager: NotificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
     override fun getBooks(): Flow<List<Book>> {
         return localBooks.getBooks().map { it.map { entity -> entity.toDomain() } }
     }
@@ -47,7 +56,7 @@ class BooksRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun downloadBook(id: String, url: String) {
+    override suspend fun downloadBook(id: String, url: String, fileName: String) {
         downloadManager.downloadFile(url, id, CoroutineScope(Dispatchers.IO))
             .collect { result ->
                 when (result) {
@@ -57,6 +66,7 @@ class BooksRepositoryImpl @Inject constructor(
 
                     is DownloadResult.Success -> {
                         Timber.tag("Khaleel").d("Success: ${result.file.path}")
+                        showDownloadSuccessNotification(id, fileName)
                     }
 
                     is DownloadResult.Error -> {
@@ -64,6 +74,18 @@ class BooksRepositoryImpl @Inject constructor(
                     }
                 }
             }
+    }
+
+    private fun showDownloadSuccessNotification(id: String, fileName: String) {
+        val notification = NotificationCompat.Builder(context, "download_channel")
+            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+            .setContentTitle(fileName)
+            .setContentText("Download complete successfully")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .build()
+
+        notificationManager.notify(id.hashCode(), notification)
     }
 }
 

@@ -66,7 +66,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val item = viewModelState.value.books[index]
             Timber.tag("Khaleel").d("item: ${item.epub}")
-            downloadUseCase.downloadBook(item.bookid, item.epub)
+            downloadUseCase.downloadBook(item.bookid, item.epub, item.title)
         }
     }
 }

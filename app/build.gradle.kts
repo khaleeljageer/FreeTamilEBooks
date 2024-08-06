@@ -90,14 +90,12 @@ dependencies {
     implementation(libs.converter.gson)
 
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.work.runtime.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.hilt.work)
 
     implementation(libs.androidx.core.splashscreen)
 

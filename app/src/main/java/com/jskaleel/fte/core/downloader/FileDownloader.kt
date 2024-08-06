@@ -14,7 +14,6 @@ import okhttp3.Request
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 interface FileDownloader {
     suspend fun downloadFile(
