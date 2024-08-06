@@ -101,15 +101,16 @@ fun FteTheme(
 ) {
 
     // Color scheme
-    val colorScheme = if (darkTheme) DarkDefaultColorScheme else LightDefaultColorScheme
+    val colorScheme = LightDefaultColorScheme
 
     // Background theme
     val defaultBackgroundTheme = BackgroundTheme(
         color = colorScheme.surface,
         tonalElevation = 2.dp,
     )
+
     val backgroundTheme = when {
-        androidTheme -> if (darkTheme) DarkAndroidBackgroundTheme else LightAndroidBackgroundTheme
+        androidTheme -> LightAndroidBackgroundTheme
         else -> defaultBackgroundTheme
     }
 
@@ -118,7 +119,7 @@ fun FteTheme(
         LocalTintTheme provides TintTheme(),
     ) {
         MaterialTheme(
-            colorScheme = colorScheme,
+            colorScheme = LightDefaultColorScheme,
             typography = Typography,
             content = content,
         )

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Allows us to override night specific attributes in the
- values-night folder. -->
+    <!-- Allows us to override night specific attributes in the values-night folder. -->
     <style name="NightAdjusted.Theme.TamilEBooks" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
