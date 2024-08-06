@@ -3,10 +3,8 @@ package com.jskaleel.fte.ui.screens.home
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.with
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,14 +27,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -44,10 +49,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.R
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.ImageType
+import com.jskaleel.fte.core.model.consume
 import com.jskaleel.fte.core.model.getImagePainter
 import com.jskaleel.fte.core.utils.CallBack
-import com.jskaleel.fte.ui.components.AppBarWithSearch
 import com.jskaleel.fte.ui.components.FteCard
 import com.jskaleel.fte.ui.extensions.applyPlaceHolder
 import com.jskaleel.fte.ui.extensions.isScrollingUp
@@ -55,31 +61,42 @@ import com.jskaleel.fte.ui.theme.FteTheme
 import com.jskaleel.fte.ui.theme.dimension
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomeScreen(
-    loading: Boolean,
+    uiState: HomeViewModelUiState,
     onDownloadClick: (Int) -> Unit,
-    books: List<BookUiModel>,
 ) {
-    AppBarWithSearch {
-        Column {
-            AnimatedContent(
-                targetState = loading,
-                transitionSpec = {
-                    fadeIn(animationSpec = tween(220, delayMillis = 90)) with
-                            fadeOut(animationSpec = tween(90))
-                },
-                label = "book_list_animation"
-            ) { state ->
-                when (state) {
-                    true -> BookListLoaderContent()
-                    false -> BookListContent(
-                        onDownloadClick = onDownloadClick,
-                        books = books
-                    )
-                }
-            }
+//    AppBarWithSearch {
+//        Column {
+//            AnimatedContent(
+//                targetState = loading,
+//                transitionSpec = {
+//                    fadeIn(animationSpec = tween(220, delayMillis = 90)) with
+//                            fadeOut(animationSpec = tween(90))
+//                },
+//                label = "book_list_animation"
+//            ) { state ->
+//                when (state) {
+//                    true -> BookListLoaderContent()
+//                    false -> BookListContent(
+//                        onDownloadClick = onDownloadClick,
+//                        books = books,
+//                        errorState = state.error
+//                    )
+//                }
+//            }
+//        }
+//    }
+
+    when (uiState) {
+        HomeViewModelUiState.Loading -> BookListLoaderContent()
+        is HomeViewModelUiState.Success -> BookListContent(
+            onDownloadClick = onDownloadClick,
+            books = uiState.books,
+            errorState = uiState.error
+        )
+
+        is HomeViewModelUiState.Error -> {
         }
     }
 }
@@ -87,39 +104,58 @@ fun HomeScreen(
 @Composable
 fun BookListContent(
     onDownloadClick: (Int) -> Unit,
-    books: List<BookUiModel>
+    books: List<BookUiModel>,
+    errorState: ErrorState
 ) {
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(
-            state = listState,
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimension.medium),
-            contentPadding = PaddingValues(vertical = MaterialTheme.dimension.medium),
-            modifier = Modifier
-                .clipToBounds()
-                .padding(horizontal = MaterialTheme.dimension.medium)
-        ) {
-            itemsIndexed(books) { index, book ->
-                BookItem(
-                    onDownloadClick = { onDownloadClick(index) },
-                    image = book.image,
-                    title = book.title,
-                    author = book.author,
-                    category = book.category,
-                )
-            }
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    errorState.consume { error ->
+        coroutineScope.launch {
+            snackBarHostState.showSnackbar(message = error.message)
         }
-        AnimatedVisibility(
-            visible = !listState.isScrollingUp(),
-            enter = fadeIn(),
-            exit = fadeOut(),
-            modifier = Modifier.align(Alignment.BottomCenter)
+    }
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackBarHostState) }
+    ) { contentPadding ->
+        Box(
+            modifier = Modifier
+                .padding(contentPadding)
+                .fillMaxSize()
         ) {
-            ScrollUp {
-                coroutineScope.launch {
-                    listState.scrollToItem(index = 0)
+            LazyColumn(
+                state = listState,
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimension.medium),
+                contentPadding = PaddingValues(vertical = MaterialTheme.dimension.medium),
+                modifier = Modifier
+                    .clipToBounds()
+                    .padding(horizontal = MaterialTheme.dimension.medium)
+            ) {
+                itemsIndexed(books) { index, book ->
+                    BookItem(
+                        onDownloadClick = { onDownloadClick(index) },
+                        image = book.image,
+                        title = book.title,
+                        author = book.author,
+                        category = book.category,
+                        downloaded = book.downloaded,
+                        progress = book.progress,
+                    )
+                }
+            }
+            AnimatedVisibility(
+                visible = !listState.isScrollingUp(),
+                enter = fadeIn(),
+                exit = fadeOut(),
+                modifier = Modifier.align(Alignment.BottomCenter)
+            ) {
+                ScrollUp {
+                    coroutineScope.launch {
+                        listState.scrollToItem(index = 0)
+                    }
                 }
             }
         }
@@ -234,6 +270,8 @@ fun BookItem(
     author: String,
     category: String,
     image: ImageType,
+    downloaded: Boolean,
+    progress: Boolean,
 ) {
     FteCard(
         modifier = Modifier.height(180.dp),
@@ -281,25 +319,46 @@ fun BookItem(
                     )
                 }
 
-                Row(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .align(Alignment.BottomCenter),
-                    verticalAlignment = Alignment.CenterVertically
+                        .align(Alignment.BottomCenter)
                 ) {
-                    CategoryText(
-                        label = category
-                    )
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    IconButton(
-                        onClick = onDownloadClick
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .minimumInteractiveComponentSize(),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_download),
-                            contentDescription = null
+                        CategoryText(
+                            label = category
                         )
+
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        if (!downloaded) {
+                            IconButton(
+                                onClick = onDownloadClick
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_download),
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                    }
+
+                    AnimatedContent(targetState = progress, label = "progress_anim") { state ->
+                        if (state) {
+                            LinearProgressIndicator(
+                                modifier = Modifier
+                                    .height(2.dp)
+                                    .fillMaxWidth(),
+                                strokeCap = StrokeCap.Round
+                            )
+                        } else {
+                            Spacer(modifier = Modifier.height(2.dp))
+                        }
                     }
                 }
             }
@@ -337,10 +396,12 @@ private fun BookItemPreview() {
     FteTheme {
         BookItem(
             onDownloadClick = { },
-            image = ImageType.EMPTY,
             title = "Book Item Preview",
             author = "Author",
             category = "Category",
+            image = ImageType.EMPTY,
+            downloaded = true,
+            progress = true,
         )
     }
 }
@@ -358,4 +419,6 @@ data class BookUiModel(
     val image: ImageType,
     val author: String,
     val category: String,
+    val downloaded: Boolean,
+    val progress: Boolean,
 )

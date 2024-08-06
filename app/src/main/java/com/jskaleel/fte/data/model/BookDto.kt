@@ -1,9 +1,5 @@
 package com.jskaleel.fte.data.model
 
-import com.jskaleel.fte.core.model.ImageType
-import com.jskaleel.fte.core.model.toTypeString
-import com.jskaleel.fte.data.source.local.entities.BookEntity
-
 data class BookDto(
     val bookid: String,
     val title: String,
@@ -11,6 +7,7 @@ data class BookDto(
     val image: String,
     val epub: String,
     val category: String,
+    val downloaded: Boolean = false,
 )
 
 data class BooksResponse(

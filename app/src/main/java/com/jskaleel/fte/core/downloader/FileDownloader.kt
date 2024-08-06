@@ -1,6 +1,7 @@
 package com.jskaleel.fte.core.downloader
 
 import android.content.Context
+import com.jskaleel.fte.core.model.DownloadResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +36,6 @@ class FileDownloaderImpl @Inject constructor(
         fileName: String,
         coroutineScope: CoroutineScope
     ): Flow<DownloadResult> = flow {
-        val name = fileName
         if (!isValidUrl(url)) {
             emit(DownloadResult.Error(id = uniqueId, IllegalArgumentException("Invalid URL")))
             return@flow
@@ -76,7 +76,7 @@ class FileDownloaderImpl @Inject constructor(
             output.close()
             input.close()
 
-            emit(DownloadResult.Success(id = uniqueId, name = name, file = destinationFile))
+            emit(DownloadResult.Success(id = uniqueId, name = fileName, file = destinationFile))
         } catch (e: CancellationException) {
             destinationFile.delete() // Clean up partial file
             throw e // Re-throw cancellation exception
@@ -98,11 +98,4 @@ class FileDownloaderImpl @Inject constructor(
     companion object {
         private const val DEFAULT_BUFFER_SIZE = 8192
     }
-}
-
-sealed interface DownloadResult {
-    data class Queued(val id: String) : DownloadResult
-    data class Progress(val id: String, val percentage: Int) : DownloadResult
-    data class Success(val id: String, val name: String, val file: File) : DownloadResult
-    data class Error(val id: String, val exception: Exception) : DownloadResult
 }

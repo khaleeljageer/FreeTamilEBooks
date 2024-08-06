@@ -20,4 +20,6 @@ data class BookEntity(
     val epub: String,
     @ColumnInfo
     val category: String,
+    @ColumnInfo
+    val downloaded: Boolean
 ) : Serializable

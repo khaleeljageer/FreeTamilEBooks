@@ -1,4 +1,6 @@
 [versions]
+accompanistPermissions = "0.30.1"
+accompanistPlaceholderMaterial = "0.30.1"
 agp = "8.5.1"
 coilCompose = "2.6.0"
 coreSplashscreen = "1.0.1"
@@ -22,9 +24,10 @@ ksp = "1.9.24-1.0.20"
 hilt = "2.51.1"
 desugar_jdk_libs = "2.0.4"
 composeViewModel = "2.8.4"
-workRuntimeKtx = "2.9.0"
 
 [libraries]
+accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanistPlaceholderMaterial" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }

@@ -9,12 +9,11 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import com.jskaleel.fte.core.downloader.FileDownloader
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class FTEApp : Application(), ImageLoaderFactory {
+class KaniyamBooksApp : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()

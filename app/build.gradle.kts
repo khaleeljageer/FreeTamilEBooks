@@ -103,6 +103,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-
-    implementation("com.google.accompanist:accompanist-placeholder-material:0.30.1")
+    implementation(libs.accompanist.permissions)
+    implementation(libs.accompanist.placeholder.material)
 }

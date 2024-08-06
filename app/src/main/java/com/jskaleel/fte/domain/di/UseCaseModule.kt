@@ -2,6 +2,8 @@ package com.jskaleel.fte.domain.di
 
 import com.jskaleel.fte.domain.usecase.DownloadUseCase
 import com.jskaleel.fte.domain.usecase.DownloadUseCaseImpl
+import com.jskaleel.fte.domain.usecase.DownloadedBooksUseCase
+import com.jskaleel.fte.domain.usecase.DownloadedBooksUseCaseImpl
 import com.jskaleel.fte.domain.usecase.GetBooksUseCase
 import com.jskaleel.fte.domain.usecase.GetBooksUseCaseImpl
 import com.jskaleel.fte.domain.usecase.MainActivityUseCase
@@ -42,6 +44,12 @@ abstract class UseCaseModule {
     abstract fun downloadUseCase(
         downloadUseCaseImpl: DownloadUseCaseImpl,
     ): DownloadUseCase
+
+    @Binds
+    @Singleton
+    abstract fun downloadedBooksUseCase(
+        downloadedBooksUseCaseImpl: DownloadedBooksUseCaseImpl,
+    ): DownloadedBooksUseCase
 
     @Binds
     @Singleton

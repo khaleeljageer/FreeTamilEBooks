@@ -9,4 +9,5 @@ data class Book(
     val image: ImageType,
     val epub: String,
     val category: String,
+    val downloaded: Boolean,
 )

@@ -1,10 +1,15 @@
 package com.jskaleel.fte.ui.screens.home
 
+import android.Manifest
+import android.os.Build
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomeScreenRoute(
     openBook: (String) -> Unit,
@@ -12,14 +17,17 @@ fun HomeScreenRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (val state = uiState) {
-        HomeViewModelUiState.Loading -> BookListLoaderContent()
-        is HomeViewModelUiState.Success -> BookListContent(
-            onDownloadClick = viewModel::downloadBook,
-            books = state.books
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val notificationPermission = rememberPermissionState(
+            permission = Manifest.permission.POST_NOTIFICATIONS
         )
-
-        is HomeViewModelUiState.Error -> {
+        LaunchedEffect(key1 = true) {
+            notificationPermission.launchPermissionRequest()
         }
     }
+
+    HomeScreen(
+        uiState = uiState,
+        onDownloadClick = viewModel::downloadBook
+    )
 }
