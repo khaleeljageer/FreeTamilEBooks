@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface BooksRepository {
     fun getBooks(): Flow<List<Book>>
     suspend fun refreshBooks()
+    suspend fun downloadBook(id: String, url: String)
 }

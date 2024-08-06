@@ -3,6 +3,7 @@ package com.jskaleel.fte.ui.screens.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.domain.model.Book
+import com.jskaleel.fte.domain.usecase.DownloadUseCase
 import com.jskaleel.fte.domain.usecase.GetBooksUseCase
 import com.jskaleel.fte.domain.usecase.RefreshBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val refreshBooksUseCase: RefreshBooksUseCase,
-    private val getBooksUseCase: GetBooksUseCase
+    private val getBooksUseCase: GetBooksUseCase,
+    private val downloadUseCase: DownloadUseCase,
 ) : ViewModel() {
 
     private val viewModelState = MutableStateFlow(HomeViewModelState(isLoading = true))
@@ -64,12 +66,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val item = viewModelState.value.books[index]
             Timber.tag("Khaleel").d("item: ${item.epub}")
-            /*EPubReader.getReader().download(item.epub)
-                .onSuccess {
-                    Timber.tag("Khaleel").d("onSuccess: $it")
-                }.onFailure {
-                    Timber.tag("Khaleel").d("onFailure: $it")
-                }*/
+            downloadUseCase.downloadBook(item.bookid, item.epub)
         }
     }
 }

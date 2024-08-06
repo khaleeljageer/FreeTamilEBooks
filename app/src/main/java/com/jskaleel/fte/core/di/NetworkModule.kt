@@ -71,7 +71,6 @@ class NetworkModule {
         return retrofit.create(ApiService::class.java)
     }
 
-
     companion object {
         const val INTERCEPTOR_LOGGING = "INTERCEPTOR_LOGGING"
     }

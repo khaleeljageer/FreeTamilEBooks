@@ -8,6 +8,7 @@ import timber.log.Timber
 
 @HiltAndroidApp
 class FTEApp : Application(), ImageLoaderFactory {
+
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
