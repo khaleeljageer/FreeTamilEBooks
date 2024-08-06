@@ -22,11 +22,9 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 
-    <style name="Theme.TamilEBooks.Splash" parent="NightAdjusted.Theme.Splash">
-    </style>
+    <style name="Theme.TamilEBooks.Splash" parent="NightAdjusted.Theme.Splash" />
 
     <style name="Theme.FTEBooks.Splash" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
         <item name="postSplashScreenTheme">@style/Theme.TamilEBooks</item>
     </style>
 </resources>
