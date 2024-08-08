@@ -108,6 +108,38 @@ class HomeViewModel @Inject constructor(
                 }
         }
     }
+
+    fun onSearchActiveChange(active: Boolean) {
+        viewModelState.update {
+            it.copy(
+                searchActive = active
+            )
+        }
+    }
+
+    fun onSearchQueryChange(query: String) {
+        viewModelState.update {
+            it.copy(
+                searchQuery = query
+            )
+        }
+    }
+
+    /*
+    * The callback to be invoked when the input service triggers the ImeAction.Search action.
+    * The current query comes as a parameter of the callback.
+    * */
+    fun onSearchClick(query: String) {
+
+    }
+
+    fun onSearchClear() {
+        viewModelState.update {
+            it.copy(
+                searchQuery = ""
+            )
+        }
+    }
 }
 
 private data class HomeViewModelState(
@@ -116,6 +148,8 @@ private data class HomeViewModelState(
     val books: List<Book> = emptyList(),
     val error: String? = null,
     val errorState: ErrorState = ErrorState.none,
+    val searchQuery: String = "",
+    val searchActive: Boolean = false,
 ) {
     fun toUiState() =
         when {
@@ -132,13 +166,21 @@ private data class HomeViewModelState(
                         progress = downloadingItems.contains(it.bookid)
                     )
                 },
-                error = errorState
+                error = errorState,
+                searchQuery = searchQuery,
+                searchActive = searchActive
             )
         }
 }
 
 sealed class HomeViewModelUiState {
     data object Loading : HomeViewModelUiState()
-    data class Success(val books: List<BookUiModel>, val error: ErrorState) : HomeViewModelUiState()
+    data class Success(
+        val books: List<BookUiModel>,
+        val error: ErrorState,
+        val searchQuery: String,
+        val searchActive: Boolean,
+    ) : HomeViewModelUiState()
+
     data class Error(val message: String) : HomeViewModelUiState()
 }

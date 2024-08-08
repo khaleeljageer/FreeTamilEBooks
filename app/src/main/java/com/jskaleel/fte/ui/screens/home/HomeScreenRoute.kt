@@ -28,6 +28,10 @@ fun HomeScreenRoute(
 
     HomeScreen(
         uiState = uiState,
-        onDownloadClick = viewModel::downloadBook
+        onDownloadClick = viewModel::downloadBook,
+        onSearchQueryChange = viewModel::onSearchQueryChange,
+        onSearchClick = viewModel::onSearchClick,
+        onSearchClear = viewModel::onSearchClear,
+        onSearchActiveChange = viewModel::onSearchActiveChange,
     )
 }

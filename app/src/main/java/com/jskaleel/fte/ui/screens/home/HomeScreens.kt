@@ -2,7 +2,7 @@ package com.jskaleel.fte.ui.screens.home
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,14 +25,19 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Clear
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
@@ -54,6 +60,7 @@ import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.core.model.consume
 import com.jskaleel.fte.core.model.getImagePainter
 import com.jskaleel.fte.core.utils.CallBack
+import com.jskaleel.fte.ui.components.AppBarWithSearch
 import com.jskaleel.fte.ui.components.FteCard
 import com.jskaleel.fte.ui.extensions.applyPlaceHolder
 import com.jskaleel.fte.ui.extensions.isScrollingUp
@@ -65,35 +72,24 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     uiState: HomeViewModelUiState,
     onDownloadClick: (Int) -> Unit,
+    onSearchClear: CallBack,
+    onSearchActiveChange: (Boolean) -> Unit,
+    onSearchQueryChange: (String) -> Unit,
+    onSearchClick: (String) -> Unit,
 ) {
-//    AppBarWithSearch {
-//        Column {
-//            AnimatedContent(
-//                targetState = loading,
-//                transitionSpec = {
-//                    fadeIn(animationSpec = tween(220, delayMillis = 90)) with
-//                            fadeOut(animationSpec = tween(90))
-//                },
-//                label = "book_list_animation"
-//            ) { state ->
-//                when (state) {
-//                    true -> BookListLoaderContent()
-//                    false -> BookListContent(
-//                        onDownloadClick = onDownloadClick,
-//                        books = books,
-//                        errorState = state.error
-//                    )
-//                }
-//            }
-//        }
-//    }
 
     when (uiState) {
         HomeViewModelUiState.Loading -> BookListLoaderContent()
         is HomeViewModelUiState.Success -> BookListContent(
+            searchQuery = uiState.searchQuery,
+            searchActive = uiState.searchActive,
+            onSearchQueryChange = onSearchQueryChange,
+            onSearchClick = onSearchClick,
+            onSearchClear = onSearchClear,
+            onSearchActiveChange = onSearchActiveChange,
             onDownloadClick = onDownloadClick,
             books = uiState.books,
-            errorState = uiState.error
+            errorState = uiState.error,
         )
 
         is HomeViewModelUiState.Error -> {
@@ -103,6 +99,12 @@ fun HomeScreen(
 
 @Composable
 fun BookListContent(
+    searchQuery: String,
+    searchActive: Boolean,
+    onSearchClear: CallBack,
+    onSearchActiveChange: (Boolean) -> Unit,
+    onSearchQueryChange: (String) -> Unit,
+    onSearchClick: (String) -> Unit,
     onDownloadClick: (Int) -> Unit,
     books: List<BookUiModel>,
     errorState: ErrorState
@@ -118,47 +120,109 @@ fun BookListContent(
         }
     }
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackBarHostState) }
-    ) { contentPadding ->
-        Box(
-            modifier = Modifier
-                .padding(contentPadding)
-                .fillMaxSize()
-        ) {
-            LazyColumn(
-                state = listState,
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimension.medium),
-                contentPadding = PaddingValues(vertical = MaterialTheme.dimension.medium),
-                modifier = Modifier
-                    .clipToBounds()
-                    .padding(horizontal = MaterialTheme.dimension.medium)
+    AppBarWithSearch(
+        topBar = {
+            Surface(
+                shadowElevation = 3.dp,
             ) {
-                itemsIndexed(books) { index, book ->
-                    BookItem(
-                        onDownloadClick = { onDownloadClick(index) },
-                        image = book.image,
-                        title = book.title,
-                        author = book.author,
-                        category = book.category,
-                        downloaded = book.downloaded,
-                        progress = book.progress,
-                    )
-                }
+                SearchBarContent(
+                    query = searchQuery,
+                    active = searchActive,
+                    onClear = onSearchClear,
+                    onActiveChange = onSearchActiveChange,
+                    onQueryChange = onSearchQueryChange,
+                    onSearch = onSearchClick
+                )
             }
-            AnimatedVisibility(
-                visible = !listState.isScrollingUp(),
-                enter = fadeIn(),
-                exit = fadeOut(),
-                modifier = Modifier.align(Alignment.BottomCenter)
-            ) {
-                ScrollUp {
-                    coroutineScope.launch {
-                        listState.scrollToItem(index = 0)
-                    }
+        }
+    ) {
+        LazyColumn(
+            state = listState,
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.dimension.medium),
+            contentPadding = PaddingValues(vertical = MaterialTheme.dimension.medium),
+            modifier = Modifier
+                .clipToBounds()
+                .padding(horizontal = MaterialTheme.dimension.medium)
+        ) {
+            itemsIndexed(books) { index, book ->
+                BookItem(
+                    onDownloadClick = { onDownloadClick(index) },
+                    image = book.image,
+                    title = book.title,
+                    author = book.author,
+                    category = book.category,
+                    downloaded = book.downloaded,
+                    progress = book.progress,
+                )
+            }
+        }
+        AnimatedVisibility(
+            visible = !listState.isScrollingUp(),
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier.align(Alignment.BottomCenter)
+        ) {
+            ScrollUp {
+                coroutineScope.launch {
+                    listState.scrollToItem(index = 0)
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SearchBarContent(
+    query: String,
+    active: Boolean,
+    onClear: CallBack,
+    onActiveChange: (Boolean) -> Unit,
+    onQueryChange: (String) -> Unit,
+    onSearch: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val padding = if (!active) {
+        10.dp
+    } else 0.dp
+
+    SearchBar(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(padding)
+            .animateContentSize(),
+        query = query,
+        onQueryChange = onQueryChange,
+        onSearch = onSearch,
+        active = active,
+        onActiveChange = onActiveChange,
+        placeholder = {
+            Text(text = "Search")
+        },
+        leadingIcon = {
+            IconButton(
+                onClick = {},
+                enabled = false
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Search,
+                    contentDescription = null
+                )
+            }
+        },
+        trailingIcon = {
+            if (query.isNotEmpty()) {
+                IconButton(onClick = onClear) {
+                    Icon(
+                        imageVector = Icons.Rounded.Clear,
+                        contentDescription = null
+                    )
+                }
+            }
+        },
+        shape = SearchBarDefaults.dockedShape,
+        windowInsets = WindowInsets(left = 10.dp, right = 10.dp)
+    ) {
     }
 }
 
