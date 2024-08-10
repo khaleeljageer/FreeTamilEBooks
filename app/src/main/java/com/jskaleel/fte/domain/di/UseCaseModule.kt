@@ -12,6 +12,8 @@ import com.jskaleel.fte.domain.usecase.RefreshBooksUseCase
 import com.jskaleel.fte.domain.usecase.RefreshBooksUseCaseImpl
 import com.jskaleel.fte.domain.usecase.RemoveBookUseCase
 import com.jskaleel.fte.domain.usecase.RemoveBookUseCaseImpl
+import com.jskaleel.fte.domain.usecase.SearchUseCase
+import com.jskaleel.fte.domain.usecase.SearchUseCaseImpl
 import com.jskaleel.fte.domain.usecase.SettingsUseCase
 import com.jskaleel.fte.domain.usecase.SettingsUseCaseImpl
 import dagger.Binds
@@ -64,4 +66,10 @@ abstract class UseCaseModule {
     abstract fun getSettingsUseCase(
         settingsUseCaseImpl: SettingsUseCaseImpl,
     ): SettingsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun getSearchUseCase(
+        searchUseCaseImpl: SearchUseCaseImpl,
+    ): SearchUseCase
 }

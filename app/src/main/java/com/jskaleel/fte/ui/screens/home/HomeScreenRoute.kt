@@ -33,5 +33,6 @@ fun HomeScreenRoute(
         onSearchClick = viewModel::onSearchClick,
         onSearchClear = viewModel::onSearchClear,
         onSearchActiveChange = viewModel::onSearchActiveChange,
+        onSearchResultClick = viewModel::onSearchResultClick,
     )
 }

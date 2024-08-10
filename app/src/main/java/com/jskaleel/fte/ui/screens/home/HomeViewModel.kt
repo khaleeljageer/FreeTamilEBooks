@@ -9,6 +9,7 @@ import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.DownloadUseCase
 import com.jskaleel.fte.domain.usecase.GetBooksUseCase
 import com.jskaleel.fte.domain.usecase.RefreshBooksUseCase
+import com.jskaleel.fte.domain.usecase.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,6 +26,7 @@ class HomeViewModel @Inject constructor(
     private val refreshBooksUseCase: RefreshBooksUseCase,
     private val getBooksUseCase: GetBooksUseCase,
     private val downloadUseCase: DownloadUseCase,
+    private val searchUseCase: SearchUseCase,
 ) : ViewModel() {
 
     private val viewModelState = MutableStateFlow(HomeViewModelState(isLoading = true))
@@ -44,15 +46,29 @@ class HomeViewModel @Inject constructor(
 
     private fun loadBooks() {
         viewModelState.update { it.copy(isLoading = true) }
+        getBooks()
+    }
+
+    private fun getBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             getBooksUseCase.getBooks()
                 .collect { books ->
-                    if (books.isNotEmpty()) {
+                    Timber.tag("Khalele").d("Hello World")
+                    val searchQuery = viewModelState.value.searchQuery.lowercase()
+                    if (searchQuery.isNotBlank()) {
                         viewModelState.update {
                             it.copy(
-                                isLoading = false,
-                                books = books
+                                books = books.getFilteredBooks(searchQuery)
                             )
+                        }
+                    } else {
+                        if (books.isNotEmpty()) {
+                            viewModelState.update {
+                                it.copy(
+                                    isLoading = false,
+                                    books = books
+                                )
+                            }
                         }
                     }
                 }
@@ -60,15 +76,14 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun refreshBooksIfNeeded() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             refreshBooksUseCase.refreshBooks()
         }
     }
 
     fun downloadBook(index: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val item = viewModelState.value.books[index]
-            Timber.tag("Khaleel").d("item: ${item.epub}")
             downloadUseCase.downloadBook(item.bookid, item.epub, item.title)
                 .collect { result ->
                     when (result) {
@@ -109,10 +124,37 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun onSearchResultClick(label: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            viewModelState.update {
+                it.copy(
+                    searchQuery = label,
+                    searchActive = false,
+                )
+            }
+            val lowercaseQuery = label.lowercase()
+            val books = viewModelState.value.books
+            val searchedBooks = books.getFilteredBooks(lowercaseQuery)
+            viewModelState.update {
+                it.copy(
+                    books = searchedBooks
+                )
+            }
+        }
+    }
+
+    private fun List<Book>.getFilteredBooks(lowercaseQuery: String): List<Book> {
+        return this.filter { book ->
+            book.title.lowercase().contains(lowercaseQuery) ||
+                    book.author.lowercase().contains(lowercaseQuery)
+        }
+    }
+
     fun onSearchActiveChange(active: Boolean) {
-        viewModelState.update {
-            it.copy(
-                searchActive = active
+        viewModelState.update { state ->
+            state.copy(
+                searchActive = active,
+                searchList = if (active) state.searchList else emptySet()
             )
         }
     }
@@ -123,6 +165,11 @@ class HomeViewModel @Inject constructor(
                 searchQuery = query
             )
         }
+        if (query.isNotBlank()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                searchItem(query = query)
+            }
+        }
     }
 
     /*
@@ -130,15 +177,26 @@ class HomeViewModel @Inject constructor(
     * The current query comes as a parameter of the callback.
     * */
     fun onSearchClick(query: String) {
+        onSearchResultClick(query)
+    }
 
+    private suspend fun searchItem(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val searchResult = searchUseCase.searchByQuery(query)
+            viewModelState.update {
+                it.copy(searchList = searchResult)
+            }
+        }
     }
 
     fun onSearchClear() {
         viewModelState.update {
             it.copy(
-                searchQuery = ""
+                searchQuery = "",
+                searchList = emptySet(),
             )
         }
+        loadBooks()
     }
 }
 
@@ -146,6 +204,7 @@ private data class HomeViewModelState(
     val downloadingItems: Set<String> = emptySet(),
     val isLoading: Boolean = false,
     val books: List<Book> = emptyList(),
+    val searchList: Set<String> = emptySet(),
     val error: String? = null,
     val errorState: ErrorState = ErrorState.none,
     val searchQuery: String = "",
@@ -168,7 +227,8 @@ private data class HomeViewModelState(
                 },
                 error = errorState,
                 searchQuery = searchQuery,
-                searchActive = searchActive
+                searchActive = searchActive,
+                searchList = searchList.toList(),
             )
         }
 }
@@ -177,6 +237,7 @@ sealed class HomeViewModelUiState {
     data object Loading : HomeViewModelUiState()
     data class Success(
         val books: List<BookUiModel>,
+        val searchList: List<String>,
         val error: ErrorState,
         val searchQuery: String,
         val searchActive: Boolean,

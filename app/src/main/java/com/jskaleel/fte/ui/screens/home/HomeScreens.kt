@@ -7,13 +7,13 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
@@ -30,9 +31,11 @@ import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
@@ -50,8 +53,13 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.R
@@ -75,6 +83,7 @@ fun HomeScreen(
     onSearchClear: CallBack,
     onSearchActiveChange: (Boolean) -> Unit,
     onSearchQueryChange: (String) -> Unit,
+    onSearchResultClick: (String) -> Unit,
     onSearchClick: (String) -> Unit,
 ) {
 
@@ -89,6 +98,8 @@ fun HomeScreen(
             onSearchActiveChange = onSearchActiveChange,
             onDownloadClick = onDownloadClick,
             books = uiState.books,
+            onSearchResultClick = onSearchResultClick,
+            searchList = uiState.searchList,
             errorState = uiState.error,
         )
 
@@ -105,8 +116,10 @@ fun BookListContent(
     onSearchActiveChange: (Boolean) -> Unit,
     onSearchQueryChange: (String) -> Unit,
     onSearchClick: (String) -> Unit,
+    onSearchResultClick: (String) -> Unit,
     onDownloadClick: (Int) -> Unit,
     books: List<BookUiModel>,
+    searchList: List<String>,
     errorState: ErrorState
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -122,16 +135,16 @@ fun BookListContent(
 
     AppBarWithSearch(
         topBar = {
-            Surface(
-                shadowElevation = 3.dp,
-            ) {
+            Surface {
                 SearchBarContent(
                     query = searchQuery,
                     active = searchActive,
                     onClear = onSearchClear,
                     onActiveChange = onSearchActiveChange,
                     onQueryChange = onSearchQueryChange,
-                    onSearch = onSearchClick
+                    onSearch = onSearchClick,
+                    onSearchResultClick = onSearchResultClick,
+                    searchList = searchList,
                 )
             }
         }
@@ -180,50 +193,108 @@ fun SearchBarContent(
     onActiveChange: (Boolean) -> Unit,
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    onSearchResultClick: (String) -> Unit,
+    searchList: List<String>,
 ) {
     val padding = if (!active) {
-        10.dp
-    } else 0.dp
+        PaddingValues(start = 16.dp, end = 16.dp, bottom = 8.dp)
+    } else PaddingValues(0.dp)
 
-    SearchBar(
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(padding)
-            .animateContentSize(),
-        query = query,
-        onQueryChange = onQueryChange,
-        onSearch = onSearch,
-        active = active,
-        onActiveChange = onActiveChange,
-        placeholder = {
-            Text(text = "Search")
-        },
-        leadingIcon = {
-            IconButton(
-                onClick = {},
-                enabled = false
-            ) {
-                Icon(
-                    imageVector = Icons.Rounded.Search,
-                    contentDescription = null
-                )
-            }
-        },
-        trailingIcon = {
-            if (query.isNotEmpty()) {
-                IconButton(onClick = onClear) {
+    ) {
+        SearchBar(
+            modifier = Modifier
+                .fillMaxWidth()
+                .animateContentSize(),
+            query = query,
+            onQueryChange = onQueryChange,
+            onSearch = onSearch,
+            active = active,
+            onActiveChange = onActiveChange,
+            placeholder = {
+                Text(text = "Search")
+            },
+            leadingIcon = {
+                IconButton(
+                    onClick = {},
+                    enabled = false
+                ) {
                     Icon(
-                        imageVector = Icons.Rounded.Clear,
+                        imageVector = Icons.Rounded.Search,
                         contentDescription = null
                     )
                 }
+            },
+            trailingIcon = {
+                if (query.isNotEmpty()) {
+                    IconButton(onClick = onClear) {
+                        Icon(
+                            imageVector = Icons.Rounded.Clear,
+                            contentDescription = null
+                        )
+                    }
+                }
+            },
+            shape = SearchBarDefaults.dockedShape,
+        ) {
+            if (query.isNotBlank()) {
+                LazyColumn {
+                    items(searchList) { label ->
+                        HighlightedText(
+                            onClick = { onSearchResultClick(label) },
+                            text = label,
+                            searchQuery = query,
+                        )
+                        HorizontalDivider()
+                    }
+                }
             }
-        },
-        shape = SearchBarDefaults.dockedShape,
-        windowInsets = WindowInsets(left = 10.dp, right = 10.dp)
-    ) {
+        }
     }
+}
+
+@Composable
+private fun HighlightedText(
+    onClick: CallBack,
+    text: String,
+    searchQuery: String,
+    style: TextStyle = LocalTextStyle.current
+) {
+    val annotatedString = buildAnnotatedString {
+        var startIndex = 0
+        val lowercase = text.lowercase()
+        val queryLowercase = searchQuery.lowercase()
+
+        while (startIndex < text.length) {
+            val index = lowercase.indexOf(queryLowercase, startIndex)
+            if (index == -1) {
+                // No more matches, append the rest of the text
+                append(text.substring(startIndex))
+                break
+            }
+
+            // Append the text before the match
+            append(text.substring(startIndex, index))
+
+            // Bold the matched part
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                append(text.substring(index, index + searchQuery.length))
+            }
+
+            startIndex = index + searchQuery.length
+        }
+    }
+
+    Text(
+        text = annotatedString,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(16.dp),
+        style = style
+    )
 }
 
 @Composable
@@ -402,14 +473,9 @@ fun BookItem(
                         Spacer(modifier = Modifier.weight(1f))
 
                         if (!downloaded) {
-                            IconButton(
+                            DownloadIcon(
                                 onClick = onDownloadClick
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_download),
-                                    contentDescription = null
-                                )
-                            }
+                            )
                         }
                     }
 
@@ -428,6 +494,20 @@ fun BookItem(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun DownloadIcon(
+    onClick: CallBack
+) {
+    IconButton(
+        onClick = onClick
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_download),
+            contentDescription = null
+        )
     }
 }
 

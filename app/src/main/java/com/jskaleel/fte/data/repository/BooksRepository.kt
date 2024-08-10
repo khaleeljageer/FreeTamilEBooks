@@ -7,4 +7,5 @@ interface BooksRepository {
     fun getBooks(): Flow<List<Book>>
     suspend fun refreshBooks()
     fun getDownloadedBooks(): Flow<List<Book>>
+    suspend fun searchByQuery(query: String): Set<String>
 }

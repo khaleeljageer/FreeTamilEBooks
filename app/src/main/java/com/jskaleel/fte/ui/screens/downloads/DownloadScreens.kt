@@ -100,7 +100,7 @@ fun EmptyContent(
         )
 
         Button(onClick = addBook) {
-            Text("Add books")
+            Text("புத்தகங்களை பதிவிறக்கவும்")
         }
     }
 }
