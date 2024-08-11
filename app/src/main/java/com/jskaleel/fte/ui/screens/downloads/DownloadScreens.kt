@@ -3,6 +3,7 @@ package com.jskaleel.fte.ui.screens.downloads
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -61,7 +62,8 @@ import kotlinx.coroutines.launch
 fun DownloadScreen(
     uiState: DownloadViewModelUiState,
     addBook: CallBack,
-    onRemove: (String) -> Unit
+    onRemove: (String) -> Unit,
+    onBookClick: (String) -> Unit
 ) {
     when (uiState) {
         is DownloadViewModelUiState.Error -> {
@@ -71,8 +73,9 @@ fun DownloadScreen(
         is DownloadViewModelUiState.Success -> {
             BookListContent(
                 onRemove = onRemove,
+                onBookClick = onBookClick,
                 books = uiState.books,
-                errorState = uiState.error
+                errorState = uiState.error,
             )
         }
 
@@ -111,6 +114,7 @@ private fun BookListContent(
     books: List<SavedBookUiModel>,
     errorState: ErrorState,
     onRemove: (String) -> Unit,
+    onBookClick: (String) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -147,7 +151,8 @@ private fun BookListContent(
                         author = book.author,
                         category = book.category,
                         image = book.image,
-                        onRemove = { onRemove(book.id) }
+                        onRemove = { onRemove(book.id) },
+                        onItemClick = { onBookClick(book.id) }
                     )
                 }
             }
@@ -162,10 +167,17 @@ private fun DownloadedItem(
     category: String,
     image: ImageType,
     onRemove: CallBack,
+    onItemClick: CallBack,
     modifier: Modifier,
 ) {
     FteCard(
-        modifier = modifier.then(Modifier.height(180.dp)),
+        modifier = modifier.then(
+            Modifier
+                .height(180.dp)
+                .clickable {
+                    onItemClick()
+                }
+        ),
     ) {
         Row(
             modifier = Modifier

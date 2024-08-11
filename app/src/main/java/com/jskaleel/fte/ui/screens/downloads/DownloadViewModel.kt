@@ -1,8 +1,12 @@
 package com.jskaleel.fte.ui.screens.downloads
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.core.model.ErrorState
+import com.jskaleel.fte.core.model.mutableNavStateOf
+import com.jskaleel.fte.core.model.navigate
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.DownloadedBooksUseCase
 import com.jskaleel.fte.domain.usecase.RemoveBookUseCase
@@ -22,6 +26,9 @@ class DownloadViewModel @Inject constructor(
     private val removeBookUseCase: RemoveBookUseCase
 ) : ViewModel() {
     private val viewModelState = MutableStateFlow(DownloadViewModelState(isEmpty = true))
+
+    var navigation by mutableNavStateOf<DownloadNavState>()
+        private set
 
     val uiState = viewModelState.map {
         it.toUiState()
@@ -54,6 +61,10 @@ class DownloadViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             removeBookUseCase.removeBook(bookId)
         }
+    }
+
+    fun onBookClick(bookId: String) {
+        navigation = navigate(DownloadNavState.OpenBook(bookId = bookId))
     }
 }
 
@@ -90,4 +101,8 @@ sealed class DownloadViewModelUiState {
     ) : DownloadViewModelUiState()
 
     data class Error(val message: String) : DownloadViewModelUiState()
+}
+
+sealed interface DownloadNavState {
+    data class OpenBook(val bookId: String) : DownloadNavState
 }
