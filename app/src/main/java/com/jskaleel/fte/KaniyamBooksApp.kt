@@ -9,6 +9,7 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
+import com.jskhaleel.reader.ReadiumApplication
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

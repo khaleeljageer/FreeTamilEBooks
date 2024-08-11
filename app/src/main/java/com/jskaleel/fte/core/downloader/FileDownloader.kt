@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.isActive
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
@@ -76,6 +77,7 @@ class FileDownloaderImpl @Inject constructor(
             output.close()
             input.close()
 
+            Timber.tag("Khaleel").d("unique ID: $uniqueId")
             emit(DownloadResult.Success(id = uniqueId, name = fileName, file = destinationFile))
         } catch (e: CancellationException) {
             destinationFile.delete() // Clean up partial file

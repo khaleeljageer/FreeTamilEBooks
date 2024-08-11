@@ -2,15 +2,21 @@ package com.jskaleel.fte.data.repository
 
 import android.app.NotificationManager
 import android.content.Context
+import android.net.Uri
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.model.DownloadResult
 import com.jskaleel.fte.data.source.local.dao.LocalBooksDao
+import com.jskhaleel.reader.ReadiumApplication
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
+import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 class DownloadRepositoryImpl @Inject constructor(
@@ -37,6 +43,8 @@ class DownloadRepositoryImpl @Inject constructor(
 
                         is DownloadResult.Success -> {
                             showDownloadSuccessNotification(result.id, result.name)
+                            val readerId = importPublication(result.file)
+                            Timber.tag("Khaleel").d("Import ID: $readerId")
                             localBooks.updateDownloadStatus(
                                 result.id,
                                 isDownloaded = true
@@ -54,6 +62,15 @@ class DownloadRepositoryImpl @Inject constructor(
                     }
                 }
         }
+    }
+
+    private fun importPublication(file: File): Long {
+        (context as ReadiumApplication)
+            .bookshelf
+            .importPublicationFromStorage(
+                file.toUri()
+            )
+        return 1L
     }
 
     override suspend fun removeBook(id: String) {

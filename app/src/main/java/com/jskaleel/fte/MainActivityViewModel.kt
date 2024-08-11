@@ -29,20 +29,6 @@ class MainActivityViewModel @Inject constructor(
 
     init {
         subscribeNetworkMonitor()
-        getUserConfig()
-    }
-
-    private fun getUserConfig() {
-        viewModelScope.launch {
-            mainActivityUseCase.getUserConfig().collect { theme ->
-                viewModelState.update {
-                    it.copy(
-                        themeConfig = theme.themeConfig,
-                        isLoading = false
-                    )
-                }
-            }
-        }
     }
 
     private fun subscribeNetworkMonitor() {
@@ -57,19 +43,12 @@ class MainActivityViewModel @Inject constructor(
 private data class MainActivityViewModelState(
     val isLoading: Boolean = true,
     val isOnline: Boolean = true,
-    val themeConfig: ThemeConfig = ThemeConfig.FOLLOW_SYSTEM,
 ) {
     fun toUiState() = MainActivityUiState(
-        isLoading = isLoading,
         isOnline = isOnline,
-        uiModel = MainActivityUiModel(
-            themeConfig = themeConfig,
-        )
     )
 }
 
 data class MainActivityUiState(
-    val isLoading: Boolean = true,
     val isOnline: Boolean = true,
-    val uiModel: MainActivityUiModel = MainActivityUiModel()
 )

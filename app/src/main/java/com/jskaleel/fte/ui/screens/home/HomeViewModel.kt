@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +27,6 @@ class HomeViewModel @Inject constructor(
     private val downloadUseCase: DownloadUseCase,
     private val searchUseCase: SearchUseCase,
 ) : ViewModel() {
-
     private val viewModelState = MutableStateFlow(HomeViewModelState(isLoading = true))
 
     val uiState = viewModelState.map {
@@ -53,7 +51,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             getBooksUseCase.getBooks()
                 .collect { books ->
-                    Timber.tag("Khalele").d("Hello World")
                     val searchQuery = viewModelState.value.searchQuery.lowercase()
                     if (searchQuery.isNotBlank()) {
                         viewModelState.update {

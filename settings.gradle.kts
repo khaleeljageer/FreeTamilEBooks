@@ -23,4 +23,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "FTEbooks"
 include(":app")
+include(":reader")
  

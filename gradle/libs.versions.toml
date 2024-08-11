@@ -16,6 +16,7 @@ lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 composeBom = "2024.06.00"
 loggingInterceptor = "4.12.0"
+lottieCompose = "6.5.0"
 retrofit = "2.11.0"
 roomRuntime = "2.6.1"
 roomCompiler = "2.6.1"
@@ -49,6 +50,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
@@ -62,4 +64,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 

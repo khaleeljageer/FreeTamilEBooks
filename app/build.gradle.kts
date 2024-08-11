@@ -106,5 +106,7 @@ dependencies {
     implementation(libs.accompanist.permissions)
     implementation(libs.accompanist.placeholder.material)
 
-    implementation("com.airbnb.android:lottie-compose:6.5.0")
+    implementation(libs.lottie.compose)
+
+    implementation(project(":reader"))
 }

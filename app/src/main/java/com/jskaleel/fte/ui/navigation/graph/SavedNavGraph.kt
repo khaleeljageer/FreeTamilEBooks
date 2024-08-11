@@ -18,7 +18,6 @@ fun NavGraphBuilder.savedNavGraph(
     ) {
         composable(route = Screen.Saved.route) {
             DownloadScreenRoute(
-                openBook = {},
                 addBook = {
                     navController.popBackStack()
                 },
