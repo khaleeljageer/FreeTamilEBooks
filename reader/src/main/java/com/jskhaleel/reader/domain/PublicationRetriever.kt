@@ -61,22 +61,26 @@ class PublicationRetriever(
     suspend fun retrieveFromStorage(
         uri: Uri
     ): Try<Result, ImportError> {
-        val localResult = localPublicationRetriever
+        val finalResult: LocalPublicationRetriever.Result = localPublicationRetriever
             .retrieve(uri)
             .getOrElse { return Try.failure(it) }
+        val actualFormat = finalResult.format
+            ?: assetRetriever.sniffFormat(finalResult.tempFile)
+                .getOrElse {
+                    return Try.failure(ImportError.Publication(PublicationError(it)))
+                }
 
-        val finalResult = moveToBookshelfDir(
-            localResult.tempFile,
-            localResult.format,
-            localResult.coverUrl
-        )
-            .getOrElse {
-                tryOrLog { localResult.tempFile.delete() }
-                return Try.failure(it)
-            }
-
+//        val finalResult: Result = moveToBookshelfDir(
+//            localResult.tempFile,
+//            localResult.format,
+//            localResult.coverUrl
+//        ).getOrElse {
+//            tryOrLog { localResult.tempFile.delete() }
+//            return Try.failure(it)
+//        }
+        
         return Try.success(
-            Result(finalResult.publication, finalResult.format, finalResult.coverUrl)
+            Result(finalResult.tempFile, actualFormat, finalResult.coverUrl)
         )
     }
 
@@ -261,6 +265,7 @@ private class OpdsPublicationRetriever(
         val file = when (val result = httpClient.stream(request)) {
             is Try.Failure ->
                 return Try.failure(ImportError.Download(result.value))
+
             is Try.Success -> {
                 result.value.body
                     .copyToNewFile(tempDir)

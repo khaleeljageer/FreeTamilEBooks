@@ -12,49 +12,53 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.android.material.color.DynamicColors
-import java.io.File
-import com.jskhaleel.reader.BuildConfig.DEBUG
 import com.jskhaleel.reader.data.BookRepository
 import com.jskhaleel.reader.data.db.AppDatabase
-import com.jskhaleel.reader.domain.Bookshelf
 import com.jskhaleel.reader.domain.CoverStorage
+import com.jskhaleel.reader.domain.LibraryManager
 import com.jskhaleel.reader.domain.PublicationRetriever
 import com.jskhaleel.reader.reader.ReaderRepository
 import com.jskhaleel.reader.utils.tryOrLog
-import timber.log.Timber
+import java.io.File
 
 open class ReadiumApplication : Application() {
 
     lateinit var readium: Readium
-        private set
+        protected set
 
     lateinit var storageDir: File
+        protected set
 
     lateinit var bookRepository: BookRepository
-        private set
+        protected set
 
-    lateinit var bookshelf: Bookshelf
-        private set
+    lateinit var bookshelf: LibraryManager
+        protected set
 
     lateinit var readerRepository: ReaderRepository
-        private set
+        protected set
 
-    private val Context.navigatorPreferences: DataStore<Preferences>
-        by preferencesDataStore(name = "navigator-preferences")
+    protected val Context.navigatorPreferences: DataStore<Preferences>
+            by preferencesDataStore(name = "navigator-preferences")
 
     override fun onCreate() {
         super.onCreate()
-        if (DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
+        DynamicColors.applyToActivitiesIfAvailable(this)
 
+        initializeReadium()
+        initializeRepositories()
+    }
 
-//        DynamicColors.applyToActivitiesIfAvailable(this)
-
+    protected open fun initializeReadium() {
         readium = Readium(this)
-
         storageDir = computeStorageDir()
+    }
 
+    private fun computeStorageDir(): File {
+        return File(filesDir?.path + "/")
+    }
+
+    protected open fun initializeRepositories() {
         val database = AppDatabase.getDatabase(this)
 
         bookRepository = BookRepository(database.booksDao())
@@ -64,24 +68,22 @@ open class ReadiumApplication : Application() {
         // Cleans the download dir.
         tryOrLog { downloadsDir.delete() }
 
-        val publicationRetriever =
-            PublicationRetriever(
-                context = applicationContext,
-                assetRetriever = readium.assetRetriever,
-                bookshelfDir = storageDir,
-                tempDir = downloadsDir,
-                httpClient = readium.httpClient,
-                lcpService = readium.lcpService.getOrNull()
-            )
+        val publicationRetriever = PublicationRetriever(
+            context = applicationContext,
+            assetRetriever = readium.assetRetriever,
+            bookshelfDir = storageDir,
+            tempDir = downloadsDir,
+            httpClient = readium.httpClient,
+            lcpService = readium.lcpService.getOrNull()
+        )
 
-        bookshelf =
-            Bookshelf(
-                bookRepository,
-                CoverStorage(storageDir, httpClient = readium.httpClient),
-                readium.publicationOpener,
-                readium.assetRetriever,
-                publicationRetriever
-            )
+        bookshelf = LibraryManager(
+            bookRepository,
+            CoverStorage(storageDir, httpClient = readium.httpClient),
+            readium.publicationOpener,
+            readium.assetRetriever,
+            publicationRetriever
+        )
 
         readerRepository = ReaderRepository(
             this@ReadiumApplication,
@@ -89,9 +91,5 @@ open class ReadiumApplication : Application() {
             bookRepository,
             navigatorPreferences
         )
-    }
-
-    private fun computeStorageDir(): File {
-        return File(filesDir?.path + "/")
     }
 }

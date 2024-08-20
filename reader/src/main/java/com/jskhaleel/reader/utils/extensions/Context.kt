@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import com.jskhaleel.reader.R
+import java.io.File
+import java.util.Properties
 
 @ColorInt
 fun Context.color(@ColorRes id: Int): Int {
@@ -44,3 +46,17 @@ suspend fun Context.confirmDialog(
             }
             .show()
     }
+
+
+fun Context.computeStorageDir(): File {
+    val properties = Properties()
+    val inputStream = assets.open("configs/config.properties")
+    properties.load(inputStream)
+    val useExternalFileDir =
+        properties.getProperty("useExternalFileDir", "false")!!.toBoolean()
+
+    return File(
+        if (useExternalFileDir) getExternalFilesDir(null)?.path + "/"
+        else filesDir?.path + "/"
+    )
+}

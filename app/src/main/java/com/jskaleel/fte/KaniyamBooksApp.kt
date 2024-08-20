@@ -14,7 +14,7 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class KaniyamBooksApp : Application(), ImageLoaderFactory {
+class KaniyamBooksApp : ReadiumApplication(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()

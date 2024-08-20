@@ -36,7 +36,7 @@ fun DownloadScreenRoute(
 fun launchReaderActivity(context: Context) {
     val intent = ReaderActivityContract().createIntent(
         context,
-        ReaderActivityContract.Arguments(bookId = 123)
+        ReaderActivityContract.Arguments(bookId = 1)
     )
 
     context.startActivity(intent)

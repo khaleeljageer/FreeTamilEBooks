@@ -9,6 +9,7 @@ import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.model.DownloadResult
 import com.jskaleel.fte.data.source.local.dao.LocalBooksDao
 import com.jskhaleel.reader.ReadiumApplication
+import com.jskhaleel.reader.domain.LibraryManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,13 +65,12 @@ class DownloadRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun importPublication(file: File): Long {
-        (context as ReadiumApplication)
+    private suspend fun importPublication(file: File): Long {
+        return (context as ReadiumApplication)
             .bookshelf
             .importPublicationFromStorage(
                 file.toUri()
             )
-        return 1L
     }
 
     override suspend fun removeBook(id: String) {
