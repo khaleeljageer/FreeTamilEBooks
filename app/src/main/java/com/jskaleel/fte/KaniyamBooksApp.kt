@@ -9,16 +9,17 @@ import coil.ImageLoader
 import coil.ImageLoaderFactory
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import com.jskhaleel.reader.ReadiumApplication
+import com.epubreader.android.EPubReader
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class KaniyamBooksApp : ReadiumApplication(), ImageLoaderFactory {
+class KaniyamBooksApp : Application(), ImageLoaderFactory {
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
+        EPubReader.init(this.applicationContext)
         createNotificationChannel()
     }
 

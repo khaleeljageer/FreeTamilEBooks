@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="return_publication">This will return the publication</string>
+    <string name="return_button">Return</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+    <string name="more_options">More Options</string>
+    <string name="no_result">No results</string>
+    <string name="title_fragment_drm_management">DRM Management</string>
+
+    <string name="drm_information_header">INFORMATION</string>
+    <string name="drm_label_license_type">License Type</string>
+    <string name="drm_label_state">State</string>
+    <string name="drm_label_provider">Provider</string>
+    <string name="drm_label_issued">Issued</string>
+    <string name="drm_label_updated">Updated</string>
+    <string name="drm_label_rights">RIGHTS</string>
+    <string name="drm_label_prints_left">Prints left</string>
+    <string name="drm_label_copies_left">Copies left</string>
+    <string name="drm_label_start">Start</string>
+    <string name="drm_label_end">End</string>
+    <string name="drm_label_potential_right_end">Potential right end</string>
+    <string name="drm_label_actions">ACTIONS</string>
+    <string name="drm_label_renew">RENEW</string>
+    <string name="drm_label_return">RETURN</string>
+    <string name="zero">00:00</string>
+    <string name="chapter">Chapter</string>
+    <string name="chapter_page">Chapter / Page</string>
+    <string name="progression">Progression</string>
+    <string name="timestamp">Timestamp</string>
+
+    <!-- Outlines -->
+    <string name="contents_tab_label">Contents</string>
+    <string name="bookmarks_tab_label">Bookmarks</string>
+    <string name="highlights_tab_label">Highlights</string>
+    <string name="pagelist_tab_label">Page List</string>
+    <string name="landmarks_tab_label">Landmarks</string>
+
+    <string name="tts_error_initialization">Failed to initialize the TTS engine</string>
+    <string name="tts_error_language_not_supported">The language %s is not supported</string>
+    <string name="tts_error_language_support_incomplete">The language %s requires additional data. Do you want to download it?</string>
+    <string name="tts_error_network">A networking error occurred</string>
+    <string name="tts_error_other">A TTS error occurred</string>
+    <string name="tts_next">Go forward</string>
+    <string name="tts_pause">Pause</string>
+    <string name="tts_play">Play</string>
+    <string name="tts_previous">Go backward</string>
+    <string name="tts_rate">Rate</string>
+    <string name="tts_settings">Speech settings</string>
+    <string name="tts_stop">Stop</string>
+    <string name="tts_voice">Voice</string>
+    <string name="close">Close</string>
+    <string name="language">Language</string>
+    <string name="auto">Auto</string>
+
+    <string name="bookmark_added">Bookmark added</string>
+    <string name="bookmark_exists">Bookmark already exists</string>
+
+    <string name="action_mode_menu_highlight">Highlight</string>
+    <string name="action_mode_menu_underline">Underline</string>
+    <string name="action_mode_menu_note">Note</string>
+
+    <string name="epubactivity_drm_info">DRM Info</string>
+    <string name="epubactivity_set_bookmark">Add a bookmark</string>
+    <string name="epubactivity_settings">User Settings</string>
+    <string name="epubactivity_book_nav_options">Book navigation menu</string>
+    <string name="epubactivity_read_aloud_start">Read Aloud</string>
+    <string name="epubactivity_read_aloud_stop">Stop Read Aloud</string>
+    <string name="epubactivity_search">Search</string>
+    <string name="note">Note</string>
+    <string name="add_note">Add note</string>
+    <string name="add_an_annotation">Add an annotation</string>
+    <string name="delete_highlight_or_annotation">Delete highlight or annotation</string>
+    <string name="yellow">Yellow</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="red">Red</string>
+    <string name="purple">Purple</string>
+    <string name="remove_bookmark">Remove bookmark</string>
+    <string name="epub_navigator_tag">epub_navigator</string>
+</resources>

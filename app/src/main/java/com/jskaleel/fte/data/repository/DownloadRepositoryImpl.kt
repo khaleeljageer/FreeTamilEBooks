@@ -2,19 +2,17 @@ package com.jskaleel.fte.data.repository
 
 import android.app.NotificationManager
 import android.content.Context
-import android.net.Uri
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
+import com.epubreader.android.EPubReader
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.model.DownloadResult
 import com.jskaleel.fte.data.source.local.dao.LocalBooksDao
-import com.jskhaleel.reader.ReadiumApplication
-import com.jskhaleel.reader.domain.LibraryManager
+//import com.jskhaleel.reader.EPubReader
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import java.io.File
@@ -66,11 +64,9 @@ class DownloadRepositoryImpl @Inject constructor(
     }
 
     private suspend fun importPublication(file: File): Long {
-        return (context as ReadiumApplication)
-            .bookshelf
-            .importPublicationFromStorage(
-                file.toUri()
-            )
+        return EPubReader.getReader().importPublicationFromStorage(
+            file.toUri()
+        )
     }
 
     override suspend fun removeBook(id: String) {

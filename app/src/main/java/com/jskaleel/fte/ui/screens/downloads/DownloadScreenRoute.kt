@@ -3,11 +3,13 @@ package com.jskaleel.fte.ui.screens.downloads
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.epubreader.android.EPubReader
 import com.jskaleel.fte.core.model.listen
 import com.jskaleel.fte.core.utils.CallBack
-import com.jskhaleel.reader.reader.ReaderActivityContract
+import kotlinx.coroutines.launch
 
 @Composable
 fun DownloadScreenRoute(
@@ -16,11 +18,14 @@ fun DownloadScreenRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val coroutine = rememberCoroutineScope()
 
     viewModel.navigation.listen {
         when (it) {
             is DownloadNavState.OpenBook -> {
-                launchReaderActivity(context)
+                coroutine.launch {
+                    launchReaderActivity(context)
+                }
             }
         }
     }
@@ -33,12 +38,7 @@ fun DownloadScreenRoute(
     )
 }
 
-fun launchReaderActivity(context: Context) {
-    val intent = ReaderActivityContract().createIntent(
-        context,
-        ReaderActivityContract.Arguments(bookId = 1)
-    )
-
-    context.startActivity(intent)
+suspend fun launchReaderActivity(context: Context) {
+    EPubReader.getReader().openBook(3L)
 }
 

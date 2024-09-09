@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId = "com.jskaleel.fte"
         minSdk = 24
-        targetSdk = 34
+
         versionCode = 1
         versionName = "1.0"
 
@@ -108,5 +108,5 @@ dependencies {
 
     implementation(libs.lottie.compose)
 
-    implementation(project(":reader"))
+    implementation(project(":epubreader"))
 }
