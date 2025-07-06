@@ -30,8 +30,8 @@ fun BookShelfRoute(
     when (val state = uiState) {
         BookShelfViewModelUiState.Loading -> FullScreenLoader()
         is BookShelfViewModelUiState.Success -> {
-            BookListContent(
-                onDownloadClick = viewModel::downloadBook,
+            BookShelfContent(
+                event = viewModel::onEvent,
                 books = state.books,
             )
         }

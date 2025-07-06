@@ -24,6 +24,7 @@ data class DownloadedBookEntity(
     @PrimaryKey val bookId: String,
     val filePath: String,
     val author: String,
+    val category: String,
     val title: String,
     val image: String,
     val timestamp: Long

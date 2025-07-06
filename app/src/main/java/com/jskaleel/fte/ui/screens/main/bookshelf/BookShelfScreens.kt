@@ -16,14 +16,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.MenuBook
 import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -55,8 +58,8 @@ import com.jskaleel.fte.ui.theme.dimension
 import kotlinx.coroutines.launch
 
 @Composable
-fun BookListContent(
-    onDownloadClick: (Int) -> Unit,
+fun BookShelfContent(
+    event: (BookListEvent) -> Unit,
     books: List<BookUiModel>,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -68,9 +71,17 @@ fun BookListContent(
             contentPadding = PaddingValues(vertical = MaterialTheme.dimension.small),
             modifier = Modifier.clipToBounds()
         ) {
-            itemsIndexed(books) { index, book ->
+            items(
+                items = books,
+                key = { it.id }
+            ) { book ->
                 BookItem(
-                    onDownloadClick = { onDownloadClick(index) },
+                    onDownloadClick = {
+                        event.invoke(BookListEvent.OnDownloadClick(bookId = book.id))
+                    },
+                    onOpenClick = {
+                        event.invoke(BookListEvent.OnOpenClick(bookId = book.id))
+                    },
                     image = book.image,
                     title = book.title,
                     author = book.author,
@@ -109,8 +120,9 @@ private fun ScrollUp(onClick: CallBack) {
 }
 
 @Composable
-fun BookItem(
+private fun BookItem(
     onDownloadClick: CallBack,
+    onOpenClick: CallBack,
     title: String,
     author: String,
     category: String,
@@ -185,10 +197,34 @@ fun BookItem(
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    if (!downloaded) {
-                        DownloadIcon(
-                            onClick = onDownloadClick
-                        )
+                    when {
+                        downloading -> {
+                            IconButton(onClick = {}) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(30.dp),
+                                    strokeWidth = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
+
+                        else -> {
+                            if (downloaded) {
+                                IconButton(onClick = { onOpenClick() }) {
+                                    Icon(
+                                        imageVector = Icons.AutoMirrored.Rounded.MenuBook,
+                                        contentDescription = "Open Book"
+                                    )
+                                }
+                            } else {
+                                IconButton(onClick = { onDownloadClick() }) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Download,
+                                        contentDescription = "Download Book"
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -198,7 +234,9 @@ fun BookItem(
                             modifier = Modifier
                                 .height(2.dp)
                                 .fillMaxWidth(),
-                            strokeCap = StrokeCap.Round
+                            strokeCap = StrokeCap.Round,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            trackColor = MaterialTheme.colorScheme.surface,
                         )
                     } else {
                         Spacer(modifier = Modifier.height(2.dp))
@@ -257,6 +295,7 @@ private fun BookItemPreview() {
 
             BookItem(
                 onDownloadClick = { },
+                onOpenClick = { },
                 title = "Book Item Preview",
                 author = "Author",
                 category = "Category",
@@ -268,6 +307,7 @@ private fun BookItemPreview() {
 
             BookItem(
                 onDownloadClick = { },
+                onOpenClick = { },
                 title = "Book Item Preview",
                 author = "Author",
                 category = "Category",

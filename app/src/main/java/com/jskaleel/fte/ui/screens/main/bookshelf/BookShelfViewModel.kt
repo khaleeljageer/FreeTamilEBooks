@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.core.model.onError
+import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,6 +34,37 @@ class BookShelfViewModel @Inject constructor(
     init {
         syncBooks()
         observeBooks()
+        observeDownloadStatus()
+    }
+
+    private fun observeDownloadStatus() {
+        viewModelScope.launch {
+            useCase.downloadStatus.collect { result ->
+                when (result) {
+                    is DownloadResult.Queued -> {
+                        updateBook(result.id) { it.copy(downloading = true) }
+                    }
+
+                    is DownloadResult.Success -> updateBook(result.id) {
+                        it.copy(
+                            downloading = false,
+                            downloaded = true,
+//                            path = result.file.absolutePath
+                        )
+                    }
+
+                    is DownloadResult.Error -> updateBook(result.id) {
+                        it.copy(downloading = false)
+                    }
+
+                    is DownloadResult.Progress -> {
+                        updateBook(result.id) {
+                            it.copy(downloading = true, downloadProgress = result.percent)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun observeBooks() {
@@ -57,8 +89,34 @@ class BookShelfViewModel @Inject constructor(
         }
     }
 
-    fun downloadBook(index: Int) {
+    fun onEvent(event: BookListEvent) {
+        when (event) {
+            is BookListEvent.OnDownloadClick -> {
+                val book = viewModelState.value.books.first { it.id == event.bookId }
+                if (!book.downloaded && !book.downloading) {
+                    updateBook(book.id) {
+                        it.copy(
+                            downloading = true,
+                            downloadProgress = 0
+                        )
+                    }
+                    useCase.startDownload(bookId = book.id, title = book.title, url = book.url)
+                }
+            }
 
+            is BookListEvent.OnOpenClick -> {
+
+            }
+        }
+    }
+
+    private fun updateBook(id: String, transform: (Book) -> Book) {
+        viewModelState.update { state ->
+            val updatedBooks = state.books.map {
+                if (it.id == id) transform(it) else it
+            }
+            state.copy(books = updatedBooks)
+        }
     }
 }
 
@@ -92,4 +150,9 @@ sealed class BookShelfViewModelUiState {
     data class Success(
         val books: List<BookUiModel>
     ) : BookShelfViewModelUiState()
+}
+
+sealed interface BookListEvent {
+    data class OnDownloadClick(val bookId: String) : BookListEvent
+    data class OnOpenClick(val bookId: String) : BookListEvent
 }
