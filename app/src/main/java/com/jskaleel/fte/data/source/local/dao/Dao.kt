@@ -14,8 +14,8 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(books: List<BookEntity>)
 
-    @Query("SELECT * FROM books WHERE subCategoryTitle = :subCategory")
-    fun getBySubCategory(subCategory: String): Flow<List<BookEntity>>
+    @Query("SELECT * FROM books")
+    fun getAll(): Flow<List<BookEntity>>
 }
 
 @Dao

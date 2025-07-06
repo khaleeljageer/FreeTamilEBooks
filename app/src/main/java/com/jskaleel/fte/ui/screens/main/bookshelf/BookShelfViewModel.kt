@@ -1,7 +1,11 @@
 package com.jskaleel.fte.ui.screens.main.bookshelf
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.onError
+import com.jskaleel.fte.domain.model.Book
+import com.jskaleel.fte.domain.usecase.BookShelfUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +17,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BookShelfViewModel @Inject constructor() : ViewModel() {
-    private val viewModelState = MutableStateFlow(BookShelfViewModelState(isLoading = true))
+class BookShelfViewModel @Inject constructor(
+    private val useCase: BookShelfUseCase
+) : ViewModel() {
+    private val viewModelState = MutableStateFlow(BookShelfViewModelState(loading = true))
 
     val uiState = viewModelState.map {
         it.toUiState()
@@ -25,110 +31,58 @@ class BookShelfViewModel @Inject constructor() : ViewModel() {
     )
 
     init {
-        loadBooks()
-        refreshBooksIfNeeded()
+        syncBooks()
+        observeBooks()
     }
 
-    private fun loadBooks() {
-        viewModelState.update { it.copy(isLoading = true) }
-        getBooks()
+    private fun observeBooks() {
+        viewModelState.update { it.copy(loading = true) }
         viewModelScope.launch(Dispatchers.IO) {
-            viewModelState.update {
-                it.copy(isLoading = false)
+            useCase.observeBooks().collect { books ->
+                viewModelState.update { current ->
+                    current.copy(
+                        loading = false,
+                        books = books
+                    )
+                }
             }
         }
     }
 
-    private fun getBooks() {
-
-    }
-
-    private fun refreshBooksIfNeeded() {
-
+    private fun syncBooks() {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.syncIfNeeded().onError { code, message ->
+                Log.d("BooksViewModel", "syncBooks: $code, $message")
+            }
+        }
     }
 
     fun downloadBook(index: Int) {
 
     }
-
-    fun onSearchResultClick(label: String) {
-
-    }
-
-//    private fun List<Book>.getFilteredBooks(lowercaseQuery: String): List<Book> {
-//        return this.filter { book ->
-//            book.title.lowercase().contains(lowercaseQuery) ||
-//                    book.author.lowercase().contains(lowercaseQuery)
-//        }
-//    }
-
-    fun onSearchActiveChange(active: Boolean) {
-        viewModelState.update { state ->
-            state.copy(
-                searchActive = active,
-                searchList = if (active) state.searchList else emptySet()
-            )
-        }
-    }
-
-    fun onSearchQueryChange(query: String) {
-        viewModelState.update {
-            it.copy(
-                searchQuery = query
-            )
-        }
-        if (query.isNotBlank()) {
-            viewModelScope.launch(Dispatchers.IO) {
-                searchItem(query = query)
-            }
-        }
-    }
-
-    /*
-    * The callback to be invoked when the input service triggers the ImeAction.Search action.
-    * The current query comes as a parameter of the callback.
-    * */
-    fun onSearchClick(query: String) {
-        onSearchResultClick(query)
-    }
-
-    private suspend fun searchItem(query: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-//            val searchResult = searchUseCase.searchByQuery(query)
-//            viewModelState.update {
-//                it.copy(searchList = searchResult)
-//            }
-        }
-    }
-
-    fun onSearchClear() {
-        viewModelState.update {
-            it.copy(
-                searchQuery = "",
-                searchList = emptySet(),
-            )
-        }
-        loadBooks()
-    }
 }
 
 private data class BookShelfViewModelState(
     val downloadingItems: Set<String> = emptySet(),
-    val isLoading: Boolean = true,
-    val books: List<String> = emptyList(),
-    val searchList: Set<String> = emptySet(),
-    val error: String? = null,
-    val searchQuery: String = "",
-    val searchActive: Boolean = false,
+    val loading: Boolean = true,
+    val books: List<Book> = emptyList()
 ) {
     fun toUiState() =
         when {
-            isLoading -> BookShelfViewModelUiState.Loading
+            loading -> BookShelfViewModelUiState.Loading
             else -> BookShelfViewModelUiState.Success(
-                books = emptyList(),
-                searchQuery = searchQuery,
-                searchActive = searchActive,
-                searchList = searchList.toList(),
+                books = books.map {
+                    BookUiModel(
+                        id = it.id,
+                        title = it.title,
+                        author = it.author,
+                        category = it.category,
+                        image = it.image,
+                        downloaded = it.downloaded,
+                        progress = it.downloadProgress,
+                        downloading = it.downloading,
+                    )
+                }
             )
         }
 }
@@ -136,9 +90,6 @@ private data class BookShelfViewModelState(
 sealed class BookShelfViewModelUiState {
     data object Loading : BookShelfViewModelUiState()
     data class Success(
-        val books: List<BookUiModel>,
-        val searchList: List<String>,
-        val searchQuery: String,
-        val searchActive: Boolean,
+        val books: List<BookUiModel>
     ) : BookShelfViewModelUiState()
 }

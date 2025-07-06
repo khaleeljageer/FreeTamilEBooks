@@ -31,16 +31,8 @@ fun BookShelfRoute(
         BookShelfViewModelUiState.Loading -> FullScreenLoader()
         is BookShelfViewModelUiState.Success -> {
             BookListContent(
-                searchQuery = state.searchQuery,
-                searchActive = state.searchActive,
-                onSearchQueryChange = viewModel::onSearchQueryChange,
-                onSearchClick = viewModel::onSearchClick,
-                onSearchClear = viewModel::onSearchClear,
-                onSearchActiveChange = viewModel::onSearchActiveChange,
                 onDownloadClick = viewModel::downloadBook,
                 books = state.books,
-                onSearchResultClick = viewModel::onSearchResultClick,
-                searchList = state.searchList,
             )
         }
     }

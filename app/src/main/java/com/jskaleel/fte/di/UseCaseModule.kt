@@ -1,5 +1,7 @@
 package com.jskaleel.fte.di
 
+import com.jskaleel.fte.domain.usecase.BookShelfUseCase
+import com.jskaleel.fte.domain.usecase.BookShelfUseCaseImpl
 import com.jskaleel.fte.domain.usecase.WelcomeUseCase
 import com.jskaleel.fte.domain.usecase.WelcomeUseCaseImpl
 import dagger.Binds
@@ -18,9 +20,9 @@ abstract class UseCaseModule {
         useCase: WelcomeUseCaseImpl,
     ): WelcomeUseCase
 
-//    @Binds
-//    @Singleton
-//    abstract fun getBooksUseCase(
-//        useCase: BooksUseCaseImpl,
-//    ): BooksUseCase
+    @Binds
+    @Singleton
+    abstract fun getBookShelfUseCase(
+        useCase: BookShelfUseCaseImpl,
+    ): BookShelfUseCase
 }

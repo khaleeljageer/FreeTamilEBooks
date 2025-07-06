@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey
 data class BookEntity(
     @PrimaryKey val id: String,
     val title: String,
-    val epubUrl: String,
-    val subCategoryTitle: String
+    val author: String,
+    val image: String,
+    val epub: String,
+    val category: String,
 )
 
 @Entity(tableName = "sync_status")
@@ -21,6 +23,8 @@ data class SyncStatusEntity(
 data class DownloadedBookEntity(
     @PrimaryKey val bookId: String,
     val filePath: String,
+    val author: String,
     val title: String,
+    val image: String,
     val timestamp: Long
 )

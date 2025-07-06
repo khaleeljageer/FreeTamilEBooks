@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.FTEBooks" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowSplashScreenBackground" tools:targetApi="31">#F1EDE3</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">#FFF5E0</item>
         <item name="android:windowSplashScreenAnimationDuration" tools:targetApi="31">900</item>
     </style>
 </resources>

@@ -2,6 +2,7 @@ package com.jskaleel.fte
 
 import android.app.Application
 import coil3.ImageLoader
+import coil3.PlatformContext
 import coil3.SingletonImageLoader
 import coil3.disk.DiskCache
 import coil3.disk.directory
@@ -12,30 +13,31 @@ import com.downloader.PRDownloaderConfig
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FTEBooksApp : Application() {
+class FTEBooksApp : Application(), SingletonImageLoader.Factory {
     override fun onCreate() {
         super.onCreate()
-        SingletonImageLoader.setSafe { context ->
-            ImageLoader.Builder(context)
-                .crossfade(true)
-                .memoryCache {
-                    MemoryCache.Builder()
-                        .maxSizePercent(context, DEFAULT_MEM_CACHE_SIZE)
-                        .build()
-                }
-                .diskCache {
-                    DiskCache.Builder()
-                        .directory(context.cacheDir.resolve(IMAGE_CACHE_DIR))
-                        .maxSizePercent(DEFAULT_DISK_CACHE_SIZE)
-                        .build()
-                }
-                .build()
-        }
         val config = PRDownloaderConfig.newBuilder()
             .setReadTimeout(READ_TIMEOUT)
             .setConnectTimeout(CONNECT_TIMEOUT)
             .build()
         PRDownloader.initialize(applicationContext, config)
+    }
+
+    override fun newImageLoader(context: PlatformContext): ImageLoader {
+        return ImageLoader.Builder(context)
+            .crossfade(true)
+            .memoryCache {
+                MemoryCache.Builder()
+                    .maxSizePercent(context, DEFAULT_MEM_CACHE_SIZE)
+                    .build()
+            }
+            .diskCache {
+                DiskCache.Builder()
+                    .directory(context.cacheDir.resolve(IMAGE_CACHE_DIR))
+                    .maxSizePercent(DEFAULT_DISK_CACHE_SIZE)
+                    .build()
+            }
+            .build()
     }
 
     companion object {

@@ -1,5 +1,7 @@
 package com.jskaleel.fte.di
 
+import com.jskaleel.fte.data.repository.BooksRepository
+import com.jskaleel.fte.data.repository.BooksRepositoryImpl
 import com.jskaleel.fte.data.repository.DataStoreRepository
 import com.jskaleel.fte.data.repository.DataStoreRepositoryImpl
 import dagger.Binds
@@ -18,12 +20,12 @@ abstract class RepositoryModule {
         repository: DataStoreRepositoryImpl
     ): DataStoreRepository
 
-//    @Binds
-//    @Singleton
-//    abstract fun bindBooksRepository(
-//        repository: BooksRepositoryImpl
-//    ): BooksRepository
-//
+    @Binds
+    @Singleton
+    abstract fun bindBooksRepository(
+        repository: BooksRepositoryImpl
+    ): BooksRepository
+
 //    @Binds
 //    @Singleton
 //    abstract fun bindDownloadRepository(

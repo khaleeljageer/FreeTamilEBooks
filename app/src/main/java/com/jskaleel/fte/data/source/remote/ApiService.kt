@@ -1,6 +1,6 @@
 package com.jskaleel.fte.data.source.remote
 
-import com.jskaleel.fte.data.model.BooksDTO
+import com.jskaleel.fte.data.model.BooksResponse
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Field
@@ -11,7 +11,7 @@ import retrofit2.http.POST
 
 interface ApiService {
     @GET(value = "master/booksdb.json")
-    suspend fun fetchBooks(): Response<List<BooksDTO>>
+    suspend fun fetchBooks(): Response<BooksResponse>
 
     @FormUrlEncoded
     @POST(value = "e/1FAIpQLSc_BbE7RfJdUCEgzwGSeiaiUe3ugBdITgJIZY71ED93puqQ3g/formResponse")

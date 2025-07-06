@@ -4,7 +4,10 @@ import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import coil3.compose.LocalPlatformContext
 import coil3.compose.rememberAsyncImagePainter
+import coil3.compose.rememberConstraintsSizeResolver
+import coil3.request.ImageRequest
 
 sealed class ImageType {
     data class ResourceImage(@DrawableRes val id: Int) : ImageType()
@@ -18,7 +21,23 @@ sealed class ImageType {
 @Composable
 fun ImageType.getImagePainter(): Painter {
     return when (this) {
-        is ImageType.NetworkImage -> rememberAsyncImagePainter(model = url)
+        is ImageType.NetworkImage -> rememberAsyncImagePainter(url)
+
         is ImageType.ResourceImage -> painterResource(id = id)
+    }
+}
+
+fun ImageType.toTypeString(): String {
+    return when (this) {
+        is ImageType.ResourceImage -> "Drawable:${this.id}"
+        is ImageType.NetworkImage -> "Url:${this.url}"
+    }
+}
+
+fun String.toImage(): ImageType {
+    return if (this.startsWith("Drawable:")) {
+        ImageType.ResourceImage(this.replace("Drawable:", "").toInt())
+    } else {
+        ImageType.NetworkImage(this.replace("Url:", ""))
     }
 }

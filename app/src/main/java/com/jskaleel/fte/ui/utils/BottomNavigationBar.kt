@@ -55,7 +55,6 @@ fun BottomNavigationBar(
         modifier = Modifier
             .fillMaxWidth()
             .shadow(4.dp),
-        tonalElevation = 4.dp,
         containerColor = MaterialTheme.colorScheme.primaryContainer,
     ) {
         items.forEach { item ->
@@ -84,8 +83,8 @@ fun BottomNavigationBar(
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.onBackground,
-                    unselectedIconColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                    unselectedIconColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f),
                     indicatorColor = MaterialTheme.colorScheme.background,
                 )
             )
