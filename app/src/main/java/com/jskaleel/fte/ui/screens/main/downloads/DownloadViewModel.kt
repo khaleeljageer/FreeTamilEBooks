@@ -5,7 +5,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.domain.model.Book
-import com.jskaleel.fte.domain.usecase.BookShelfUseCase
+import com.jskaleel.fte.domain.usecase.DownloadsUseCase
 import com.jskaleel.fte.ui.screens.main.downloads.DownloadNavigationState.OpenBook
 import com.jskaleel.fte.ui.utils.mutableNavigationState
 import com.jskaleel.fte.ui.utils.navigate
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DownloadViewModel @Inject constructor(
-    private val useCase: BookShelfUseCase,
+    private val useCase: DownloadsUseCase,
 ) : ViewModel() {
 
     var navigation by mutableNavigationState<DownloadNavigationState>()

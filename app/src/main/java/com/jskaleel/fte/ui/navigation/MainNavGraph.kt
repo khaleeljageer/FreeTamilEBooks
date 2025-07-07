@@ -8,6 +8,8 @@ import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfRoute
 import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfViewModel
 import com.jskaleel.fte.ui.screens.main.downloads.DownloadScreenRoute
 import com.jskaleel.fte.ui.screens.main.downloads.DownloadViewModel
+import com.jskaleel.fte.ui.screens.main.search.SearchScreenRoute
+import com.jskaleel.fte.ui.screens.main.search.SearchViewModel
 
 fun NavGraphBuilder.mainNavGraph(navController: NavController) {
     navigation(
@@ -23,7 +25,8 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
             )
         }
         animatedComposable(route = Screen.Main.Search.route) {
-
+            val viewModel: SearchViewModel = hiltViewModel()
+            SearchScreenRoute(viewModel = viewModel)
         }
 
         animatedComposable(route = Screen.Main.Download.route) {
