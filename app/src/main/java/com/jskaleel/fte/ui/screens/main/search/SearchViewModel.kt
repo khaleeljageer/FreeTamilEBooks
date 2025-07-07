@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.ui.screens.main.downloads.BookUiModel
 import com.jskaleel.fte.ui.utils.mutableNavigationState
+import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,10 +27,22 @@ class SearchViewModel @Inject constructor() : ViewModel() {
             started = SharingStarted.Eagerly,
             initialValue = viewModelState.value.toUiState()
         )
+
+    fun onEvent(event: SearchEvent) {
+        when (event) {
+            is SearchEvent.OnBookClick -> {
+                navigation = navigate(SearchNavigationState.OpenBook(id = event.bookId))
+            }
+
+            is SearchEvent.OnCategoryClick -> {}
+            is SearchEvent.OnDownloadClick -> {}
+            is SearchEvent.OnSearch -> {}
+        }
+    }
 }
 
 private data class SearchViewModelState(
-    val loading: Boolean = true,
+    val loading: Boolean = false,
     val books: List<Book> = emptyList(),
     val categories: List<String> = emptyList(),
     val recentSearches: List<String> = emptyList(),
@@ -38,22 +51,17 @@ private data class SearchViewModelState(
         return if (loading) {
             SearchUiState.Loading
         } else {
-            if (books.isEmpty()) {
-                SearchUiState.Empty
-            } else {
-                SearchUiState.Success(
-                    books = emptyList(),
-                    categories = emptyList(),
-                    recentSearches = emptyList()
-                )
-            }
+            SearchUiState.Success(
+                books = emptyList(),
+                categories = emptyList(),
+                recentSearches = emptyList()
+            )
         }
     }
 }
 
 sealed interface SearchUiState {
     data object Loading : SearchUiState
-    data object Empty : SearchUiState
     data class Success(
         val books: List<BookUiModel>,
         val categories: List<String>,
@@ -67,4 +75,7 @@ sealed interface SearchNavigationState {
 
 sealed interface SearchEvent {
     data class OnBookClick(val bookId: String) : SearchEvent
+    data class OnDownloadClick(val bookId: String) : SearchEvent
+    data class OnCategoryClick(val category: String) : SearchEvent
+    data class OnSearch(val query: String) : SearchEvent
 }
