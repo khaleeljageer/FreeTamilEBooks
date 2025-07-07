@@ -1,6 +1,8 @@
 package com.jskaleel.fte.data.repository
 
+import android.app.NotificationManager
 import android.content.Context
+import androidx.core.app.NotificationCompat
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.data.source.local.BooksDatabase
@@ -21,6 +23,8 @@ class DownloadRepositoryImpl @Inject constructor(
     private val fileDownloader: FileDownloader
 ) : DownloadRepository {
 
+    private val notificationManager: NotificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val _downloadStatus = MutableSharedFlow<DownloadResult>(extraBufferCapacity = 10)
     override val downloadStatus: SharedFlow<DownloadResult> = _downloadStatus
     private val lastProgressMap = mutableMapOf<String, Int>()
@@ -42,6 +46,7 @@ class DownloadRepositoryImpl @Inject constructor(
                     }
 
                     is DownloadResult.Success -> {
+                        showDownloadSuccessNotification(result.id, result.title)
                         emitStatus(DownloadResult.Success(bookId, file, title))
                     }
 
@@ -98,5 +103,17 @@ class DownloadRepositoryImpl @Inject constructor(
 
     companion object {
         private const val PERCENT_BASE = 100
+    }
+
+    private fun showDownloadSuccessNotification(id: String, fileName: String) {
+        val notification = NotificationCompat.Builder(context, "download_channel")
+            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+            .setContentTitle(fileName)
+            .setContentText("புத்தகம் பதிவிறக்கப்பட்டது...")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .build()
+
+        notificationManager.notify(id.hashCode(), notification)
     }
 }

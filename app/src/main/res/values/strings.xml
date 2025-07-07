@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FTE Books</string>
+    <string name="downloads">பதிவிறக்கங்கள்</string>
+    <string name="no_downloads">நூல்கள் ஏதும்\nபதிவிறக்கப்படவில்லை.</string>
 </resources>

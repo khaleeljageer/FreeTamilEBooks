@@ -46,20 +46,24 @@ class BookShelfViewModel @Inject constructor(
                     }
 
                     is DownloadResult.Success -> updateBook(result.id) {
+                        Log.d("BooksViewModel", "Success: $result")
                         it.copy(
                             downloading = false,
                             downloaded = true,
-//                            path = result.file.absolutePath
                         )
                     }
 
                     is DownloadResult.Error -> updateBook(result.id) {
+                        Log.d("BooksViewModel", "Error: $result")
                         it.copy(downloading = false)
                     }
 
                     is DownloadResult.Progress -> {
                         updateBook(result.id) {
-                            it.copy(downloading = true, downloadProgress = result.percent)
+                            it.copy(
+                                downloading = true,
+                                downloadProgress = result.percent
+                            )
                         }
                     }
                 }
@@ -121,7 +125,6 @@ class BookShelfViewModel @Inject constructor(
 }
 
 private data class BookShelfViewModelState(
-    val downloadingItems: Set<String> = emptySet(),
     val loading: Boolean = true,
     val books: List<Book> = emptyList()
 ) {
@@ -137,7 +140,6 @@ private data class BookShelfViewModelState(
                         category = it.category,
                         image = it.image,
                         downloaded = it.downloaded,
-                        progress = it.downloadProgress,
                         downloading = it.downloading,
                     )
                 }

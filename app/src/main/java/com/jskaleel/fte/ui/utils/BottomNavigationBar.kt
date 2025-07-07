@@ -2,8 +2,10 @@ package com.jskaleel.fte.ui.utils
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.LibraryBooks
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.outlined.CloudDownload
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
@@ -23,7 +25,7 @@ import com.jskaleel.fte.ui.navigation.Screen
 val bottomBarItems = listOf(
     BottomBarItem(
         title = "Books",
-        icon = Icons.AutoMirrored.Outlined.MenuBook,
+        icon = Icons.Outlined.Home,
         route = Screen.Main.BookShelf.route
     ),
     BottomBarItem(

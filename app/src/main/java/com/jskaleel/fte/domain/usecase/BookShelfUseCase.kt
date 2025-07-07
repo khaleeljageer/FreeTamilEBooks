@@ -11,4 +11,5 @@ interface BookShelfUseCase {
     suspend fun observeBooks(): Flow<List<Book>>
     fun startDownload(bookId: String, title: String, url: String)
     val downloadStatus: SharedFlow<DownloadResult>
+    suspend fun observeDownloadedBooks(): Flow<List<Book>>
 }

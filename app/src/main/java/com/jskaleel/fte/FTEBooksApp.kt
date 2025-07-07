@@ -1,6 +1,8 @@
 package com.jskaleel.fte
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
@@ -21,6 +23,21 @@ class FTEBooksApp : Application(), SingletonImageLoader.Factory {
             .setConnectTimeout(CONNECT_TIMEOUT)
             .build()
         PRDownloader.initialize(applicationContext, config)
+        createNotificationChannel()
+    }
+
+    private fun createNotificationChannel() {
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(
+            "download_channel",
+            "Downloads",
+            importance
+        ).apply {
+            description = "File download notification"
+        }
+        val notificationManager: NotificationManager =
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader {

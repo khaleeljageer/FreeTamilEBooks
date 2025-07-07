@@ -20,6 +20,22 @@ class BookShelfUseCaseImpl @Inject constructor(
     override val downloadStatus: SharedFlow<DownloadResult>
         get() = downloadRepository.downloadStatus
 
+    override suspend fun observeDownloadedBooks(): Flow<List<Book>> {
+        return downloadRepository.getAllDownloadedBook().map { list ->
+            list.map {
+                Book(
+                    title = it.title,
+                    url = "",
+                    id = it.bookId,
+                    downloaded = true,
+                    author = it.author,
+                    image = it.image.toImage(),
+                    category = it.category,
+                )
+            }
+        }
+    }
+
     override suspend fun syncIfNeeded(): ResultState<Unit> {
         return booksRepository.syncIfNeeded()
     }

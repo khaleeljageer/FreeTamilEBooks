@@ -6,6 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfRoute
 import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfViewModel
+import com.jskaleel.fte.ui.screens.main.downloads.DownloadScreenRoute
+import com.jskaleel.fte.ui.screens.main.downloads.DownloadViewModel
 
 fun NavGraphBuilder.mainNavGraph(navController: NavController) {
     navigation(
@@ -25,16 +27,14 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
         }
 
         animatedComposable(route = Screen.Main.Download.route) {
-//            val viewModel: DownloadViewModel = hiltViewModel()
-//
-//            DownloadScreenRoute(
-//                openBook = { id ->
-//                    navController.navigate(
-//                        Screen.PdfReader.Nav.create(bookId = id)
-//                    )
-//                },
-//                viewModel = viewModel
-//            )
+            val viewModel: DownloadViewModel = hiltViewModel()
+
+            DownloadScreenRoute(
+                openBook = { id ->
+
+                },
+                viewModel = viewModel
+            )
         }
 
         animatedComposable(route = Screen.Main.About.route) {
