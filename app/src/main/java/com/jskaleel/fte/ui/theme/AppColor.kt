@@ -7,11 +7,11 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 object AppColor {
-    val Primary = Color(0xFFFFF5E0)            // Background
-    val PrimaryContainer = Color(0xFFFFDBC3)   // Cards or elevated surfaces
+    val Primary = Color(0xFFFFF5E0)
+    val PrimaryContainer = Color(0xFFFFDBC3)
 
-    val Secondary = Color(0xFFEE9E8E)          // Accent or highlight
-    val OnSecondary = Color(0xFF190933)        // Icon or text on buttons
+    val Secondary = Color(0xFFEE9E8E)
+    val OnSecondary = Color(0xFF190933)
 
     val Background = Color(0xFFFFF5E0)
     val OnBackground = Color(0xFF190933)

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.outlined.CloudDownload
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.rounded.Book
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -25,7 +26,7 @@ import com.jskaleel.fte.ui.navigation.Screen
 val bottomBarItems = listOf(
     BottomBarItem(
         title = "Books",
-        icon = Icons.Outlined.Home,
+        icon = Icons.Rounded.Book,
         route = Screen.Main.BookShelf.route
     ),
     BottomBarItem(

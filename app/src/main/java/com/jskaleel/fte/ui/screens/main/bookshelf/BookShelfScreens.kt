@@ -97,32 +97,6 @@ private fun ScrollUp(onClick: CallBack) {
     }
 }
 
-
-@Composable
-fun CategoryText(
-    label: String,
-    modifier: Modifier = Modifier,
-) {
-    val color = MaterialTheme.colorScheme.primaryContainer
-    Box(
-        modifier = modifier.then(
-            Modifier
-                .background(
-                    color = color.copy(alpha = 0.6f), CircleShape
-                )
-                .padding(horizontal = 12.dp, vertical = 6.dp)
-        ),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = label,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-        )
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun BookItemPreview() {

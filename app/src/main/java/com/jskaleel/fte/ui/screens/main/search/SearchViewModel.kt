@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.ui.screens.main.downloads.BookUiModel
+import com.jskaleel.fte.ui.screens.main.search.SearchNavigationState.*
 import com.jskaleel.fte.ui.utils.mutableNavigationState
 import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,12 +32,15 @@ class SearchViewModel @Inject constructor() : ViewModel() {
     fun onEvent(event: SearchEvent) {
         when (event) {
             is SearchEvent.OnBookClick -> {
-                navigation = navigate(SearchNavigationState.OpenBook(id = event.bookId))
+                navigation = navigate(OpenBook(id = event.bookId))
             }
 
             is SearchEvent.OnCategoryClick -> {}
             is SearchEvent.OnDownloadClick -> {}
             is SearchEvent.OnSearch -> {}
+            is SearchEvent.OnSearchResultClick -> {
+
+            }
         }
     }
 }
@@ -78,4 +82,5 @@ sealed interface SearchEvent {
     data class OnDownloadClick(val bookId: String) : SearchEvent
     data class OnCategoryClick(val category: String) : SearchEvent
     data class OnSearch(val query: String) : SearchEvent
+    data class OnSearchResultClick(val query: String) : SearchEvent
 }
