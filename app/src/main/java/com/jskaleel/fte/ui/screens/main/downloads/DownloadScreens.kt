@@ -47,14 +47,13 @@ fun DownloadScreenContent(
         ) { book ->
             BookItem(
                 onOpenClick = {
-                    event.invoke(DownloadEvent.OnBookClick(bookId = book.id))
+                    event(DownloadEvent.OnBookClick(bookId = book.id))
                 },
                 image = book.image,
                 title = book.title,
                 author = book.author,
                 category = book.category,
                 downloaded = book.downloaded,
-                showDownloadIcon = false,
             )
             HorizontalDivider(thickness = (0.8).dp)
         }

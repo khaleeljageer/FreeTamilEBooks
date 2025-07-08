@@ -56,10 +56,10 @@ fun BookShelfContent(
                 Log.d("BookShelfContent", "BookShelfContent: ${book.downloading} - ${book.title}")
                 BookItem(
                     onDownloadClick = {
-                        event.invoke(BookListEvent.OnDownloadClick(bookId = book.id))
+                        event(BookListEvent.OnDownloadClick(bookId = book.id))
                     },
                     onOpenClick = {
-                        event.invoke(BookListEvent.OnOpenClick(bookId = book.id))
+                        event(BookListEvent.OnOpenClick(bookId = book.id))
                     },
                     image = book.image,
                     title = book.title,
@@ -102,7 +102,6 @@ private fun ScrollUp(onClick: CallBack) {
 private fun BookItemPreview() {
     FTEBooksTheme {
         Column {
-
             BookItem(
                 onDownloadClick = { },
                 onOpenClick = { },
