@@ -23,6 +23,7 @@ fun FullScreenLoader() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier.size(80.dp),
+            color = MaterialTheme.colorScheme.onPrimary,
             strokeWidth = 6.dp
         )
     }
