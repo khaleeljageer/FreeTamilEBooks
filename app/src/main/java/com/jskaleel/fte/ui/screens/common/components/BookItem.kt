@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -121,6 +122,7 @@ fun BookItem(
 fun RecentBookItem(
     onClick: CallBack,
     title: String,
+    lastRead: String,
     image: ImageType,
 ) {
     Row(
@@ -143,20 +145,35 @@ fun RecentBookItem(
                 .clipToBounds()
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleSmall.copy(
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 12.sp,
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(),
-            maxLines = 2,
-            softWrap = true,
-            overflow = TextOverflow.Ellipsis,
-            color = MaterialTheme.customColors.textPrimary,
-        )
+        Column {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleSmall.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp,
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                maxLines = 2,
+                softWrap = true,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.customColors.textPrimary,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = lastRead,
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                maxLines = 1,
+                softWrap = true,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.End,
+                color = MaterialTheme.customColors.textSecondary,
+            )
+        }
     }
 }
 
@@ -218,6 +235,7 @@ private fun BookItemPreview() {
             RecentBookItem(
                 onClick = {},
                 title = "The Great Gatsby",
+                lastRead = "இன்று",
                 image = ImageType.NetworkImage("https://www.gutenberg.org/cache/epub/64317/pg64317.cover.medium.jpg"),
             )
         }

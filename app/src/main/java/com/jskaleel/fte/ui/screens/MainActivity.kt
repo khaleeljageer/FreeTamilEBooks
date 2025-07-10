@@ -9,6 +9,8 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -59,8 +61,8 @@ private fun MainNavigation() {
         topBar = {
             AnimatedVisibility(
                 visible = showTopAppBar,
-                enter = fadeIn() + expandVertically(),
-                exit = shrinkVertically() + fadeOut()
+                enter = fadeIn()+ slideInVertically(),
+                exit = slideOutVertically() + fadeOut()
             ) {
                 ContentAwareTopAppBar(
                     navController = navController,
@@ -71,8 +73,8 @@ private fun MainNavigation() {
         bottomBar = {
             AnimatedVisibility(
                 visible = showBottomBar,
-                enter = fadeIn() + expandVertically(),
-                exit = shrinkVertically() + fadeOut()
+                enter = fadeIn() + slideInVertically(),
+                exit = slideOutVertically() + fadeOut()
             ) {
                 BottomNavigationBar(
                     items = bottomBarItems,

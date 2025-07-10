@@ -136,7 +136,8 @@ private data class SearchViewModelState(
                         RecentUiModel(
                             id = it.id,
                             title = it.title,
-                            image = it.image
+                            image = it.image,
+                            lastRead = it.lastRead
                         )
                     },
                     active = false,

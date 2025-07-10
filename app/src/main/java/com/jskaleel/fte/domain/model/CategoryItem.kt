@@ -10,5 +10,6 @@ data class CategoryItem(
 data class RecentReadItem(
     val id: String,
     val title: String,
-    val image: ImageType
+    val image: ImageType,
+    val lastRead: String
 )

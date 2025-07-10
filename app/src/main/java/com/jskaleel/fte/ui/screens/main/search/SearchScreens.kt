@@ -203,14 +203,19 @@ private fun SearchResultListContent(
                 .fillMaxWidth()
                 .padding(vertical = 8.dp)
         ) {
-            CategorySection(
-                onCategoryClick = {},
-                categories = categories
-            )
-            Spacer(modifier = Modifier.height(18.dp))
-            RecentReadSection(
-                recentReads = recentReads,
-            )
+            if (categories.isNotEmpty()) {
+                CategorySection(
+                    onCategoryClick = {},
+                    categories = categories
+                )
+                Spacer(modifier = Modifier.height(50.dp))
+            }
+
+            if (recentReads.isNotEmpty()) {
+                RecentReadSection(
+                    recentReads = recentReads,
+                )
+            }
         }
     }
 }
@@ -275,6 +280,7 @@ private fun HorizontalRecentGrid(
                             onClick = { onItemClick() },
                             title = books[itemIndex].title,
                             image = books[itemIndex].image,
+                            lastRead = books[itemIndex].lastRead
                         )
                     }
                 }
@@ -461,6 +467,7 @@ data class RecentUiModel(
     val title: String,
     val id: String,
     val image: ImageType,
+    val lastRead: String
 )
 
 @Preview(showBackground = true, showSystemUi = true)

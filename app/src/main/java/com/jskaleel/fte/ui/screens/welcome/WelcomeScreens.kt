@@ -44,7 +44,7 @@ fun WelcomeScreenContent(
                     settings.useWideViewPort = true
                     setBackgroundColor(Color.Transparent.toArgb())
 
-                    loadUrl("file:///android_asset/sangam_app_info.html")
+                    loadUrl("file:///android_asset/html/about_project.html")
                 }
             }
         )

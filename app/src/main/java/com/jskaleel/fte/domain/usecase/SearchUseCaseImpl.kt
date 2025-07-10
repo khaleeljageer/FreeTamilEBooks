@@ -1,5 +1,6 @@
 package com.jskaleel.fte.domain.usecase
 
+import com.jskaleel.fte.core.getDetailedRelativeDateInTamil
 import com.jskaleel.fte.core.model.toImage
 import com.jskaleel.fte.data.repository.BooksRepository
 import com.jskaleel.fte.data.repository.DownloadRepository
@@ -31,7 +32,8 @@ class SearchUseCaseImpl @Inject constructor(
                 RecentReadItem(
                     id = book.bookId,
                     title = book.title,
-                    image = book.image.toImage()
+                    image = book.image.toImage(),
+                    lastRead = getDetailedRelativeDateInTamil(book.lastRead)
                 )
             }
         }
