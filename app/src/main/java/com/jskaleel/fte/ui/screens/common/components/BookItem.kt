@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -117,6 +118,49 @@ fun BookItem(
 }
 
 @Composable
+fun RecentBookItem(
+    onClick: CallBack,
+    title: String,
+    image: ImageType,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .clip(shape = RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .padding(all = MaterialTheme.dimension.small),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = image.getImagePainter(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxHeight()
+                .aspectRatio(ratio = 0.75f, matchHeightConstraintsFirst = true)
+                .clip(shape = RoundedCornerShape(8.dp))
+                .clipToBounds()
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleSmall.copy(
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 12.sp,
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
+            maxLines = 2,
+            softWrap = true,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.customColors.textPrimary,
+        )
+    }
+}
+
+@Composable
 private fun CategoryText(
     label: String,
     modifier: Modifier = Modifier,
@@ -169,6 +213,12 @@ private fun BookItemPreview() {
                 onDownloadClick = {},
                 downloaded = true,
                 downloading = false
+            )
+
+            RecentBookItem(
+                onClick = {},
+                title = "The Great Gatsby",
+                image = ImageType.NetworkImage("https://www.gutenberg.org/cache/epub/64317/pg64317.cover.medium.jpg"),
             )
         }
     }

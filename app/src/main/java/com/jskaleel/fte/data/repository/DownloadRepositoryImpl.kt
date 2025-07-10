@@ -7,6 +7,7 @@ import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.data.source.local.BooksDatabase
 import com.jskaleel.fte.data.source.local.entity.DownloadedBookEntity
+import com.jskaleel.fte.domain.model.RecentReadItem
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -101,8 +102,8 @@ class DownloadRepositoryImpl @Inject constructor(
         return database.downloadedBookDao().get(bookId)?.filePath ?: ""
     }
 
-    companion object {
-        private const val PERCENT_BASE = 100
+    override fun fetchRecentReads(): Flow<List<DownloadedBookEntity>> {
+        return database.downloadedBookDao().getRecentReads()
     }
 
     private fun showDownloadSuccessNotification(id: String, fileName: String) {

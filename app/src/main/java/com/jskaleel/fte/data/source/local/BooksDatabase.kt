@@ -15,7 +15,7 @@ import com.jskaleel.fte.data.source.local.entity.SyncStatusEntity
         DownloadedBookEntity::class,
         BookEntity::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = true
 )
 abstract class BooksDatabase : RoomDatabase() {

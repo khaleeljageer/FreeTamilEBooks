@@ -15,7 +15,7 @@ data class BookEntity(
 
 @Entity(tableName = "sync_status")
 data class SyncStatusEntity(
-    @PrimaryKey val id: Int = 0, // only one row
+    @PrimaryKey val id: Int = 0,
     val lastSynced: Long
 )
 
@@ -27,5 +27,6 @@ data class DownloadedBookEntity(
     val category: String,
     val title: String,
     val image: String,
-    val timestamp: Long
+    val timestamp: Long,
+    val lastRead: Long = 0L,
 )

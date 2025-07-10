@@ -13,12 +13,30 @@ fun SearchScreenRoute(
 
     when (val state = uiState) {
         SearchUiState.Loading -> FullScreenLoader()
-        is SearchUiState.Success -> {
-            SearchContent(
+        is SearchUiState.Success.DefaultResult -> {
+            DefaultSearchContent(
+                onEvent = viewModel::onEvent,
+                categories = state.categories,
+                recentReads = state.recentReads,
+                active = state.active,
+                searchQuery = state.searchQuery,
+            )
+        }
+
+        is SearchUiState.Success.EmptySearchResult -> {
+            EmptySearchResult(
+                onEvent = viewModel::onEvent,
+                active = state.active,
+                searchQuery = state.searchQuery,
+            )
+        }
+
+        is SearchUiState.Success.SearchResult -> {
+            SearchResultContent(
                 onEvent = viewModel::onEvent,
                 books = state.books,
-                categories = state.categories,
-                recentSearches = state.recentSearches,
+                active = state.active,
+                searchQuery = state.searchQuery,
             )
         }
     }

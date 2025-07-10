@@ -19,6 +19,9 @@ interface BookDao {
 
     @Query("SELECT * FROM books WHERE id = :id")
     suspend fun getById(id: String): BookEntity
+
+    @Query("SELECT category FROM books")
+    fun getCategories(): Flow<List<String>>
 }
 
 @Dao
@@ -44,4 +47,7 @@ interface DownloadedBookDao {
 
     @Query("DELETE FROM downloaded_books WHERE bookId = :bookId")
     suspend fun delete(bookId: String)
+
+    @Query("SELECT * FROM downloaded_books WHERE lastRead != 0 ORDER BY lastRead DESC")
+    fun getRecentReads(): Flow<List<DownloadedBookEntity>>
 }
