@@ -163,7 +163,10 @@ fun RecentBookItem(
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = lastRead,
-                style = MaterialTheme.typography.labelSmall,
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Normal
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
@@ -200,7 +203,7 @@ private fun CategoryText(
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.surface
             ),
-            fontSize = 8.sp,
+            fontSize = 10.sp,
         )
     }
 }

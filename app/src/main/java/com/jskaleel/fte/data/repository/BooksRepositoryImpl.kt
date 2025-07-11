@@ -75,6 +75,10 @@ class BooksRepositoryImpl @Inject constructor(
         return booksDb.bookDao().getCategories()
     }
 
+    override fun fetchBooksByQuery(query: String): Flow<List<BookEntity>> {
+        return booksDb.bookDao().getBooksByQuery(query)
+    }
+
     private fun isNetworkAvailable(): Boolean {
         return connectivityManager.activeNetwork?.let { network ->
             connectivityManager.getNetworkCapabilities(network)

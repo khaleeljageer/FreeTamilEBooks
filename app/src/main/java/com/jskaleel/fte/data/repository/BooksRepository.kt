@@ -9,4 +9,5 @@ interface BooksRepository {
     suspend fun syncIfNeeded(): ResultState<Unit>
     suspend fun observeBooks(): Flow<List<BookEntity>>
     fun fetchCategories(): Flow<List<String>>
+    fun fetchBooksByQuery(query: String): Flow<List<BookEntity>>
 }

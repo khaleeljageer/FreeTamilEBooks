@@ -70,19 +70,61 @@ class SearchViewModel @Inject constructor(
 
             is SearchEvent.OnCategoryClick -> {}
             is SearchEvent.OnDownloadClick -> {}
-            is SearchEvent.OnSearch -> {
+            is SearchEvent.OnSearchQueryChange -> {
                 viewModelState.update {
-                    it.copy(searchQuery = event.query)
+                    it.copy(
+                        searchQuery = event.query,
+                        searchResult = emptyList(),
+                        hasSearched = false
+                    )
                 }
             }
 
-            is SearchEvent.OnSearchResultClick -> {
-
+            is SearchEvent.OnSearchClick -> {
+                if (event.query.isNotBlank()) {
+                    updateResults(event.query)
+                } else {
+                    resetToDefault()
+                }
             }
 
             is SearchEvent.OnActiveChange -> {
                 viewModelState.update {
                     it.copy(active = event.active)
+                }
+                if (!event.active) {
+                    resetToDefault()
+                }
+            }
+        }
+    }
+
+    private fun resetToDefault() {
+        viewModelState.update {
+            it.copy(
+                searchQuery = "",
+                searchResult = emptyList(),
+                hasSearched = false,
+                loading = false
+            )
+        }
+    }
+
+    private fun updateResults(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            viewModelState.update {
+                it.copy(
+                    loading = true,
+                    searchQuery = query,
+                    hasSearched = true
+                )
+            }
+            useCase.fetchBooksByQuery(query).collect { result ->
+                viewModelState.update {
+                    it.copy(
+                        loading = false,
+                        searchResult = result
+                    )
                 }
             }
         }
@@ -92,39 +134,41 @@ class SearchViewModel @Inject constructor(
 private data class SearchViewModelState(
     val loading: Boolean = false,
     val searchQuery: String = "",
-    val books: List<Book> = emptyList(),
+    val searchResult: List<Book> = emptyList(),
     val categories: List<CategoryItem> = emptyList(),
     val recentReads: List<RecentReadItem> = emptyList(),
     val active: Boolean = false,
+    val hasSearched: Boolean = false,
 ) {
     fun toUiState(): SearchUiState {
-        return if (loading) {
-            SearchUiState.Loading
-        } else {
-            if (searchQuery.isNotBlank()) {
-                val books = books.map {
-                    BookUiModel(
-                        title = it.title,
-                        author = it.author,
-                        image = it.image,
-                        id = it.id,
-                        category = it.category,
-                        downloaded = it.downloaded,
-                    )
-                }
-                if (books.isEmpty()) {
-                    SearchUiState.Success.EmptySearchResult(
-                        active = active,
-                        searchQuery = searchQuery,
-                    )
-                } else {
+        return when {
+            loading -> SearchUiState.Loading
+            hasSearched -> {
+                if (searchResult.isNotEmpty()) {
+                    val books = searchResult.map {
+                        SearchBookUiModel(
+                            title = it.title,
+                            author = it.author,
+                            image = it.image,
+                            id = it.id,
+                            category = it.category,
+                            downloaded = it.downloaded,
+                        )
+                    }
                     SearchUiState.Success.SearchResult(
                         books = books,
                         active = active,
                         searchQuery = searchQuery,
                     )
+                } else {
+                    SearchUiState.Success.EmptySearchResult(
+                        active = active,
+                        searchQuery = searchQuery,
+                    )
                 }
-            } else {
+            }
+
+            else -> {
                 SearchUiState.Success.DefaultResult(
                     categories = categories.map {
                         CategoryUiModel(
@@ -140,8 +184,8 @@ private data class SearchViewModelState(
                             lastRead = it.lastRead
                         )
                     },
-                    active = false,
-                    searchQuery = "",
+                    active = active,
+                    searchQuery = searchQuery,
                 )
             }
         }
@@ -154,7 +198,7 @@ sealed interface SearchUiState {
     sealed interface Success {
 
         data class SearchResult(
-            val books: List<BookUiModel>,
+            val books: List<SearchBookUiModel>,
             val active: Boolean,
             val searchQuery: String,
         ) : SearchUiState
@@ -181,7 +225,7 @@ sealed interface SearchEvent {
     data class OnBookClick(val bookId: String) : SearchEvent
     data class OnDownloadClick(val bookId: String) : SearchEvent
     data class OnCategoryClick(val category: String) : SearchEvent
-    data class OnSearch(val query: String) : SearchEvent
-    data class OnSearchResultClick(val query: String) : SearchEvent
+    data class OnSearchClick(val query: String) : SearchEvent
+    data class OnSearchQueryChange(val query: String) : SearchEvent
     data class OnActiveChange(val active: Boolean) : SearchEvent
 }

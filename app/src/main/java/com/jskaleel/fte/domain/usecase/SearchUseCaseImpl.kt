@@ -4,9 +4,11 @@ import com.jskaleel.fte.core.getDetailedRelativeDateInTamil
 import com.jskaleel.fte.core.model.toImage
 import com.jskaleel.fte.data.repository.BooksRepository
 import com.jskaleel.fte.data.repository.DownloadRepository
+import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.model.CategoryItem
 import com.jskaleel.fte.domain.model.RecentReadItem
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -34,6 +36,25 @@ class SearchUseCaseImpl @Inject constructor(
                     title = book.title,
                     image = book.image.toImage(),
                     lastRead = getDetailedRelativeDateInTamil(book.lastRead)
+                )
+            }
+        }
+    }
+
+    override fun fetchBooksByQuery(query: String): Flow<List<Book>> {
+        return combine(
+            booksRepository.fetchBooksByQuery(query),
+            downloadRepository.getAllDownloadedBook()
+        ) { books, downloadedBooks ->
+            books.map { book ->
+                Book(
+                    id = book.id,
+                    title = book.title,
+                    author = book.author,
+                    image = book.image.toImage(),
+                    category = book.category,
+                    url = book.epub,
+                    downloaded = downloadedBooks.any { it.bookId == book.id }
                 )
             }
         }

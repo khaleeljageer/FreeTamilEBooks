@@ -94,7 +94,7 @@ class DownloadRepositoryImpl @Inject constructor(
         database.downloadedBookDao().delete(bookId = id)
     }
 
-    override suspend fun getAllDownloadedBook(): Flow<List<DownloadedBookEntity>> {
+    override fun getAllDownloadedBook(): Flow<List<DownloadedBookEntity>> {
         return database.downloadedBookDao().getAll()
     }
 

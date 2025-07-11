@@ -1,5 +1,6 @@
 package com.jskaleel.fte.ui.screens.main.search
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -20,13 +21,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -41,6 +45,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -58,9 +63,12 @@ import com.jskaleel.fte.R
 import com.jskaleel.fte.core.CallBack
 import com.jskaleel.fte.core.StringCallBack
 import com.jskaleel.fte.core.model.ImageType
+import com.jskaleel.fte.ui.screens.common.components.BookItem
 import com.jskaleel.fte.ui.screens.common.components.RecentBookItem
+import com.jskaleel.fte.ui.screens.main.bookshelf.BookListEvent
 import com.jskaleel.fte.ui.screens.main.downloads.BookUiModel
 import com.jskaleel.fte.ui.theme.FTEBooksTheme
+import com.jskaleel.fte.ui.theme.dimension
 import kotlinx.coroutines.delay
 
 @Composable
@@ -97,7 +105,7 @@ fun EmptySearchResult(
 @Composable
 fun SearchResultContent(
     onEvent: (SearchEvent) -> Unit,
-    books: List<BookUiModel>,
+    books: List<SearchBookUiModel>,
     active: Boolean,
     searchQuery: String
 ) {
@@ -116,7 +124,7 @@ private fun SearchContent(
     active: Boolean,
     isEmpty: Boolean = false,
     searchQuery: String,
-    books: List<BookUiModel> = emptyList(),
+    books: List<SearchBookUiModel> = emptyList(),
     categories: List<CategoryUiModel> = emptyList(),
     recentReads: List<RecentUiModel> = emptyList(),
 ) {
@@ -131,7 +139,7 @@ private fun SearchContent(
             SearchTopBar(
                 query = searchQuery,
                 onQueryChange = { query ->
-                    onEvent(SearchEvent.OnSearch(query))
+                    onEvent(SearchEvent.OnSearchQueryChange(query))
                 },
                 onActiveChange = {
                     onEvent(SearchEvent.OnActiveChange(it))
@@ -141,13 +149,16 @@ private fun SearchContent(
                     }
                 },
                 onClearClick = {
-                    onEvent(SearchEvent.OnSearch(""))
+                    onEvent(SearchEvent.OnSearchQueryChange(""))
+                    focusManager.clearFocus()
                     keyboardController?.hide()
+                    onEvent(SearchEvent.OnActiveChange(false))
                 },
                 onKeyboardSearchClick = {
                     onEvent(SearchEvent.OnActiveChange(false))
                     focusManager.clearFocus()
                     keyboardController?.hide()
+                    onEvent(SearchEvent.OnSearchClick(query = it))
                 }
             )
         },
@@ -190,13 +201,13 @@ private fun SearchContent(
 
 @Composable
 private fun SearchResultListContent(
-    books: List<BookUiModel>,
+    books: List<SearchBookUiModel>,
     categories: List<CategoryUiModel>,
     recentReads: List<RecentUiModel>,
     onEvent: (SearchEvent) -> Unit
 ) {
     if (books.isNotEmpty()) {
-
+        SearchedBooks(books = books)
     } else {
         Column(
             modifier = Modifier
@@ -208,7 +219,7 @@ private fun SearchResultListContent(
                     onCategoryClick = {},
                     categories = categories
                 )
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(24.dp))
             }
 
             if (recentReads.isNotEmpty()) {
@@ -216,6 +227,35 @@ private fun SearchResultListContent(
                     recentReads = recentReads,
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun SearchedBooks(books: List<SearchBookUiModel>) {
+    LazyColumn(
+        contentPadding = PaddingValues(vertical = MaterialTheme.dimension.small),
+        modifier = Modifier.clipToBounds()
+    ) {
+        items(
+            items = books,
+            key = { it.id }
+        ) { book ->
+            BookItem(
+                onDownloadClick = {
+//                    event(BookListEvent.OnDownloadClick(bookId = book.id))
+                },
+                onOpenClick = {
+//                    event(BookListEvent.OnOpenClick(bookId = book.id))
+                },
+                image = book.image,
+                title = book.title,
+                author = book.author,
+                category = book.category,
+                downloaded = book.downloaded,
+                downloading = book.downloading,
+            )
+            HorizontalDivider(thickness = (0.8).dp)
         }
     }
 }
@@ -389,7 +429,7 @@ private fun SearchTopBar(
     onActiveChange: (Boolean) -> Unit,
     onQueryChange: StringCallBack,
     onClearClick: CallBack,
-    onKeyboardSearchClick: CallBack,
+    onKeyboardSearchClick: StringCallBack,
     query: String,
 ) {
     Row(
@@ -449,7 +489,7 @@ private fun SearchTopBar(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(
                 onSearch = {
-                    onKeyboardSearchClick()
+                    onKeyboardSearchClick(query)
                 }
             )
         )
@@ -468,6 +508,17 @@ data class RecentUiModel(
     val id: String,
     val image: ImageType,
     val lastRead: String
+)
+
+@Immutable
+data class SearchBookUiModel(
+    val title: String,
+    val id: String,
+    val author: String,
+    val category: String,
+    val image: ImageType,
+    val downloaded: Boolean,
+    val downloading: Boolean = false,
 )
 
 @Preview(showBackground = true, showSystemUi = true)
