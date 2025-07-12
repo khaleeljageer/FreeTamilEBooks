@@ -1,11 +1,15 @@
 package com.jskaleel.fte.ui.utils
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.LibraryBooks
-import androidx.compose.material.icons.automirrored.outlined.MenuBook
+import androidx.compose.material.icons.filled.Book
+import androidx.compose.material.icons.filled.CloudDownload
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.CloudDownload
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.rounded.Book
@@ -26,22 +30,26 @@ import com.jskaleel.fte.ui.navigation.Screen
 val bottomBarItems = listOf(
     BottomBarItem(
         title = "Books",
-        icon = Icons.Rounded.Book,
+        unSelectedIcon = Icons.Rounded.Book,
+        selectedIcon = Icons.Filled.Book,
         route = Screen.Main.BookShelf.route
     ),
     BottomBarItem(
         title = "Search",
-        icon = Icons.Outlined.Search,
+        unSelectedIcon = Icons.Outlined.Search,
+        selectedIcon = Icons.Filled.Search,
         route = Screen.Main.Search.route
     ),
     BottomBarItem(
         title = "Downloads",
-        icon = Icons.Outlined.CloudDownload,
+        unSelectedIcon = Icons.Outlined.CloudDownload,
+        selectedIcon = Icons.Filled.CloudDownload,
         route = Screen.Main.Download.route
     ),
     BottomBarItem(
         title = "About",
-        icon = Icons.Outlined.Info,
+        unSelectedIcon = Icons.Outlined.Info,
+        selectedIcon = Icons.Filled.Info,
         route = Screen.Main.About.route
     )
 )
@@ -61,12 +69,28 @@ fun BottomNavigationBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
     ) {
         items.forEach { item ->
+            val selected = currentRoute == item.route
             NavigationBarItem(
                 icon = {
-                    Icon(
-                        imageVector = item.icon,
-                        contentDescription = item.title,
-                    )
+                    Crossfade(
+                        targetState = selected,
+                        animationSpec = tween(150),
+                        label = ""
+                    ) {
+                        if (it) {
+                            Icon(
+                                imageVector = item.selectedIcon,
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        } else {
+                            Icon(
+                                imageVector = item.unSelectedIcon,
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    }
                 },
                 label = null,
                 selected = currentRoute == item.route,
