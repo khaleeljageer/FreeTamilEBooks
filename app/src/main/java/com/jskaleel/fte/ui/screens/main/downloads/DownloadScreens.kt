@@ -49,6 +49,9 @@ fun DownloadScreenContent(
                 onOpenClick = {
                     event(DownloadEvent.OnBookClick(bookId = book.id))
                 },
+                onDeleteClick = {
+                    event(DownloadEvent.OnDeleteClick(bookId = book.id))
+                },
                 image = book.image,
                 title = book.title,
                 author = book.author,

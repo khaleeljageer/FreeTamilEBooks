@@ -83,12 +83,14 @@ fun AnimatedDownloadReadButton(
                         icon = Icons.AutoMirrored.Outlined.MenuBook
                     )
                     Spacer(modifier = Modifier.width(6.dp))
-                    SimpleOutlinedReadButton(
-                        modifier = modifier,
-                        text = "நீக்கு",
-                        onClick = onDeleteClick ?: {},
-                        icon = Icons.Outlined.DeleteOutline
-                    )
+                    if (onDeleteClick != null) {
+                        SimpleOutlinedReadButton(
+                            modifier = modifier,
+                            text = "நீக்கு",
+                            onClick = onDeleteClick,
+                            icon = Icons.Outlined.DeleteOutline
+                        )
+                    }
                 }
             }
         }

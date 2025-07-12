@@ -1,10 +1,13 @@
 package com.jskaleel.fte.core
 
+import android.content.Context
+import java.io.File
 import java.util.Calendar
 import java.util.Date
 
 typealias CallBack = () -> Unit
 typealias StringCallBack = (String) -> Unit
+typealias BooleanCallBack = (Boolean) -> Unit
 
 fun getDetailedRelativeDateInTamil(timestamp: Long): String {
     val now = System.currentTimeMillis() / 1000
@@ -81,5 +84,11 @@ private fun getTamilMonth(month: Int): String {
         11 -> "நவம்பர்"
         12 -> "டிசம்பர்"
         else -> ""
+    }
+}
+
+fun Context.getDownloadDir(): File {
+    return File(this.filesDir, "downloads").apply {
+        if (!exists()) mkdirs()
     }
 }

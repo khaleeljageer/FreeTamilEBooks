@@ -10,4 +10,5 @@ interface BooksRepository {
     suspend fun observeBooks(): Flow<List<BookEntity>>
     fun fetchCategories(): Flow<List<String>>
     fun fetchBooksByQuery(query: String): Flow<List<BookEntity>>
+    fun fetchBooksByCategory(category: String): Flow<List<BookEntity>>
 }

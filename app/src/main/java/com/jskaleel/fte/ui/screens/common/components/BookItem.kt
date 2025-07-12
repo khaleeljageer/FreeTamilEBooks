@@ -44,6 +44,7 @@ fun BookItem(
     category: String,
     image: ImageType,
     onDownloadClick: CallBack? = null,
+    onDeleteClick: CallBack? = null,
     downloaded: Boolean = false,
     downloading: Boolean = false,
 ) {
@@ -83,7 +84,7 @@ fun BookItem(
                     .align(Alignment.TopCenter)
             ) {
                 CategoryText(label = category)
-                Spacer(modifier = Modifier.height(MaterialTheme.dimension.tiny))
+                Spacer(modifier = Modifier.height(MaterialTheme.dimension.small))
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleSmall,
@@ -111,7 +112,8 @@ fun BookItem(
                     },
                     onOpenClick = {
                         onOpenClick()
-                    }
+                    },
+                    onDeleteClick = onDeleteClick
                 )
             }
         }
@@ -231,8 +233,19 @@ private fun BookItemPreview() {
                 category = "Classic",
                 image = ImageType.NetworkImage("https://www.gutenberg.org/cache/epub/64317/pg64317.cover.medium.jpg"),
                 onDownloadClick = {},
-                downloaded = true,
-                downloading = false
+                onDeleteClick = {},
+                downloaded = true
+            )
+
+
+            BookItem(
+                onOpenClick = {},
+                title = "சேர்வராயன் மலையின் வரலாறு கூறும்",
+                author = "F. Scott Fitzgerald",
+                category = "வரலாறு",
+                image = ImageType.NetworkImage("https://www.gutenberg.org/cache/epub/64317/pg64317.cover.medium.jpg"),
+                onDownloadClick = {},
+                downloaded = true
             )
 
             RecentBookItem(

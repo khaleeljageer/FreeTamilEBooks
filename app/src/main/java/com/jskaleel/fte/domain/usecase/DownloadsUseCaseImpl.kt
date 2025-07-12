@@ -1,6 +1,7 @@
 package com.jskaleel.fte.domain.usecase
 
 import com.jskaleel.fte.core.model.toImage
+import com.jskaleel.fte.data.repository.BooksRepository
 import com.jskaleel.fte.data.repository.DownloadRepository
 import com.jskaleel.fte.domain.model.Book
 import kotlinx.coroutines.flow.Flow
@@ -25,5 +26,9 @@ class DownloadsUseCaseImpl @Inject constructor(
                 )
             }
         }
+    }
+
+    override suspend fun deleteBook(bookId: String) {
+        downloadRepository.deleteBook(bookId)
     }
 }

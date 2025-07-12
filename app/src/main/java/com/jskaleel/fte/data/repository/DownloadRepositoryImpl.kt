@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.jskaleel.fte.core.downloader.FileDownloader
+import com.jskaleel.fte.core.getDownloadDir
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.data.source.local.BooksDatabase
 import com.jskaleel.fte.data.source.local.entity.DownloadedBookEntity
@@ -31,7 +32,6 @@ class DownloadRepositoryImpl @Inject constructor(
     private val lastProgressMap = mutableMapOf<String, Int>()
 
     override fun startDownload(bookId: String, title: String, url: String, format: String) {
-        val file = File(getDownloadDir(), "$title.${format}")
         CoroutineScope(Dispatchers.IO).launch {
             fileDownloader.downloadFile(
                 url = url,
@@ -48,6 +48,7 @@ class DownloadRepositoryImpl @Inject constructor(
 
                     is DownloadResult.Success -> {
                         showDownloadSuccessNotification(result.id, result.title)
+                        val file = File(context.getDownloadDir(), "$bookId.${format}")
                         emitStatus(DownloadResult.Success(bookId, file, title))
                     }
 
@@ -84,12 +85,6 @@ class DownloadRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun getDownloadDir(): File {
-        return File(context.filesDir, "downloads").apply {
-            if (!exists()) mkdirs()
-        }
-    }
-
     override suspend fun removeBook(id: String) {
         database.downloadedBookDao().delete(bookId = id)
     }
@@ -104,6 +99,17 @@ class DownloadRepositoryImpl @Inject constructor(
 
     override fun fetchRecentReads(): Flow<List<DownloadedBookEntity>> {
         return database.downloadedBookDao().getRecentReads()
+    }
+
+    override suspend fun deleteBook(bookId: String) {
+        val book = database.downloadedBookDao().get(bookId)
+        if (book != null) {
+            val file = File(book.filePath)
+            if (file.exists()) {
+                file.delete()
+            }
+            database.downloadedBookDao().delete(bookId)
+        }
     }
 
     private fun showDownloadSuccessNotification(id: String, fileName: String) {

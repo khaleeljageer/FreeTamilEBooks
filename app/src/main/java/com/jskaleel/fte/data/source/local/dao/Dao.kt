@@ -25,6 +25,12 @@ interface BookDao {
 
     @Query("SELECT * FROM books WHERE title LIKE '%' || :query || '%' OR author LIKE '%' || :query || '%' OR category LIKE '%' || :query || '%'")
     fun getBooksByQuery(query: String): Flow<List<BookEntity>>
+
+    @Query("DELETE FROM books WHERE id = :bookId")
+    suspend fun deleteById(bookId: String)
+
+    @Query("SELECT * FROM books WHERE category = :category")
+    fun getBooksByCategory(category: String): Flow<List<BookEntity>>
 }
 
 @Dao

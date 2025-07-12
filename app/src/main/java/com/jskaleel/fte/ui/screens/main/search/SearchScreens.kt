@@ -1,13 +1,8 @@
 package com.jskaleel.fte.ui.screens.main.search
 
-import android.util.Log
-import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +10,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,20 +29,15 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -65,40 +53,19 @@ import com.jskaleel.fte.core.StringCallBack
 import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.ui.screens.common.components.BookItem
 import com.jskaleel.fte.ui.screens.common.components.RecentBookItem
-import com.jskaleel.fte.ui.screens.main.bookshelf.BookListEvent
-import com.jskaleel.fte.ui.screens.main.downloads.BookUiModel
 import com.jskaleel.fte.ui.theme.FTEBooksTheme
 import com.jskaleel.fte.ui.theme.dimension
-import kotlinx.coroutines.delay
 
 @Composable
 fun DefaultSearchContent(
     onEvent: (SearchEvent) -> Unit,
     categories: List<CategoryUiModel>,
     recentReads: List<RecentUiModel>,
-    active: Boolean,
-    searchQuery: String
 ) {
-    SearchContent(
+    SearchResultListContent(
         onEvent = onEvent,
-        active = active,
-        searchQuery = searchQuery,
         categories = categories,
         recentReads = recentReads
-    )
-}
-
-@Composable
-fun EmptySearchResult(
-    onEvent: (SearchEvent) -> Unit,
-    active: Boolean,
-    searchQuery: String
-) {
-    SearchContent(
-        onEvent = onEvent,
-        active = active,
-        searchQuery = searchQuery,
-        isEmpty = true
     )
 }
 
@@ -106,108 +73,27 @@ fun EmptySearchResult(
 fun SearchResultContent(
     onEvent: (SearchEvent) -> Unit,
     books: List<SearchBookUiModel>,
-    active: Boolean,
-    searchQuery: String
 ) {
-    SearchContent(
+    SearchResultListContent(
         onEvent = onEvent,
-        active = active,
-        searchQuery = searchQuery,
         books = books,
+        categories = emptyList(),
+        recentReads = emptyList()
     )
-}
-
-
-@Composable
-private fun SearchContent(
-    onEvent: (SearchEvent) -> Unit,
-    active: Boolean,
-    isEmpty: Boolean = false,
-    searchQuery: String,
-    books: List<SearchBookUiModel> = emptyList(),
-    categories: List<CategoryUiModel> = emptyList(),
-    recentReads: List<RecentUiModel> = emptyList(),
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val focusManager = LocalFocusManager.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val isFocused = interactionSource.collectIsFocusedAsState().value
-    val shouldClearFocus = !active && isFocused
-
-    Scaffold(
-        topBar = {
-            SearchTopBar(
-                query = searchQuery,
-                onQueryChange = { query ->
-                    onEvent(SearchEvent.OnSearchQueryChange(query))
-                },
-                onActiveChange = {
-                    onEvent(SearchEvent.OnActiveChange(it))
-                    if (!it) {
-                        focusManager.clearFocus()
-                        keyboardController?.hide()
-                    }
-                },
-                onClearClick = {
-                    onEvent(SearchEvent.OnSearchQueryChange(""))
-                    focusManager.clearFocus()
-                    keyboardController?.hide()
-                    onEvent(SearchEvent.OnActiveChange(false))
-                },
-                onKeyboardSearchClick = {
-                    onEvent(SearchEvent.OnActiveChange(false))
-                    focusManager.clearFocus()
-                    keyboardController?.hide()
-                    onEvent(SearchEvent.OnSearchClick(query = it))
-                }
-            )
-        },
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .background(MaterialTheme.colorScheme.background)
-        ) {
-            AnimatedContent(isEmpty) { state ->
-                when (state) {
-                    true -> EmptySearchResultContent(
-                        searchQuery = searchQuery
-                    )
-
-                    false -> SearchResultListContent(
-                        books = books,
-                        categories = categories,
-                        recentReads = recentReads,
-                        onEvent = onEvent
-                    )
-                }
-            }
-        }
-    }
-
-    LaunchedEffect(active) {
-        if (shouldClearFocus) {
-            delay(100)
-            focusManager.clearFocus()
-        }
-    }
-
-    BackHandler(enabled = active) {
-        onEvent(SearchEvent.OnActiveChange(false))
-    }
 }
 
 @Composable
 private fun SearchResultListContent(
-    books: List<SearchBookUiModel>,
-    categories: List<CategoryUiModel>,
-    recentReads: List<RecentUiModel>,
-    onEvent: (SearchEvent) -> Unit
+    onEvent: (SearchEvent) -> Unit,
+    books: List<SearchBookUiModel> = emptyList(),
+    categories: List<CategoryUiModel> = emptyList(),
+    recentReads: List<RecentUiModel> = emptyList()
 ) {
     if (books.isNotEmpty()) {
-        SearchedBooks(books = books)
+        SearchedBooks(
+            onEvent = onEvent,
+            books = books
+        )
     } else {
         Column(
             modifier = Modifier
@@ -216,7 +102,9 @@ private fun SearchResultListContent(
         ) {
             if (categories.isNotEmpty()) {
                 CategorySection(
-                    onCategoryClick = {},
+                    onCategoryClick = {
+                        onEvent(SearchEvent.OnCategoryClick(category = it))
+                    },
                     categories = categories
                 )
                 Spacer(modifier = Modifier.height(24.dp))
@@ -232,7 +120,10 @@ private fun SearchResultListContent(
 }
 
 @Composable
-private fun SearchedBooks(books: List<SearchBookUiModel>) {
+private fun SearchedBooks(
+    onEvent: (SearchEvent) -> Unit,
+    books: List<SearchBookUiModel>
+) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = MaterialTheme.dimension.small),
         modifier = Modifier.clipToBounds()
@@ -242,16 +133,16 @@ private fun SearchedBooks(books: List<SearchBookUiModel>) {
             key = { it.id }
         ) { book ->
             BookItem(
-                onDownloadClick = {
-//                    event(BookListEvent.OnDownloadClick(bookId = book.id))
-                },
                 onOpenClick = {
-//                    event(BookListEvent.OnOpenClick(bookId = book.id))
+                    onEvent(SearchEvent.OnBookClick(bookId = book.id))
                 },
-                image = book.image,
                 title = book.title,
                 author = book.author,
                 category = book.category,
+                image = book.image,
+                onDownloadClick = {
+                    onEvent(SearchEvent.OnDownloadClick(bookId = book.id))
+                },
                 downloaded = book.downloaded,
                 downloading = book.downloading,
             )
@@ -278,7 +169,7 @@ private fun RecentReadSection(recentReads: List<RecentUiModel>) {
 
 @Composable
 private fun CategorySection(
-    onCategoryClick: (CategoryUiModel) -> Unit,
+    onCategoryClick: StringCallBack,
     categories: List<CategoryUiModel>,
 ) {
     Text(
@@ -291,7 +182,9 @@ private fun CategorySection(
     Spacer(modifier = Modifier.height(8.dp))
     HorizontalCategoryGrid(
         categories = categories,
-        onCategoryClick = onCategoryClick
+        onCategoryClick = {
+            onCategoryClick(it.name)
+        }
     )
 }
 
@@ -334,7 +227,7 @@ private fun HorizontalCategoryGrid(
     categories: List<CategoryUiModel>,
     modifier: Modifier = Modifier,
     rows: Int = 5,
-    onCategoryClick: (CategoryUiModel) -> Unit = {}
+    onCategoryClick: (CategoryUiModel) -> Unit
 ) {
     val itemsPerColumn = (categories.size + rows - 1) / rows
 
@@ -391,41 +284,43 @@ private fun CategoryChip(
 }
 
 @Composable
-private fun ColumnScope.EmptySearchResultContent(searchQuery: String) {
-    val text = "\"$searchQuery\"-க்கு எந்த புத்தகங்களும் கிடைக்கவில்லை"
-    val annotatedString = buildAnnotatedString {
-        var startIndex = 0
-        val lowercase = text.lowercase()
-        val queryLowercase = searchQuery.lowercase()
+fun ColumnScope.EmptySearchResultContent(searchQuery: String) {
+    if (searchQuery.isNotEmpty()) {
+        val text = "\"$searchQuery\"-க்கு எந்த புத்தகங்களும் கிடைக்கவில்லை"
+        val annotatedString = buildAnnotatedString {
+            var startIndex = 0
+            val lowercase = text.lowercase()
+            val queryLowercase = searchQuery.lowercase()
 
-        while (startIndex < text.length) {
-            val index = lowercase.indexOf(queryLowercase, startIndex)
-            if (index == -1) {
-                append(text.substring(startIndex))
-                break
-            }
-            append(text.substring(startIndex, index))
-            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                append(text.substring(index, index + searchQuery.length))
-            }
+            while (startIndex < text.length) {
+                val index = lowercase.indexOf(string = queryLowercase, startIndex)
+                if (index == -1) {
+                    append(text.substring(startIndex))
+                    break
+                }
+                append(text.substring(startIndex, index))
+                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                    append(text.substring(index, index + searchQuery.length))
+                }
 
-            startIndex = index + searchQuery.length
+                startIndex = index + searchQuery.length
+            }
         }
-    }
 
-    Text(
-        text = annotatedString,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .align(Alignment.CenterHorizontally),
-        style = MaterialTheme.typography.bodyLarge,
-        color = MaterialTheme.colorScheme.onBackground
-    )
+        Text(
+            text = annotatedString,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .align(Alignment.CenterHorizontally),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+    }
 }
 
 @Composable
-private fun SearchTopBar(
+fun SearchTopBar(
     onActiveChange: (Boolean) -> Unit,
     onQueryChange: StringCallBack,
     onClearClick: CallBack,
@@ -520,21 +415,6 @@ data class SearchBookUiModel(
     val downloaded: Boolean,
     val downloading: Boolean = false,
 )
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-private fun SearchContentPreview() {
-    FTEBooksTheme {
-        SearchContent(
-            onEvent = {},
-            books = emptyList(),
-            categories = emptyList(),
-            recentReads = emptyList(),
-            active = false,
-            searchQuery = "Search Query"
-        )
-    }
-}
 
 @Preview(showBackground = true)
 @Composable

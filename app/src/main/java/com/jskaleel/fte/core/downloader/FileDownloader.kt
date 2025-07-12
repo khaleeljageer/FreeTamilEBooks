@@ -1,6 +1,7 @@
 package com.jskaleel.fte.core.downloader
 
 import android.content.Context
+import com.jskaleel.fte.core.getDownloadDir
 import com.jskaleel.fte.data.model.DownloadResult
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
@@ -41,7 +42,7 @@ class FileDownloaderImpl @Inject constructor(
             return@flow
         }
         emit(DownloadResult.Queued(id = uniqueId))
-        val destinationFile = File(context.filesDir, "${uniqueId}.epub")
+        val destinationFile = File(context.getDownloadDir(), "$uniqueId.epub")
 
         val request = Request.Builder().url(url).build()
         try {

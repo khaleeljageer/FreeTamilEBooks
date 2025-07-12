@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.DownloadsUseCase
 import com.jskaleel.fte.ui.screens.main.downloads.DownloadNavigationState.OpenBook
+import com.jskaleel.fte.ui.screens.main.search.SearchEvent
 import com.jskaleel.fte.ui.utils.mutableNavigationState
 import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,14 +16,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.yield
 import javax.inject.Inject
 
 @HiltViewModel
 class DownloadViewModel @Inject constructor(
     private val useCase: DownloadsUseCase,
 ) : ViewModel() {
+    private val mutex = Mutex()
 
     var navigation by mutableNavigationState<DownloadNavigationState>()
         private set
@@ -41,6 +45,12 @@ class DownloadViewModel @Inject constructor(
             is DownloadEvent.OnBookClick -> {
                 navigation = navigate(OpenBook(id = event.bookId))
             }
+
+            is DownloadEvent.OnDeleteClick -> {
+                viewModelScope.launch {
+                    useCase.deleteBook(event.bookId)
+                }
+            }
         }
     }
 
@@ -54,6 +64,13 @@ class DownloadViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            yield()
+            this.value = function(this.value)
         }
     }
 }
@@ -98,4 +115,5 @@ sealed interface DownloadNavigationState {
 
 sealed interface DownloadEvent {
     data class OnBookClick(val bookId: String) : DownloadEvent
+    data class OnDeleteClick(val bookId: String) : DownloadEvent
 }

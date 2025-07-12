@@ -1,9 +1,7 @@
 package com.jskaleel.fte.ui.screens.main.bookshelf
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jskaleel.fte.core.model.onError
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
@@ -13,14 +11,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.yield
 import javax.inject.Inject
 
 @HiltViewModel
 class BookShelfViewModel @Inject constructor(
     private val useCase: BookShelfUseCase
 ) : ViewModel() {
+    private val mutex = Mutex()
     private val viewModelState = MutableStateFlow(BookShelfViewModelState(loading = true))
 
     val uiState = viewModelState.map {
@@ -46,7 +47,6 @@ class BookShelfViewModel @Inject constructor(
                     }
 
                     is DownloadResult.Success -> updateBook(result.id) {
-                        Log.d("BooksViewModel", "Success: $result")
                         it.copy(
                             downloading = false,
                             downloaded = true,
@@ -54,7 +54,6 @@ class BookShelfViewModel @Inject constructor(
                     }
 
                     is DownloadResult.Error -> updateBook(result.id) {
-                        Log.d("BooksViewModel", "Error: $result")
                         it.copy(downloading = false)
                     }
 
@@ -72,14 +71,16 @@ class BookShelfViewModel @Inject constructor(
     }
 
     private fun observeBooks() {
-        viewModelState.update { it.copy(loading = true) }
-        viewModelScope.launch(Dispatchers.IO) {
-            useCase.observeBooks().collect { books ->
-                viewModelState.update { current ->
-                    current.copy(
-                        loading = false,
-                        books = books
-                    )
+        viewModelScope.launch {
+            viewModelState.update { it.copy(loading = true) }
+            launch {
+                useCase.observeBooks().collect { books ->
+                    viewModelState.update { current ->
+                        current.copy(
+                            loading = false,
+                            books = books
+                        )
+                    }
                 }
             }
         }
@@ -87,9 +88,7 @@ class BookShelfViewModel @Inject constructor(
 
     private fun syncBooks() {
         viewModelScope.launch(Dispatchers.IO) {
-            useCase.syncIfNeeded().onError { code, message ->
-                Log.d("BooksViewModel", "syncBooks: $code, $message")
-            }
+            useCase.syncIfNeeded()
         }
     }
 
@@ -111,15 +110,30 @@ class BookShelfViewModel @Inject constructor(
             is BookListEvent.OnOpenClick -> {
 
             }
+
+            is BookListEvent.OnDeleteClick -> {
+                viewModelScope.launch {
+                    useCase.deleteBook(event.bookId)
+                }
+            }
         }
     }
 
     private fun updateBook(id: String, transform: (Book) -> Book) {
-        viewModelState.update { state ->
-            val updatedBooks = state.books.map {
-                if (it.id == id) transform(it) else it
+        viewModelScope.launch {
+            viewModelState.update { state ->
+                val updatedBooks = state.books.map {
+                    if (it.id == id) transform(it) else it
+                }
+                state.copy(books = updatedBooks)
             }
-            state.copy(books = updatedBooks)
+        }
+    }
+
+    private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
+        mutex.withLock {
+            yield()
+            this.value = function(this.value)
         }
     }
 }
@@ -157,4 +171,5 @@ sealed class BookShelfViewModelUiState {
 sealed interface BookListEvent {
     data class OnDownloadClick(val bookId: String) : BookListEvent
     data class OnOpenClick(val bookId: String) : BookListEvent
+    data class OnDeleteClick(val bookId: String) : BookListEvent
 }

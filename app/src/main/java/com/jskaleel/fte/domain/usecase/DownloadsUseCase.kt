@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface DownloadsUseCase {
     suspend fun observeDownloadedBooks(): Flow<List<Book>>
+    suspend fun deleteBook(bookId: String)
 }
