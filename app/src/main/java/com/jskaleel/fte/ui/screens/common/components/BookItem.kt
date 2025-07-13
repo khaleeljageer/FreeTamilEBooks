@@ -94,7 +94,6 @@ fun BookItem(
                     overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.customColors.textPrimary,
                 )
-                Spacer(modifier = Modifier.height(MaterialTheme.dimension.small))
                 Text(
                     text = author,
                     style = MaterialTheme.typography.labelSmall,
