@@ -17,24 +17,19 @@
         }
         
         body {
-            font-family: 'Marutham', Arial, sans-serif;
-            font-size: 16px;
-            line-height: 1.8;
+            font-family: 'Marutham', sans-serif;
+            background-color: #F8F1E4;
             color: #3E2C1C;
-            background: linear-gradient(135deg, #F8F1E4 0%, #FFF8E1 50%, #F0E68C 100%);
-            min-height: 100vh;
-            padding: 20px;
+            margin: 0;
+            line-height: 1.8;
+            font-size: 16px;
         }
-        
+
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: rgba(255, 248, 225, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            border: 1px solid rgba(215, 179, 119, 0.3);
+            max-width: auto;
+            margin: auto;
+            background-color: #FFF8E1;
+            padding: 16px;
         }
         
         .header {
@@ -267,21 +262,12 @@
         }
         
         @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 15px;
-            }
-            
             .header {
                 padding: 30px 20px;
             }
             
             .header h1 {
                 font-size: 2em;
-            }
-            
-            .content {
-                padding: 20px;
             }
             
             .section {
