@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
 import com.jskaleel.fte.ui.screens.main.about.AboutScreenRoute
 import com.jskaleel.fte.ui.screens.main.about.AboutViewModel
+import com.jskaleel.fte.ui.screens.main.about.webpage.WebpageScreenRoute
 import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfRoute
 import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfViewModel
 import com.jskaleel.fte.ui.screens.main.downloads.DownloadScreenRoute
@@ -46,7 +47,20 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
             val viewModel: AboutViewModel = hiltViewModel()
 
             AboutScreenRoute(
+                openHtml = { path ->
+                    navController.navigate(route = Screen.Webpage.LinkOne.create(path))
+                },
                 viewModel = viewModel
+            )
+        }
+
+        animatedComposable(route = Screen.Webpage.LinkOne.link) {
+            val path = Screen.Webpage.LinkOne.get(it.arguments)
+            WebpageScreenRoute(
+                onBack = {
+                    navController.popBackStack()
+                },
+                url = path
             )
         }
     }

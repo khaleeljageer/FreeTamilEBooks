@@ -25,7 +25,8 @@ import com.jskaleel.fte.ui.navigation.Screen
 
 val topBarItems = listOf(
     Screen.Main.Download,
-    Screen.Main.About
+    Screen.Main.About,
+    Screen.Webpage,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

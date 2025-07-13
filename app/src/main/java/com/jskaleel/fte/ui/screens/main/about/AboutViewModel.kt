@@ -8,11 +8,15 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Publish
 import androidx.compose.material.icons.filled.VolunteerActivism
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.domain.model.About
 import com.jskaleel.fte.domain.model.AboutItem
+import com.jskaleel.fte.ui.utils.mutableNavigationState
+import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +30,10 @@ import kotlinx.coroutines.yield
 
 @HiltViewModel
 class AboutViewModel @Inject constructor() : ViewModel() {
+    var navigation by mutableNavigationState<AboutNavigationState>()
+        private set
     private val mutex = Mutex()
+
     private val viewModelState = MutableStateFlow(AboutViewModelState())
 
     val uiState = viewModelState
@@ -87,7 +94,7 @@ class AboutViewModel @Inject constructor() : ViewModel() {
                     ),
                     AboutItem(
                         label = "கணியம் அறக்கட்டளை",
-                        url = "https://kaniyam.org",
+                        url = "https://kaniyam.com",
                         icon = ImageType.Vector(Icons.Default.Public),
                     ),
                     AboutItem(
@@ -116,11 +123,11 @@ class AboutViewModel @Inject constructor() : ViewModel() {
             mutex.withLock {
                 when (type) {
                     is Type.Url -> {
-                        // Handle URL click
+                        navigation = navigate(AboutNavigationState.OpenUrl(type.url))
                     }
 
                     is Type.Asset -> {
-                        // Handle asset click
+                        navigation = navigate(AboutNavigationState.OpenHtml(type.path))
                     }
 
                     is Type.Email -> {
@@ -128,7 +135,7 @@ class AboutViewModel @Inject constructor() : ViewModel() {
                     }
 
                     Type.None -> {
-                        // No action needed
+                        // No action needed for None type
                     }
                 }
             }
@@ -176,6 +183,12 @@ private data class AboutViewModelState(
 data class AboutUiState(
     val menus: List<AboutUiModel>
 )
+
+sealed interface AboutNavigationState {
+    data class OpenUrl(val url: String) : AboutNavigationState
+    data class OpenHtml(val path: String) : AboutNavigationState
+    data class Email(val email: String) : AboutNavigationState
+}
 
 sealed interface AboutEvent {
     data class ItemClicked(val type: Type) : AboutEvent
