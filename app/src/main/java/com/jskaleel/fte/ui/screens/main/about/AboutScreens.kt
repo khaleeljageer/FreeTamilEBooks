@@ -58,7 +58,14 @@ fun AboutScreenContent(
             )
             menu.items.forEach { item ->
                 AboutMenuItem(
-                    onClick = { onEvent(AboutEvent.ItemClicked(item.type)) },
+                    onClick = {
+                        onEvent(
+                            AboutEvent.ItemClicked(
+                                title = item.title,
+                                type = item.type
+                            )
+                        )
+                    },
                     title = item.title,
                     icon = item.icon,
                     description = item.description,

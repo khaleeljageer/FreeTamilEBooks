@@ -47,20 +47,26 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
             val viewModel: AboutViewModel = hiltViewModel()
 
             AboutScreenRoute(
-                openHtml = { path ->
-                    navController.navigate(route = Screen.Webpage.LinkOne.create(path))
+                openHtml = { title, path ->
+                    navController.navigate(
+                        route = Screen.Webpage.LinkOne.create(
+                            title = title,
+                            path = path
+                        )
+                    )
                 },
                 viewModel = viewModel
             )
         }
 
         animatedComposable(route = Screen.Webpage.LinkOne.link) {
-            val path = Screen.Webpage.LinkOne.get(it.arguments)
+            val args = Screen.Webpage.LinkOne.get(it.arguments)
             WebpageScreenRoute(
                 onBack = {
                     navController.popBackStack()
                 },
-                url = path
+                title = args.title,
+                url = args.path
             )
         }
     }

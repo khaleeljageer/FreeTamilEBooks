@@ -64,13 +64,13 @@ class AboutViewModel @Inject constructor() : ViewModel() {
                 title = "திட்டம் பற்றி",
                 items = listOf(
                     AboutItem(
-                        label = "அறிமுகம்",
+                        label = "திட்டம் அறிமுகம்",
                         asset = "about_project.html",
                         icon = ImageType.Vector(Icons.Default.Info),
                         description = "திட்டத்தின் நோக்கம் மற்றும் பயன்கள்"
                     ),
                     AboutItem(
-                        label = "குழு",
+                        label = "தன்னார்வலர்கள்",
                         asset = "modern-team-html.html",
                         icon = ImageType.Vector(Icons.Default.Group),
                         description = "திட்டத்தின் தன்னார்வலர்கள்"
@@ -114,11 +114,14 @@ class AboutViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: AboutEvent) {
         when (event) {
-            is AboutEvent.ItemClicked -> handleItemClicked(event.type)
+            is AboutEvent.ItemClicked -> handleItemClicked(
+                title = event.title,
+                type = event.type
+            )
         }
     }
 
-    private fun handleItemClicked(type: Type) {
+    private fun handleItemClicked(type: Type, title: String) {
         viewModelScope.launch {
             mutex.withLock {
                 when (type) {
@@ -127,7 +130,12 @@ class AboutViewModel @Inject constructor() : ViewModel() {
                     }
 
                     is Type.Asset -> {
-                        navigation = navigate(AboutNavigationState.OpenHtml(type.path))
+                        navigation = navigate(
+                            AboutNavigationState.OpenHtml(
+                                title = title,
+                                path = type.path
+                            )
+                        )
                     }
 
                     is Type.Email -> {
@@ -186,10 +194,10 @@ data class AboutUiState(
 
 sealed interface AboutNavigationState {
     data class OpenUrl(val url: String) : AboutNavigationState
-    data class OpenHtml(val path: String) : AboutNavigationState
+    data class OpenHtml(val title: String, val path: String) : AboutNavigationState
     data class Email(val email: String) : AboutNavigationState
 }
 
 sealed interface AboutEvent {
-    data class ItemClicked(val type: Type) : AboutEvent
+    data class ItemClicked(val title: String, val type: Type) : AboutEvent
 }

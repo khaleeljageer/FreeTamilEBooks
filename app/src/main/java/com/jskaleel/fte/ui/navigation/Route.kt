@@ -15,15 +15,23 @@ sealed class Screen(val route: String) {
     object Webpage : Screen(route = "screen_webpage") {
         object LinkOne {
             private const val PATH = "path"
-            val link = "$route/{$PATH}"
+            private const val TITLE = "title"
+            val link = "$route/{$TITLE}/{$PATH}"
 
-            fun create(path: String): String {
-                return "$route/$path"
+            fun create(title: String, path: String): String {
+                return "$route/$title/$path"
             }
 
-            fun get(bundle: Bundle?): String {
-                return bundle?.getString(PATH) ?: ""
+            fun get(bundle: Bundle?): Args {
+                val path = bundle?.getString(PATH) ?: ""
+                val title = bundle?.getString(TITLE) ?: ""
+                return Args(title, path)
             }
+
+            data class Args(
+                val title: String,
+                val path: String
+            )
         }
     }
 }

@@ -9,13 +9,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jskaleel.fte.R
-import com.jskaleel.fte.core.StringCallBack
 import com.jskaleel.fte.ui.utils.ProvideAppBarTitle
 import com.jskaleel.fte.ui.utils.consume
 
 @Composable
 fun AboutScreenRoute(
-    openHtml: StringCallBack,
+    openHtml: (String, String) -> Unit,
     viewModel: AboutViewModel
 ) {
     val uriHandler = LocalUriHandler.current
@@ -28,7 +27,7 @@ fun AboutScreenRoute(
             }
 
             is AboutNavigationState.OpenHtml -> {
-                openHtml(it.path)
+                openHtml(it.title, it.path)
             }
 
             is AboutNavigationState.OpenUrl -> {
