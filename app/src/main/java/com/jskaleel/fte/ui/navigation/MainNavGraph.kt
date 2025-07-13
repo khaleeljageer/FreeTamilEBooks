@@ -4,6 +4,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.navigation
+import com.jskaleel.fte.ui.screens.main.about.AboutScreenRoute
+import com.jskaleel.fte.ui.screens.main.about.AboutViewModel
 import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfRoute
 import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfViewModel
 import com.jskaleel.fte.ui.screens.main.downloads.DownloadScreenRoute
@@ -41,7 +43,11 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
         }
 
         animatedComposable(route = Screen.Main.About.route) {
-//            AboutScreenRoute()
+            val viewModel: AboutViewModel = hiltViewModel()
+
+            AboutScreenRoute(
+                viewModel = viewModel
+            )
         }
     }
 }

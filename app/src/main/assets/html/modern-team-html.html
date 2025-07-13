@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தன்னார்வலர் குழு - FreeTamilEbooks</title>
+    <style>
+        @font-face {
+            font-family: 'Marutham';
+            src: url('font/marutham.ttf');
+        }
+        
+        body {
+            font-family: 'Marutham', sans-serif;
+            background-color: #F8F1E4;
+            color: #3E2C1C;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: #FFF8E1;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #D7B377;
+        }
+        
+        .header h1 {
+            color: #8B5E3C;
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .header p {
+            color: #6D4C41;
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+        }
+        
+        .team-member {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid #8B5E3C;
+        }
+        
+        .member-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .member-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+            border: 3px solid #D7B377;
+            flex-shrink: 0;
+        }
+        
+        .member-info {
+            flex: 1;
+        }
+        
+        .member-name {
+            color: #8B5E3C;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+        
+        .member-location {
+            color: #6D4C41;
+            font-size: 1em;
+            margin: 0 0 10px 0;
+            font-style: italic;
+        }
+        
+        .member-description {
+            color: #3E2C1C;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .member-details {
+            background-color: #F5F5DC;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .detail-row {
+            margin-bottom: 8px;
+        }
+        
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #8B5E3C;
+        }
+        
+        .detail-value {
+            color: #3E2C1C;
+        }
+        
+        .email-link {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .email-link:hover {
+            text-decoration: underline;
+        }
+        
+        .wikipedia-link {
+            color: #2196F3;
+            text-decoration: none;
+        }
+        
+        .wikipedia-link:hover {
+            text-decoration: underline;
+        }
+        
+        .separator {
+            height: 2px;
+            background: linear-gradient(to right, #8B5E3C, #D7B377, #8B5E3C);
+            margin: 20px 0;
+            border-radius: 1px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #D7B377;
+            color: #6D4C41;
+            font-size: 0.9em;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .member-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .member-photo {
+                margin: 0 0 15px 0;
+            }
+            
+            .member-name {
+                font-size: 1.2em;
+            }
+        }
+        
+        /* Animation for smooth loading */
+        .team-member {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Stagger animation delays */
+        .team-member:nth-child(1) { animation-delay: 0.1s; }
+        .team-member:nth-child(2) { animation-delay: 0.2s; }
+        .team-member:nth-child(3) { animation-delay: 0.3s; }
+        .team-member:nth-child(4) { animation-delay: 0.4s; }
+        .team-member:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>தன்னார்வலர் குழு</h1>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">1. பிரியா</h2>
+                <p class="member-location">IIT Mumbai</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/priya-new.jpg"
+                 alt="பிரியா" class="member-photo">
+        </div>
+        <p class="member-description">IIT Mumbai ல் பணிபுரிகிறார்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">மின்னூலாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:priyacst@gmail.com" class="email-link">priyacst@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">2. இராஜேஸ்வரி</h2>
+                <p class="member-location">ஆஸ்திரேலியா</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/raji.jpg"
+                 alt="இராஜேஸ்வரி" class="member-photo">
+        </div>
+        <p class="member-description">ஆஸ்திரேலியாவில் வாழும் கணிணி வல்லுனர். முன்னாள் கல்லூரி
+            ஆசிரியர்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">மின்னூலாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:sraji.me@gmail.com" class="email-link">sraji.me@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">3. து. நித்யா</h2>
+                <p class="member-location">சென்னை</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/nithya.jpg"
+                 alt="து. நித்யா" class="member-photo">
+        </div>
+        <p class="member-description">சென்னை Cognizant நிறுவனத்தில் பணிபுரியும் கணிணி வல்லுனர்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">மின்னூலாக்கம், தமிழில் கணிணி நூல் எழுதுதல்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:nithyadurai87@gmail.com"
+                   class="email-link">nithyadurai87@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">4. இரா. சுப்ரியா</h2>
+                <p class="member-location">புதுச்சேரி, சென்னை</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2019/05/supriya.jpg"
+                 alt="இரா. சுப்ரியா" class="member-photo">
+        </div>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">ஆன்டிராய்டு செயலி உருவாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:supri.rajen@gmail.com" class="email-link">supri.rajen@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">5. சிவமுருகன் பெருமாள்</h2>
+                <p class="member-location">அமெரிக்கா</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/sivamurugan.jpg"
+                 alt="சிவமுருகன் பெருமாள்" class="member-photo">
+        </div>
+        <p class="member-description">அமெரிக்க வாழ் கணிணி நிபுணர்</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">மின்னூலாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:sivamurugan.perumal@gmail.com" class="email-link">sivamurugan.perumal@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">6. கிஷோர்</h2>
+                <p class="member-location">சிங்கப்பூர்</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/profile_photo.jpg"
+                 alt="கிஷோர்" class="member-photo">
+        </div>
+        <p class="member-description">சிங்கப்பூர் வாழ் iOS நிபணர்</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">FreeTamilEbooks க்கு iOS மென்பொருள் உருவாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:ukisho@gmail.com" class="email-link">ukisho@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">7. ஜெயேந்திரன் சுப்பிரமணியம்</h2>
+                <p class="member-location">பூனே</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/08/Jayendran.jpg"
+                 alt="ஜெயேந்திரன் சுப்பிரமணியம்" class="member-photo">
+        </div>
+        <p class="member-description">சொந்த ஊர் ஈரோடு மாவட்டதில் உள்ள வெள்ளோட்டாம்பரப்பு. சோனா
+            பொறியியல் கல்லூரியில் பொறியியல் படிப்பு முடித்துவிட்டு தற்பொழுது ஒரு தனியார் மென்பொருள்
+            சேவை நிறுவனத்தில் கடந்த இரண்டு ஆண்டுகளாக பூனேயில் பணியாற்றிவருகிறார். பொழுதுபோக்கு
+            திரைப்படங்கள் பார்ப்பது, பாடல்கள் கேட்பது, தொழில்நுட்பம் பற்றி இணையத்தில் உலாவுதல்,
+            புத்தகங்கள் (ஆங்கிலம் மற்றும் தமிழ் புதினங்கள்) படிப்பது.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">மின்னூலாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:vsr.jayendran@gmail.com"
+                   class="email-link">vsr.jayendran@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">8. ப்ரியமுடன் வசந்த்</h2>
+                <p class="member-location">அரபு நாடு</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/vasanth.jpg"
+                 alt="ப்ரியமுடன் வசந்த்" class="member-photo">
+        </div>
+        <p class="member-description">அரபு நாட்டில் வசிக்கும் வரை கலைஞர்</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">அட்டைப்படம் உருவாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:vasanth1717@gmail.com" class="email-link">vasanth1717@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">9. ஜெகதீஸ்வரன்</h2>
+                <p class="member-location">சென்னை</p>
+            </div>
+            <img src="https://upload.wikimedia.org/wikipedia/ta/thumb/2/24/Jagadeeswaran_natarajan.jpg/100px-Jagadeeswaran_natarajan.jpg"
+                 alt="ஜெகதீஸ்வரன்" class="member-photo">
+        </div>
+        <p class="member-description">திருச்சிராப்பள்ளி மாவட்டத்தில் உள்ள காட்டுப்புத்தூரில்
+            பிறந்தவர். தற்போது கணினி மென்பொருள் எழுதுனனாக சென்னையில் பணியாற்றி வருகிறார். இணைய
+            இதழ்களிலும் வலைப்பூக்களிலும் கதை, கட்டுரைகள் எழுதுவதில் ஆர்வமுள்ளவர். விக்கிப்பீடியாவில்
+            பொன்னியின் செல்வன் புதினம் தொடர்பான நாற்பதுக்கும் மேற்பட்ட கட்டுரைகளையும் எம்.ஜி.ஆரின்
+            அரசியல் வாழ்க்கை மற்றும் திரைப்பட வாழ்க்கை, பேட்கேர்ள் போன்ற பல கட்டுரைகளையும்
+            எழுதியுள்ளார்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">அட்டைப்படம் உருவாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">விக்கிப்பீடியா:</span>
+                <a href="https://ta.wikipedia.org/s/2c3w" class="wikipedia-link">ta.wikipedia.org/s/2c3w</a>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:sagotharan.jagadeeswaran@gmail.com" class="email-link">sagotharan.jagadeeswaran@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">10. லெனின் குருசாமி</h2>
+                <p class="member-location">காரைக்குடி</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/lenin.jpg"
+                 alt="லெனின் குருசாமி" class="member-photo">
+        </div>
+        <p class="member-description">காரைக்குடியில் வாழும் வரைகலைஞர். M.Sc முடித்து விட்டு
+            தற்பொழுது Sun Creations - Powered by Open Source (Printing, Designing and Cyber Cafe
+            centre) மையத்தை இயக்கி வருகிறார்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">அட்டைப்படம் உருவாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:guruleninn@gmail.com" class="email-link">guruleninn@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">11. மு. சிவலிங்கம்</h2>
+                <p class="member-location">சென்னை</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/Sivalingam.jpg"
+                 alt="சிவலிங்கம்" class="member-photo">
+        </div>
+        <p class="member-description">ஒரு தமிழகத்தைச் சேர்ந்த கணினி சார் தொழில்நுட்ப எழுத்தாளர்.
+            இந்திய அரசின் தொலைத்தகவல் தொடர்புத் துறையில் 33 ஆண்டு காலம் பொறியாளராகப் பணியாற்றி 2007
+            ஆம் ஆண்டில் விருப்ப ஓய்வு பெற்ற இவர் கணிதம், தமிழ் இலக்கியம், தொழிலாளர் சட்டம், மனிதவள
+            மேம்பாடு மேலாண்மை, கணினிப் பயன்பாட்டு அறிவியல் போன்ற பாடங்களில் முதுநிலைப் பட்டம்
+            பெற்றவர். இவர் கணினி தொடர்பான பல்வேறு மாநாடுகளில் கலந்து கொண்டு பல ஆய்வுக்
+            கட்டுரைகளையும் படித்துள்ளார்.பல ஆண்டுகளாக கணிணி துறை நூல்களை தமிழில் எழுதி, பலரும் கணிணி
+            துறையில் நுழைய ஆசிரியராக இருப்பவர்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">பல்வேறு எழுத்துருக்களில் வரும் மின்னூல்களை ஒருங்குறியாக்கம் செய்தல்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:musivalingam@gmail.com"
+                   class="email-link">musivalingam@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">12. மனோஜ் குமார்</h2>
+                <p class="member-location">கோவை</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/manoj.jpg"
+                 alt="மனோஜ்" class="member-photo">
+        </div>
+        <p class="member-description">வரை கலைஞர்</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">அட்டைப்படம் உருவாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:socrates1857@gmail.com"
+                   class="email-link">socrates1857@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">13. கலீல் ஜாகீர்</h2>
+                <p class="member-location">சென்னை</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/khaleel.jpg"
+                 alt="கலீல்" class="member-photo">
+        </div>
+        <p class="member-description">கட்டற்ற மென்பொருள் ஆர்வலர். ஆன்டிராய்டு மென்பொருள்
+            உருவாக்குபவர்</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">ஆன்டிராய்டு செயலி உருவாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:jskcse4@gmail.com" class="email-link">jskcse4@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">14. அன்வர்</h2>
+                <p class="member-location">சென்னை</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/anwar.jpg"
+                 alt="அன்வர்" class="member-photo">
+        </div>
+        <p class="member-description">கட்டற்ற மென்பொருள் ஆர்வலர்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">கொள்கைப் பரப்பு, எழுத்தாளர்களை அணுகி, ஆக்கங்களை கிரியேட்டிவ் காமன்ஸ்
+                    உரிமையில் வெளியிடக் கோருதல், மின்னூலாக்கப் பயிற்சிப் பட்டறைகள் நடத்துதல்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:gnukick@gmail.com" class="email-link">gnukick@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">15. பிரசன்னா</h2>
+                <p class="member-location">அரியலூர்</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/prasanna.jpg"
+                 alt="பிரசன்னா" class="member-photo">
+        </div>
+        <p class="member-description">அரியலூர் மாவட்டம் உடையார்பாளையத்தில் வாழும் மாணவன். B. Sc.
+            physics படிக்கிறார்.
+            ஒவியங்கள் வரைதல், அறிவியல் தொழில்நுட்பங்கள் குறித்து அறிதல், கொஞ்சம் கவிதைகள் எழுதுதல்
+            மற்றும் படித்தல், அவ்வப்போது அறிவியல் வலைப்பூ எழுதுவது.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">மின்னூலாக்கம்</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:udpmprasanna@gmail.com" class="email-link">udpmprasanna@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">16. அ. இரவிசங்கர்</h2>
+                <p class="member-location">புதுக்கோட்டை</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/ravi.jpg"
+                 alt="இரவிசங்கர்" class="member-photo">
+        </div>
+        <p class="member-description">புதுக்கோட்டையைச் சேர்ந்த தமிழ் விக்கிபீடியா பங்களிப்பாளர்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">வலைத்தள மேலாண்மை, திட்ட ஒருங்கிணைப்பு, பரப்புரை.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-member">
+        <div class="member-header">
+            <div class="member-info">
+                <h2 class="member-name">17. த. சீனிவாசன்</h2>
+                <p class="member-location">அரியலூர்</p>
+            </div>
+            <img src="https://freetamilebooks.com/wp-content/uploads/2014/11/shrini.jpg"
+                 alt="சீனிவாசன்" class="member-photo">
+        </div>
+        <p class="member-description">சென்னையில் வாழும் கட்டற்ற மென்பொருள் ஆர்வலர்.</p>
+        <div class="member-details">
+            <div class="detail-row">
+                <span class="detail-label">பங்களிப்பு:</span>
+                <span class="detail-value">மின்னூலாக்கம், மின்னூல் வெளியீடு, பரப்புரை</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">மின்னஞ்சல்:</span>
+                <a href="mailto:tshrinivasan@gmail.com" class="email-link">tshrinivasan@gmail.com</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

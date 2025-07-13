@@ -3,14 +3,15 @@ package com.jskaleel.fte.core.model
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
-import coil3.compose.LocalPlatformContext
 import coil3.compose.rememberAsyncImagePainter
-import coil3.compose.rememberConstraintsSizeResolver
-import coil3.request.ImageRequest
+import com.google.gson.Gson
 
 sealed class ImageType {
     data class ResourceImage(@DrawableRes val id: Int) : ImageType()
+    data class Vector(val vector: ImageVector) : ImageType()
     data class NetworkImage(val url: String) : ImageType()
 
     companion object {
@@ -24,6 +25,7 @@ fun ImageType.getImagePainter(): Painter {
         is ImageType.NetworkImage -> rememberAsyncImagePainter(url)
 
         is ImageType.ResourceImage -> painterResource(id = id)
+        is ImageType.Vector -> rememberVectorPainter(image = vector)
     }
 }
 
@@ -31,6 +33,7 @@ fun ImageType.toTypeString(): String {
     return when (this) {
         is ImageType.ResourceImage -> "Drawable:${this.id}"
         is ImageType.NetworkImage -> "Url:${this.url}"
+        is ImageType.Vector -> "Vector:${Gson().toJson(this)}"
     }
 }
 

@@ -144,8 +144,8 @@ private data class BookShelfViewModelState(
 ) {
     fun toUiState() =
         when {
-            loading -> BookShelfViewModelUiState.Loading
-            else -> BookShelfViewModelUiState.Success(
+            loading -> BookShelfUiState.Loading
+            else -> BookShelfUiState.Success(
                 books = books.map {
                     BookUiModel(
                         id = it.id,
@@ -161,11 +161,11 @@ private data class BookShelfViewModelState(
         }
 }
 
-sealed class BookShelfViewModelUiState {
-    data object Loading : BookShelfViewModelUiState()
+sealed class BookShelfUiState {
+    data object Loading : BookShelfUiState()
     data class Success(
         val books: List<BookUiModel>
-    ) : BookShelfViewModelUiState()
+    ) : BookShelfUiState()
 }
 
 sealed interface BookListEvent {

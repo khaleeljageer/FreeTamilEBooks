@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>உங்கள் படைப்புகளை மின்னூலாக வெளியிடுங்கள்</title>
+    <style>
+        @font-face {
+            font-family: 'Marutham';
+            src: url('font/marutham.ttf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Marutham', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #3E2C1C;
+            background: linear-gradient(135deg, #F8F1E4 0%, #FFF8E1 50%, #F0E68C 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 248, 225, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(215, 179, 119, 0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #8B5E3C, #D7B377);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #D7B377;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border-left: 5px solid #8B5E3C;
+            border: 1px solid rgba(215, 179, 119, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #8B5E3C;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-number {
+            background: #8B5E3C;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .section p {
+            text-align: justify;
+            margin-bottom: 15px;
+            color: #3E2C1C;
+        }
+        
+        .link {
+            color: #8B5E3C;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .link:hover {
+            color: #6D4C41;
+            border-bottom-color: #D7B377;
+        }
+        
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #D2691E, #B8860B);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .video-link:hover {
+            background: linear-gradient(135deg, #B8860B, #8B7355);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .requirements-list {
+            background: #F5F5DC;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #D7B377;
+        }
+        
+        .requirements-list ol {
+            margin-left: 20px;
+        }
+        
+        .requirements-list li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            color: #3E2C1C;
+        }
+        
+        .email-section {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .email-link {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-decoration: none;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .email-link:hover {
+            background: white;
+            color: #4CAF50;
+        }
+        
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #8B5E3C, #D7B377, #8B5E3C, transparent);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        
+        .help-section {
+            background: linear-gradient(135deg, #8B5E3C, #A0522D);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 2px solid rgba(215, 179, 119, 0.3);
+        }
+        
+        .help-section h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #3E2C1C;
+            color: #F5F5DC;
+            font-size: 1.2em;
+            font-weight: 500;
+            border-top: 3px solid #D7B377;
+        }
+        
+        .icon {
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        /* Animation for smooth loading */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Stagger animation delays */
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Highlight box for important information */
+        .highlight-box {
+            background-color: #F0E68C;
+            border-left: 4px solid #8B5E3C;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #D7B377;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>உங்கள் படைப்புகளை மின்னூலாக வெளியிடுங்கள்</h1>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>
+                    <span class="section-number">1</span>
+                    எங்கள் திட்டம் பற்றி
+                </h2>
+                <p>
+                    <a href="http://freetamilebooks.com/about-the-project/" class="link">
+                        <span class="icon">🔗</span>
+                        எங்கள் திட்டத்தைப் பற்றி மேலும் அறிய
+                    </a>
+                </p>
+                
+                <a href="http://www.youtube.com/watch?v=Mu_OVA4qY8I" class="video-link">
+                    <span class="icon">🎥</span>
+                    தமிழில் காணொளி பார்க்க
+                </a>
+            </div>
+            
+            <div class="section">
+                <h2>
+                    <span class="section-number">2</span>
+                    கிரியேட்டிவ் காமன்ஸ் உரிமம் பற்றி
+                </h2>
+                <p>படைப்புகளை யாவரும் பகிரும் உரிமை தரும் கிரியேட்டிவ் காமன்ஸ் உரிமம் பற்றி அறிந்து கொள்ளுங்கள்:</p>
+                
+                <p>
+                    <a href="http://www.kaniyam.com/introduction-to-creative-commons-licenses/" class="link">
+                        கிரியேட்டிவ் காமன்ஸ் உரிமை – ஒரு அறிமுகம்
+                    </a>
+                </p>
+                
+                <p>
+                    <a href="http://www.wired.co.uk/news/archive/2011-12/13/creative-commons-101" class="link">
+                        Creative Commons 101 (ஆங்கிலத்தில்)
+                    </a>
+                </p>
+                
+                <p>
+                    <a href="https://learn.canvas.net/courses/4/wiki/creative-commons-licenses" class="link">
+                        Creative Commons Licenses விளக்கம்
+                    </a>
+                </p>
+                
+                <p>
+                    <a href="http://creativecommons.org/choose/" class="link">
+                        <span class="icon">⚖️</span>
+                        உங்கள் விருப்பான கிரியேட்டிவ் காமன்ஸ் உரிமத்தை தேர்ந்தெடுக்க
+                    </a>
+                </p>
+            </div>
+            
+            <div class="section">
+                <h2>
+                    <span class="section-number">3</span>
+                    உங்கள் படைப்புகளை மின்னூலாக மாற்ற
+                </h2>
+                <p>மேற்கண்டவற்றை பார்த்த / படித்த பின், உங்கள் படைப்புகளை மின்னூலாக மாற்ற பின்வரும் தகவல்களை எங்களுக்கு அனுப்பவும்:</p>
+                
+                <div class="highlight-box">
+                    <p><strong>முக்கியக் குறிப்பு:</strong> இவ்வாறு உருவாக்கப்பட்ட மின்னூல்களில் உங்களின் பெயரும், வலைதள முகவரியும் கண்டிப்பாக இடம்பெறும். மேலும் Creative Commons உரிமத்தின் கீழ் மட்டுமே வெளியிடப்படும்.</p>
+                </div>
+                
+                <div class="requirements-list">
+                    <ol>
+                        <li>📚 நூலின் பெயர்</li>
+                        <li>📝 நூல் அறிமுக உரை</li>
+                        <li>👨‍💼 நூல் ஆசிரியர் அறிமுக உரை</li>
+                        <li>⚖️ உங்கள் விருப்பான கிரியேட்டிவ் காமன்ஸ் உரிமம்</li>
+                        <li>📄 நூல் - text / html / LibreOffice odt/ MS office doc வடிவங்களில். அல்லது வலைப்பதிவு / இணைய தளங்களில் உள்ள கட்டுரைகளில் தொடுப்புகள் (url)</li>
+                    </ol>
+                </div>
+                
+                <div class="email-section">
+                    <p>இவற்றை கீழ்கண்ட மின்னஞ்சல் முகவரிக்கு அனுப்பவும்:</p>
+                    <a href="mailto:freetamilebooksteam@gmail.com" class="email-link">
+                        📧 freetamilebooksteam@gmail.com
+                    </a>
+                </div>
+                
+                <p style="text-align: center; font-weight: 500; color: #27ae60;">
+                    ✅ விரைவில் மின்னூல் உருவாக்கி வெளியிடுவோம்!
+                </p>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="help-section">
+                <h2>நீங்களும் மின்னூல் உருவாக்கிட உதவலாம்!</h2>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h3 style="margin-bottom: 15px;">மின்னூல் எப்படி உருவாக்குகிறோம்?</h3>
+                    
+                    <a href="https://www.youtube.com/watch?v=bXNBwGUDhRs" class="video-link">
+                        <span class="icon">🎥</span>
+                        தமிழில் காணொளி
+                    </a>
+                    
+                    <p style="margin: 15px 0;">
+                        <a href="http://bit.ly/create-ebook" class="link" style="color: #ecf0f1;">
+                            📄 இதன் உரை வடிவம் ஆங்கிலத்தில்
+                        </a>
+                    </p>
+                    
+                    <p>
+                        <a href="https://groups.google.com/forum/#!forum/freetamilebooks" class="link" style="color: #ecf0f1;">
+                            👥 எங்கள் மின்னஞ்சல் குழுவில் இணைந்து உதவலாம்
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            🙏 நன்றி!
+        </div>
+    </div>
+</body>
+</html>

@@ -26,6 +26,17 @@ val Typography = Typography(
             includeFontPadding = true
         )
     ),
+    bodyMedium = TextStyle(
+        fontFamily = fontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 20.0.sp,
+        letterSpacing = 0.2.sp,
+        color = AppColor.TextPrimary,
+        platformStyle = PlatformTextStyle(
+            includeFontPadding = true
+        )
+    ),
     bodySmall = TextStyle(
         fontFamily = fontFamily,
         fontWeight = FontWeight.Normal,
