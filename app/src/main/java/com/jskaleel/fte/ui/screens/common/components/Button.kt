@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.core.CallBack
 
-// Button states
 enum class DownloadButtonState {
     DOWNLOAD,
     DOWNLOADING,

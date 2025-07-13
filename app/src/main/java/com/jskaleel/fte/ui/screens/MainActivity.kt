@@ -56,7 +56,6 @@ private fun MainNavigation() {
     val currentRoute = navBackStackEntry?.destination?.route
     val snackBarHostState = remember { SnackbarHostState() }
 
-    // Show bottom bar only on home screen
     val showBottomBar = bottomBarItems.any { it.route in currentRoute.orEmpty() }
     val showTopAppBar = topBarItems.any { it.route in currentRoute.orEmpty() }
     Scaffold(
