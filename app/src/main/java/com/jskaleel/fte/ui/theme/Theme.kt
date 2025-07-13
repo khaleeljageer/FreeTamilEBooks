@@ -46,11 +46,9 @@ fun FTEBooksTheme(
         SideEffect {
             val window = (view.context as Activity).window
 
-            // Disabling Autofill
             window.decorView.importantForAutofill =
                 View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS
 
-            // Fix for nav bar being semi transparent in api 29+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 window.isNavigationBarContrastEnforced = false
             }

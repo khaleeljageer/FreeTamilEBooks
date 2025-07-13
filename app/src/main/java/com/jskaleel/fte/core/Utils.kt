@@ -17,11 +17,9 @@ fun getDetailedRelativeDateInTamil(timestamp: Long): String {
     val givenCalendar = Calendar.getInstance()
     givenCalendar.timeInMillis = timestamp * 1000
 
-    // Check if it's the same day
     val isSameDay = nowCalendar.get(Calendar.YEAR) == givenCalendar.get(Calendar.YEAR) &&
             nowCalendar.get(Calendar.DAY_OF_YEAR) == givenCalendar.get(Calendar.DAY_OF_YEAR)
 
-    // Check if it's yesterday
     val yesterdayCalendar = Calendar.getInstance()
     yesterdayCalendar.add(Calendar.DAY_OF_YEAR, -1)
     val isYesterday = yesterdayCalendar.get(Calendar.YEAR) == givenCalendar.get(Calendar.YEAR) &&
@@ -62,7 +60,7 @@ private fun formatAbsoluteDate(timestamp: Long): String {
     calendar.time = date
 
     val day = calendar.get(Calendar.DAY_OF_MONTH)
-    val month = calendar.get(Calendar.MONTH) + 1 // Month is 0-based
+    val month = calendar.get(Calendar.MONTH) + 1
     val year = calendar.get(Calendar.YEAR)
 
     val tamilMonth = getTamilMonth(month)

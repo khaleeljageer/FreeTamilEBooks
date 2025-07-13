@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jskaleel.fte.R
 import com.jskaleel.fte.core.StringCallBack
@@ -31,7 +32,9 @@ fun DownloadScreenRoute(
         Text(
             text = stringResource(R.string.downloads),
             color = MaterialTheme.colorScheme.onBackground,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontSize = 20.sp
+            ),
         )
     }
 

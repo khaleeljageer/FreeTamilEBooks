@@ -78,10 +78,10 @@ class FileDownloaderImpl @Inject constructor(
             input.close()
             emit(DownloadResult.Success(id = uniqueId, title = fileName, file = destinationFile))
         } catch (e: CancellationException) {
-            destinationFile.delete() // Clean up partial file
-            throw e // Re-throw cancellation exception
+            destinationFile.delete()
+            throw e
         } catch (e: Exception) {
-            destinationFile.delete() // Clean up partial file
+            destinationFile.delete()
             emit(DownloadResult.Error(id = uniqueId, e.message.orEmpty()))
         }
     }.flowOn(Dispatchers.IO)
