@@ -31,13 +31,6 @@ sealed class VisualReaderInitData(
     val ttsInitData: TtsInitData?,
 ) : ReaderInitData()
 
-class ImageReaderInitData(
-    bookId: Long,
-    publication: Publication,
-    initialLocation: Locator?,
-    ttsInitData: TtsInitData?,
-) : VisualReaderInitData(bookId, publication, initialLocation, ttsInitData)
-
 class EpubReaderInitData(
     bookId: Long,
     publication: Publication,

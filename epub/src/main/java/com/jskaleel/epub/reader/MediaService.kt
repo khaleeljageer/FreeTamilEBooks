@@ -11,7 +11,6 @@ import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -19,6 +18,7 @@ import androidx.core.app.ServiceCompat
 import androidx.media3.session.DefaultMediaNotificationProvider
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
+import com.jskaleel.epub.EpubApplication
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.readium.navigator.media.common.Media3Adapter
@@ -46,8 +46,8 @@ class MediaService : MediaSessionService() {
      */
     inner class InnerBinder : android.os.Binder() {
 
-        private val app: org.readium.r2.testapp.Application
-            get() = application as org.readium.r2.testapp.Application
+        private val app: EpubApplication
+            get() = application as EpubApplication
 
         private val sessionMutable: MutableStateFlow<Session?> =
             MutableStateFlow(null)
@@ -139,7 +139,7 @@ class MediaService : MediaSessionService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        val readerRepository = (application as org.readium.r2.testapp.Application).readerRepository
+        val readerRepository = (application as EpubApplication).readerRepository
 
         // App and service can be started again from a stale notification using
         // PendingIntent.getForegroundService, so we need to call startForeground and then stop

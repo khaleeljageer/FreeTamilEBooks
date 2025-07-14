@@ -31,6 +31,8 @@ androidx-paging = "3.3.6"
 androidx-activity = "1.10.1"
 kotlinx-coroutines = "1.10.2"
 androidx-media3 = "1.7.1"
+androidx-browser = "1.8.0"
+desugar_jdk_libs = "2.1.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -74,6 +76,8 @@ androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", ve
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 androidx-media3-common = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "androidx-media3" }
 androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "androidx-media3" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidx-browser" }
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 
 # Readium Kotlin Toolkit
 readium-shared = { group = "org.readium.kotlin-toolkit", name = "readium-shared", version.ref = "readium" }

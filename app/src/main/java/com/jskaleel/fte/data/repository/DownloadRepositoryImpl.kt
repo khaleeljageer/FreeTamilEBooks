@@ -8,7 +8,6 @@ import com.jskaleel.fte.core.getDownloadDir
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.data.source.local.BooksDatabase
 import com.jskaleel.fte.data.source.local.entity.DownloadedBookEntity
-import com.jskaleel.fte.domain.model.RecentReadItem
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

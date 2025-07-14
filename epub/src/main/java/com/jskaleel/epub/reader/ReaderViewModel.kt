@@ -17,6 +17,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.jskaleel.epub.EpubApplication
 import com.jskaleel.epub.R
 import com.jskaleel.epub.data.BookRepository
 import com.jskaleel.epub.data.model.EBookHighlight
@@ -51,7 +52,6 @@ import org.readium.r2.shared.util.AbsoluteUrl
 import org.readium.r2.shared.util.Try
 import org.readium.r2.shared.util.Url
 import org.readium.r2.shared.util.data.ReadError
-import org.readium.r2.testapp.Application
 import com.jskaleel.epub.search.SearchPagingSource
 import timber.log.Timber
 
@@ -69,7 +69,6 @@ class ReaderViewModel(
         try {
             checkNotNull(readerRepository[bookId])
         } catch (e: Exception) {
-            // Fallbacks on a dummy Publication to avoid crashing the app until the Activity finishes.
             DummyReaderInitData(bookId)
         }
 
@@ -344,7 +343,7 @@ class ReaderViewModel(
     }
 
     companion object {
-        fun createFactory(application: Application, arguments: ReaderActivityContract.Arguments) =
+        fun createFactory(application: EpubApplication, arguments: ReaderActivityContract.Arguments) =
             createViewModelFactory {
                 ReaderViewModel(
                     arguments.bookId,

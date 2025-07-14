@@ -88,6 +88,7 @@ dependencies {
     implementation(libs.joda.time)
     implementation(libs.timber)
     implementation(libs.bundles.media3)
+    implementation(libs.androidx.browser)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

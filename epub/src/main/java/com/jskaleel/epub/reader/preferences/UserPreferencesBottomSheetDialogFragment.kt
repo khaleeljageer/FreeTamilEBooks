@@ -11,8 +11,8 @@ import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import org.readium.r2.testapp.reader.ReaderViewModel
-import org.readium.r2.testapp.utils.compose.ComposeBottomSheetDialogFragment
+import com.jskaleel.epub.reader.ReaderViewModel
+import com.jskaleel.epub.utils.compose.ComposeBottomSheetDialogFragment
 
 abstract class UserPreferencesBottomSheetDialogFragment(
     private val title: String,

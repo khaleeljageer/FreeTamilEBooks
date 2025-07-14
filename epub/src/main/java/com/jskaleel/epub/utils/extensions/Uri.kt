@@ -10,14 +10,14 @@ import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
+import com.jskaleel.epub.utils.toFile
+import com.jskaleel.epub.utils.tryOrNull
+import org.readium.r2.shared.util.Try
+import org.readium.r2.shared.util.content.ContentResolverError
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.util.UUID
-import org.readium.r2.shared.util.Try
-import org.readium.r2.shared.util.content.ContentResolverError
-import org.readium.r2.testapp.utils.toFile
-import org.readium.r2.testapp.utils.tryOrNull
 
 suspend fun Uri.copyToTempFile(context: Context, dir: File): Try<File, ContentResolverError> {
     val filename = UUID.randomUUID().toString()

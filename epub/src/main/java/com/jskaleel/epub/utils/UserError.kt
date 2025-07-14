@@ -11,8 +11,8 @@ import android.content.Context
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.material3.Snackbar
 import com.google.android.material.snackbar.Snackbar
+import com.jskaleel.epub.R
 import com.jskaleel.epub.utils.extensions.createShareIntent
 import org.joda.time.DateTime
 import org.readium.r2.shared.util.Error
@@ -55,7 +55,7 @@ class UserError private constructor(
     fun show(activity: Activity) {
         val message = getUserMessage(activity)
         val snackbar = Snackbar.make(
-            activity.findViewById(R.id.content),
+            activity.findViewById(android.R.id.content),
             message,
             Snackbar.LENGTH_LONG
         )
