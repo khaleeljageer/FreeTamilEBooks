@@ -5,6 +5,7 @@ import com.jskaleel.fte.core.model.toImage
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.data.repository.BooksRepository
 import com.jskaleel.fte.data.repository.DownloadRepository
+import com.jskaleel.fte.data.source.local.entity.BookEntity
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.model.CategoryItem
 import com.jskaleel.fte.domain.model.RecentReadItem
@@ -51,7 +52,7 @@ class SearchUseCaseImpl @Inject constructor(
 
     override fun fetchBooksByQuery(query: String): Flow<List<Book>> {
         return booksRepository.fetchBooksByQuery(query).map {
-            it.map { book ->
+            it.map { book: BookEntity ->
                 Book(
                     id = book.id,
                     title = book.title,

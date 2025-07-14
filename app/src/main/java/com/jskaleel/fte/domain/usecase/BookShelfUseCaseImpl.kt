@@ -31,6 +31,7 @@ class BookShelfUseCaseImpl @Inject constructor(
                     author = it.author,
                     image = it.image.toImage(),
                     category = it.category,
+                    readerId = it.readerId,
                 )
             }
         }
@@ -59,6 +60,7 @@ class BookShelfUseCaseImpl @Inject constructor(
                     url = book.epub,
                     category = book.category,
                     downloaded = localInfo?.bookId == book.id,
+                    readerId = localInfo?.readerId ?: -1L,
                 )
             }
         }

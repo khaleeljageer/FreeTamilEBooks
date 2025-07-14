@@ -29,4 +29,5 @@ data class DownloadedBookEntity(
     val image: String,
     val timestamp: Long,
     val lastRead: Long = 0L,
+    val readerId: Long = 0L,
 )

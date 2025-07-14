@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import androidx.room.Upsert
 import com.jskaleel.fte.data.source.local.entity.BookEntity
 import com.jskaleel.fte.data.source.local.entity.DownloadedBookEntity
 import com.jskaleel.fte.data.source.local.entity.SyncStatusEntity

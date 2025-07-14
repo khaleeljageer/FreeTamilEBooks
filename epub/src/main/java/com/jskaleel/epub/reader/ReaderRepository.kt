@@ -9,10 +9,13 @@ package com.jskaleel.epub.reader
 import android.app.Application
 import androidx.datastore.core.DataStore
 import com.jskaleel.epub.data.BookRepository
+import com.jskaleel.epub.domain.CoverStorage
+import com.jskaleel.epub.domain.ImportError
 import com.jskaleel.epub.domain.PublicationError
 import com.jskaleel.epub.reader.preferences.AndroidTtsPreferencesManagerFactory
 import com.jskaleel.epub.reader.preferences.EpubPreferencesManagerFactory
 import com.jskaleel.epub.utils.CoroutineQueue
+import com.jskaleel.epub.utils.ImportResult
 import org.json.JSONObject
 import org.readium.navigator.media.tts.TtsNavigatorFactory
 import org.readium.r2.navigator.epub.EpubNavigatorFactory
@@ -24,8 +27,11 @@ import org.readium.r2.shared.publication.services.isRestricted
 import org.readium.r2.shared.publication.services.protectionError
 import org.readium.r2.shared.util.DebugError
 import org.readium.r2.shared.util.Try
+import org.readium.r2.shared.util.file.FileSystemError
 import org.readium.r2.shared.util.getOrElse
+import org.readium.r2.shared.util.toUrl
 import timber.log.Timber
+import java.io.File
 import androidx.datastore.preferences.core.Preferences as JetpackPreferences
 
 /**
@@ -41,6 +47,7 @@ class ReaderRepository(
     private val readium: Readium,
     private val bookRepository: BookRepository,
     private val preferencesDataStore: DataStore<JetpackPreferences>,
+    private val coverStorage: CoverStorage,
 ) {
 
     private val coroutineQueue: CoroutineQueue = CoroutineQueue()
@@ -59,6 +66,59 @@ class ReaderRepository(
 
     suspend fun open(bookId: Long): Try<Unit, OpeningError> =
         coroutineQueue.await { doOpen(bookId) }
+
+    suspend fun importBook(file: File): ImportResult {
+        return import(file).fold(
+            onSuccess = { bookId ->
+                ImportResult.Success(bookId)
+            },
+            onFailure = { error ->
+                ImportResult.Failure(error.message)
+            }
+        )
+    }
+
+    private suspend fun import(file: File): Try<Long, ImportError> {
+        val asset = readium.assetRetriever.retrieve(file).getOrElse {
+            return Try.failure(
+                ImportError.Publication(
+                    PublicationError(it)
+                )
+            )
+        }
+
+        val publication = readium.publicationOpener
+            .open(asset, allowUserInteraction = false)
+            .getOrElse {
+                return Try.failure(
+                    ImportError.Publication(PublicationError(it))
+                )
+            }
+
+        val coverFile = coverStorage.storeCover(publication).getOrElse {
+            return Try.failure(
+                ImportError.FileSystem(
+                    FileSystemError.IO(it)
+                )
+            )
+        }
+
+        val id = bookRepository.insertBook(
+            file.absoluteFile.toUrl(),
+            asset.format.mediaType,
+            publication,
+            coverFile
+        )
+        if (id == -1L) {
+            return Try.failure(
+                ImportError.Database(
+                    DebugError("Failed to insert book into the database.")
+                )
+            )
+        }
+
+        return Try.success(id)
+    }
 
     private suspend fun doOpen(bookId: Long): Try<Unit, OpeningError> {
         if (bookId in repository.keys) {

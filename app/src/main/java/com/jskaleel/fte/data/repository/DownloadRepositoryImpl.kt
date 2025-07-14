@@ -1,8 +1,12 @@
 package com.jskaleel.fte.data.repository
 
+import android.R
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
+import com.jskaleel.epub.EpubApplication
+import com.jskaleel.epub.reader.ReaderRepository
+import com.jskaleel.epub.utils.ImportResult
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.getDownloadDir
 import com.jskaleel.fte.data.model.DownloadResult
@@ -21,7 +25,8 @@ import javax.inject.Inject
 class DownloadRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val database: BooksDatabase,
-    private val fileDownloader: FileDownloader
+    private val fileDownloader: FileDownloader,
+    private val readerRepository: ReaderRepository,
 ) : DownloadRepository {
 
     private val notificationManager: NotificationManager =
@@ -68,18 +73,34 @@ class DownloadRepositoryImpl @Inject constructor(
             }
             _downloadStatus.emit(status)
             if (status is DownloadResult.Success) {
-                val book = database.bookDao().getById(status.id)
-                database.downloadedBookDao().insert(
-                    DownloadedBookEntity(
-                        bookId = book.id,
-                        filePath = status.file.path,
-                        title = book.title,
-                        author = book.author,
-                        category = book.category,
-                        image = book.image,
-                        timestamp = System.currentTimeMillis()
+                parseEBook(file = status.file, bookId = status.id)
+            }
+        }
+    }
+
+    private fun parseEBook(file: File, bookId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val book = database.bookDao().getById(bookId)
+            val importResult = readerRepository.importBook(file)
+            when (importResult) {
+                is ImportResult.Success -> {
+                    database.downloadedBookDao().insert(
+                        DownloadedBookEntity(
+                            bookId = book.id,
+                            filePath = file.path,
+                            title = book.title,
+                            author = book.author,
+                            category = book.category,
+                            image = book.image,
+                            timestamp = System.currentTimeMillis(),
+                            readerId = importResult.id,
+                        )
                     )
-                )
+                }
+
+                is ImportResult.Failure -> {
+                    emitStatus(DownloadResult.Error(bookId, "புத்தகம் திறக்க முடியவில்லை."))
+                }
             }
         }
     }
@@ -113,7 +134,7 @@ class DownloadRepositoryImpl @Inject constructor(
 
     private fun showDownloadSuccessNotification(id: String, fileName: String) {
         val notification = NotificationCompat.Builder(context, "download_channel")
-            .setSmallIcon(android.R.drawable.stat_sys_download_done)
+            .setSmallIcon(R.drawable.stat_sys_download_done)
             .setContentTitle(fileName)
             .setContentText("புத்தகம் பதிவிறக்கப்பட்டது...")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

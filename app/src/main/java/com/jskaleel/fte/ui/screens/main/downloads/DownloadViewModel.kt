@@ -43,7 +43,10 @@ class DownloadViewModel @Inject constructor(
     fun onEvent(event: DownloadEvent) {
         when (event) {
             is DownloadEvent.OnBookClick -> {
-                navigation = navigate(OpenBook(id = event.bookId))
+                val readerId = viewModelState.value.books.firstOrNull { it.id == event.bookId }?.readerId
+                readerId?.let { id ->
+                    navigation = navigate(OpenBook(id = id))
+                }
             }
 
             is DownloadEvent.OnDeleteClick -> {
@@ -110,7 +113,7 @@ sealed interface DownloadUiState {
 }
 
 sealed interface DownloadNavigationState {
-    data class OpenBook(val id: String) : DownloadNavigationState
+    data class OpenBook(val id: Long) : DownloadNavigationState
 }
 
 sealed interface DownloadEvent {

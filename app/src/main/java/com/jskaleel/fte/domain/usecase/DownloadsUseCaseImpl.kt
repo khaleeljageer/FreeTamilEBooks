@@ -23,6 +23,7 @@ class DownloadsUseCaseImpl @Inject constructor(
                     author = it.author,
                     image = it.image.toImage(),
                     category = it.category,
+                    readerId = it.readerId
                 )
             }
         }

@@ -25,11 +25,9 @@ import org.readium.r2.streamer.parser.DefaultPublicationParser
  */
 class Readium(context: Context) {
 
-    val httpClient =
-        DefaultHttpClient()
+    val httpClient = DefaultHttpClient()
 
-    val assetRetriever =
-        AssetRetriever(context.contentResolver, httpClient)
+    val assetRetriever = AssetRetriever(context.contentResolver, httpClient)
 
     /**
      * The LCP service decrypts LCP-protected publication and acquire publications from a

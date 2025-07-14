@@ -12,10 +12,11 @@ import coil3.memory.MemoryCache
 import coil3.request.crossfade
 import com.downloader.PRDownloader
 import com.downloader.PRDownloaderConfig
+import com.jskaleel.epub.EpubApplication
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FTEBooksApp : Application(), SingletonImageLoader.Factory {
+class FTEBooksApp : EpubApplication(), SingletonImageLoader.Factory {
     override fun onCreate() {
         super.onCreate()
         val config = PRDownloaderConfig.newBuilder()

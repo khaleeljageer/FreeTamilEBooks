@@ -36,9 +36,6 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
             val viewModel: DownloadViewModel = hiltViewModel()
 
             DownloadScreenRoute(
-                openBook = { id ->
-
-                },
                 viewModel = viewModel
             )
         }

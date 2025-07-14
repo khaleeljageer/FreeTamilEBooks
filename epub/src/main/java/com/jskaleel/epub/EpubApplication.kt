@@ -13,21 +13,17 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.google.android.material.color.DynamicColors
 import com.jskaleel.epub.data.BookRepository
 import com.jskaleel.epub.data.db.AppDatabase
+import com.jskaleel.epub.domain.CoverStorage
 import com.jskaleel.epub.reader.ReaderRepository
 import com.jskaleel.epub.reader.Readium
 import com.jskaleel.epub.utils.tryOrLog
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import timber.log.Timber
 import java.io.File
-import java.util.Properties
 
-class EpubApplication : android.app.Application() {
+open class EpubApplication : android.app.Application() {
 
     lateinit var readium: Readium
         private set
-
-    lateinit var storageDir: File
 
     lateinit var bookRepository: BookRepository
         private set
@@ -35,14 +31,13 @@ class EpubApplication : android.app.Application() {
     lateinit var readerRepository: ReaderRepository
         private set
 
-    private val coroutineScope: CoroutineScope =
-        MainScope()
-
     private val Context.navigatorPreferences: DataStore<Preferences>
             by preferencesDataStore(name = "navigator-preferences")
 
     override fun onCreate() {
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         super.onCreate()
 
@@ -50,9 +45,8 @@ class EpubApplication : android.app.Application() {
 
         readium = Readium(this)
 
-        storageDir = computeStorageDir()
-
         val database = AppDatabase.getDatabase(this)
+        val coverStorage = CoverStorage(File(this.filesDir.path + "/"))
 
         bookRepository = BookRepository(database.booksDao())
 
@@ -65,23 +59,8 @@ class EpubApplication : android.app.Application() {
             this@EpubApplication,
             readium,
             bookRepository,
-            navigatorPreferences
-        )
-    }
-
-    private fun computeStorageDir(): File {
-        val properties = Properties()
-        val inputStream = assets.open("configs/config.properties")
-        properties.load(inputStream)
-        val useExternalFileDir =
-            properties.getProperty("useExternalFileDir", "false")!!.toBoolean()
-
-        return File(
-            if (useExternalFileDir) {
-                getExternalFilesDir(null)?.path + "/"
-            } else {
-                filesDir?.path + "/"
-            }
+            navigatorPreferences,
+            coverStorage
         )
     }
 }

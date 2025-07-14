@@ -9,6 +9,7 @@ data class Book(
     val category: String,
     val image: ImageType,
     val url: String,
+    val readerId: Long = -1L,
     val downloadProgress: Int = 0,
     val downloading: Boolean = false,
     val downloaded: Boolean = false

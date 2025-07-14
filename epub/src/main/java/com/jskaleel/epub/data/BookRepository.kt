@@ -7,7 +7,11 @@
 package com.jskaleel.epub.data
 
 import androidx.annotation.ColorInt
-import java.io.File
+import com.jskaleel.epub.data.dao.EBooksDao
+import com.jskaleel.epub.data.model.EBook
+import com.jskaleel.epub.data.model.EBookBookmark
+import com.jskaleel.epub.data.model.EBookHighlight
+import com.jskaleel.epub.utils.extensions.readium.authorName
 import kotlinx.coroutines.flow.Flow
 import org.joda.time.DateTime
 import org.readium.r2.shared.publication.Locator
@@ -15,11 +19,7 @@ import org.readium.r2.shared.publication.Publication
 import org.readium.r2.shared.publication.indexOfFirstWithHref
 import org.readium.r2.shared.util.Url
 import org.readium.r2.shared.util.mediatype.MediaType
-import com.jskaleel.epub.data.dao.EBooksDao
-import com.jskaleel.epub.data.model.EBook
-import com.jskaleel.epub.data.model.EBookBookmark
-import com.jskaleel.epub.data.model.EBookHighlight
-import com.jskaleel.epub.utils.extensions.readium.authorName
+import java.io.File
 
 class BookRepository(
     private val booksDao: EBooksDao,
