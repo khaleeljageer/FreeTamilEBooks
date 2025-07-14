@@ -1,5 +1,5 @@
 [versions]
-agp = "8.11.0"
+agp = "8.11.1"
 kotlin = "2.2.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -18,9 +18,19 @@ roomRuntime = "2.7.2"
 datastorePreferences = "1.1.7"
 prdownloader = "1.0.2"
 hiltNavigationCompose = "1.2.0"
-detekt ="1.23.8"
+detekt = "1.23.8"
 accompanistPermissions = "0.37.3"
 lottieCompose = "6.6.7"
+appcompat = "1.7.1"
+google-material = "1.12.0"
+readium = "3.1.1"
+joda-time = "2.14.0"
+timber = "5.0.1"
+androidx-fragment-ktx = "1.8.8"
+androidx-paging = "3.3.6"
+androidx-activity = "1.10.1"
+kotlinx-coroutines = "1.10.2"
+androidx-media3 = "1.7.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,9 +50,9 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationCompose" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -54,6 +64,33 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 prdownloader = { module = "com.github.amitshekhariitbhu:PRDownloader", version.ref = "prdownloader" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+joda-time = { group = "joda-time", name = "joda-time", version.ref = "joda-time" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidx-fragment-ktx" }
+androidx-paging = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "androidx-paging" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+androidx-media3-common = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "androidx-media3" }
+androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "androidx-media3" }
+
+# Readium Kotlin Toolkit
+readium-shared = { group = "org.readium.kotlin-toolkit", name = "readium-shared", version.ref = "readium" }
+readium-streamer = { group = "org.readium.kotlin-toolkit", name = "readium-streamer", version.ref = "readium" }
+readium-navigator = { group = "org.readium.kotlin-toolkit", name = "readium-navigator", version.ref = "readium" }
+readium-navigator-media-tts = { group = "org.readium.kotlin-toolkit", name = "readium-navigator-media-tts", version.ref = "readium" }
+readium-lcp = { group = "org.readium.kotlin-toolkit", name = "readium-lcp", version.ref = "readium" }
+
+[bundles]
+readium-core = [
+    "readium-shared",
+    "readium-streamer",
+    "readium-navigator",
+    "readium-navigator-media-tts",
+    "readium-lcp"
+]
+media3 = ["androidx-media3-session", "androidx-media3-common"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -62,3 +99,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 detekt-android = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+android-library = { id = "com.android.library", version.ref = "agp" }

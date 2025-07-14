@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -125,6 +126,9 @@ dependencies {
     implementation(libs.accompanist.permissions)
     // Lottie
     implementation(libs.lottie.compose)
+
+    // EPUB Reader
+    implementation(project(":epub"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

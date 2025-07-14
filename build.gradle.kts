@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.hiltAndroid) apply false
     alias(libs.plugins.detekt.android) apply false
+    alias(libs.plugins.android.library) apply false
 }
 
 buildscript {

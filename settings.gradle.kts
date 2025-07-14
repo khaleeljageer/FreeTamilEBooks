@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "FTE Books"
 include(":app")
- 
+include(":epub")
