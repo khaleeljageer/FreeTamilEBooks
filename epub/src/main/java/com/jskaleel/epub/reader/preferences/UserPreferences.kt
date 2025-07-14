@@ -28,7 +28,7 @@ import org.readium.r2.shared.util.Language
 import org.readium.r2.testapp.LITERATA
 import com.jskaleel.epub.reader.tts.TtsPreferencesEditor
 import org.readium.r2.testapp.shared.views.*
-import org.readium.r2.testapp.utils.compose.DropdownMenuButton
+import com.jskaleel.epub.utils.compose.DropdownMenuButton
 
 /**
  * Stateful user settings component paired with a [ReaderViewModel].

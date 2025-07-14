@@ -33,7 +33,7 @@ class MediaServiceFacade(
     private val coroutineQueue: CoroutineQueue =
         CoroutineQueue()
 
-    private var binder: MediaService.Binder? =
+    private var binder: MediaService.InnerBinder? =
         null
 
     private var bindingJob: Job? =

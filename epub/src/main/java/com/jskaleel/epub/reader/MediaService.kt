@@ -44,7 +44,7 @@ class MediaService : MediaSessionService() {
     /**
      * The service interface to be used by the app.
      */
-    inner class Binder : android.os.Binder() {
+    inner class InnerBinder : android.os.Binder() {
 
         private val app: org.readium.r2.testapp.Application
             get() = application as org.readium.r2.testapp.Application
@@ -102,9 +102,7 @@ class MediaService : MediaSessionService() {
         private fun createSessionActivityIntent(): PendingIntent {
             // This intent will be triggered when the notification is clicked.
             var flags = PendingIntent.FLAG_UPDATE_CURRENT
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                flags = flags or PendingIntent.FLAG_IMMUTABLE
-            }
+            flags = flags or PendingIntent.FLAG_IMMUTABLE
 
             val intent = application.packageManager.getLaunchIntentForPackage(
                 application.packageName
@@ -121,7 +119,7 @@ class MediaService : MediaSessionService() {
     }
 
     private val binder by lazy {
-        Binder()
+        InnerBinder()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -202,15 +200,15 @@ class MediaService : MediaSessionService() {
             application.stopService(intent)
         }
 
-        suspend fun bind(application: Application): Binder {
-            val mediaServiceBinder: CompletableDeferred<Binder> =
+        suspend fun bind(application: Application): InnerBinder {
+            val mediaServiceBinder: CompletableDeferred<InnerBinder> =
                 CompletableDeferred()
 
             val mediaServiceConnection = object : ServiceConnection {
 
                 override fun onServiceConnected(name: ComponentName?, service: IBinder) {
                     Timber.d("MediaService bound.")
-                    mediaServiceBinder.complete(service as Binder)
+                    mediaServiceBinder.complete(service as InnerBinder)
                 }
 
                 override fun onServiceDisconnected(name: ComponentName) {

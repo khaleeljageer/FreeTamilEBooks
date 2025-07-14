@@ -25,6 +25,8 @@ import com.jskaleel.epub.reader.preferences.UserPreferencesViewModel
 import com.jskaleel.epub.reader.tts.TtsViewModel
 import com.jskaleel.epub.utils.EventChannel
 import com.jskaleel.epub.utils.UserError
+import com.jskaleel.epub.utils.createViewModelFactory
+import com.jskaleel.epub.utils.extensions.toHtml
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,9 +52,7 @@ import org.readium.r2.shared.util.Try
 import org.readium.r2.shared.util.Url
 import org.readium.r2.shared.util.data.ReadError
 import org.readium.r2.testapp.Application
-import org.readium.r2.testapp.search.SearchPagingSource
-import org.readium.r2.testapp.utils.createViewModelFactory
-import org.readium.r2.testapp.utils.extensions.toHtml
+import com.jskaleel.epub.search.SearchPagingSource
 import timber.log.Timber
 
 @OptIn(ExperimentalReadiumApi::class)
