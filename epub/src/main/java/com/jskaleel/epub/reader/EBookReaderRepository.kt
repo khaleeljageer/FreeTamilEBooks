@@ -15,7 +15,7 @@ import com.jskaleel.epub.domain.PublicationError
 import com.jskaleel.epub.reader.preferences.AndroidTtsPreferencesManagerFactory
 import com.jskaleel.epub.reader.preferences.EpubPreferencesManagerFactory
 import com.jskaleel.epub.utils.CoroutineQueue
-import com.jskaleel.epub.utils.ImportResult
+import com.jskaleel.epub.utils.IResult
 import org.json.JSONObject
 import org.readium.navigator.media.tts.TtsNavigatorFactory
 import org.readium.r2.navigator.epub.EpubNavigatorFactory
@@ -42,7 +42,7 @@ import androidx.datastore.preferences.core.Preferences as JetpackPreferences
  * retrieve from this repository - media or visual.
  */
 @OptIn(ExperimentalReadiumApi::class)
-class ReaderRepository(
+class EBookReaderRepository(
     private val application: Application,
     private val readium: Readium,
     private val bookRepository: BookRepository,
@@ -64,16 +64,27 @@ class ReaderRepository(
     operator fun get(bookId: Long): ReaderInitData? =
         repository[bookId]
 
-    suspend fun open(bookId: Long): Try<Unit, OpeningError> =
+    private suspend fun open(bookId: Long): Try<Unit, OpeningError> =
         coroutineQueue.await { doOpen(bookId) }
 
-    suspend fun importBook(file: File): ImportResult {
-        return import(file).fold(
-            onSuccess = { bookId ->
-                ImportResult.Success(bookId)
+    suspend fun openBook(bookId: Long): IResult {
+        return open(bookId).fold(
+            onSuccess = {
+                IResult.Success(bookId)
             },
             onFailure = { error ->
-                ImportResult.Failure(error.message)
+                IResult.Failure(error.message)
+            }
+        )
+    }
+
+    suspend fun importBook(file: File): IResult {
+        return import(file).fold(
+            onSuccess = { bookId ->
+                IResult.Success(bookId)
+            },
+            onFailure = { error ->
+                IResult.Failure(error.message)
             }
         )
     }

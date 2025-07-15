@@ -14,7 +14,7 @@ import com.google.android.material.color.DynamicColors
 import com.jskaleel.epub.data.BookRepository
 import com.jskaleel.epub.data.db.AppDatabase
 import com.jskaleel.epub.domain.CoverStorage
-import com.jskaleel.epub.reader.ReaderRepository
+import com.jskaleel.epub.reader.EBookReaderRepository
 import com.jskaleel.epub.reader.Readium
 import com.jskaleel.epub.utils.tryOrLog
 import timber.log.Timber
@@ -28,7 +28,7 @@ open class EpubApplication : android.app.Application() {
     lateinit var bookRepository: BookRepository
         private set
 
-    lateinit var readerRepository: ReaderRepository
+    lateinit var eBookReaderRepository: EBookReaderRepository
         private set
 
     private val Context.navigatorPreferences: DataStore<Preferences>
@@ -55,7 +55,7 @@ open class EpubApplication : android.app.Application() {
         // Cleans the download dir.
         tryOrLog { downloadsDir.delete() }
 
-        readerRepository = ReaderRepository(
+        eBookReaderRepository = EBookReaderRepository(
             this@EpubApplication,
             readium,
             bookRepository,

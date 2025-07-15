@@ -1,12 +1,10 @@
 package com.jskaleel.fte.data.repository
 
-import android.R
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.jskaleel.epub.EpubApplication
-import com.jskaleel.epub.reader.ReaderRepository
-import com.jskaleel.epub.utils.ImportResult
+import com.jskaleel.epub.reader.EBookReaderRepository
+import com.jskaleel.epub.utils.IResult
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.getDownloadDir
 import com.jskaleel.fte.data.model.DownloadResult
@@ -26,7 +24,7 @@ class DownloadRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val database: BooksDatabase,
     private val fileDownloader: FileDownloader,
-    private val readerRepository: ReaderRepository,
+    private val eBookReaderRepository: EBookReaderRepository,
 ) : DownloadRepository {
 
     private val notificationManager: NotificationManager =
@@ -81,9 +79,9 @@ class DownloadRepositoryImpl @Inject constructor(
     private fun parseEBook(file: File, bookId: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val book = database.bookDao().getById(bookId)
-            val importResult = readerRepository.importBook(file)
+            val importResult = eBookReaderRepository.importBook(file)
             when (importResult) {
-                is ImportResult.Success -> {
+                is IResult.Success -> {
                     database.downloadedBookDao().insert(
                         DownloadedBookEntity(
                             bookId = book.id,
@@ -98,7 +96,7 @@ class DownloadRepositoryImpl @Inject constructor(
                     )
                 }
 
-                is ImportResult.Failure -> {
+                is IResult.Failure -> {
                     emitStatus(DownloadResult.Error(bookId, "புத்தகம் திறக்க முடியவில்லை."))
                 }
             }
@@ -134,7 +132,7 @@ class DownloadRepositoryImpl @Inject constructor(
 
     private fun showDownloadSuccessNotification(id: String, fileName: String) {
         val notification = NotificationCompat.Builder(context, "download_channel")
-            .setSmallIcon(R.drawable.stat_sys_download_done)
+            .setSmallIcon(android.R.drawable.stat_sys_download_done)
             .setContentTitle(fileName)
             .setContentText("புத்தகம் பதிவிறக்கப்பட்டது...")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

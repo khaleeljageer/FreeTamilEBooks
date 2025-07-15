@@ -58,7 +58,7 @@ import timber.log.Timber
 @OptIn(ExperimentalReadiumApi::class)
 class ReaderViewModel(
     private val bookId: Long,
-    private val readerRepository: ReaderRepository,
+    private val eBookReaderRepository: EBookReaderRepository,
     private val bookRepository: BookRepository,
 ) : ViewModel(),
     EpubNavigatorFragment.Listener,
@@ -67,7 +67,7 @@ class ReaderViewModel(
 
     val readerInitData =
         try {
-            checkNotNull(readerRepository[bookId])
+            checkNotNull(eBookReaderRepository[bookId])
         } catch (e: Exception) {
             DummyReaderInitData(bookId)
         }
@@ -101,7 +101,7 @@ class ReaderViewModel(
         // When the ReaderViewModel is disposed of, we want to close the publication to avoid
         // using outdated information (such as the initial location) if the `ReaderActivity` is
         // opened again with the same book.
-        readerRepository.close(bookId)
+        eBookReaderRepository.close(bookId)
     }
 
     fun saveProgression(locator: Locator) = viewModelScope.launch {
@@ -347,7 +347,7 @@ class ReaderViewModel(
             createViewModelFactory {
                 ReaderViewModel(
                     arguments.bookId,
-                    application.readerRepository,
+                    application.eBookReaderRepository,
                     application.bookRepository
                 )
             }

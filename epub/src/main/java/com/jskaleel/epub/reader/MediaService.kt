@@ -139,7 +139,7 @@ class MediaService : MediaSessionService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
-        val readerRepository = (application as EpubApplication).readerRepository
+        val readerRepository = (application as EpubApplication).eBookReaderRepository
 
         // App and service can be started again from a stale notification using
         // PendingIntent.getForegroundService, so we need to call startForeground and then stop

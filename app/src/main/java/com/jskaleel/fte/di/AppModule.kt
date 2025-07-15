@@ -2,7 +2,7 @@ package com.jskaleel.fte.di
 
 import android.content.Context
 import com.jskaleel.epub.EpubApplication
-import com.jskaleel.epub.reader.ReaderRepository
+import com.jskaleel.epub.reader.EBookReaderRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideReaderRepository(epubApplication: EpubApplication): ReaderRepository {
-        return epubApplication.readerRepository
+    fun provideReaderRepository(epubApplication: EpubApplication): EBookReaderRepository {
+        return epubApplication.eBookReaderRepository
     }
 }
