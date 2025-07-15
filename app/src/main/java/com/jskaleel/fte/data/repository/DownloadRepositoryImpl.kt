@@ -3,12 +3,13 @@ package com.jskaleel.fte.data.repository
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
+import com.jskaleel.epub.reader.EBookReaderRepository
+import com.jskaleel.epub.utils.IResult
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.getDownloadDir
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.data.source.local.BooksDatabase
 import com.jskaleel.fte.data.source.local.entity.DownloadedBookEntity
-import com.jskaleel.fte.domain.model.RecentReadItem
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class DownloadRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val database: BooksDatabase,
-    private val fileDownloader: FileDownloader
+    private val fileDownloader: FileDownloader,
+    private val eBookReaderRepository: EBookReaderRepository,
 ) : DownloadRepository {
 
     private val notificationManager: NotificationManager =
@@ -69,18 +71,34 @@ class DownloadRepositoryImpl @Inject constructor(
             }
             _downloadStatus.emit(status)
             if (status is DownloadResult.Success) {
-                val book = database.bookDao().getById(status.id)
-                database.downloadedBookDao().insert(
-                    DownloadedBookEntity(
-                        bookId = book.id,
-                        filePath = status.file.path,
-                        title = book.title,
-                        author = book.author,
-                        category = book.category,
-                        image = book.image,
-                        timestamp = System.currentTimeMillis()
+                parseEBook(file = status.file, bookId = status.id)
+            }
+        }
+    }
+
+    private fun parseEBook(file: File, bookId: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val book = database.bookDao().getById(bookId)
+            val importResult = eBookReaderRepository.importBook(file)
+            when (importResult) {
+                is IResult.Success -> {
+                    database.downloadedBookDao().insert(
+                        DownloadedBookEntity(
+                            bookId = book.id,
+                            filePath = file.path,
+                            title = book.title,
+                            author = book.author,
+                            category = book.category,
+                            image = book.image,
+                            timestamp = System.currentTimeMillis(),
+                            readerId = importResult.id,
+                        )
                     )
-                )
+                }
+
+                is IResult.Failure -> {
+                    emitStatus(DownloadResult.Error(bookId, "புத்தகம் திறக்க முடியவில்லை."))
+                }
             }
         }
     }

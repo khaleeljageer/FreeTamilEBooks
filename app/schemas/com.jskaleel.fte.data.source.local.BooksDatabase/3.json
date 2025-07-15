@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "c495615c5ccbb57f2695db85bcb25e8d",
+    "identityHash": "f2b25f910c20a0209993cd6de0ad6ee5",
     "entities": [
       {
         "tableName": "sync_status",
@@ -30,7 +30,7 @@
       },
       {
         "tableName": "downloaded_books",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookId` TEXT NOT NULL, `filePath` TEXT NOT NULL, `author` TEXT NOT NULL, `category` TEXT NOT NULL, `title` TEXT NOT NULL, `image` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `lastRead` INTEGER NOT NULL, PRIMARY KEY(`bookId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bookId` TEXT NOT NULL, `filePath` TEXT NOT NULL, `author` TEXT NOT NULL, `category` TEXT NOT NULL, `title` TEXT NOT NULL, `image` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `lastRead` INTEGER NOT NULL, `readerId` INTEGER NOT NULL, PRIMARY KEY(`bookId`))",
         "fields": [
           {
             "fieldPath": "bookId",
@@ -77,6 +77,12 @@
           {
             "fieldPath": "lastRead",
             "columnName": "lastRead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "readerId",
+            "columnName": "readerId",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -139,7 +145,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c495615c5ccbb57f2695db85bcb25e8d')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f2b25f910c20a0209993cd6de0ad6ee5')"
     ]
   }
 }

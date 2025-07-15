@@ -7,6 +7,7 @@ import java.util.Date
 
 typealias CallBack = () -> Unit
 typealias StringCallBack = (String) -> Unit
+typealias LongCallBack = (Long) -> Unit
 typealias BooleanCallBack = (Boolean) -> Unit
 
 fun getDetailedRelativeDateInTamil(timestamp: Long): String {

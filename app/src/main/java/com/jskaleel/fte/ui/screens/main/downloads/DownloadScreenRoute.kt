@@ -4,26 +4,33 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jskaleel.epub.reader.ReaderActivityContract
 import com.jskaleel.fte.R
-import com.jskaleel.fte.core.StringCallBack
 import com.jskaleel.fte.ui.screens.common.FullScreenLoader
 import com.jskaleel.fte.ui.utils.ProvideAppBarTitle
 import com.jskaleel.fte.ui.utils.consume
 
 @Composable
 fun DownloadScreenRoute(
-    openBook: StringCallBack,
     viewModel: DownloadViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     viewModel.navigation.consume { state ->
         when (state) {
             is DownloadNavigationState.OpenBook -> {
-                openBook(state.id)
+                val intent = ReaderActivityContract().createIntent(
+                    context,
+                    ReaderActivityContract.Arguments(
+                        bookId = state.id
+                    )
+                )
+                context.startActivity(intent)
             }
         }
     }
