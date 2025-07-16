@@ -14,7 +14,9 @@ import com.jskaleel.fte.ui.screens.main.downloads.DownloadViewModel
 import com.jskaleel.fte.ui.screens.main.search.SearchScreenRoute
 import com.jskaleel.fte.ui.screens.main.search.SearchViewModel
 
-fun NavGraphBuilder.mainNavGraph(navController: NavController) {
+fun NavGraphBuilder.mainNavGraph(
+    navController: NavController
+) {
     navigation(
         startDestination = Screen.Main.BookShelf.route,
         route = Route.Main.name

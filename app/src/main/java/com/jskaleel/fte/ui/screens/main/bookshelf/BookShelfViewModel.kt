@@ -1,10 +1,14 @@
 package com.jskaleel.fte.ui.screens.main.bookshelf
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
+import com.jskaleel.fte.ui.utils.mutableNavigationState
+import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,6 +26,9 @@ class BookShelfViewModel @Inject constructor(
     private val useCase: BookShelfUseCase
 ) : ViewModel() {
     private val mutex = Mutex()
+
+    var navigation by mutableNavigationState<BookShelfNavigationState>()
+        private set
     private val viewModelState = MutableStateFlow(BookShelfViewModelState(loading = true))
 
     val uiState = viewModelState.map {
@@ -108,7 +115,9 @@ class BookShelfViewModel @Inject constructor(
             }
 
             is BookListEvent.OnOpenClick -> {
-
+                navigation = navigate(
+                    BookShelfNavigationState.OpenBook(1L)
+                )
             }
 
             is BookListEvent.OnDeleteClick -> {
@@ -166,6 +175,10 @@ sealed class BookShelfUiState {
     data class Success(
         val books: List<BookUiModel>
     ) : BookShelfUiState()
+}
+
+sealed interface BookShelfNavigationState {
+    data class OpenBook(val id: Long) : BookShelfNavigationState
 }
 
 sealed interface BookListEvent {

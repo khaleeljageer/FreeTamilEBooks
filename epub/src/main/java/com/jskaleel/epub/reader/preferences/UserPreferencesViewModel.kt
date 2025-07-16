@@ -56,7 +56,6 @@ class UserPreferencesViewModel<S : Configurable.Settings, P : Configurable.Prefe
     }
 
     companion object {
-
         operator fun invoke(
             viewModelScope: CoroutineScope,
             readerInitData: ReaderInitData,

@@ -5,10 +5,13 @@ import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.jskaleel.fte.ui.screens.common.FullScreenLoader
+import com.jskaleel.fte.ui.utils.SnackBarController
+import com.jskaleel.fte.ui.utils.consume
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -17,6 +20,18 @@ fun BookShelfRoute(
     viewModel: BookShelfViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    val snackbar = SnackBarController.current
+
+    viewModel.navigation.consume {
+        when (it) {
+            is BookShelfNavigationState.OpenBook -> {
+//                context.launchReaderActivity(it.id)
+                snackbar.showMessage("Book Opened")
+            }
+        }
+    }
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         val notificationPermission = rememberPermissionState(

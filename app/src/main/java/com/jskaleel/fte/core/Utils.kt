@@ -1,6 +1,8 @@
 package com.jskaleel.fte.core
 
 import android.content.Context
+import android.content.Intent
+import com.jskaleel.epub.reader.ReaderActivityContract
 import java.io.File
 import java.util.Calendar
 import java.util.Date
@@ -90,4 +92,15 @@ fun Context.getDownloadDir(): File {
     return File(this.filesDir, "downloads").apply {
         if (!exists()) mkdirs()
     }
+}
+
+fun Context.launchReaderActivity(bookId: Long) {
+    val intent = ReaderActivityContract().createIntent(
+        this,
+        ReaderActivityContract.Arguments(
+            bookId = bookId
+        )
+    )
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    this.startActivity(intent)
 }
