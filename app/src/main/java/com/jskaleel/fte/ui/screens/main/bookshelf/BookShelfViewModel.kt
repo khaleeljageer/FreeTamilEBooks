@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.onError
+import com.jskaleel.fte.core.model.onSuccess
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
@@ -96,6 +98,10 @@ class BookShelfViewModel @Inject constructor(
     private fun syncBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             useCase.syncIfNeeded()
+                .onSuccess { }
+                .onError { code, message -> }
+            // Handle error if needed
+            // For example, show a toast or log the error
         }
     }
 
