@@ -14,7 +14,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.jskaleel.epub.utils.extensions.stateInFirst
 import com.jskaleel.epub.utils.tryOrNull
-import kotlin.reflect.KClass
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -29,10 +28,14 @@ import org.readium.r2.navigator.epub.EpubPreferences
 import org.readium.r2.navigator.epub.EpubPreferencesSerializer
 import org.readium.r2.navigator.epub.EpubPublicationPreferencesFilter
 import org.readium.r2.navigator.epub.EpubSharedPreferencesFilter
+import org.readium.r2.navigator.preferences.Color
 import org.readium.r2.navigator.preferences.Configurable
 import org.readium.r2.navigator.preferences.PreferencesFilter
 import org.readium.r2.navigator.preferences.PreferencesSerializer
+import org.readium.r2.navigator.preferences.Theme
 import org.readium.r2.shared.ExperimentalReadiumApi
+import org.readium.r2.shared.util.Language
+import kotlin.reflect.KClass
 
 class PreferencesManager<P : Configurable.Preferences<P>> internal constructor(
     val preferences: StateFlow<P>,
@@ -117,7 +120,9 @@ class EpubPreferencesManagerFactory(
     sharedPreferencesFilter = EpubSharedPreferencesFilter,
     publicationPreferencesFilter = EpubPublicationPreferencesFilter,
     preferencesSerializer = EpubPreferencesSerializer(),
-    emptyPreferences = EpubPreferences()
+    emptyPreferences = EpubPreferences(
+        theme = Theme.SEPIA
+    )
 )
 
 class AndroidTtsPreferencesManagerFactory(
@@ -128,5 +133,7 @@ class AndroidTtsPreferencesManagerFactory(
     sharedPreferencesFilter = AndroidTtsSharedPreferencesFilter,
     publicationPreferencesFilter = AndroidTtsPublicationPreferencesFilter,
     preferencesSerializer = AndroidTtsPreferencesSerializer(),
-    emptyPreferences = AndroidTtsPreferences()
+    emptyPreferences = AndroidTtsPreferences(
+        language = Language("ta")
+    )
 )

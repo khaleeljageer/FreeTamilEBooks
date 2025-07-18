@@ -162,19 +162,17 @@ class BookShelfViewModel @Inject constructor(
         viewModelScope.launch {
             val readerId = viewModelState.value.books.firstOrNull { it.id == bookId }?.readerId
             if (readerId != null) {
-                useCase.openBook(readerId)
-                    .onSuccess {
-                        navigation = navigate(
-                            BookShelfNavigationState.OpenBook(1L)
-                        )
-                    }
-                    .onError { _, _ ->
-                        // Handle the error, maybe show a message to the user
-                        // For example, you could log it or show a toast
-                        // Log.e("DownloadViewModel", "Error opening book: $it")
-                    }
+//                useCase.openBook(readerId)
+//                    .onSuccess {
+//                        navigation = navigate(
+//                            BookShelfNavigationState.OpenBook(1L)
+//                        )
+//                    }
+//                    .onError { _, _ ->
+//
+//                    }
             } else {
-                // Handle the case where readerIdis null, maybe show an error or a message
+
             }
         }
     }

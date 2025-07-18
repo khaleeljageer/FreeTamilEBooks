@@ -69,8 +69,8 @@ abstract class BaseReaderFragment : Fragment() {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                     menuInflater.inflate(R.menu.menu_reader, menu)
 
-                    menu.findItem(R.id.settings).isVisible =
-                        navigator is Configurable<*, *>
+//                    menu.findItem(R.id.settings).isVisible =
+//                        navigator is Configurable<*, *>
 
                     menu.findItem(R.id.drm).isVisible =
                         model.publication.lcpLicense != null
@@ -88,10 +88,10 @@ abstract class BaseReaderFragment : Fragment() {
                             model.insertBookmark(navigator.currentLocator.value)
                         }
 
-                        R.id.settings -> {
-                            MainPreferencesBottomSheetDialogFragment()
-                                .show(childFragmentManager, "Settings")
-                        }
+//                        R.id.settings -> {
+//                            MainPreferencesBottomSheetDialogFragment()
+//                                .show(childFragmentManager, "Settings")
+//                        }
 
                         R.id.drm -> {
                             model.activityChannel.send(

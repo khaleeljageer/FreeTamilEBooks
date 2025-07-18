@@ -17,6 +17,11 @@ import com.jskaleel.epub.domain.CoverStorage
 import com.jskaleel.epub.reader.EBookReaderRepository
 import com.jskaleel.epub.reader.Readium
 import com.jskaleel.epub.utils.tryOrLog
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.runBlocking
+import org.readium.r2.navigator.preferences.Preference
 import timber.log.Timber
 import java.io.File
 
