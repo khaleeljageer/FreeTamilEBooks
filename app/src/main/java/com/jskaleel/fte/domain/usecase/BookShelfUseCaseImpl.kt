@@ -41,6 +41,14 @@ class BookShelfUseCaseImpl @Inject constructor(
         downloadRepository.deleteBook(bookId)
     }
 
+    override fun fetchDownloadedBooks(): Flow<List<String>> {
+        return downloadRepository.getAllDownloadedBook().map {
+            it.map { book ->
+                book.bookId
+            }
+        }
+    }
+
     override suspend fun syncIfNeeded(): ResultState<Unit> {
         return booksRepository.syncIfNeeded()
     }

@@ -22,19 +22,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.core.CallBack
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.ImageType
+import com.jskaleel.fte.core.model.consume
 import com.jskaleel.fte.ui.screens.common.components.BookItem
 import com.jskaleel.fte.ui.screens.common.extensions.isScrollingUp
 import com.jskaleel.fte.ui.theme.dimension
+import com.jskaleel.fte.ui.utils.SnackBarController
 import kotlinx.coroutines.launch
 
 @Composable
 fun BookShelfContent(
     event: (BookListEvent) -> Unit,
     books: List<BookUiModel>,
+    error: ErrorState
 ) {
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
+    val snackBar = SnackBarController.current
+
+    error.consume {
+        snackBar.showMessage(
+            message = it.message
+        )
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(

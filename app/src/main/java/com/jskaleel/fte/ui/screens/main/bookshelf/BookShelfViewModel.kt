@@ -4,11 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.onError
 import com.jskaleel.fte.core.model.onSuccess
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
+import com.jskaleel.fte.ui.screens.main.downloads.DownloadNavigationState
 import com.jskaleel.fte.ui.utils.mutableNavigationState
 import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,6 +47,17 @@ class BookShelfViewModel @Inject constructor(
         syncBooks()
         observeBooks()
         observeDownloadStatus()
+        observeDownloads()
+    }
+
+    private fun observeDownloads() {
+        viewModelScope.launch {
+            useCase.fetchDownloadedBooks().collect { downloads ->
+                viewModelState.update {
+                    it.copy(downloadedBooks = downloads)
+                }
+            }
+        }
     }
 
     private fun observeDownloadStatus() {
@@ -98,10 +111,12 @@ class BookShelfViewModel @Inject constructor(
     private fun syncBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             useCase.syncIfNeeded()
-                .onSuccess { }
-                .onError { code, message -> }
-            // Handle error if needed
-            // For example, show a toast or log the error
+                .onSuccess {
+
+                }
+                .onError { code, message ->
+
+                }
         }
     }
 
@@ -121,9 +136,7 @@ class BookShelfViewModel @Inject constructor(
             }
 
             is BookListEvent.OnOpenClick -> {
-                navigation = navigate(
-                    BookShelfNavigationState.OpenBook(1L)
-                )
+                openBook(event.bookId)
             }
 
             is BookListEvent.OnDeleteClick -> {
@@ -145,6 +158,27 @@ class BookShelfViewModel @Inject constructor(
         }
     }
 
+    private fun openBook(bookId: String) {
+        viewModelScope.launch {
+            val readerId = viewModelState.value.books.firstOrNull { it.id == bookId }?.readerId
+            if (readerId != null) {
+                useCase.openBook(readerId)
+                    .onSuccess {
+                        navigation = navigate(
+                            BookShelfNavigationState.OpenBook(1L)
+                        )
+                    }
+                    .onError { _, _ ->
+                        // Handle the error, maybe show a message to the user
+                        // For example, you could log it or show a toast
+                        // Log.e("DownloadViewModel", "Error opening book: $it")
+                    }
+            } else {
+                // Handle the case where readerIdis null, maybe show an error or a message
+            }
+        }
+    }
+
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
             yield()
@@ -155,7 +189,9 @@ class BookShelfViewModel @Inject constructor(
 
 private data class BookShelfViewModelState(
     val loading: Boolean = true,
-    val books: List<Book> = emptyList()
+    val books: List<Book> = emptyList(),
+    val error: ErrorState = ErrorState.none,
+    val downloadedBooks: List<String> = emptyList(),
 ) {
     fun toUiState() =
         when {
@@ -171,7 +207,8 @@ private data class BookShelfViewModelState(
                         downloaded = it.downloaded,
                         downloading = it.downloading,
                     )
-                }
+                },
+                error = error
             )
         }
 }
@@ -179,7 +216,8 @@ private data class BookShelfViewModelState(
 sealed class BookShelfUiState {
     data object Loading : BookShelfUiState()
     data class Success(
-        val books: List<BookUiModel>
+        val books: List<BookUiModel>,
+        val error: ErrorState,
     ) : BookShelfUiState()
 }
 

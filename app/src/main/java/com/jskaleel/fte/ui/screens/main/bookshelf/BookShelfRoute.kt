@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
+import com.jskaleel.fte.core.launchReaderActivity
 import com.jskaleel.fte.ui.screens.common.FullScreenLoader
 import com.jskaleel.fte.ui.utils.SnackBarController
 import com.jskaleel.fte.ui.utils.consume
@@ -22,13 +23,10 @@ fun BookShelfRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
-    val snackbar = SnackBarController.current
-
     viewModel.navigation.consume {
         when (it) {
             is BookShelfNavigationState.OpenBook -> {
-//                context.launchReaderActivity(it.id)
-                snackbar.showMessage("Book Opened")
+                context.launchReaderActivity(it.id)
             }
         }
     }
@@ -48,6 +46,7 @@ fun BookShelfRoute(
             BookShelfContent(
                 event = viewModel::onEvent,
                 books = state.books,
+                error = state.error,
             )
         }
     }

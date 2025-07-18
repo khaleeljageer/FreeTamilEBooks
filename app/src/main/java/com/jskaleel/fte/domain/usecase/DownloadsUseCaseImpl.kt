@@ -15,7 +15,7 @@ class DownloadsUseCaseImpl @Inject constructor(
     private val eBookReaderRepository: EBookReaderRepository
 ) : DownloadsUseCase {
 
-    override suspend fun observeDownloadedBooks(): Flow<List<Book>> {
+    override fun observeDownloadedBooks(): Flow<List<Book>> {
         return downloadRepository.getAllDownloadedBook().map { list ->
             list.map {
                 Book(

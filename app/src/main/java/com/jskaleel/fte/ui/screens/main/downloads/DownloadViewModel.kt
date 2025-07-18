@@ -76,6 +76,10 @@ class DownloadViewModel @Inject constructor(
     }
 
     init {
+        observerDownloadedBooks()
+    }
+
+    private fun observerDownloadedBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             useCase.observeDownloadedBooks().collect { books ->
                 viewModelState.update {
