@@ -28,15 +28,27 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.jskaleel.fte.R
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.ImageType
+import com.jskaleel.fte.core.model.consume
 import com.jskaleel.fte.ui.screens.common.components.BookItem
 import com.jskaleel.fte.ui.theme.dimension
+import com.jskaleel.fte.ui.utils.SnackBarController
 
 @Composable
 fun DownloadScreenContent(
     event: (DownloadEvent) -> Unit,
-    books: List<BookUiModel>
+    books: List<BookUiModel>,
+    error: ErrorState
 ) {
+    val snackBar = SnackBarController.current
+
+    error.consume {
+        snackBar.showMessage(
+            message = it.message
+        )
+    }
+
     LazyColumn(
         contentPadding = PaddingValues(vertical = MaterialTheme.dimension.small),
         modifier = Modifier.clipToBounds()

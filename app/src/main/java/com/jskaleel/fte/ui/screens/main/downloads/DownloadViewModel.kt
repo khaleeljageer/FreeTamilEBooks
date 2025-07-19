@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.onError
 import com.jskaleel.fte.core.model.onSuccess
 import com.jskaleel.fte.domain.model.Book
@@ -102,6 +103,7 @@ class DownloadViewModel @Inject constructor(
 
 private data class DownloadViewModelState(
     val loading: Boolean = true,
+    val error: ErrorState = ErrorState.none,
     val books: List<Book> = emptyList()
 ) {
     fun toUiState(): DownloadUiState {
@@ -121,7 +123,8 @@ private data class DownloadViewModelState(
                             category = it.category,
                             image = it.image,
                         )
-                    }
+                    },
+                    error = error
                 )
             }
         }
@@ -131,7 +134,10 @@ private data class DownloadViewModelState(
 sealed interface DownloadUiState {
     data object Loading : DownloadUiState
     data object Empty : DownloadUiState
-    data class Success(val books: List<BookUiModel>) : DownloadUiState
+    data class Success(
+        val books: List<BookUiModel>,
+        val error: ErrorState,
+    ) : DownloadUiState
 }
 
 sealed interface DownloadNavigationState {
