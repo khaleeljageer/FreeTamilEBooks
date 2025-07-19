@@ -97,13 +97,8 @@ class EpubReaderFragment : VisualReaderFragment() {
                     // Declare a custom font family for reflowable EPUBs.
                     addFontFamilyDeclaration(FontFamily.LITERATA) {
                         addFontFace {
-                            addSource("fonts/Literata-VariableFont_opsz,wght.ttf")
+                            addSource("fonts/noto_sans_variable.ttf")
                             setFontStyle(FontStyle.NORMAL)
-                            setFontWeight(200..900)
-                        }
-                        addFontFace {
-                            addSource("fonts/Literata-Italic-VariableFont_opsz,wght.ttf")
-                            setFontStyle(FontStyle.ITALIC)
                             setFontWeight(200..900)
                         }
                     }

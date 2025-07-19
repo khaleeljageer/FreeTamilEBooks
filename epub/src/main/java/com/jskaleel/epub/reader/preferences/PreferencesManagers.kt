@@ -12,6 +12,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.jskaleel.epub.reader.LITERATA
 import com.jskaleel.epub.utils.extensions.stateInFirst
 import com.jskaleel.epub.utils.tryOrNull
 import kotlinx.coroutines.CoroutineScope
@@ -28,8 +29,8 @@ import org.readium.r2.navigator.epub.EpubPreferences
 import org.readium.r2.navigator.epub.EpubPreferencesSerializer
 import org.readium.r2.navigator.epub.EpubPublicationPreferencesFilter
 import org.readium.r2.navigator.epub.EpubSharedPreferencesFilter
-import org.readium.r2.navigator.preferences.Color
 import org.readium.r2.navigator.preferences.Configurable
+import org.readium.r2.navigator.preferences.FontFamily
 import org.readium.r2.navigator.preferences.PreferencesFilter
 import org.readium.r2.navigator.preferences.PreferencesSerializer
 import org.readium.r2.navigator.preferences.Theme
@@ -121,7 +122,9 @@ class EpubPreferencesManagerFactory(
     publicationPreferencesFilter = EpubPublicationPreferencesFilter,
     preferencesSerializer = EpubPreferencesSerializer(),
     emptyPreferences = EpubPreferences(
-        theme = Theme.SEPIA
+        theme = Theme.SEPIA,
+        language = Language("ta"),
+        fontFamily = FontFamily.LITERATA
     )
 )
 

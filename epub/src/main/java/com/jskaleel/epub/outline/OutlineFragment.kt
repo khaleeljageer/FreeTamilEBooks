@@ -64,7 +64,7 @@ class OutlineFragment : Fragment() {
                 Outline.Contents,
                 Outline.Bookmarks,
                 Outline.Highlights,
-                Outline.PageList,
+//                Outline.PageList,
                 Outline.Landmarks
             )
 
@@ -97,7 +97,7 @@ private class OutlineFragmentStateAdapter(
             Outline.Highlights -> HighlightsFragment()
             Outline.Landmarks -> createLandmarksFragment()
             Outline.Contents -> createContentsFragment()
-            Outline.PageList -> createPageListFragment()
+//            Outline.PageList -> createPageListFragment()
         }
     }
 
@@ -122,6 +122,6 @@ private enum class Outline(val label: Int) {
     Contents(R.string.contents_tab_label),
     Bookmarks(R.string.bookmarks_tab_label),
     Highlights(R.string.highlights_tab_label),
-    PageList(R.string.pagelist_tab_label),
+//    PageList(R.string.pagelist_tab_label),
     Landmarks(R.string.landmarks_tab_label),
 }

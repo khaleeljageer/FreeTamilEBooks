@@ -1,15 +1,19 @@
-<!--
-  Copyright 2023 Readium Foundation. All rights reserved.
-  Use of this source code is governed by the BSD-style license
-  available in the top-level LICENSE file of the project.
--->
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-<resources>
+    <style name="ReaderTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">#FFDBC3</item>
+        <item name="android:colorPrimary">#FFDBC3</item>
+        <item name="colorPrimaryDark">#FFDBC3</item>
+        <item name="android:colorPrimaryDark">#FFDBC3</item>
+        <item name="android:navigationBarColor">#FFDBC3</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <item name="colorPrimarySurface">#FFF5E0</item>
+        <item name="colorOnPrimarySurface">#190933</item>
 
-    <!-- Base application theme. -->
-    <style name="ReaderTheme" parent="Theme.Material3.DayNight">
-        <item name="colorPrimary">#00FF00</item>
-        <item name="android:colorPrimary">#00FF00</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button</item>
+        <item name="android:editTextStyle">@style/Widget.AppCompat.EditText</item>
     </style>
 
 </resources>
