@@ -1,22 +1,22 @@
 package com.jskaleel.fte.ui.screens.main.bookshelf
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.onError
-import com.jskaleel.fte.core.model.onSuccess
+import com.jskaleel.fte.core.model.toErrorState
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
-import com.jskaleel.fte.ui.screens.main.downloads.DownloadNavigationState
 import com.jskaleel.fte.ui.utils.mutableNavigationState
-import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -45,7 +45,6 @@ class BookShelfViewModel @Inject constructor(
 
     init {
         syncBooks()
-        observeBooks()
         observeDownloadStatus()
         observeDownloads()
     }
@@ -53,6 +52,7 @@ class BookShelfViewModel @Inject constructor(
     private fun observeDownloads() {
         viewModelScope.launch {
             useCase.fetchDownloadedBooks().collect { downloads ->
+                Log.d("Khaleel", "Downloaded books: $downloads")
                 viewModelState.update {
                     it.copy(downloadedBooks = downloads)
                 }
@@ -68,11 +68,14 @@ class BookShelfViewModel @Inject constructor(
                         updateBook(result.id) { it.copy(downloading = true) }
                     }
 
-                    is DownloadResult.Success -> updateBook(result.id) {
-                        it.copy(
-                            downloading = false,
-                            downloaded = true,
-                        )
+                    is DownloadResult.Success -> {
+                        Log.d("Khaleel", "DownloadResult.Success: $result")
+                        updateBook(result.id) {
+                            it.copy(
+                                downloading = false,
+                                downloaded = true,
+                            )
+                        }
                     }
 
                     is DownloadResult.Error -> updateBook(result.id) {
@@ -92,31 +95,22 @@ class BookShelfViewModel @Inject constructor(
         }
     }
 
-    private fun observeBooks() {
-        viewModelScope.launch {
-            viewModelState.update { it.copy(loading = true) }
-            launch {
-                useCase.observeBooks().collect { books ->
-                    viewModelState.update { current ->
-                        current.copy(
-                            loading = false,
-                            books = books
-                        )
-                    }
-                }
-            }
-        }
-    }
-
     private fun syncBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             useCase.syncIfNeeded()
-                .onSuccess {
-
-                }
                 .onError { code, message ->
-
+                    if (message != null) {
+                        viewModelState.update { it.copy(error = message.toErrorState()) }
+                    }
                 }
+
+            val books = useCase.observeBooks().first()
+            viewModelState.update {
+                it.copy(
+                    loading = false,
+                    books = books
+                )
+            }
         }
     }
 
@@ -202,7 +196,9 @@ private data class BookShelfViewModelState(
                         author = it.author,
                         category = it.category,
                         image = it.image,
-                        downloaded = it.downloaded,
+                        downloaded = downloadedBooks.any { it1 ->
+                            it1 == it.id
+                        },
                         downloading = it.downloading,
                     )
                 },
