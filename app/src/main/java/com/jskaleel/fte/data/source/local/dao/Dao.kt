@@ -61,4 +61,10 @@ interface DownloadedBookDao {
 
     @Query("SELECT * FROM downloaded_books WHERE lastRead != 0 ORDER BY lastRead DESC")
     fun getRecentReads(): Flow<List<DownloadedBookEntity>>
+
+    @Query("SELECT * FROM downloaded_books WHERE readerId = :readerId")
+    fun getBookByReaderId(readerId: Long): DownloadedBookEntity?
+
+    @Upsert
+    suspend fun upsert(entity: DownloadedBookEntity)
 }

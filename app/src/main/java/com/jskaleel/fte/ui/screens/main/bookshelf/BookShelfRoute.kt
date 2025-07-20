@@ -47,6 +47,7 @@ fun BookShelfRoute(
                 event = viewModel::onEvent,
                 books = state.books,
                 error = state.error,
+                showLoadingDialog = state.showLoadingDialog,
             )
         }
     }

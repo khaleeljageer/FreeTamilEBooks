@@ -14,4 +14,7 @@ interface BookShelfUseCase {
     suspend fun observeDownloadedBooks(): Flow<List<Book>>
     suspend fun deleteBook(bookId: String)
     fun fetchDownloadedBooks(): Flow<List<String>>
+    suspend fun getReaderId(bookId: String): Long
+
+    suspend fun openBook(readerId: Long): ResultState<Long>
 }

@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface DownloadsUseCase {
     fun observeDownloadedBooks(): Flow<List<Book>>
     suspend fun deleteBook(bookId: String)
-    suspend fun openBook(bookId: Long): ResultState<Long>
+    suspend fun openBook(readerId: Long): ResultState<Long>
 }

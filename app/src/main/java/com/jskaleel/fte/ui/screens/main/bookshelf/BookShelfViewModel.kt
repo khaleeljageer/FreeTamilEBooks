@@ -1,17 +1,18 @@
 package com.jskaleel.fte.ui.screens.main.bookshelf
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.onError
+import com.jskaleel.fte.core.model.onSuccess
 import com.jskaleel.fte.core.model.toErrorState
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
 import com.jskaleel.fte.ui.utils.mutableNavigationState
+import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,7 +53,6 @@ class BookShelfViewModel @Inject constructor(
     private fun observeDownloads() {
         viewModelScope.launch {
             useCase.fetchDownloadedBooks().collect { downloads ->
-                Log.d("Khaleel", "Downloaded books: $downloads")
                 viewModelState.update {
                     it.copy(downloadedBooks = downloads)
                 }
@@ -69,7 +69,6 @@ class BookShelfViewModel @Inject constructor(
                     }
 
                     is DownloadResult.Success -> {
-                        Log.d("Khaleel", "DownloadResult.Success: $result")
                         updateBook(result.id) {
                             it.copy(
                                 downloading = false,
@@ -153,20 +152,38 @@ class BookShelfViewModel @Inject constructor(
     }
 
     private fun openBook(bookId: String) {
-        viewModelScope.launch {
-            val readerId = viewModelState.value.books.firstOrNull { it.id == bookId }?.readerId
-            if (readerId != null) {
-//                useCase.openBook(readerId)
-//                    .onSuccess {
-//                        navigation = navigate(
-//                            BookShelfNavigationState.OpenBook(1L)
-//                        )
-//                    }
-//                    .onError { _, _ ->
-//
-//                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            viewModelState.update {
+                it.copy(
+                    showLoadingDialog = true
+                )
+            }
+            val readerId = useCase.getReaderId(bookId)
+            if (readerId != -1L) {
+                useCase.openBook(readerId)
+                    .onSuccess {
+                        viewModelState.update {
+                            it.copy(
+                                showLoadingDialog = false
+                            )
+                        }
+                        navigation = navigate(BookShelfNavigationState.OpenBook(readerId))
+                    }
+                    .onError { code, message ->
+                        viewModelState.update {
+                            it.copy(
+                                error = message?.toErrorState() ?: ErrorState.none,
+                                showLoadingDialog = false
+                            )
+                        }
+                    }
             } else {
-
+                viewModelState.update {
+                    it.copy(
+                        error = "புத்தகம் இல்லை அல்லது பதிவிறக்கப்படவில்லை.".toErrorState(),
+                        showLoadingDialog = false
+                    )
+                }
             }
         }
     }
@@ -181,6 +198,7 @@ class BookShelfViewModel @Inject constructor(
 
 private data class BookShelfViewModelState(
     val loading: Boolean = true,
+    val showLoadingDialog: Boolean = false,
     val books: List<Book> = emptyList(),
     val error: ErrorState = ErrorState.none,
     val downloadedBooks: List<String> = emptyList(),
@@ -202,7 +220,8 @@ private data class BookShelfViewModelState(
                         downloading = it.downloading,
                     )
                 },
-                error = error
+                error = error,
+                showLoadingDialog = showLoadingDialog,
             )
         }
 }
@@ -212,6 +231,7 @@ sealed class BookShelfUiState {
     data class Success(
         val books: List<BookUiModel>,
         val error: ErrorState,
+        val showLoadingDialog: Boolean,
     ) : BookShelfUiState()
 }
 

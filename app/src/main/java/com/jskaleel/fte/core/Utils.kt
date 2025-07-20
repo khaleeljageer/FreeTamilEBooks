@@ -13,12 +13,11 @@ typealias LongCallBack = (Long) -> Unit
 typealias BooleanCallBack = (Boolean) -> Unit
 
 fun getDetailedRelativeDateInTamil(timestamp: Long): String {
-    val now = System.currentTimeMillis() / 1000
-    val givenTime = timestamp
+    val now = System.currentTimeMillis()
 
     val nowCalendar = Calendar.getInstance()
     val givenCalendar = Calendar.getInstance()
-    givenCalendar.timeInMillis = timestamp * 1000
+    givenCalendar.timeInMillis = timestamp
 
     val isSameDay = nowCalendar.get(Calendar.YEAR) == givenCalendar.get(Calendar.YEAR) &&
             nowCalendar.get(Calendar.DAY_OF_YEAR) == givenCalendar.get(Calendar.DAY_OF_YEAR)
@@ -32,7 +31,7 @@ fun getDetailedRelativeDateInTamil(timestamp: Long): String {
         isSameDay -> "இன்று"
         isYesterday -> "நேற்று"
         else -> {
-            val diffInSeconds = now - givenTime
+            val diffInSeconds = now - timestamp
             val diffInDays = diffInSeconds / (24 * 60 * 60)
 
             when (diffInDays) {

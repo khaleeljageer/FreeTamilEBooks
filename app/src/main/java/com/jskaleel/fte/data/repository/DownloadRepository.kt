@@ -14,4 +14,6 @@ interface DownloadRepository {
     suspend fun getBookById(bookId: String): String
     fun fetchRecentReads(): Flow<List<DownloadedBookEntity>>
     suspend fun deleteBook(bookId: String)
+    suspend fun getReaderId(bookId: String): Long
+    suspend fun updateLastRead(bookId: Long)
 }

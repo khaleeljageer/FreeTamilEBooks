@@ -26,6 +26,7 @@ import com.jskaleel.fte.core.CallBack
 import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.core.model.consume
+import com.jskaleel.fte.ui.screens.common.components.AnimatedLoadingDialog
 import com.jskaleel.fte.ui.screens.common.components.BookItem
 import com.jskaleel.fte.ui.screens.common.extensions.isScrollingUp
 import com.jskaleel.fte.ui.theme.dimension
@@ -36,7 +37,8 @@ import kotlinx.coroutines.launch
 fun BookShelfContent(
     event: (BookListEvent) -> Unit,
     books: List<BookUiModel>,
-    error: ErrorState
+    error: ErrorState,
+    showLoadingDialog: Boolean
 ) {
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -91,6 +93,10 @@ fun BookShelfContent(
             }
         }
     }
+
+    AnimatedLoadingDialog(
+        isLoading = showLoadingDialog
+    )
 }
 
 @Composable

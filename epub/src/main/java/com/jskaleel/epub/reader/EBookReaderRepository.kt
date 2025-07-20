@@ -67,10 +67,10 @@ class EBookReaderRepository(
     private suspend fun open(bookId: Long): Try<Unit, OpeningError> =
         coroutineQueue.await { doOpen(bookId) }
 
-    suspend fun openBook(bookId: Long): IResult {
-        return open(bookId).fold(
+    suspend fun openBook(readerId: Long): IResult {
+        return open(readerId).fold(
             onSuccess = {
-                IResult.Success(bookId)
+                IResult.Success(readerId)
             },
             onFailure = { error ->
                 IResult.Failure(error.message)
@@ -79,7 +79,7 @@ class EBookReaderRepository(
     }
 
     suspend fun importBook(file: File): IResult {
-        return import(file).fold(
+        return loadBook(file).fold(
             onSuccess = { bookId ->
                 IResult.Success(bookId)
             },
@@ -89,7 +89,7 @@ class EBookReaderRepository(
         )
     }
 
-    private suspend fun import(file: File): Try<Long, ImportError> {
+    private suspend fun loadBook(file: File): Try<Long, ImportError> {
         val asset = readium.assetRetriever.retrieve(file).getOrElse {
             return Try.failure(
                 ImportError.Publication(
