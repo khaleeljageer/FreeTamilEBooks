@@ -93,11 +93,11 @@ fun Context.getDownloadDir(): File {
     }
 }
 
-fun Context.launchReaderActivity(bookId: Long) {
+fun Context.launchReaderActivity(readerId: Long) {
     val intent = ReaderActivityContract().createIntent(
         this,
         ReaderActivityContract.Arguments(
-            bookId = bookId
+            bookId = readerId
         )
     )
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

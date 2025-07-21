@@ -6,4 +6,6 @@
     <string name="search_hint">புத்தகங்களைத் தேடுங்கள்...</string>
     <string name="search_books">புத்தகங்களைத் தேடுங்கள்...</string>
     <string name="project_intro">திட்டம் அறிமுகம்</string>
+    <string name="title_recent_reads">சமீபத்தில் படித்தவை</string>
+    <string name="title_books_category">நூல் வகைகள்</string>
 </resources>

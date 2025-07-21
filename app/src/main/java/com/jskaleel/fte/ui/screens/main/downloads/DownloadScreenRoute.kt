@@ -24,7 +24,7 @@ fun DownloadScreenRoute(
     viewModel.navigation.consume { state ->
         when (state) {
             is DownloadNavigationState.OpenBook -> {
-                context.launchReaderActivity(state.id)
+                context.launchReaderActivity(state.readerId)
             }
         }
     }
@@ -47,6 +47,7 @@ fun DownloadScreenRoute(
                 event = viewModel::onEvent,
                 books = state.books,
                 error = state.error,
+                showLoadingDialog = state.showLoadingDialog
             )
         }
     }

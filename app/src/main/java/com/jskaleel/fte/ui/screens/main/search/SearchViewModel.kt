@@ -5,11 +5,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.ErrorState
+import com.jskaleel.fte.core.model.onError
+import com.jskaleel.fte.core.model.onSuccess
+import com.jskaleel.fte.core.model.toErrorState
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.model.CategoryItem
 import com.jskaleel.fte.domain.model.RecentReadItem
 import com.jskaleel.fte.domain.usecase.SearchUseCase
+import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfNavigationState
 import com.jskaleel.fte.ui.utils.mutableNavigationState
 import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -76,7 +81,7 @@ class SearchViewModel @Inject constructor(
     fun onEvent(event: SearchEvent) {
         when (event) {
             is SearchEvent.OnBookClick -> {
-                navigation = navigate(SearchNavigationState.OpenBook(id = event.bookId))
+                openBook(event.bookId)
             }
 
             is SearchEvent.OnCategoryClick -> {
@@ -122,6 +127,47 @@ class SearchViewModel @Inject constructor(
                 }
                 if (!event.active) {
                     resetToDefault()
+                }
+            }
+
+            is SearchEvent.OnRecentReadClick -> {
+                openBook(event.bookId)
+            }
+        }
+    }
+
+    private fun openBook(bookId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            viewModelState.update {
+                it.copy(
+                    showLoadingDialog = true
+                )
+            }
+            val readerId = useCase.getReaderId(bookId)
+            if (readerId != -1L) {
+                useCase.openBook(readerId)
+                    .onSuccess {
+                        viewModelState.update {
+                            it.copy(
+                                showLoadingDialog = false
+                            )
+                        }
+                        navigation = navigate(SearchNavigationState.OpenBook(readerId))
+                    }
+                    .onError { code, message ->
+                        viewModelState.update {
+                            it.copy(
+                                error = message?.toErrorState() ?: ErrorState.none,
+                                showLoadingDialog = false
+                            )
+                        }
+                    }
+            } else {
+                viewModelState.update {
+                    it.copy(
+                        error = "புத்தகம் இல்லை அல்லது பதிவிறக்கப்படவில்லை.".toErrorState(),
+                        showLoadingDialog = false
+                    )
                 }
             }
         }
@@ -259,6 +305,8 @@ private data class SearchViewModelState(
     val downloadedBooks: List<String> = emptyList(),
     val active: Boolean = false,
     val hasSearched: Boolean = false,
+    val showLoadingDialog: Boolean = false,
+    val error: ErrorState = ErrorState.none,
 ) {
     fun toUiState(): SearchUiState {
         return when {
@@ -292,7 +340,9 @@ private data class SearchViewModelState(
                     categories = emptyList(),
                     recentReads = emptyList(),
                     active = active,
-                    searchQuery = searchQuery
+                    searchQuery = searchQuery,
+                    showLoadingDialog = showLoadingDialog,
+                    error = error
                 )
             }
 
@@ -315,7 +365,9 @@ private data class SearchViewModelState(
                         )
                     },
                     active = active,
-                    searchQuery = ""
+                    searchQuery = "",
+                    showLoadingDialog = showLoadingDialog,
+                    error = error
                 )
             }
         }
@@ -336,6 +388,8 @@ sealed interface SearchUiState {
         val books: List<SearchBookUiModel> = emptyList(),
         val categories: List<CategoryUiModel> = emptyList(),
         val recentReads: List<RecentUiModel> = emptyList(),
+        val showLoadingDialog: Boolean = false,
+        val error: ErrorState,
         override val active: Boolean,
         override val searchQuery: String
     ) : SearchUiState
@@ -349,7 +403,7 @@ sealed class ContentType {
 }
 
 sealed interface SearchNavigationState {
-    data class OpenBook(val id: String) : SearchNavigationState
+    data class OpenBook(val readerId: Long) : SearchNavigationState
 }
 
 sealed interface SearchEvent {
@@ -359,4 +413,5 @@ sealed interface SearchEvent {
     data class OnSearchClick(val query: String) : SearchEvent
     data class OnSearchQueryChange(val query: String) : SearchEvent
     data class OnActiveChange(val active: Boolean) : SearchEvent
+    data class OnRecentReadClick(val bookId: String) : SearchEvent
 }

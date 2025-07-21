@@ -236,7 +236,7 @@ sealed class BookShelfUiState {
 }
 
 sealed interface BookShelfNavigationState {
-    data class OpenBook(val id: Long) : BookShelfNavigationState
+    data class OpenBook(val readerId: Long) : BookShelfNavigationState
 }
 
 sealed interface BookListEvent {

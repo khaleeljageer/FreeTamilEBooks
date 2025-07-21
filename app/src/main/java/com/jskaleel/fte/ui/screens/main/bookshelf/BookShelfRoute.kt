@@ -11,7 +11,6 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.jskaleel.fte.core.launchReaderActivity
 import com.jskaleel.fte.ui.screens.common.FullScreenLoader
-import com.jskaleel.fte.ui.utils.SnackBarController
 import com.jskaleel.fte.ui.utils.consume
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -26,7 +25,7 @@ fun BookShelfRoute(
     viewModel.navigation.consume {
         when (it) {
             is BookShelfNavigationState.OpenBook -> {
-                context.launchReaderActivity(it.id)
+                context.launchReaderActivity(it.readerId)
             }
         }
     }

@@ -51,4 +51,8 @@ class DownloadsUseCaseImpl @Inject constructor(
             is IResult.Failure -> ResultState.Error(result.message)
         }
     }
+
+    override suspend fun updateLastRead(readerId: Long) {
+        downloadRepository.updateLastRead(readerId)
+    }
 }
