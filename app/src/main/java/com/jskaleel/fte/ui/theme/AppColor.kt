@@ -6,6 +6,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
 
+@Suppress("detekt:MagicNumber")
 object AppColor {
     val Primary = Color(0xFFFFF5E0)
     val PrimaryContainer = Color(0xFFFFDBC3)

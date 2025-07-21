@@ -15,6 +15,8 @@ import androidx.lifecycle.viewModelScope
 import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.domain.model.About
 import com.jskaleel.fte.domain.model.AboutItem
+import com.jskaleel.fte.ui.screens.main.about.AboutNavigationState.OpenHtml
+import com.jskaleel.fte.ui.screens.main.about.AboutNavigationState.OpenUrl
 import com.jskaleel.fte.ui.utils.mutableNavigationState
 import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -126,24 +128,20 @@ class AboutViewModel @Inject constructor() : ViewModel() {
             mutex.withLock {
                 when (type) {
                     is Type.Url -> {
-                        navigation = navigate(AboutNavigationState.OpenUrl(type.url))
+                        navigation = navigate(OpenUrl(type.url))
                     }
 
                     is Type.Asset -> {
                         navigation = navigate(
-                            AboutNavigationState.OpenHtml(
+                            OpenHtml(
                                 title = title,
                                 path = type.path
                             )
                         )
                     }
 
-                    is Type.Email -> {
-                        // Handle email click
-                    }
-
                     Type.None -> {
-                        // No action needed for None type
+                        // No action needed for Type.None
                     }
                 }
             }
@@ -173,8 +171,6 @@ private data class AboutViewModelState(
                                 Type.Url(url = item.url)
                             } else if (item.asset != null) {
                                 Type.Asset(path = item.asset)
-                            } else if (item.email != null) {
-                                Type.Email(email = item.email)
                             } else {
                                 Type.None
                             },
@@ -195,7 +191,6 @@ data class AboutUiState(
 sealed interface AboutNavigationState {
     data class OpenUrl(val url: String) : AboutNavigationState
     data class OpenHtml(val title: String, val path: String) : AboutNavigationState
-    data class Email(val email: String) : AboutNavigationState
 }
 
 sealed interface AboutEvent {

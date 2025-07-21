@@ -40,7 +40,7 @@ class DownloadRepositoryImpl @Inject constructor(
             fileDownloader.downloadFile(
                 url = url,
                 uniqueId = bookId,
-                fileName = "${title}.${format}",
+                fileName = "$title.$format",
                 coroutineScope = this
             ).collect { result ->
                 when (result) {
@@ -52,7 +52,7 @@ class DownloadRepositoryImpl @Inject constructor(
 
                     is DownloadResult.Success -> {
                         showDownloadSuccessNotification(result.id, result.title)
-                        val file = File(context.getDownloadDir(), "$bookId.${format}")
+                        val file = File(context.getDownloadDir(), "$bookId.$format")
                         emitStatus(DownloadResult.Success(bookId, file, title))
                     }
 
@@ -99,7 +99,7 @@ class DownloadRepositoryImpl @Inject constructor(
                 }
 
                 is IResult.Failure -> {
-                    emitStatus(DownloadResult.Error(bookId, "புத்தகம் திறக்க முடியவில்லை."))
+                    emitStatus(DownloadResult.Error(bookId, "புத்தகத்தை திறக்க முடியவில்லை."))
                 }
             }
         }

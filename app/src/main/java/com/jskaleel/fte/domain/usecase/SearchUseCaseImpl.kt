@@ -2,7 +2,7 @@ package com.jskaleel.fte.domain.usecase
 
 import com.jskaleel.epub.reader.EBookReaderRepository
 import com.jskaleel.epub.utils.IResult
-import com.jskaleel.fte.core.getDetailedRelativeDateInTamil
+import com.jskaleel.fte.core.getRelativeDateInTamil
 import com.jskaleel.fte.core.model.ResultState
 import com.jskaleel.fte.core.model.toImage
 import com.jskaleel.fte.data.model.DownloadResult
@@ -50,7 +50,7 @@ class SearchUseCaseImpl @Inject constructor(
                     id = book.bookId,
                     title = book.title,
                     image = book.image.toImage(),
-                    lastRead = getDetailedRelativeDateInTamil(book.lastRead)
+                    lastRead = getRelativeDateInTamil(book.lastRead)
                 )
             }
         }

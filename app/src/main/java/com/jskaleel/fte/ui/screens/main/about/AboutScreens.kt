@@ -172,12 +172,6 @@ private fun AboutScreenContentPreview() {
                         type = Type.Asset("path/to/asset"),
                         icon = ImageType.EMPTY
                     ),
-                    AboutItemUiModel(
-                        title = "Item 2.2",
-                        description = "Hello",
-                        type = Type.Email("test@example.com"),
-                        icon = ImageType.EMPTY
-                    )
                 )
             )
         )
@@ -217,6 +211,5 @@ data class AboutItemUiModel(
 sealed class Type {
     data class Url(val url: String) : Type()
     data class Asset(val path: String) : Type()
-    data class Email(val email: String) : Type()
-    data object None : Type()
+    object None : Type()
 }

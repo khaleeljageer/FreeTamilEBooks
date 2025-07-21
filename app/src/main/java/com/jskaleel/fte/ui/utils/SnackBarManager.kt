@@ -15,7 +15,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
-
 @Immutable
 class SnackBarController(
     private val host: SnackbarHostState,

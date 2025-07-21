@@ -28,13 +28,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.R
+import com.jskaleel.fte.core.BooleanCallBack
 import com.jskaleel.fte.core.CallBack
 import com.jskaleel.fte.core.StringCallBack
 import com.jskaleel.fte.ui.theme.FTEBooksTheme
 
 @Composable
 fun SearchTopBar(
-    onActiveChange: (Boolean) -> Unit,
+    onActiveChange: BooleanCallBack,
     onQueryChange: StringCallBack,
     onClearClick: CallBack,
     onKeyboardSearchClick: StringCallBack,

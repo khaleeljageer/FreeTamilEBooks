@@ -12,6 +12,5 @@ data class AboutItem(
     val description: String = "",
     val asset: String? = null,
     val url: String? = null,
-    val email: String? = null,
     val icon: ImageType.Vector,
 )

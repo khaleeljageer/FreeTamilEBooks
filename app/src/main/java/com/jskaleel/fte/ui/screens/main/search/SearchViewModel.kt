@@ -1,3 +1,5 @@
+@file:Suppress("detekt:TooManyFunctions")
+
 package com.jskaleel.fte.ui.screens.main.search
 
 import androidx.compose.runtime.Stable
@@ -14,7 +16,6 @@ import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.model.CategoryItem
 import com.jskaleel.fte.domain.model.RecentReadItem
 import com.jskaleel.fte.domain.usecase.SearchUseCase
-import com.jskaleel.fte.ui.screens.main.bookshelf.BookShelfNavigationState
 import com.jskaleel.fte.ui.utils.mutableNavigationState
 import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -308,68 +309,72 @@ private data class SearchViewModelState(
     val showLoadingDialog: Boolean = false,
     val error: ErrorState = ErrorState.none,
 ) {
+    private fun createLoadingState() = SearchUiState.Loading(
+        active = false,
+        searchQuery = ""
+    )
+
+    private fun mapSearchResults() = searchResult.map { book ->
+        SearchBookUiModel(
+            title = book.title,
+            author = book.author,
+            image = book.image,
+            id = book.id,
+            category = book.category,
+            downloaded = downloadedBooks.contains(book.id),
+            downloading = book.downloading,
+        )
+    }
+
+    private fun determineSearchContentType() = if (searchResult.isNotEmpty()) {
+        ContentType.SearchResults
+    } else {
+        ContentType.EmptyResults
+    }
+
+    private fun createSearchResultsState() = SearchUiState.Content(
+        contentType = determineSearchContentType(),
+        books = mapSearchResults(),
+        categories = emptyList(),
+        recentReads = emptyList(),
+        active = active,
+        searchQuery = searchQuery,
+        showLoadingDialog = showLoadingDialog,
+        error = error
+    )
+
+    private fun mapCategories() = categories.map { category ->
+        CategoryUiModel(
+            name = category.name,
+            count = category.count
+        )
+    }
+
+    private fun mapRecentReads() = recentReads.map { recent ->
+        RecentUiModel(
+            id = recent.id,
+            title = recent.title,
+            image = recent.image,
+            lastRead = recent.lastRead
+        )
+    }
+
+    private fun createDefaultState() = SearchUiState.Content(
+        contentType = ContentType.Default,
+        books = emptyList(),
+        categories = mapCategories(),
+        recentReads = mapRecentReads(),
+        active = active,
+        searchQuery = "",
+        showLoadingDialog = showLoadingDialog,
+        error = error
+    )
+
     fun toUiState(): SearchUiState {
         return when {
-            loading -> SearchUiState.Loading(
-                active = false,
-                searchQuery = ""
-            )
-
-            hasSearched -> {
-                val contentType = if (searchResult.isNotEmpty()) {
-                    ContentType.SearchResults
-                } else {
-                    ContentType.EmptyResults
-                }
-
-                SearchUiState.Content(
-                    contentType = contentType,
-                    books = searchResult.map {
-                        SearchBookUiModel(
-                            title = it.title,
-                            author = it.author,
-                            image = it.image,
-                            id = it.id,
-                            category = it.category,
-                            downloaded = downloadedBooks.any { it1 ->
-                                it1 == it.id
-                            },
-                            downloading = it.downloading,
-                        )
-                    },
-                    categories = emptyList(),
-                    recentReads = emptyList(),
-                    active = active,
-                    searchQuery = searchQuery,
-                    showLoadingDialog = showLoadingDialog,
-                    error = error
-                )
-            }
-
-            else -> {
-                SearchUiState.Content(
-                    contentType = ContentType.Default,
-                    books = emptyList(),
-                    categories = categories.map {
-                        CategoryUiModel(
-                            name = it.name,
-                            count = it.count
-                        )
-                    },
-                    recentReads = recentReads.map {
-                        RecentUiModel(
-                            id = it.id,
-                            title = it.title,
-                            image = it.image,
-                            lastRead = it.lastRead
-                        )
-                    },
-                    active = active,
-                    searchQuery = "",
-                    showLoadingDialog = showLoadingDialog,
-                    error = error
-                )
-            }
+            loading -> createLoadingState()
+            hasSearched -> createSearchResultsState()
+            else -> createDefaultState()
         }
     }
 }

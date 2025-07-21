@@ -106,7 +106,7 @@ fun BookItem(
                     color = MaterialTheme.customColors.textSecondary,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                AnimatedDownloadReadButton(
+                AnimatedButton(
                     state = when {
                         downloading -> DownloadButtonState.DOWNLOADING
                         downloaded -> DownloadButtonState.DOWNLOADED
@@ -215,7 +215,6 @@ private fun CategoryText(
     }
 }
 
-
 @Composable
 fun SearchedBooks(
     onEvent: (SearchEvent) -> Unit,
@@ -274,7 +273,6 @@ private fun BookItemPreview() {
                 onDeleteClick = {},
                 downloaded = true
             )
-
 
             BookItem(
                 onOpenClick = {},

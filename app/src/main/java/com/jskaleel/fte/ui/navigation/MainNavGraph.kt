@@ -25,7 +25,6 @@ fun NavGraphBuilder.mainNavGraph(
             val viewModel: BookShelfViewModel = hiltViewModel()
 
             BookShelfRoute(
-                openBook = {},
                 viewModel = viewModel
             )
         }

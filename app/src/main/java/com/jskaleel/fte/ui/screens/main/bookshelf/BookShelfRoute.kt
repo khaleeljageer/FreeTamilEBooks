@@ -16,7 +16,6 @@ import com.jskaleel.fte.ui.utils.consume
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun BookShelfRoute(
-    openBook: (String) -> Unit,
     viewModel: BookShelfViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

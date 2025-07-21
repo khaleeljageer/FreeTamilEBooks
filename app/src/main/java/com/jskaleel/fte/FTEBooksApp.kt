@@ -1,6 +1,5 @@
 package com.jskaleel.fte
 
-import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import coil3.ImageLoader
