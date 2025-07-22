@@ -1,6 +1,5 @@
 package com.jskaleel.fte.ui.screens.common.components
 
-
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -37,14 +36,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.core.CallBack
 
-enum class DownloadButtonState {
-    DOWNLOAD,
-    DOWNLOADING,
-    DOWNLOADED
-}
-
 @Composable
-fun AnimatedDownloadReadButton(
+fun AnimatedButton(
     modifier: Modifier = Modifier,
     state: DownloadButtonState,
     onDownloadClick: CallBack? = null,
@@ -54,8 +47,8 @@ fun AnimatedDownloadReadButton(
     AnimatedContent(
         targetState = state,
         transitionSpec = {
-            fadeIn(animationSpec = tween(200, delayMillis = 150)) togetherWith
-                    fadeOut(animationSpec = tween(150))
+            fadeIn(animationSpec = tween(200, delayMillis = 150))
+                .togetherWith(fadeOut(animationSpec = tween(150)))
         },
         label = "simple_content"
     ) { currentState ->
@@ -141,6 +134,12 @@ private fun SimpleOutlinedReadButton(
             )
         }
     }
+}
+
+enum class DownloadButtonState {
+    DOWNLOAD,
+    DOWNLOADING,
+    DOWNLOADED
 }
 
 @Composable

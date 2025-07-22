@@ -8,87 +8,74 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.R
-import com.jskaleel.fte.core.CallBack
 import com.jskaleel.fte.core.StringCallBack
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.ImageType
-import com.jskaleel.fte.ui.screens.common.components.BookItem
+import com.jskaleel.fte.core.model.consume
+import com.jskaleel.fte.ui.screens.common.components.AnimatedLoadingDialog
 import com.jskaleel.fte.ui.screens.common.components.RecentBookItem
-import com.jskaleel.fte.ui.theme.FTEBooksTheme
-import com.jskaleel.fte.ui.theme.dimension
+import com.jskaleel.fte.ui.screens.common.components.SearchedBooks
+import com.jskaleel.fte.ui.utils.SnackBarController
 
 @Composable
 fun DefaultSearchContent(
     onEvent: (SearchEvent) -> Unit,
     categories: List<CategoryUiModel>,
     recentReads: List<RecentUiModel>,
-) {
-    SearchResultListContent(
-        onEvent = onEvent,
-        categories = categories,
-        recentReads = recentReads
-    )
-}
-
-@Composable
-fun SearchResultContent(
-    onEvent: (SearchEvent) -> Unit,
-    books: List<SearchBookUiModel>,
+    books: List<SearchBookUiModel> = emptyList(),
+    showLoadingDialog: Boolean,
+    error: ErrorState
 ) {
     SearchResultListContent(
         onEvent = onEvent,
         books = books,
-        categories = emptyList(),
-        recentReads = emptyList()
+        categories = categories,
+        recentReads = recentReads,
+        showLoadingDialog = showLoadingDialog,
+        error = error,
     )
 }
 
 @Composable
-private fun SearchResultListContent(
+fun SearchResultListContent(
     onEvent: (SearchEvent) -> Unit,
     books: List<SearchBookUiModel> = emptyList(),
     categories: List<CategoryUiModel> = emptyList(),
-    recentReads: List<RecentUiModel> = emptyList()
+    recentReads: List<RecentUiModel> = emptyList(),
+    showLoadingDialog: Boolean,
+    error: ErrorState
 ) {
+    val snackBar = SnackBarController.current
+
+    error.consume {
+        snackBar.showMessage(
+            message = it.message
+        )
+    }
+
     if (books.isNotEmpty()) {
         SearchedBooks(
             onEvent = onEvent,
@@ -113,48 +100,24 @@ private fun SearchResultListContent(
             if (recentReads.isNotEmpty()) {
                 RecentReadSection(
                     recentReads = recentReads,
+                    onEvent = onEvent
                 )
             }
         }
     }
+
+    AnimatedLoadingDialog(
+        isLoading = showLoadingDialog
+    )
 }
 
 @Composable
-private fun SearchedBooks(
-    onEvent: (SearchEvent) -> Unit,
-    books: List<SearchBookUiModel>
+private fun RecentReadSection(
+    recentReads: List<RecentUiModel>,
+    onEvent: (SearchEvent) -> Unit
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(vertical = MaterialTheme.dimension.small),
-        modifier = Modifier.clipToBounds()
-    ) {
-        items(
-            items = books,
-            key = { it.id }
-        ) { book ->
-            BookItem(
-                onOpenClick = {
-                    onEvent(SearchEvent.OnBookClick(bookId = book.id))
-                },
-                title = book.title,
-                author = book.author,
-                category = book.category,
-                image = book.image,
-                onDownloadClick = {
-                    onEvent(SearchEvent.OnDownloadClick(bookId = book.id))
-                },
-                downloaded = book.downloaded,
-                downloading = book.downloading,
-            )
-            HorizontalDivider(thickness = (0.8).dp)
-        }
-    }
-}
-
-@Composable
-private fun RecentReadSection(recentReads: List<RecentUiModel>) {
     Text(
-        text = "சமீபத்தில் படித்தவை",
+        text = stringResource(R.string.title_recent_reads),
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onPrimary,
@@ -163,7 +126,9 @@ private fun RecentReadSection(recentReads: List<RecentUiModel>) {
     Spacer(modifier = Modifier.height(8.dp))
     HorizontalRecentGrid(
         books = recentReads,
-        onItemClick = { }
+        onItemClick = {
+            onEvent(SearchEvent.OnRecentReadClick(bookId = it))
+        }
     )
 }
 
@@ -173,7 +138,7 @@ private fun CategorySection(
     categories: List<CategoryUiModel>,
 ) {
     Text(
-        text = "நூல் வகைகள்",
+        text = stringResource(R.string.title_books_category),
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.onPrimary,
@@ -192,7 +157,7 @@ private fun CategorySection(
 private fun HorizontalRecentGrid(
     modifier: Modifier = Modifier,
     books: List<RecentUiModel>,
-    onItemClick: () -> Unit,
+    onItemClick: StringCallBack,
     rows: Int = 3
 ) {
     val itemsPerColumn = (books.size + rows - 1) / rows
@@ -209,11 +174,12 @@ private fun HorizontalRecentGrid(
                 repeat(rows) { rowIndex ->
                     val itemIndex = columnIndex * rows + rowIndex
                     if (itemIndex < books.size) {
+                        val item: RecentUiModel = books[itemIndex]
                         RecentBookItem(
-                            onClick = { onItemClick() },
-                            title = books[itemIndex].title,
-                            image = books[itemIndex].image,
-                            lastRead = books[itemIndex].lastRead
+                            onClick = { onItemClick(item.id) },
+                            title = item.title,
+                            image = item.image,
+                            lastRead = item.lastRead
                         )
                     }
                 }
@@ -319,78 +285,6 @@ fun ColumnScope.EmptySearchResultContent(searchQuery: String) {
     }
 }
 
-@Composable
-fun SearchTopBar(
-    onActiveChange: (Boolean) -> Unit,
-    onQueryChange: StringCallBack,
-    onClearClick: CallBack,
-    onKeyboardSearchClick: StringCallBack,
-    query: String,
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(all = 16.dp)
-            .background(
-                color = Color.Transparent,
-                shape = RoundedCornerShape(12.dp)
-            )
-            .clip(shape = RoundedCornerShape(12.dp))
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.onBackground,
-                shape = RoundedCornerShape(12.dp)
-            ),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        OutlinedTextField(
-            value = query,
-            onValueChange = onQueryChange,
-            modifier = Modifier
-                .weight(weight = 1f)
-                .onFocusChanged {
-                    if (it.isFocused) onActiveChange(true)
-                },
-            placeholder = {
-                Text(
-                    text = stringResource(R.string.search_books),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-            },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search"
-                )
-            },
-            trailingIcon = {
-                if (query.isNotEmpty()) {
-                    IconButton(
-                        onClick = onClearClick
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Clear,
-                            contentDescription = "Clear"
-                        )
-                    }
-                }
-            },
-            singleLine = true,
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                cursorColor = MaterialTheme.colorScheme.onBackground
-            ),
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    onKeyboardSearchClick(query)
-                }
-            )
-        )
-    }
-}
-
 @Immutable
 data class CategoryUiModel(
     val name: String,
@@ -415,17 +309,3 @@ data class SearchBookUiModel(
     val downloaded: Boolean,
     val downloading: Boolean = false,
 )
-
-@Preview(showBackground = true)
-@Composable
-private fun SearchTopBarPreview() {
-    FTEBooksTheme {
-        SearchTopBar(
-            query = "Search Query",
-            onQueryChange = {},
-            onClearClick = {},
-            onActiveChange = {},
-            onKeyboardSearchClick = {}
-        )
-    }
-}

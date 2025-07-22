@@ -162,7 +162,7 @@ abstract class VisualReaderFragment : BaseReaderFragment() {
             )
         }
 
-        val menuHost: MenuHost = requireActivity()
+/*        val menuHost: MenuHost = requireActivity()
 
         menuHost.addMenuProvider(
             object : MenuProvider {
@@ -181,7 +181,7 @@ abstract class VisualReaderFragment : BaseReaderFragment() {
                 }
             },
             viewLifecycleOwner
-        )
+        )*/
 
         model.visualFragmentChannel.receive(viewLifecycleOwner) { event ->
             when (event) {

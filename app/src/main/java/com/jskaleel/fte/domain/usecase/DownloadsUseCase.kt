@@ -5,7 +5,8 @@ import com.jskaleel.fte.domain.model.Book
 import kotlinx.coroutines.flow.Flow
 
 interface DownloadsUseCase {
-    suspend fun observeDownloadedBooks(): Flow<List<Book>>
+    fun observeDownloadedBooks(): Flow<List<Book>>
     suspend fun deleteBook(bookId: String)
-    suspend fun openBook(bookId: Long): ResultState<Long>
+    suspend fun openBook(readerId: Long): ResultState<Long>
+    suspend fun updateLastRead(readerId: Long)
 }

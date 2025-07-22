@@ -15,26 +15,39 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import com.jskaleel.fte.core.CallBack
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.ImageType
+import com.jskaleel.fte.core.model.consume
+import com.jskaleel.fte.ui.screens.common.components.AnimatedLoadingDialog
 import com.jskaleel.fte.ui.screens.common.components.BookItem
 import com.jskaleel.fte.ui.screens.common.extensions.isScrollingUp
 import com.jskaleel.fte.ui.theme.dimension
+import com.jskaleel.fte.ui.utils.SnackBarController
 import kotlinx.coroutines.launch
 
 @Composable
 fun BookShelfContent(
     event: (BookListEvent) -> Unit,
     books: List<BookUiModel>,
+    error: ErrorState,
+    showLoadingDialog: Boolean
 ) {
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
+    val snackBar = SnackBarController.current
+
+    error.consume {
+        snackBar.showMessage(
+            message = it.message
+        )
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(
@@ -79,6 +92,10 @@ fun BookShelfContent(
             }
         }
     }
+
+    AnimatedLoadingDialog(
+        isLoading = showLoadingDialog
+    )
 }
 
 @Composable
@@ -92,7 +109,7 @@ private fun ScrollUp(onClick: CallBack) {
     }
 }
 
-@Immutable
+@Stable
 data class BookUiModel(
     val id: String,
     val title: String,

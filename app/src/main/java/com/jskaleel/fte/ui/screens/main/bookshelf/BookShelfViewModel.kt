@@ -1,14 +1,23 @@
 package com.jskaleel.fte.ui.screens.main.bookshelf
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.ErrorState
+import com.jskaleel.fte.core.model.onError
+import com.jskaleel.fte.core.model.onSuccess
+import com.jskaleel.fte.core.model.toErrorState
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.BookShelfUseCase
+import com.jskaleel.fte.ui.utils.mutableNavigationState
+import com.jskaleel.fte.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -22,6 +31,9 @@ class BookShelfViewModel @Inject constructor(
     private val useCase: BookShelfUseCase
 ) : ViewModel() {
     private val mutex = Mutex()
+
+    var navigation by mutableNavigationState<BookShelfNavigationState>()
+        private set
     private val viewModelState = MutableStateFlow(BookShelfViewModelState(loading = true))
 
     val uiState = viewModelState.map {
@@ -34,8 +46,18 @@ class BookShelfViewModel @Inject constructor(
 
     init {
         syncBooks()
-        observeBooks()
         observeDownloadStatus()
+        observeDownloads()
+    }
+
+    private fun observeDownloads() {
+        viewModelScope.launch {
+            useCase.fetchDownloadedBooks().collect { downloads ->
+                viewModelState.update {
+                    it.copy(downloadedBooks = downloads)
+                }
+            }
+        }
     }
 
     private fun observeDownloadStatus() {
@@ -46,11 +68,13 @@ class BookShelfViewModel @Inject constructor(
                         updateBook(result.id) { it.copy(downloading = true) }
                     }
 
-                    is DownloadResult.Success -> updateBook(result.id) {
-                        it.copy(
-                            downloading = false,
-                            downloaded = true,
-                        )
+                    is DownloadResult.Success -> {
+                        updateBook(result.id) {
+                            it.copy(
+                                downloading = false,
+                                downloaded = true,
+                            )
+                        }
                     }
 
                     is DownloadResult.Error -> updateBook(result.id) {
@@ -70,25 +94,22 @@ class BookShelfViewModel @Inject constructor(
         }
     }
 
-    private fun observeBooks() {
-        viewModelScope.launch {
-            viewModelState.update { it.copy(loading = true) }
-            launch {
-                useCase.observeBooks().collect { books ->
-                    viewModelState.update { current ->
-                        current.copy(
-                            loading = false,
-                            books = books
-                        )
-                    }
-                }
-            }
-        }
-    }
-
     private fun syncBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             useCase.syncIfNeeded()
+                .onError { code, message ->
+                    if (message != null) {
+                        viewModelState.update { it.copy(error = message.toErrorState()) }
+                    }
+                }
+
+            val books = useCase.observeBooks().first()
+            viewModelState.update {
+                it.copy(
+                    loading = false,
+                    books = books
+                )
+            }
         }
     }
 
@@ -108,7 +129,7 @@ class BookShelfViewModel @Inject constructor(
             }
 
             is BookListEvent.OnOpenClick -> {
-
+                openBook(event.bookId)
             }
 
             is BookListEvent.OnDeleteClick -> {
@@ -130,6 +151,43 @@ class BookShelfViewModel @Inject constructor(
         }
     }
 
+    private fun openBook(bookId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            viewModelState.update {
+                it.copy(
+                    showLoadingDialog = true
+                )
+            }
+            val readerId = useCase.getReaderId(bookId)
+            if (readerId != -1L) {
+                useCase.openBook(readerId)
+                    .onSuccess {
+                        viewModelState.update {
+                            it.copy(
+                                showLoadingDialog = false
+                            )
+                        }
+                        navigation = navigate(BookShelfNavigationState.OpenBook(readerId))
+                    }
+                    .onError { code, message ->
+                        viewModelState.update {
+                            it.copy(
+                                error = message?.toErrorState() ?: ErrorState.none,
+                                showLoadingDialog = false
+                            )
+                        }
+                    }
+            } else {
+                viewModelState.update {
+                    it.copy(
+                        error = "புத்தகம் இல்லை அல்லது பதிவிறக்கப்படவில்லை.".toErrorState(),
+                        showLoadingDialog = false
+                    )
+                }
+            }
+        }
+    }
+
     private suspend inline fun <T> MutableStateFlow<T>.update(function: (T) -> T) {
         mutex.withLock {
             yield()
@@ -140,7 +198,10 @@ class BookShelfViewModel @Inject constructor(
 
 private data class BookShelfViewModelState(
     val loading: Boolean = true,
-    val books: List<Book> = emptyList()
+    val showLoadingDialog: Boolean = false,
+    val books: List<Book> = emptyList(),
+    val error: ErrorState = ErrorState.none,
+    val downloadedBooks: List<String> = emptyList(),
 ) {
     fun toUiState() =
         when {
@@ -153,10 +214,14 @@ private data class BookShelfViewModelState(
                         author = it.author,
                         category = it.category,
                         image = it.image,
-                        downloaded = it.downloaded,
+                        downloaded = downloadedBooks.any { it1 ->
+                            it1 == it.id
+                        },
                         downloading = it.downloading,
                     )
-                }
+                },
+                error = error,
+                showLoadingDialog = showLoadingDialog,
             )
         }
 }
@@ -164,8 +229,14 @@ private data class BookShelfViewModelState(
 sealed class BookShelfUiState {
     data object Loading : BookShelfUiState()
     data class Success(
-        val books: List<BookUiModel>
+        val books: List<BookUiModel>,
+        val error: ErrorState,
+        val showLoadingDialog: Boolean,
     ) : BookShelfUiState()
+}
+
+sealed interface BookShelfNavigationState {
+    data class OpenBook(val readerId: Long) : BookShelfNavigationState
 }
 
 sealed interface BookListEvent {

@@ -6,8 +6,10 @@ import com.jskaleel.fte.core.model.ResultState
 import com.jskaleel.fte.core.model.toImage
 import com.jskaleel.fte.data.repository.DownloadRepository
 import com.jskaleel.fte.domain.model.Book
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DownloadsUseCaseImpl @Inject constructor(
@@ -15,7 +17,7 @@ class DownloadsUseCaseImpl @Inject constructor(
     private val eBookReaderRepository: EBookReaderRepository
 ) : DownloadsUseCase {
 
-    override suspend fun observeDownloadedBooks(): Flow<List<Book>> {
+    override fun observeDownloadedBooks(): Flow<List<Book>> {
         return downloadRepository.getAllDownloadedBook().map { list ->
             list.map {
                 Book(
@@ -36,11 +38,21 @@ class DownloadsUseCaseImpl @Inject constructor(
         downloadRepository.deleteBook(bookId)
     }
 
-    override suspend fun openBook(bookId: Long): ResultState<Long> {
-        val result = eBookReaderRepository.openBook(bookId)
+    override suspend fun openBook(readerId: Long): ResultState<Long> {
+        val result = eBookReaderRepository.openBook(readerId)
         return when (result) {
-            is IResult.Success -> ResultState.Success(result.id)
+            is IResult.Success -> {
+                withContext(Dispatchers.IO) {
+                    downloadRepository.updateLastRead(result.id)
+                }
+                ResultState.Success(result.id)
+            }
+
             is IResult.Failure -> ResultState.Error(result.message)
         }
+    }
+
+    override suspend fun updateLastRead(readerId: Long) {
+        downloadRepository.updateLastRead(readerId)
     }
 }

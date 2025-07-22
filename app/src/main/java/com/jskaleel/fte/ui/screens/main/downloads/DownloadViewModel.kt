@@ -4,8 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.ErrorState
 import com.jskaleel.fte.core.model.onError
 import com.jskaleel.fte.core.model.onSuccess
+import com.jskaleel.fte.core.model.toErrorState
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.usecase.DownloadsUseCase
 import com.jskaleel.fte.ui.utils.mutableNavigationState
@@ -55,27 +57,50 @@ class DownloadViewModel @Inject constructor(
     }
 
     private fun openBook(bookId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+            viewModelState.update {
+                it.copy(
+                    showLoadingDialog = true
+                )
+            }
             val readerId = viewModelState.value.books.firstOrNull { it.id == bookId }?.readerId
             if (readerId != null) {
                 useCase.openBook(readerId)
                     .onSuccess {
+                        useCase.updateLastRead(readerId)
+                        viewModelState.update {
+                            it.copy(
+                                showLoadingDialog = false
+                            )
+                        }
                         navigation = navigate(
                             DownloadNavigationState.OpenBook(readerId)
                         )
                     }
-                    .onError { _, _ ->
-                        // Handle the error, maybe show a message to the user
-                        // For example, you could log it or show a toast
-                        // Log.e("DownloadViewModel", "Error opening book: $it")
+                    .onError { _, message ->
+                        viewModelState.update {
+                            it.copy(
+                                error = message?.toErrorState() ?: ErrorState.none,
+                                showLoadingDialog = false
+                            )
+                        }
                     }
             } else {
-                // Handle the case where readerIdis null, maybe show an error or a message
+                viewModelState.update {
+                    it.copy(
+                        error = "புத்தகத்தை திறக்கமுடியவில்லை...".toErrorState(),
+                        showLoadingDialog = false
+                    )
+                }
             }
         }
     }
 
     init {
+        observerDownloadedBooks()
+    }
+
+    private fun observerDownloadedBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             useCase.observeDownloadedBooks().collect { books ->
                 viewModelState.update {
@@ -98,7 +123,9 @@ class DownloadViewModel @Inject constructor(
 
 private data class DownloadViewModelState(
     val loading: Boolean = true,
-    val books: List<Book> = emptyList()
+    val error: ErrorState = ErrorState.none,
+    val books: List<Book> = emptyList(),
+    val showLoadingDialog: Boolean = false,
 ) {
     fun toUiState(): DownloadUiState {
         return if (loading) {
@@ -117,7 +144,9 @@ private data class DownloadViewModelState(
                             category = it.category,
                             image = it.image,
                         )
-                    }
+                    },
+                    error = error,
+                    showLoadingDialog = showLoadingDialog
                 )
             }
         }
@@ -127,11 +156,15 @@ private data class DownloadViewModelState(
 sealed interface DownloadUiState {
     data object Loading : DownloadUiState
     data object Empty : DownloadUiState
-    data class Success(val books: List<BookUiModel>) : DownloadUiState
+    data class Success(
+        val books: List<BookUiModel>,
+        val error: ErrorState,
+        val showLoadingDialog: Boolean,
+    ) : DownloadUiState
 }
 
 sealed interface DownloadNavigationState {
-    data class OpenBook(val id: Long) : DownloadNavigationState
+    data class OpenBook(val readerId: Long) : DownloadNavigationState
 }
 
 sealed interface DownloadEvent {

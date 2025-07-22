@@ -54,11 +54,11 @@
     <string name="timestamp">Timestamp</string>
 
     <!-- Outlines -->
-    <string name="contents_tab_label">Contents</string>
-    <string name="bookmarks_tab_label">Bookmarks</string>
-    <string name="highlights_tab_label">Highlights</string>
-    <string name="pagelist_tab_label">Page List</string>
-    <string name="landmarks_tab_label">Landmarks</string>
+    <string name="contents_tab_label">உள்ளடக்கம்</string>
+    <string name="bookmarks_tab_label">புத்தகக்குறி</string>
+    <string name="highlights_tab_label">மேற்கோள்</string>
+    <string name="pagelist_tab_label">பக்கங்கள்</string>
+    <string name="landmarks_tab_label">முக்கிய இடங்கள்</string>
     <string name="action_mode_menu_highlight">Highlight</string>
     <string name="action_mode_menu_underline">Underline</string>
     <string name="action_mode_menu_note">Note</string>

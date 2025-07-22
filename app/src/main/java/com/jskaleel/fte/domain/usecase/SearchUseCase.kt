@@ -1,5 +1,6 @@
 package com.jskaleel.fte.domain.usecase
 
+import com.jskaleel.fte.core.model.ResultState
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.model.CategoryItem
@@ -15,4 +16,6 @@ interface SearchUseCase {
     fun fetchBooksByCategory(category: String): Flow<List<Book>>
     fun startDownload(bookId: String, title: String, url: String)
     fun fetchDownloadedBooks(): Flow<List<String>>
+    suspend fun getReaderId(bookId: String): Long
+    suspend fun openBook(readerId: Long): ResultState<Long>
 }

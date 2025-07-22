@@ -1,58 +1,62 @@
+@file:Suppress("detekt:MagicNumber")
+
 package com.jskaleel.fte.core
 
 import android.content.Context
+import android.content.Intent
+import com.jskaleel.epub.reader.ReaderActivityContract
 import java.io.File
 import java.util.Calendar
 import java.util.Date
 
 typealias CallBack = () -> Unit
 typealias StringCallBack = (String) -> Unit
-typealias LongCallBack = (Long) -> Unit
 typealias BooleanCallBack = (Boolean) -> Unit
 
-fun getDetailedRelativeDateInTamil(timestamp: Long): String {
-    val now = System.currentTimeMillis() / 1000
-    val givenTime = timestamp
-
-    val nowCalendar = Calendar.getInstance()
+fun getRelativeDateInTamil(timestamp: Long): String {
     val givenCalendar = Calendar.getInstance()
-    givenCalendar.timeInMillis = timestamp * 1000
-
-    val isSameDay = nowCalendar.get(Calendar.YEAR) == givenCalendar.get(Calendar.YEAR) &&
-            nowCalendar.get(Calendar.DAY_OF_YEAR) == givenCalendar.get(Calendar.DAY_OF_YEAR)
-
-    val yesterdayCalendar = Calendar.getInstance()
-    yesterdayCalendar.add(Calendar.DAY_OF_YEAR, -1)
-    val isYesterday = yesterdayCalendar.get(Calendar.YEAR) == givenCalendar.get(Calendar.YEAR) &&
-            yesterdayCalendar.get(Calendar.DAY_OF_YEAR) == givenCalendar.get(Calendar.DAY_OF_YEAR)
-
+    givenCalendar.timeInMillis = timestamp
+    val isSameDay = checkIsSameDay(givenCalendar)
+    val isYesterday = checkIsYesterday(givenCalendar)
     return when {
         isSameDay -> "இன்று"
         isYesterday -> "நேற்று"
-        else -> {
-            val diffInSeconds = now - givenTime
-            val diffInDays = diffInSeconds / (24 * 60 * 60)
-
-            when (diffInDays) {
-                in 2..6 -> "$diffInDays நாள் முன்பு"
-                in 7..13 -> "1 வாரம் முன்பு"
-                in 14..20 -> "2 வாரம் முன்பு"
-                in 21..29 -> "3 வாரம் முன்பு"
-                in 30..59 -> "1 மாதம் முன்பு"
-                in 60..89 -> "2 மாதம் முன்பு"
-                in 90..119 -> "3 மாதம் முன்பு"
-                in 120..149 -> "4 மாதம் முன்பு"
-                in 150..179 -> "5 மாதம் முன்பு"
-                in 180..209 -> "6 மாதம் முன்பு"
-                in 210..239 -> "7 மாதம் முன்பு"
-                in 240..269 -> "8 மாதம் முன்பு"
-                in 270..299 -> "9 மாதம் முன்பு"
-                in 300..329 -> "10 மாதம் முன்பு"
-                in 330..364 -> "11 மாதம் முன்பு"
-                else -> formatAbsoluteDate(timestamp)
-            }
-        }
+        else -> getRelativeDate(timestamp)
     }
+}
+
+private fun getRelativeDate(timestamp: Long): String {
+    val diffInDays = getDaysDifference(timestamp)
+
+    return when {
+        diffInDays <= 0 -> "இன்று"
+        diffInDays == 1L -> "நேற்று"
+        diffInDays < 7 -> "$diffInDays நாள் முன்பு"
+        diffInDays < 30 -> "${diffInDays / 7} வாரம் முன்பு"
+        diffInDays < 365 -> "${diffInDays / 30} மாதம் முன்பு"
+        else -> formatAbsoluteDate(timestamp)
+    }
+}
+
+private fun getDaysDifference(timestamp: Long): Long {
+    val now = System.currentTimeMillis()
+    val diffInMillis = now - timestamp
+    return diffInMillis / (24 * 60 * 60 * 1000)
+}
+
+fun checkIsSameDay(givenCalendar: Calendar): Boolean {
+    val nowCalendar = Calendar.getInstance()
+    val year = nowCalendar.get(Calendar.YEAR) == givenCalendar.get(Calendar.YEAR)
+    val dayOfYear = nowCalendar.get(Calendar.DAY_OF_YEAR) == givenCalendar.get(Calendar.DAY_OF_YEAR)
+    return year && dayOfYear
+}
+
+private fun checkIsYesterday(givenCalendar: Calendar): Boolean {
+    val yesterday = Calendar.getInstance()
+    yesterday.add(Calendar.DAY_OF_YEAR, -1)
+    val year = yesterday.get(Calendar.YEAR) == givenCalendar.get(Calendar.YEAR)
+    val dayOfYear = yesterday.get(Calendar.DAY_OF_YEAR) == givenCalendar.get(Calendar.DAY_OF_YEAR)
+    return year && dayOfYear
 }
 
 private fun formatAbsoluteDate(timestamp: Long): String {
@@ -90,4 +94,15 @@ fun Context.getDownloadDir(): File {
     return File(this.filesDir, "downloads").apply {
         if (!exists()) mkdirs()
     }
+}
+
+fun Context.launchReaderActivity(readerId: Long) {
+    val intent = ReaderActivityContract().createIntent(
+        context = this,
+        input = ReaderActivityContract.Arguments(
+            bookId = readerId
+        )
+    )
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    this.startActivity(intent)
 }

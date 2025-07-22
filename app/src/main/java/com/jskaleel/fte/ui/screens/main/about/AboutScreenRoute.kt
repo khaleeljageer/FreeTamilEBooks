@@ -22,10 +22,6 @@ fun AboutScreenRoute(
 
     viewModel.navigation.consume {
         when (it) {
-            is AboutNavigationState.Email -> {
-
-            }
-
             is AboutNavigationState.OpenHtml -> {
                 openHtml(it.title, it.path)
             }

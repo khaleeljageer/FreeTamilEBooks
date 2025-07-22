@@ -8,7 +8,8 @@ import com.jskaleel.epub.utils.IResult
 import com.jskaleel.fte.core.downloader.FileDownloader
 import com.jskaleel.fte.core.getDownloadDir
 import com.jskaleel.fte.data.model.DownloadResult
-import com.jskaleel.fte.data.source.local.BooksDatabase
+import com.jskaleel.fte.data.source.local.dao.BookDao
+import com.jskaleel.fte.data.source.local.dao.DownloadedBookDao
 import com.jskaleel.fte.data.source.local.entity.DownloadedBookEntity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +23,8 @@ import javax.inject.Inject
 
 class DownloadRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val database: BooksDatabase,
+    private val downloadDao: DownloadedBookDao,
+    private val bookDao: BookDao,
     private val fileDownloader: FileDownloader,
     private val eBookReaderRepository: EBookReaderRepository,
 ) : DownloadRepository {
@@ -38,7 +40,7 @@ class DownloadRepositoryImpl @Inject constructor(
             fileDownloader.downloadFile(
                 url = url,
                 uniqueId = bookId,
-                fileName = "${title}.${format}",
+                fileName = "$title.$format",
                 coroutineScope = this
             ).collect { result ->
                 when (result) {
@@ -50,7 +52,7 @@ class DownloadRepositoryImpl @Inject constructor(
 
                     is DownloadResult.Success -> {
                         showDownloadSuccessNotification(result.id, result.title)
-                        val file = File(context.getDownloadDir(), "$bookId.${format}")
+                        val file = File(context.getDownloadDir(), "$bookId.$format")
                         emitStatus(DownloadResult.Success(bookId, file, title))
                     }
 
@@ -78,11 +80,11 @@ class DownloadRepositoryImpl @Inject constructor(
 
     private fun parseEBook(file: File, bookId: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val book = database.bookDao().getById(bookId)
+            val book = bookDao.getById(bookId)
             val importResult = eBookReaderRepository.importBook(file)
             when (importResult) {
                 is IResult.Success -> {
-                    database.downloadedBookDao().insert(
+                    downloadDao.insert(
                         DownloadedBookEntity(
                             bookId = book.id,
                             filePath = file.path,
@@ -97,36 +99,48 @@ class DownloadRepositoryImpl @Inject constructor(
                 }
 
                 is IResult.Failure -> {
-                    emitStatus(DownloadResult.Error(bookId, "புத்தகம் திறக்க முடியவில்லை."))
+                    emitStatus(DownloadResult.Error(bookId, "புத்தகத்தை திறக்க முடியவில்லை."))
                 }
             }
         }
     }
 
     override suspend fun removeBook(id: String) {
-        database.downloadedBookDao().delete(bookId = id)
+        downloadDao.delete(bookId = id)
     }
 
     override fun getAllDownloadedBook(): Flow<List<DownloadedBookEntity>> {
-        return database.downloadedBookDao().getAll()
+        return downloadDao.getAll()
     }
 
     override suspend fun getBookById(bookId: String): String {
-        return database.downloadedBookDao().get(bookId)?.filePath ?: ""
+        return downloadDao.get(bookId)?.filePath ?: ""
     }
 
     override fun fetchRecentReads(): Flow<List<DownloadedBookEntity>> {
-        return database.downloadedBookDao().getRecentReads()
+        return downloadDao.getRecentReads()
     }
 
     override suspend fun deleteBook(bookId: String) {
-        val book = database.downloadedBookDao().get(bookId)
+        val book = downloadDao.get(bookId)
         if (book != null) {
             val file = File(book.filePath)
             if (file.exists()) {
                 file.delete()
             }
-            database.downloadedBookDao().delete(bookId)
+            downloadDao.delete(bookId)
+        }
+    }
+
+    override suspend fun getReaderId(bookId: String): Long {
+        return downloadDao.get(bookId)?.readerId ?: -1L
+    }
+
+    override suspend fun updateLastRead(bookId: Long) {
+        downloadDao.getBookByReaderId(bookId)?.let { book ->
+            downloadDao.upsert(
+                book.copy(lastRead = System.currentTimeMillis())
+            )
         }
     }
 

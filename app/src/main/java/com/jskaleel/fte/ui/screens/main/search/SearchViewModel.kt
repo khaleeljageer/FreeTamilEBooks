@@ -1,3 +1,5 @@
+@file:Suppress("detekt:TooManyFunctions")
+
 package com.jskaleel.fte.ui.screens.main.search
 
 import androidx.compose.runtime.Stable
@@ -5,6 +7,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.fte.core.model.ErrorState
+import com.jskaleel.fte.core.model.onError
+import com.jskaleel.fte.core.model.onSuccess
+import com.jskaleel.fte.core.model.toErrorState
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.domain.model.Book
 import com.jskaleel.fte.domain.model.CategoryItem
@@ -76,7 +82,7 @@ class SearchViewModel @Inject constructor(
     fun onEvent(event: SearchEvent) {
         when (event) {
             is SearchEvent.OnBookClick -> {
-                navigation = navigate(SearchNavigationState.OpenBook(id = event.bookId))
+                openBook(event.bookId)
             }
 
             is SearchEvent.OnCategoryClick -> {
@@ -122,6 +128,47 @@ class SearchViewModel @Inject constructor(
                 }
                 if (!event.active) {
                     resetToDefault()
+                }
+            }
+
+            is SearchEvent.OnRecentReadClick -> {
+                openBook(event.bookId)
+            }
+        }
+    }
+
+    private fun openBook(bookId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            viewModelState.update {
+                it.copy(
+                    showLoadingDialog = true
+                )
+            }
+            val readerId = useCase.getReaderId(bookId)
+            if (readerId != -1L) {
+                useCase.openBook(readerId)
+                    .onSuccess {
+                        viewModelState.update {
+                            it.copy(
+                                showLoadingDialog = false
+                            )
+                        }
+                        navigation = navigate(SearchNavigationState.OpenBook(readerId))
+                    }
+                    .onError { code, message ->
+                        viewModelState.update {
+                            it.copy(
+                                error = message?.toErrorState() ?: ErrorState.none,
+                                showLoadingDialog = false
+                            )
+                        }
+                    }
+            } else {
+                viewModelState.update {
+                    it.copy(
+                        error = "புத்தகம் இல்லை அல்லது பதிவிறக்கப்படவில்லை.".toErrorState(),
+                        showLoadingDialog = false
+                    )
                 }
             }
         }
@@ -259,65 +306,75 @@ private data class SearchViewModelState(
     val downloadedBooks: List<String> = emptyList(),
     val active: Boolean = false,
     val hasSearched: Boolean = false,
+    val showLoadingDialog: Boolean = false,
+    val error: ErrorState = ErrorState.none,
 ) {
+    private fun createLoadingState() = SearchUiState.Loading(
+        active = false,
+        searchQuery = ""
+    )
+
+    private fun mapSearchResults() = searchResult.map { book ->
+        SearchBookUiModel(
+            title = book.title,
+            author = book.author,
+            image = book.image,
+            id = book.id,
+            category = book.category,
+            downloaded = downloadedBooks.contains(book.id),
+            downloading = book.downloading,
+        )
+    }
+
+    private fun determineSearchContentType() = if (searchResult.isNotEmpty()) {
+        ContentType.SearchResults
+    } else {
+        ContentType.EmptyResults
+    }
+
+    private fun createSearchResultsState() = SearchUiState.Content(
+        contentType = determineSearchContentType(),
+        books = mapSearchResults(),
+        categories = emptyList(),
+        recentReads = emptyList(),
+        active = active,
+        searchQuery = searchQuery,
+        showLoadingDialog = showLoadingDialog,
+        error = error
+    )
+
+    private fun mapCategories() = categories.map { category ->
+        CategoryUiModel(
+            name = category.name,
+            count = category.count
+        )
+    }
+
+    private fun mapRecentReads() = recentReads.map { recent ->
+        RecentUiModel(
+            id = recent.id,
+            title = recent.title,
+            image = recent.image,
+            lastRead = recent.lastRead
+        )
+    }
+
+    private fun createDefaultState() = SearchUiState.Content(
+        contentType = ContentType.Default,
+        books = emptyList(),
+        categories = mapCategories(),
+        recentReads = mapRecentReads(),
+        active = active,
+        searchQuery = "",
+        showLoadingDialog = showLoadingDialog,
+        error = error
+    )
+
     fun toUiState(): SearchUiState {
         return when {
-            loading -> SearchUiState.Loading(
-                active = false,
-                searchQuery = ""
-            )
-
-            hasSearched -> {
-                val contentType = if (searchResult.isNotEmpty()) {
-                    ContentType.SearchResults
-                } else {
-                    ContentType.EmptyResults
-                }
-
-                SearchUiState.Content(
-                    contentType = contentType,
-                    books = searchResult.map {
-                        SearchBookUiModel(
-                            title = it.title,
-                            author = it.author,
-                            image = it.image,
-                            id = it.id,
-                            category = it.category,
-                            downloaded = downloadedBooks.any { it1 ->
-                                it1 == it.id
-                            },
-                            downloading = it.downloading,
-                        )
-                    },
-                    categories = emptyList(),
-                    recentReads = emptyList(),
-                    active = active,
-                    searchQuery = searchQuery
-                )
-            }
-
-            else -> {
-                SearchUiState.Content(
-                    contentType = ContentType.Default,
-                    books = emptyList(),
-                    categories = categories.map {
-                        CategoryUiModel(
-                            name = it.name,
-                            count = it.count
-                        )
-                    },
-                    recentReads = recentReads.map {
-                        RecentUiModel(
-                            id = it.id,
-                            title = it.title,
-                            image = it.image,
-                            lastRead = it.lastRead
-                        )
-                    },
-                    active = active,
-                    searchQuery = ""
-                )
-            }
+            loading -> createLoadingState()
+            hasSearched -> createSearchResultsState()
+            else -> createDefaultState()
         }
     }
 }
@@ -336,6 +393,8 @@ sealed interface SearchUiState {
         val books: List<SearchBookUiModel> = emptyList(),
         val categories: List<CategoryUiModel> = emptyList(),
         val recentReads: List<RecentUiModel> = emptyList(),
+        val showLoadingDialog: Boolean = false,
+        val error: ErrorState,
         override val active: Boolean,
         override val searchQuery: String
     ) : SearchUiState
@@ -349,7 +408,7 @@ sealed class ContentType {
 }
 
 sealed interface SearchNavigationState {
-    data class OpenBook(val id: String) : SearchNavigationState
+    data class OpenBook(val readerId: Long) : SearchNavigationState
 }
 
 sealed interface SearchEvent {
@@ -359,4 +418,5 @@ sealed interface SearchEvent {
     data class OnSearchClick(val query: String) : SearchEvent
     data class OnSearchQueryChange(val query: String) : SearchEvent
     data class OnActiveChange(val active: Boolean) : SearchEvent
+    data class OnRecentReadClick(val bookId: String) : SearchEvent
 }

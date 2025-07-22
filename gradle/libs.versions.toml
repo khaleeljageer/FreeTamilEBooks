@@ -5,12 +5,13 @@ coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.9.1"
+kotlinxSerializationJson = "1.9.0"
+lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
-composeBom = "2025.06.01"
+composeBom = "2025.07.00"
 hilt = "2.56.2"
-ksp = "2.1.21-2.0.2"
-navigationCompose = "2.9.1"
+ksp = "2.2.0-2.0.2"
+navigationCompose = "2.9.2"
 coil = "3.2.0"
 materialIconsExtended = "1.7.8"
 retrofit = "3.0.0"
@@ -54,6 +55,7 @@ androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:na
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
@@ -78,6 +80,7 @@ androidx-media3-common = { group = "androidx.media3", name = "media3-common-ktx"
 androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "androidx-media3" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidx-browser" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
 # Readium Kotlin Toolkit
 readium-shared = { group = "org.readium.kotlin-toolkit", name = "readium-shared", version.ref = "readium" }

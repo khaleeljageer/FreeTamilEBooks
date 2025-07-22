@@ -1,20 +1,25 @@
 package com.jskaleel.fte.domain.usecase
 
+import com.jskaleel.epub.reader.EBookReaderRepository
+import com.jskaleel.epub.utils.IResult
 import com.jskaleel.fte.core.model.ResultState
 import com.jskaleel.fte.core.model.toImage
 import com.jskaleel.fte.data.model.DownloadResult
 import com.jskaleel.fte.data.repository.BooksRepository
 import com.jskaleel.fte.data.repository.DownloadRepository
 import com.jskaleel.fte.domain.model.Book
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class BookShelfUseCaseImpl @Inject constructor(
     private val booksRepository: BooksRepository,
     private val downloadRepository: DownloadRepository,
+    private val eBookReaderRepository: EBookReaderRepository
 ) : BookShelfUseCase {
 
     override val downloadStatus: SharedFlow<DownloadResult>
@@ -39,6 +44,32 @@ class BookShelfUseCaseImpl @Inject constructor(
 
     override suspend fun deleteBook(bookId: String) {
         downloadRepository.deleteBook(bookId)
+    }
+
+    override fun fetchDownloadedBooks(): Flow<List<String>> {
+        return downloadRepository.getAllDownloadedBook().map {
+            it.map { book ->
+                book.bookId
+            }
+        }
+    }
+
+    override suspend fun getReaderId(bookId: String): Long {
+        return downloadRepository.getReaderId(bookId)
+    }
+
+    override suspend fun openBook(readerId: Long): ResultState<Long> {
+        val result = eBookReaderRepository.openBook(readerId)
+        return when (result) {
+            is IResult.Success -> {
+                withContext(Dispatchers.IO) {
+                    downloadRepository.updateLastRead(readerId)
+                }
+                ResultState.Success(result.id)
+            }
+
+            is IResult.Failure -> ResultState.Error(result.message)
+        }
     }
 
     override suspend fun syncIfNeeded(): ResultState<Unit> {

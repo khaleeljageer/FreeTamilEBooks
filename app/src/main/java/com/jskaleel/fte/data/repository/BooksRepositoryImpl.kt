@@ -39,8 +39,9 @@ class BooksRepositoryImpl @Inject constructor(
     }
 
     private suspend fun syncAll(): ResultState<Unit> {
-        return when (val booksResult =
-            networkManager.safeApiCall { apiService.fetchBooks() }) {
+        return when (
+            val booksResult = networkManager.safeApiCall { apiService.fetchBooks() }
+        ) {
             is ResultState.Error -> {
                 booksResult
             }

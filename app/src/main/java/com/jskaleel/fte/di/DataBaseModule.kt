@@ -23,6 +23,16 @@ class DataBaseModule {
         ).fallbackToDestructiveMigration(true).build()
     }
 
+    @Provides
+    @Singleton
+    fun provideDownloadedBookDao(database: BooksDatabase) =
+        database.downloadedBookDao()
+
+    @Provides
+    @Singleton
+    fun provideBooksDao(database: BooksDatabase) =
+        database.bookDao()
+
     companion object {
         private const val APP_DATABASE_NAME = "fte_books_app.db"
     }

@@ -105,9 +105,9 @@ open class ReaderActivity : AppCompatActivity() {
             is DummyReaderInitData -> null
         }
 
-        readerClass?.let { it ->
+        readerClass?.let { it1 ->
             supportFragmentManager.commitNow {
-                replace(R.id.activity_container, it, Bundle(), READER_FRAGMENT_TAG)
+                replace(R.id.activity_container, it1, Bundle(), READER_FRAGMENT_TAG)
             }
         }
 

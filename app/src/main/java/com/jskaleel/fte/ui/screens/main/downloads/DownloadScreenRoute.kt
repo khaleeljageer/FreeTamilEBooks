@@ -8,8 +8,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jskaleel.epub.reader.ReaderActivityContract
 import com.jskaleel.fte.R
+import com.jskaleel.fte.core.launchReaderActivity
 import com.jskaleel.fte.ui.screens.common.FullScreenLoader
 import com.jskaleel.fte.ui.utils.ProvideAppBarTitle
 import com.jskaleel.fte.ui.utils.consume
@@ -24,13 +24,7 @@ fun DownloadScreenRoute(
     viewModel.navigation.consume { state ->
         when (state) {
             is DownloadNavigationState.OpenBook -> {
-                val intent = ReaderActivityContract().createIntent(
-                    context,
-                    ReaderActivityContract.Arguments(
-                        bookId = state.id
-                    )
-                )
-                context.startActivity(intent)
+                context.launchReaderActivity(state.readerId)
             }
         }
     }
@@ -52,6 +46,8 @@ fun DownloadScreenRoute(
             DownloadScreenContent(
                 event = viewModel::onEvent,
                 books = state.books,
+                error = state.error,
+                showLoadingDialog = state.showLoadingDialog
             )
         }
     }

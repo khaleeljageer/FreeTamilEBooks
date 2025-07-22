@@ -19,8 +19,8 @@ android {
         applicationId = "com.jskaleel.fte"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 40
+        versionName = "9.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -63,7 +63,7 @@ android {
         toolVersion = libs.versions.detekt.get()
         config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
         buildUponDefaultConfig = true
-        ignoreFailures = true
+        ignoreFailures = false
 
         source.setFrom(
             files("src/main/java", "src/main/kotlin")
@@ -140,4 +140,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    detektPlugins(libs.detekt.formatting)
 }

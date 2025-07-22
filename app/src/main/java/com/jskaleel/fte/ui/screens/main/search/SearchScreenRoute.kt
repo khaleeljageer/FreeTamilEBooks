@@ -16,10 +16,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jskaleel.fte.core.launchReaderActivity
 import com.jskaleel.fte.ui.screens.common.FullScreenLoader
+import com.jskaleel.fte.ui.screens.common.components.SearchTopBar
+import com.jskaleel.fte.ui.utils.consume
 import kotlinx.coroutines.delay
 
 @Composable
@@ -28,6 +32,15 @@ fun SearchScreenRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val topBarState by viewModel.searchBarState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    viewModel.navigation.consume {
+        when (it) {
+            is SearchNavigationState.OpenBook -> {
+                context.launchReaderActivity(it.readerId)
+            }
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -46,7 +59,7 @@ fun SearchScreenRoute(
         ) {
             SearchContentArea(
                 uiState = uiState,
-                onEvent = viewModel::onEvent
+                onEvent = viewModel::onEvent,
             )
         }
     }
@@ -80,11 +93,18 @@ private fun ColumnScope.SearchContentArea(
                         onEvent = onEvent,
                         categories = uiState.categories,
                         recentReads = uiState.recentReads,
+                        books = emptyList(),
+                        showLoadingDialog = uiState.showLoadingDialog,
+                        error = uiState.error
                     )
 
-                    "result" -> SearchResultContent(
+                    "result" -> SearchResultListContent(
                         onEvent = onEvent,
                         books = uiState.books,
+                        categories = emptyList(),
+                        recentReads = emptyList(),
+                        showLoadingDialog = uiState.showLoadingDialog,
+                        error = uiState.error
                     )
 
                     "empty" -> EmptySearchResultContent(

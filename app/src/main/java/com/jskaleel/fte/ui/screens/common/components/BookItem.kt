@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -14,7 +15,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +36,8 @@ import androidx.compose.ui.unit.sp
 import com.jskaleel.fte.core.CallBack
 import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.core.model.getImagePainter
+import com.jskaleel.fte.ui.screens.main.search.SearchBookUiModel
+import com.jskaleel.fte.ui.screens.main.search.SearchEvent
 import com.jskaleel.fte.ui.theme.FTEBooksTheme
 import com.jskaleel.fte.ui.theme.customColors
 import com.jskaleel.fte.ui.theme.dimension
@@ -100,7 +106,7 @@ fun BookItem(
                     color = MaterialTheme.customColors.textSecondary,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                AnimatedDownloadReadButton(
+                AnimatedButton(
                     state = when {
                         downloading -> DownloadButtonState.DOWNLOADING
                         downloaded -> DownloadButtonState.DOWNLOADED
@@ -209,6 +215,38 @@ private fun CategoryText(
     }
 }
 
+@Composable
+fun SearchedBooks(
+    onEvent: (SearchEvent) -> Unit,
+    books: List<SearchBookUiModel>
+) {
+    LazyColumn(
+        contentPadding = PaddingValues(vertical = MaterialTheme.dimension.small),
+        modifier = Modifier.clipToBounds()
+    ) {
+        items(
+            items = books,
+            key = { it.id }
+        ) { book ->
+            BookItem(
+                onOpenClick = {
+                    onEvent(SearchEvent.OnBookClick(bookId = book.id))
+                },
+                title = book.title,
+                author = book.author,
+                category = book.category,
+                image = book.image,
+                onDownloadClick = {
+                    onEvent(SearchEvent.OnDownloadClick(bookId = book.id))
+                },
+                downloaded = book.downloaded,
+                downloading = book.downloading,
+            )
+            HorizontalDivider(thickness = (0.8).dp)
+        }
+    }
+}
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun BookItemPreview() {
@@ -235,7 +273,6 @@ private fun BookItemPreview() {
                 onDeleteClick = {},
                 downloaded = true
             )
-
 
             BookItem(
                 onOpenClick = {},

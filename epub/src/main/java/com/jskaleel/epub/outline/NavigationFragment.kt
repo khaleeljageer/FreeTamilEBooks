@@ -105,7 +105,7 @@ class NavigationFragment : Fragment() {
                 arguments = Bundle().apply {
                     putParcelableArrayList(
                         LINKS_ARG,
-                        if (links is ArrayList<Link>) links else ArrayList(links)
+                        links as? ArrayList<Link> ?: ArrayList(links)
                     )
                 }
             }
