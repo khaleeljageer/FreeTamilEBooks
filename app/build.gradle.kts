@@ -19,8 +19,8 @@ android {
         applicationId = "com.jskaleel.fte"
         minSdk = 26
         targetSdk = 36
-        versionCode = 40
-        versionName = "9.0"
+        versionCode = 41
+        versionName = "9.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -38,7 +38,7 @@ class FileDownloaderImpl @Inject constructor(
         coroutineScope: CoroutineScope
     ): Flow<DownloadResult> = flow {
         if (!isValidUrl(url)) {
-            emit(DownloadResult.Error(id = uniqueId, message = "Invalid URL"))
+            emit(DownloadResult.Error(id = uniqueId, message = "Insecure or invalid URL"))
             return@flow
         }
         emit(DownloadResult.Queued(id = uniqueId))
@@ -88,8 +88,8 @@ class FileDownloaderImpl @Inject constructor(
 
     private fun isValidUrl(url: String): Boolean {
         return try {
-            java.net.URL(url)
-            true
+            val parsedUrl = java.net.URL(url)
+            parsedUrl.protocol.equals("https", ignoreCase = true)
         } catch (_: Exception) {
             false
         }
