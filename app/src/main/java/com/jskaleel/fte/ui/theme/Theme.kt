@@ -3,7 +3,9 @@ package com.jskaleel.fte.ui.theme
 import android.app.Activity
 import android.os.Build
 import android.view.View
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -27,20 +29,36 @@ private val LightColorScheme = lightColorScheme(
     onPrimaryContainer = AppColor.OnPrimary,
 )
 
-fun getCustomColor(): CustomColors {
-    return CustomColors(
-        accent = AppColor.Accent,
-        textPrimary = AppColor.TextPrimary,
-        textSecondary = AppColor.TextSecondary,
-        readingBackground = AppColor.Background,
-    )
-}
+private val DarkColorScheme = darkColorScheme(
+    primary = AppColorDark.Primary,
+    onPrimary = AppColorDark.OnPrimary,
+    secondary = AppColorDark.Secondary,
+    onSecondary = AppColorDark.OnSecondary,
+    background = AppColorDark.Background,
+    onBackground = AppColorDark.OnBackground,
+    surface = AppColorDark.Surface,
+    onSurface = AppColorDark.OnSurface,
+    error = AppColorDark.Error,
+    onError = AppColorDark.OnError,
+    primaryContainer = AppColorDark.PrimaryContainer,
+    onPrimaryContainer = AppColorDark.OnPrimary,
+)
 
 @Composable
 fun FTEBooksTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val customColors = getCustomColor()
+    val colorScheme = if (darkTheme) {
+        DarkColorScheme
+    } else {
+        LightColorScheme
+    }
+    val customColors = if (darkTheme) {
+        getCustomColorDark()
+    } else {
+        getCustomColor()
+    }
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -53,14 +71,14 @@ fun FTEBooksTheme(
                 window.isNavigationBarContrastEnforced = false
             }
 
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
-            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = true
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }
     }
 
     CompositionLocalProvider(LocalCustomColors provides customColors) {
         MaterialTheme(
-            colorScheme = LightColorScheme,
+            colorScheme = colorScheme,
             typography = Typography,
             content = content
         )

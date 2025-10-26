@@ -70,11 +70,9 @@ private fun MainNavigation() {
                 }
             },
             snackbarHost = {
-                SnackbarHost(hostState = host) {
+                SnackbarHost(hostState = host) { data ->
                     Snackbar(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                        contentColor = MaterialTheme.colorScheme.onSurface,
-                        snackbarData = it
+                        snackbarData = data
                     )
                 }
             },
