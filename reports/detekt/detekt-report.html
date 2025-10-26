@@ -157,11 +157,11 @@
 
 <div>
   <ul>
-    <li>213 number of properties</li>
-    <li>253 number of functions</li>
-    <li>132 number of classes</li>
+    <li>234 number of properties</li>
+    <li>252 number of functions</li>
+    <li>131 number of classes</li>
     <li>28 number of packages</li>
-    <li>78 number of kt files</li>
+    <li>77 number of kt files</li>
   </ul>
 </div>
 
@@ -170,25 +170,117 @@
 
 <div>
   <ul>
-    <li>5,846 lines of code (loc)</li>
-    <li>5,238 source lines of code (sloc)</li>
-    <li>3,293 logical lines of code (lloc)</li>
-    <li>4 comment lines of code (cloc)</li>
-    <li>460 cyclomatic complexity (mcc)</li>
-    <li>249 cognitive complexity</li>
-    <li>0 number of total code smells</li>
+    <li>5,851 lines of code (loc)</li>
+    <li>5,244 source lines of code (sloc)</li>
+    <li>3,317 logical lines of code (lloc)</li>
+    <li>10 comment lines of code (cloc)</li>
+    <li>461 cyclomatic complexity (mcc)</li>
+    <li>251 cognitive complexity</li>
+    <li>7 number of total code smells</li>
     <li>0% comment source ratio</li>
-    <li>139 mcc per 1,000 lloc</li>
-    <li>0 code smells per 1,000 lloc</li>
+    <li>138 mcc per 1,000 lloc</li>
+    <li>2 code smells per 1,000 lloc</li>
   </ul>
 </div>
 
 
 <h2>Findings</h2>
-<div>Total: 0</div>
+<div>Total: 7
+  <h3>formatting: 7</h3>
+  <details id="FinalNewline" open="open">
+    <summary class="rule-container"><span class="rule">FinalNewline: 1 </span><span class="description">Detects missing final newlines</span></summary>
+<a href="https://detekt.dev/docs/rules/formatting#finalnewline">Documentation</a>
+    <ul>
+      <li><span class="location">/home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/theme/AppColor.kt:1:1</span><span class="message">File must end with a newline (\n)</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">p</span>ackage com.jskaleel.fte.ui.theme
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.compose.ui.graphics.Color
+<span class="lineno">   4 </span>
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="ImportOrdering" open="open">
+    <summary class="rule-container"><span class="rule">ImportOrdering: 1 </span><span class="description">Detects imports in non default order</span></summary>
+<a href="https://detekt.dev/docs/rules/formatting#importordering">Documentation</a>
+    <ul>
+      <li><span class="location">/home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/common/components/BookItem.kt:3:1</span><span class="message">Imports must be ordered in lexicographic order without any empty lines in-between with &quot;java&quot;, &quot;javax&quot;, &quot;kotlin&quot; and aliases in the end</span>
+        <pre><code><span class="lineno">   1 </span>package com.jskaleel.fte.ui.screens.common.components
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span><span class="error">i</span>mport androidx.compose.foundation.Image
+<span class="lineno">   4 </span>import androidx.compose.foundation.background
+<span class="lineno">   5 </span>import androidx.compose.foundation.clickable
+<span class="lineno">   6 </span>import androidx.compose.foundation.layout.Box
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="NoConsecutiveBlankLines" open="open">
+    <summary class="rule-container"><span class="rule">NoConsecutiveBlankLines: 2 </span><span class="description">Reports consecutive blank lines</span></summary>
+<a href="https://detekt.dev/docs/rules/formatting#noconsecutiveblanklines">Documentation</a>
+    <ul>
+      <li><span class="location">/home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/main/about/AboutScreens.kt:39:1</span><span class="message">Needless blank line(s)</span>
+        <pre><code><span class="lineno">  36 </span>import com.jskaleel.fte.core.model.getImagePainter
+<span class="lineno">  37 </span>import com.jskaleel.fte.ui.theme.FTEBooksTheme
+<span class="lineno">  38 </span>
+<span class="lineno">  39 </span><span class="error"></span>
+<span class="lineno">  40 </span>@Composable
+<span class="lineno">  41 </span>fun AboutScreenContent(
+<span class="lineno">  42 </span>    menus: List&lt;AboutUiModel&gt;,
+</code></pre>
+      </li>
+      <li><span class="location">/home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/theme/Theme.kt:16:1</span><span class="message">Needless blank line(s)</span>
+        <pre><code><span class="lineno">  13 </span>import androidx.compose.ui.platform.LocalView
+<span class="lineno">  14 </span>import androidx.core.view.WindowCompat
+<span class="lineno">  15 </span>
+<span class="lineno">  16 </span><span class="error"></span>
+<span class="lineno">  17 </span>private val LightColorScheme = lightColorScheme(
+<span class="lineno">  18 </span>    primary = AppColor.Light.Primary,
+<span class="lineno">  19 </span>    onPrimary = AppColor.Light.OnPrimary,
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="NoUnusedImports" open="open">
+    <summary class="rule-container"><span class="rule">NoUnusedImports: 3 </span><span class="description">Detects unused imports</span></summary>
+<a href="https://detekt.dev/docs/rules/formatting#nounusedimports">Documentation</a>
+    <ul>
+      <li><span class="location">/home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/MainActivity.kt:16:1</span><span class="message">Unused import</span>
+        <pre><code><span class="lineno">  13 </span>import androidx.compose.foundation.layout.fillMaxSize
+<span class="lineno">  14 </span>import androidx.compose.foundation.layout.padding
+<span class="lineno">  15 </span>import androidx.compose.material3.ExperimentalMaterial3Api
+<span class="lineno">  16 </span><span class="error">i</span>mport androidx.compose.material3.MaterialTheme
+<span class="lineno">  17 </span>import androidx.compose.material3.Scaffold
+<span class="lineno">  18 </span>import androidx.compose.material3.Snackbar
+<span class="lineno">  19 </span>import androidx.compose.material3.SnackbarDefaults
+</code></pre>
+      </li>
+      <li><span class="location">/home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/MainActivity.kt:19:1</span><span class="message">Unused import</span>
+        <pre><code><span class="lineno">  16 </span>import androidx.compose.material3.MaterialTheme
+<span class="lineno">  17 </span>import androidx.compose.material3.Scaffold
+<span class="lineno">  18 </span>import androidx.compose.material3.Snackbar
+<span class="lineno">  19 </span><span class="error">i</span>mport androidx.compose.material3.SnackbarDefaults
+<span class="lineno">  20 </span>import androidx.compose.material3.SnackbarHost
+<span class="lineno">  21 </span>import androidx.compose.runtime.Composable
+<span class="lineno">  22 </span>import androidx.compose.runtime.getValue
+</code></pre>
+      </li>
+      <li><span class="location">/home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/theme/Theme.kt:11:1</span><span class="message">Unused import</span>
+        <pre><code><span class="lineno">   8 </span>import androidx.compose.material3.darkColorScheme
+<span class="lineno">   9 </span>import androidx.compose.material3.lightColorScheme
+<span class="lineno">  10 </span>import androidx.compose.runtime.Composable
+<span class="lineno">  11 </span><span class="error">i</span>mport androidx.compose.runtime.CompositionLocalProvider
+<span class="lineno">  12 </span>import androidx.compose.runtime.SideEffect
+<span class="lineno">  13 </span>import androidx.compose.ui.platform.LocalView
+<span class="lineno">  14 </span>import androidx.core.view.WindowCompat
+</code></pre>
+      </li>
+    </ul>
+  </details>
+</div>
 
 
-generated with <a href="https://detekt.dev/">detekt version 1.23.8</a> on 2025-07-21 14:57:42 UTC.
+generated with <a href="https://detekt.dev/">detekt version 1.23.8</a> on 2025-10-26 16:35:10 UTC.
 
 </body>
 </html>

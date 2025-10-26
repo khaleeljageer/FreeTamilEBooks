@@ -39,7 +39,7 @@ import com.jskaleel.fte.core.model.getImagePainter
 import com.jskaleel.fte.ui.screens.main.search.SearchBookUiModel
 import com.jskaleel.fte.ui.screens.main.search.SearchEvent
 import com.jskaleel.fte.ui.theme.FTEBooksTheme
-import com.jskaleel.fte.ui.theme.customColors
+
 import com.jskaleel.fte.ui.theme.dimension
 
 @Composable
@@ -98,12 +98,12 @@ fun BookItem(
                     maxLines = 2,
                     softWrap = true,
                     overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.customColors.textPrimary,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 Text(
                     text = author,
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.customColors.textSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 AnimatedButton(
@@ -165,7 +165,7 @@ fun RecentBookItem(
                 maxLines = 2,
                 softWrap = true,
                 overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.customColors.textPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
@@ -181,7 +181,7 @@ fun RecentBookItem(
                 softWrap = true,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.End,
-                color = MaterialTheme.customColors.textSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }

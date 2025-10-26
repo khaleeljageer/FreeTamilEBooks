@@ -35,7 +35,7 @@ import com.jskaleel.fte.core.CallBack
 import com.jskaleel.fte.core.model.ImageType
 import com.jskaleel.fte.core.model.getImagePainter
 import com.jskaleel.fte.ui.theme.FTEBooksTheme
-import com.jskaleel.fte.ui.theme.customColors
+
 
 @Composable
 fun AboutScreenContent(
@@ -120,14 +120,14 @@ private fun AboutMenuItem(
                     text = title,
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.customColors.textPrimary
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                 if (description.isNotBlank()) {
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
                         text = description,
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.customColors.textSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }

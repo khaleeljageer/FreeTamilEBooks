@@ -4,6 +4,160 @@
   "runs": [
     {
       "results": [
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/theme/AppColor.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "File must end with a newline (\\n)"
+          },
+          "ruleId": "detekt.formatting.FinalNewline"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/theme/Theme.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 11,
+                  "startColumn": 1,
+                  "startLine": 11
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Unused import"
+          },
+          "ruleId": "detekt.formatting.NoUnusedImports"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/theme/Theme.kt"
+                },
+                "region": {
+                  "endColumn": 1,
+                  "endLine": 17,
+                  "startColumn": 1,
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Needless blank line(s)"
+          },
+          "ruleId": "detekt.formatting.NoConsecutiveBlankLines"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/common/components/BookItem.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 3,
+                  "startColumn": 1,
+                  "startLine": 3
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Imports must be ordered in lexicographic order without any empty lines in-between with \"java\", \"javax\", \"kotlin\" and aliases in the end"
+          },
+          "ruleId": "detekt.formatting.ImportOrdering"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/main/about/AboutScreens.kt"
+                },
+                "region": {
+                  "endColumn": 1,
+                  "endLine": 40,
+                  "startColumn": 1,
+                  "startLine": 39
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Needless blank line(s)"
+          },
+          "ruleId": "detekt.formatting.NoConsecutiveBlankLines"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/MainActivity.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 16,
+                  "startColumn": 1,
+                  "startLine": 16
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Unused import"
+          },
+          "ruleId": "detekt.formatting.NoUnusedImports"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/khaleeljageer/Projects/Android/FTEBooks/app/src/main/java/com/jskaleel/fte/ui/screens/MainActivity.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 19,
+                  "startColumn": 1,
+                  "startLine": 19
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Unused import"
+          },
+          "ruleId": "detekt.formatting.NoUnusedImports"
+        }
       ],
       "tool": {
         "driver": {

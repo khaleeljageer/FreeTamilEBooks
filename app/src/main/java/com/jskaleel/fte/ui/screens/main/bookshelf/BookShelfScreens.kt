@@ -105,7 +105,10 @@ private fun ScrollUp(onClick: CallBack) {
         modifier = Modifier
             .padding(16.dp)
     ) {
-        Text("Scroll to top")
+        Text(
+            text = "Scroll to top",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 
